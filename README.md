@@ -10,11 +10,15 @@
 对于想系统学习本项目而无从下手的，推荐去看看本项目的Wiki，里面有运行指南和基础教程以及常见问题，相关技术点讲解（如果运行出现问题请先看Wiki，解决99%问题）。
 [这是Wiki地址](https://gitee.com/NKG_admin/NKGMobaBasedOnET/wikis)
 
+**基于行为树的技能系统架构系列博客总目录：[博客链接](https://www.lfzxb.top/nkgmoba-totaltabs/)** 
+
 **基于行为树的技能系统架构讲解视频1：[视频链接](https://www.bilibili.com/video/av74833675)** 
 
 **基于行为树的技能系统架构讲解视频2：[视频链接](https://www.bilibili.com/video/av85318986)**
 
 **战斗系统联网演示视频：[视频链接](https://www.bilibili.com/video/BV1cK4y1S7ko)**
+
+**基于行为树的技能系统架构直播录屏：[视频链接](https://www.bilibili.com/video/BV13K4y137vR)** 
 
 本项目中所有的插件仅供学习交流使用，请务必支持正版！
 
