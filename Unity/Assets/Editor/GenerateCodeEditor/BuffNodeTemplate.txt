@@ -5,20 +5,15 @@
 //------------------------------------------------------------
 
 using ETModel;
-using NodeEditorFramework;
-using NodeEditorFramework.Utilities;
 using Plugins;
-using Plugins.NodeEditor.Editor.Canvas;
 using UnityEditor;
 
-namespace SkillDemo
+namespace Plugins.NodeEditor
 {
-    [Node(false, "技能数据部分/_BUFFDES_", typeof (NPBehaveCanvas))]
+    [NodeMenuItem("技能数据部分/_BUFFDES_", typeof (SkillGraph))]
     public class _BUFFNAME_Node: BuffNodeBase
     {
-        public override string GetID => Id;
-
-        public const string Id = "_BUFFDES_";
+        public override string name => "_BUFFDES_";
 
         public NormalBuffNodeData SkillBuffBases =
                 new NormalBuffNodeData()
@@ -27,15 +22,9 @@ namespace SkillDemo
                     BuffData = new _BUFFNAME_Data() { BelongBuffSystemType = BuffSystemType._BUFFNAME_System }
                 };
 
-
         public override BuffNodeDataBase Skill_GetNodeData()
         {
             return SkillBuffBases;
-        }
-
-        public override void NodeGUI()
-        {
-            EditorGUILayout.TextField(SkillBuffBases?.BuffDes);
         }
     }
 }
