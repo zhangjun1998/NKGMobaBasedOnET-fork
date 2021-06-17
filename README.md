@@ -100,9 +100,9 @@
 ### Box2D编辑器
 
 ![Box2D编辑器](https://images.gitee.com/uploads/images/2021/0324/121226_528a85b5_2253805.png "QQ截图20210324121119.png")
-### 技能编辑器v0.0.3
+### 技能编辑器v1.0
 
-![技能编辑器v0.0.3](https://images.gitee.com/uploads/images/2021/0418/213018_1aca0879_2253805.png "技能编辑器v0.0.3")
+![技能编辑器v1.0](https://images.gitee.com/uploads/images/2021/0617/221210_d98d04bb_2253805.png "技能编辑器v1.0")
 ### 技能配置浏览器
 
 ![技能配置浏览器](https://images.gitee.com/uploads/images/2021/0525/215950_9f2f89c1_2253805.png "QQ截图20210525215846.png")
