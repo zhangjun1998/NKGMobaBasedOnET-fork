@@ -22,7 +22,7 @@ namespace Plugins.NodeEditor
                     BuffData = new TreatmentBuffData() { BelongBuffSystemType = BuffSystemType.TreatmentBuffSystem }
                 };
         
-        public override BuffNodeDataBase Skill_GetNodeData()
+        public override BuffNodeDataBase GetBuffNodeData()
         {
             return SkillBuffBases;
         }

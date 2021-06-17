@@ -268,8 +268,8 @@ MonoBehaviour:
   exposedParameters: []
   serializedParameterList: []
   stickyNotes: []
-  position: {x: -249, y: -281, z: 0}
-  scale: {x: 0.65751624, y: 0.65751624, z: 1}
+  position: {x: 542, y: -696, z: 0}
+  scale: {x: 0.8695652, y: 0.8695652, z: 1}
   Name: Server_Darius_Q
   Config: {fileID: 4900000, guid: 502adc8c3e1b0db4195994c596864933, type: 3}
   IdInConfig: 10002

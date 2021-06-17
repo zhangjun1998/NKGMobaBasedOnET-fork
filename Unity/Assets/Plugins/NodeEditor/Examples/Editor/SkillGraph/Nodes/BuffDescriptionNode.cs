@@ -19,7 +19,7 @@ namespace Plugins.NodeEditor
 
         public override string name => "技能描述结点";
 
-        public override BuffNodeDataBase Skill_GetNodeData()
+        public override BuffNodeDataBase GetBuffNodeData()
         {
             return this.mSkillDesNodeData;
         }

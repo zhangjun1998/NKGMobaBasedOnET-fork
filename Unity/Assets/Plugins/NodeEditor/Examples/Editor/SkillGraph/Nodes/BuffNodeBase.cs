@@ -28,7 +28,7 @@ namespace Plugins.NodeEditor
             
         }
         
-        public virtual BuffNodeDataBase Skill_GetNodeData()
+        public virtual BuffNodeDataBase GetBuffNodeData()
         {
             return null;
         }

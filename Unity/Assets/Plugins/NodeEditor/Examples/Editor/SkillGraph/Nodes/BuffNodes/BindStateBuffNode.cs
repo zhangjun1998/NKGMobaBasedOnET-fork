@@ -22,7 +22,7 @@ namespace Plugins.NodeEditor
                     BuffDes = "绑定一个状态Buff", BuffData = new BindStateBuffData() { BelongBuffSystemType = BuffSystemType.BindStateBuffSystem }
                 };
 
-        public override BuffNodeDataBase Skill_GetNodeData()
+        public override BuffNodeDataBase GetBuffNodeData()
         {
             return SkillBuffBases;
         }
@@ -51,7 +51,7 @@ namespace Plugins.NodeEditor
                 BuffNodeBase targetNode = (outputNode as BuffNodeBase);
                 if (targetNode != null)
                 {
-                    bindStateBuffData.OriBuff.Add(new VTD_BuffInfo() { BuffNodeId = targetNode.Skill_GetNodeData().NodeId });
+                    bindStateBuffData.OriBuff.Add(new VTD_BuffInfo() { BuffNodeId = targetNode.GetBuffNodeData().NodeId });
                 }
             }
             //配置Buff层数

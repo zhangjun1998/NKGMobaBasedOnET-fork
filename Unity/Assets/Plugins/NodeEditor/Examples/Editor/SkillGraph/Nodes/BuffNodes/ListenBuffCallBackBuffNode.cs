@@ -23,7 +23,7 @@ namespace Plugins.NodeEditor
                     BuffData = new ListenBuffCallBackBuffData() { BelongBuffSystemType = BuffSystemType.ListenBuffCallBackBuffSystem }
                 };
 
-        public override BuffNodeDataBase Skill_GetNodeData()
+        public override BuffNodeDataBase GetBuffNodeData()
         {
             return SkillBuffBases;
         }
@@ -53,7 +53,7 @@ namespace Plugins.NodeEditor
                 {
                     listenBuffCallBackBuffData.ListenBuffEventNormal.BuffInfoWillBeAdded.Add(new VTD_BuffInfo()
                     {
-                        BuffNodeId = targetNode.Skill_GetNodeData().NodeId
+                        BuffNodeId = targetNode.GetBuffNodeData().NodeId
                     });
                 }
             }

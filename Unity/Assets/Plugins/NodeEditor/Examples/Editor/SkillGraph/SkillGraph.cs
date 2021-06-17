@@ -76,7 +76,7 @@ namespace Plugins.NodeEditor
                 if (node is BuffNodeBase mNode)
                 {
                     mNode.AutoAddLinkedBuffs();
-                    BuffNodeDataBase buffNodeDataBase = mNode.Skill_GetNodeData();
+                    BuffNodeDataBase buffNodeDataBase = mNode.GetBuffNodeData();
                     if (buffNodeDataBase is NormalBuffNodeData normalBuffNodeData)
                     {
                         normalBuffNodeData.BuffData.BelongToBuffDataSupportorId = this.SkillDataSupportor.NpDataSupportorBase.NPBehaveTreeDataId;

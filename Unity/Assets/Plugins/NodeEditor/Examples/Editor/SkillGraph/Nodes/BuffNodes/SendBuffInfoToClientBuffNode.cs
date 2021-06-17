@@ -26,7 +26,7 @@ namespace Plugins.NodeEditor
                     }
                 };
 
-        public override BuffNodeDataBase Skill_GetNodeData()
+        public override BuffNodeDataBase GetBuffNodeData()
         {
             return SkillBuffBases;
         }
@@ -40,7 +40,7 @@ namespace Plugins.NodeEditor
                 BuffNodeBase targetNode = (outputNode as BuffNodeBase);
                 if (targetNode != null)
                 {
-                    VTD_Id temp = targetNode.Skill_GetNodeData().NodeId;
+                    VTD_Id temp = targetNode.GetBuffNodeData().NodeId;
                     sendBuffInfoToClientBuffData.TargetBuffNodeId = new VTD_Id() { IdKey = temp.IdKey, Value = temp.Value };
                 }
             }
