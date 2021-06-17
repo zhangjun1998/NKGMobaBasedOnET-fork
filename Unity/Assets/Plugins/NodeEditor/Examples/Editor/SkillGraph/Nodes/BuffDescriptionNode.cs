@@ -15,7 +15,7 @@ namespace Plugins.NodeEditor
     public class BuffDescriptionNode: BuffNodeBase
     {
         [LabelText("技能描述数据")]
-        public SkillDesNodeData mSkillDesNodeData;
+        public SkillDesNodeData mSkillDesNodeData = new SkillDesNodeData();
 
         public override string name => "技能描述结点";
 

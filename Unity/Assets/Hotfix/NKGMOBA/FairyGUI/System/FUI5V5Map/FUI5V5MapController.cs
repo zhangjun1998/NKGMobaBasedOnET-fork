@@ -102,7 +102,7 @@ namespace ETHotfix
     {
         public void Run(long a, float b)
         {
-            Log.Error("收到了额外攻击力改变事件");
+            //Log.Error("收到了额外攻击力改变事件");
             if (a != UnitComponent.Instance.MyUnit.Id) return;
             FUI5V5Map fui5V5Map = Game.Scene.GetComponent<FUIComponent>().Get(FUI5V5Map.UIPackageName) as FUI5V5Map;
             fui5V5Map.ExtraAttackInfo.text = ((int) b).ToString();

@@ -13,11 +13,11 @@ namespace Plugins.NodeEditor
 {
     public class BuffNodeBase: BaseNode
     {
-        [Input("InputBuff")]
+        [Input("InputBuff", allowMultiple = true)]
         [HideInInspector]
         public BuffNodeBase PrevNode;
         
-        [Output("OutputBuff")]
+        [Output("OutputBuff", allowMultiple = true)]
         [HideInInspector]
         public BuffNodeBase NextNode;
 

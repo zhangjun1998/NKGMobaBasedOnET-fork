@@ -13,6 +13,9 @@ using UnityEngine;
 
 namespace ETModel
 {
+    /// <summary>
+    /// 技能配置数据载体
+    /// </summary>
     [HideLabel]
     public class NP_DataSupportor
     {

@@ -25,7 +25,6 @@ namespace Plugins.NodeEditor
         [Button("自动配置所有结点数据", 25), GUIColor(0.4f, 0.8f, 1)]
         public void AutoSetCanvasDatas()
         {
-            Debug.Log("执行技能的SkillGraph");
             base.AutoSetCanvasDatas();
             SkillDataSupportor.NpDataSupportorBase = this.NpDataSupportor;
             this.AutoSetSkillData_NodeData();

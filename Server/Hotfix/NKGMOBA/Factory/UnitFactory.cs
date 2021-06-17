@@ -140,8 +140,8 @@ namespace ETHotfix.NKGMOBA.Factory
             unit.AddComponent<NP_RuntimeTreeManager>();
 
             ConfigComponent configComponent = Game.Scene.GetComponent<ConfigComponent>();
-            if (RandomHelper.RandomNumber(0, 2) == 0)
-                    //Log.Info("开始创建行为树");
+            // if (RandomHelper.RandomNumber(0, 2) == 0)
+            //         //Log.Info("开始创建行为树");
                 NP_RuntimeTreeFactory.CreateNpRuntimeTree(unit, configComponent.Get<Server_AICanvasConfig>(10001).NPBehaveId)
                         .Start();
 

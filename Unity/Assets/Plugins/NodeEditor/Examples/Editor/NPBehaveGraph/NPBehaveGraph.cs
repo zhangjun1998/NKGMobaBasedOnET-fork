@@ -22,37 +22,37 @@ namespace Plugins.NodeEditor
         [BoxGroup("本Canvas所有数据整理部分")]
         [LabelText("保存文件名"), GUIColor(0.9f, 0.7f, 1)]
         public string Name;
-        
+
         [BoxGroup("本Canvas所有数据整理部分")]
         [LabelText("对应的配置表"), GUIColor(0.9f, 0.7f, 1)]
         public TextAsset Config;
-        
+
         [BoxGroup("本Canvas所有数据整理部分")]
         [LabelText("对应的配置表类型"), GUIColor(0.9f, 0.7f, 1)]
         [ValueDropdown("GetConfigTypes")]
         public Type ConfigType;
-        
+
         [BoxGroup("本Canvas所有数据整理部分")]
         [LabelText("配置表中的Id"), GUIColor(0.9f, 0.7f, 1)]
         public int IdInConfig;
-        
+
         [BoxGroup("本Canvas所有数据整理部分")]
         [LabelText("保存路径"), GUIColor(0.1f, 0.7f, 1)]
         [FolderPath]
         public string SavePath;
-        
+
         [BoxGroup("此行为树数据载体")]
         public NP_DataSupportorBase NpDataSupportor = new NP_DataSupportorBase();
-        
+
         [BoxGroup("行为树反序列化测试")]
         public NP_DataSupportorBase NpDataSupportor1 = new NP_DataSupportorBase();
-        
+
         /// <summary>
         /// 黑板数据管理器
         /// </summary>
         [HideInInspector]
         public NP_BlackBoardDataManager NpBlackBoardDataManager = new NP_BlackBoardDataManager();
-        
+
         /// <summary>
         /// 自动配置当前图所有数据（结点，黑板）
         /// </summary>
@@ -64,10 +64,11 @@ namespace Plugins.NodeEditor
             {
                 return;
             }
+
             this.AutoSetNP_NodeData(this.NpDataSupportor);
             this.AutoSetNP_BBDatas(this.NpDataSupportor);
         }
-        
+
         [Button("保存行为树信息为二进制文件", 25), GUIColor(0.4f, 0.8f, 1)]
         public void Save()
         {
@@ -76,22 +77,22 @@ namespace Plugins.NodeEditor
                 Log.Error($"保存路径或文件名不能为空，请检查配置");
                 return;
             }
-        
+
             using (FileStream file = File.Create($"{SavePath}/{this.Name}.bytes"))
             {
                 BsonSerializer.Serialize(new BsonBinaryWriter(file), this.NpDataSupportor);
             }
-            
+
             Log.Info($"保存 {SavePath}/{this.Name}.bytes 成功");
         }
-        
+
         [Button("测试反序列化", 25), GUIColor(0.4f, 0.8f, 1)]
         public void TestDe()
         {
             byte[] mfile = File.ReadAllBytes($"{SavePath}/{this.Name}.bytes");
-        
+
             if (mfile.Length == 0) Log.Info("没有读取到文件");
-        
+
             try
             {
                 this.NpDataSupportor1 = BsonSerializer.Deserialize<NP_DataSupportorBase>(mfile);
@@ -102,7 +103,7 @@ namespace Plugins.NodeEditor
                 throw;
             }
         }
-        
+
         /// <summary>
         /// 自动配置所有行为树结点
         /// </summary>
@@ -113,12 +114,13 @@ namespace Plugins.NodeEditor
             {
                 return;
             }
+
             npDataSupportorBase.NPBehaveTreeDataId = 0;
             npDataSupportorBase.NP_DataSupportorDic.Clear();
-        
+
             //当前Canvas所有NP_Node
             List<NP_NodeBase> allNodes = new List<NP_NodeBase>();
-        
+
             foreach (var node in this.nodes)
             {
                 if (node is NP_NodeBase mNode)
@@ -126,21 +128,21 @@ namespace Plugins.NodeEditor
                     allNodes.Add(mNode);
                 }
             }
-        
+
             //排序
             allNodes.Sort((x, y) => -x.position.y.CompareTo(y.position.y));
-        
+
             //配置每个节点Id
             foreach (var node in allNodes)
             {
                 node.NP_GetNodeData().id = IdGenerater.GenerateId();
             }
-        
+
             if (this.Config == null)
             {
                 return;
             }
-        
+
             //设置导出的Id
             foreach (string str in this.Config.text.Split(new[] { "\n" }, StringSplitOptions.None))
             {
@@ -151,9 +153,9 @@ namespace Plugins.NodeEditor
                     {
                         continue;
                     }
-        
+
                     object config = JsonHelper.FromJson(this.ConfigType, str2);
-        
+
                     //目前行为树只有三种类型，直接在这里写出
                     switch (config)
                     {
@@ -162,24 +164,24 @@ namespace Plugins.NodeEditor
                             {
                                 npDataSupportorBase.NPBehaveTreeDataId = serverAICanvasConfig.NPBehaveId;
                             }
-        
+
                             break;
                         case Client_SkillCanvasConfig clientSkillCanvasConfig:
                             if (clientSkillCanvasConfig.Id == this.IdInConfig)
                             {
                                 npDataSupportorBase.NPBehaveTreeDataId = clientSkillCanvasConfig.NPBehaveId;
                             }
-        
+
                             break;
                         case Server_SkillCanvasConfig serverSkillCanvasConfig:
                             if (serverSkillCanvasConfig.Id == this.IdInConfig)
                             {
                                 npDataSupportorBase.NPBehaveTreeDataId = serverSkillCanvasConfig.NPBehaveId;
                             }
-        
+
                             break;
                     }
-        
+
                     if (npDataSupportorBase.NPBehaveTreeDataId != 0)
                     {
                         break;
@@ -190,7 +192,7 @@ namespace Plugins.NodeEditor
                     throw new Exception($"parser json fail: {str}", e);
                 }
             }
-        
+
             if (npDataSupportorBase.NPBehaveTreeDataId == 0)
             {
                 //设置为根结点Id
@@ -202,7 +204,7 @@ namespace Plugins.NodeEditor
             {
                 allNodes[allNodes.Count - 1].NP_GetNodeData().id = npDataSupportorBase.NPBehaveTreeDataId;
             }
-        
+
             foreach (var node in allNodes)
             {
                 //获取结点对应的NPData
@@ -211,34 +213,31 @@ namespace Plugins.NodeEditor
                 {
                     mNodeData.LinkedIds = new List<long>();
                 }
-        
+
                 mNodeData.LinkedIds.Clear();
-        
+
                 //出结点连接的Nodes
                 List<NP_NodeBase> theNodesConnectedToOutNode = new List<NP_NodeBase>();
-        
-                if (node.GetOutputNodes() is List<NP_NodeBase> outputNodes)
+
+                foreach (var outputNode in node.GetOutputNodes())
                 {
-                    foreach (var outputNode in outputNodes)
-                    {
-                        theNodesConnectedToOutNode.Add(outputNode);
-                    }
-        
-                    //对所连接的节点们进行排序
-                    theNodesConnectedToOutNode.Sort((x, y) => x.position.x.CompareTo(y.position.x));
-        
-                    //配置连接的Id，运行时实时构建行为树
-                    foreach (var npNodeBase in theNodesConnectedToOutNode)
-                    {
-                        mNodeData.LinkedIds.Add(npNodeBase.NP_GetNodeData().id);
-                    }
+                    theNodesConnectedToOutNode.Add(outputNode as NP_NodeBase);
                 }
-        
+
+                //对所连接的节点们进行排序
+                theNodesConnectedToOutNode.Sort((x, y) => x.position.x.CompareTo(y.position.x));
+
+                //配置连接的Id，运行时实时构建行为树
+                foreach (var npNodeBase in theNodesConnectedToOutNode)
+                {
+                    mNodeData.LinkedIds.Add(npNodeBase.NP_GetNodeData().id);
+                }
+
                 //将此结点数据写入字典
                 npDataSupportorBase.NP_DataSupportorDic.Add(mNodeData.id, mNodeData);
             }
         }
-        
+
         /// <summary>
         /// 自动配置黑板数据
         /// </summary>
@@ -252,14 +251,14 @@ namespace Plugins.NodeEditor
                 npDataSupportorBase.NP_BBValueManager.Add(bbvalues.Key, bbvalues.Value);
             }
         }
-        
+
         public IEnumerable<Type> GetConfigTypes()
         {
             var q = typeof (Init).Assembly.GetTypes()
-                    .Where(x => !x.IsAbstract) 
-                    .Where(x => !x.IsGenericTypeDefinition) 
+                    .Where(x => !x.IsAbstract)
+                    .Where(x => !x.IsGenericTypeDefinition)
                     .Where(x => typeof (IConfig).IsAssignableFrom(x));
-        
+
             return q;
         }
     }
