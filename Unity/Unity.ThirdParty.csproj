@@ -132,8 +132,8 @@
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil\MethodReturnType.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\IO\MultiChunkBuffer.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\IO\WrappingBsonWriter.cs" />
-     <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\BsonDefaults.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\symbols\pdb\Microsoft.Cci.Pdb\Interfaces.cs" />
+     <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\BsonDefaults.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil\TargetRuntime.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil.Metadata\Heap.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Serializers\ByteSerializer.cs" />
@@ -147,10 +147,10 @@
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil\VariantType.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\IO\BsonWriterState.cs" />
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Core\Image.cs" />
+     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Core\NTexture.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Serializers\VersionSerializer.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\symbols\pdb\Microsoft.Cci.Pdb\DbiModuleInfo.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\symbols\pdb\Microsoft.Cci.Pdb\PdbLine.cs" />
-     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Core\NTexture.cs" />
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Core\Text\Emoji.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\LitJson\JsonMockWrapper.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\IBsonDocumentSerializer.cs" />
@@ -235,8 +235,8 @@
      <Compile Include="Assets\ThirdParty\ILRuntime\ILRuntime\Runtime\Debugger\DebugSocket.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\ILRuntime\Runtime\Stack\StackFrame.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\LitJson\Lexer.cs" />
-     <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Conventions\IConventionPack.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil\Resource.cs" />
+     <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Conventions\IConventionPack.cs" />
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Event\EventDispatcher.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil.Metadata\MetadataToken.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil\AssemblyNameDefinition.cs" />
@@ -258,8 +258,8 @@
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Serializers\BsonDecimal128Serializer.cs" />
      <Compile Include="Assets\ThirdParty\Google.Protobuf\CodedOutputStream.ComputeSize.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil.PE\BinaryStreamReader.cs" />
-     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Utils\ToolSet.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Conventions\NoIdMemberConvention.cs" />
+     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Utils\ToolSet.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil\IConstantProvider.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\IO\BsonDocumentReader.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Serializers\DiscriminatedInterfaceSerializer.cs" />
@@ -300,12 +300,12 @@
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\UI\UIPanel.cs" />
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Core\MaterialManager.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Options\TimeSpanUnits.cs" />
-     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Core\Text\BaseFont.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Exceptions\BsonException.cs" />
+     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Core\Text\BaseFont.cs" />
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Core\NGraphics.cs" />
+     <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Conventions\LookupIdGeneratorConvention.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\ILRuntime\Reflection\Extensions.cs" />
      <Compile Include="Assets\ThirdParty\Google.Protobuf\LimitedInputStream.cs" />
-     <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Conventions\LookupIdGeneratorConvention.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\IO\NoOpElementNameValidator.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil\TypeDefinition.cs" />
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\UI\Margin.cs" />

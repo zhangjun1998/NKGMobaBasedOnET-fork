@@ -24,7 +24,7 @@ namespace ETModel
     /// </summary>
     [BoxGroup("黑板数据配置"), GUIColor(0.961f, 0.902f, 0.788f, 1f)]
     [HideLabel]
-    public class NP_BlackBoardRelationData
+    public partial class NP_BlackBoardRelationData
     {
         [LabelText("字典键")]
         [ValueDropdown("GetBBKeys")]
@@ -34,7 +34,7 @@ namespace ETModel
         [LabelText("指定的值类型")]
         [ReadOnly]
         public string NP_BBValueType;
-        
+
         [LabelText("是否可以把值写入黑板，或者是否与黑板进行值对比")]
         [BsonIgnore]
         public bool WriteOrCompareToBB;
@@ -45,17 +45,9 @@ namespace ETModel
 #if UNITY_EDITOR
         private IEnumerable<string> GetBBKeys()
         {
-            string path = UnityEngine.PlayerPrefs.GetString("LastCanvasPath");
-            UnityEngine.Object[] subAssets = AssetDatabase.LoadAllAssetsAtPath(path);
-            if (subAssets != null)
+            if (NP_BlackBoardDataManager.CurrentEditedNP_BlackBoardDataManager != null)
             {
-                foreach (var subAsset in subAssets)
-                {
-                    if (subAsset is NPBehaveCanvasDataManager npBehaveCanvasDataManager)
-                    {
-                        return npBehaveCanvasDataManager.BBValues.Keys;
-                    }
-                }
+                return NP_BlackBoardDataManager.CurrentEditedNP_BlackBoardDataManager.BBValues.Keys;
             }
 
             return null;
@@ -63,22 +55,14 @@ namespace ETModel
 
         private void OnBBKeySelected()
         {
-            string path = UnityEngine.PlayerPrefs.GetString("LastCanvasPath");
-            UnityEngine.Object[] subAssets = AssetDatabase.LoadAllAssetsAtPath(path);
-            if (subAssets != null)
+            if (NP_BlackBoardDataManager.CurrentEditedNP_BlackBoardDataManager != null)
             {
-                foreach (var subAsset in subAssets)
+                foreach (var bbValues in NP_BlackBoardDataManager.CurrentEditedNP_BlackBoardDataManager.BBValues)
                 {
-                    if (subAsset is NPBehaveCanvasDataManager npBehaveCanvasDataManager)
+                    if (bbValues.Key == this.BBKey)
                     {
-                        foreach (var bbValues in npBehaveCanvasDataManager.BBValues)
-                        {
-                            if (bbValues.Key == this.BBKey)
-                            {
-                                NP_BBValue = bbValues.Value.DeepCopy();
-                                NP_BBValueType = this.NP_BBValue.NP_BBValueType.ToString();
-                            }
-                        }
+                        NP_BBValue = bbValues.Value.DeepCopy();
+                        NP_BBValueType = this.NP_BBValue.NP_BBValueType.ToString();
                     }
                 }
             }

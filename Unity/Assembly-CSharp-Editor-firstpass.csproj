@@ -41,129 +41,11 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Utilities\ResourceManager.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\SkillAssetsOverViewEditor\SkillAssetsOverViewItem.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\Core\Node.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_ChangeTargetSkillBBValueActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\SkillSystemNodes\SkillData\BuffNodes\ListenBuffCallBackBuffNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_WaitUntilStoppedNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_StopSoundActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Utilities\ReflectionUtility.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Default\Runtime Examples\RTCanvasCalculator.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Decorator\NP_RootNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\SkillSystemNodes\SkillData\BuffNodes\ChangeRenderAssetBuffNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Utilities\GUI\CreateNodesWindow\NodeItem.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\Core\ConnectionPort.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_SetUnitIdTheColliderBelongToActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Base\NP_CompositeNodeBase.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_PlayParticalActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\CoreExtensions\NodeExtension\Node.HeroData.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_AddBuffToSpecifiedUnitActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\Interface\NodeEditorInputControls.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\Interface\NodeEditorInterface.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_RunCommonAttackEventActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\B2S_CollisionRelationNodes\Prefabs\B2S_PrefabIDDefine.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\SaveSystem\NodeEditorSaveManager.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\CoreExtensions\NodeTypes.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\Core\ConnectionPortManager.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\Core\NodeCanvas.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_LogActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\SkillSystemNodes\SkillData\BuffNodes\RefreshTargetBuffTimeBuffNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\SkillSystemNodes\SkillData\BuffNodes\BindStateBuffNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_PlaySoundActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\SkillSystemNodes\SkillData\BuffNodes\ReplaceAttackBuffNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Utilities\GUI\EditorGUILayoutExtension.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\B2S_CollisionRelationNodes\Prefabs\B2S_Prefab_FriendCrystal.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Default\Runtime Examples\RTNodeEditor.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\SkillSystemNodes\SkillData\BuffNodes\FlashDamageBuffNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Utilities\GUI\GUIScaleUtility.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\HeroNodes\HeroDataNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomCanvas\NPBehaveCanvases\NPBehaveCanvasBase.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\B2S_CollisionRelationNodes\Prefabs\B2S_Prefab_FriendHero.cs" />
      <Compile Include="Assets\Plugins\MonKey Commander\Editor\Init\MonKeyInitialization.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomCanvas\NPBehaveCanvases\NPBehaveCanvas.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\B2S_CollisionRelationNodes\Prefabs\B2S_Prefab_FriendSoldier.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_AddBuffActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\SkillSystemNodes\SkillData\BuffNodes\ChangeMaterialBuffNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\B2S_CollisionRelationNodes\Prefabs\B2S_Prefab_EnemyCrystal.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\SkillSystemNodes\SkillData\BuffNodes\SustainDamageBuffNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\Core\NodeGroup.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Base\NP_TaskNodeBase.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\CoreExtensions\NodeExtension\Node.CollisionRelation.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Composite\NP_ParallelNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Utilities\GUI\RTEditorGUI.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\Interface\NodeEditorGUI.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_PlayAnimationActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\B2S_CollisionRelationNodes\Prefabs\B2S_Prefab_EnemyDefendBuilding.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\Core\ConnectionKnob.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\SkillAssetsOverViewEditor\SkillAssetsOverViewUtilities.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Base\NP_NodeBase.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_TriggerAttackCDActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Composite\NP_SelectorNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\SkillAssetsOverViewEditor\SkillAssetsOverViewEditorWindow.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\SkillSystemNodes\SkillData\BuffNodes\PlayEffectBuffNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Decorator\NP_BlackboardConditionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomCanvas\B2S_CollisionRelationCanvas.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\CoreExtensions\ConnectionPortStyles.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\SkillSystemNodes\SkillData\BuffNodes\ChangePropertyBuffNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\CoreExtensions\NodeExtension\Node.Skill.cs" />
      <Compile Include="Assets\Plugins\MonKey Commander\Editor\Menu Items\MonkeyMenuItems.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\NodeEditor.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_WaitNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_RegisteReplaceAttackActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\CoreExtensions\NodeExtension\Node.NP_NodeData.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\CoreExtensions\NodeExtension\Node.PrefabData.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Base\NP_DecoratorNodeBase.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Decorator\NP_ServiceNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_ResetAttackCDActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomCanvas\HeroDataNodeCanvas.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_CreateColliderActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\ChildrenNodes\ChildrenNodeDatas.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\Core\NodeEditorState.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Base\NPBehaveNodeInputAndOutputTypes.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Default\DefaultCanvas.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\B2S_CollisionRelationNodes\B2S_CollisionRelationForOneHero.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\CoreExtensions\NodeExtension\Node.GeneralExtension.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\SkillSystemNodes\SkillData\BuffDescriptionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_CheckUnitKilledBySpecialMethodActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_RemoveBuffActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\Interface\NodeEditorCallbackReceiver.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_CheckBBValueActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_ChangeBlackValueActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\SkillSystemNodes\SkillData\BuffNodes\BuffNodeInputAndOutputTypes.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\B2S_CollisionRelationNodes\Prefabs\B2S_Prefab_EnemySoldier.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\B2S_CollisionRelationNodes\Prefabs\B2S_Prefab_Monster.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_WaitAChangeableTimeActionNode.cs" />
      <Compile Include="Assets\Plugins\MonKey Commander\Editor\Settings\MonKeySettings.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\B2S_CollisionRelationNodes\B2S_NodeInputAndOutPutTypes.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\CoreExtensions\NodeCanvasTypes.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Decorator\NP_RepeaterNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\SaveSystem\NodeCanvasSceneSave.cs" />
      <Compile Include="Assets\Plugins\Box2DSharpVisual\Editor\B2S_ColliderEditor.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\NodeEditorWindow.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\Interface\NodeEditorInputSystem.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_ChangeUnitPropertyActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_DestroySelfAndRelativeCollidersActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\B2S_CollisionRelationNodes\Prefabs\B2S_Prefab_EnemyHero.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomCanvas\NeverbeUsedCanvas.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\SaveSystem\NodeEditorUserCache.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Decorator\NP_BlackboardMultipleConditionsNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\SkillSystemNodes\SkillData\BuffNodes\SendBuffInfoToClientBuffNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_MoveToRandomPosActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_CancelAttackActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Framework\Core\ValueConnectionKnob.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\SkillSystemNodes\SkillData\BuffNodes\TreatmentBuffNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Composite\NP_SequenceNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Utilities\GUI\CreateNodesWindow\CreateNodesAdvancedDropdown.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\B2S_CollisionRelationNodes\Prefabs\B2S_Prefab_FriendDefendBuilding.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_CheckSkillCanBeCastActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\SkillSystemNodes\SkillData\BuffNodeBase.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\SkillSystemNodes\SkillData\BuffNodes\ReplaceAnimBuffNode.cs" />
      <Compile Include="Assets\Plugins\MonKey Commander\Editor\Init\GettingStartedPanel.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_MacroActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Editor\CustomNodes\NPBehaveNodes\Task\NP_SyncNPBBValue_BoolActionNode.cs" />
-     <None Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Utilities\link.xml" />
-     <None Include="Assets\Plugins\NodeEditor\Editor\Node_Editor_Framework\Resources\Shader\LineShader.shader" />
      <Reference Include="UnityEngine">
      <HintPath>D:/Study/Unity/2020.3.0f1c1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
      </Reference>
@@ -965,9 +847,17 @@
       <Project>{f33a4f4e-838d-b35c-ceb7-3f8a7ab9a9af}</Project>
       <Name>IngameDebugConsole.Runtime</Name>
     </ProjectReference>
+    <ProjectReference Include="com.alelievr.NodeGraphProcessor.Editor.csproj">
+      <Project>{27a20443-6d8f-cd44-e004-04d9c7340939}</Project>
+      <Name>com.alelievr.NodeGraphProcessor.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.Hotfix.csproj">
       <Project>{52f66610-896a-c4d1-9881-1a19df7ab80e}</Project>
       <Name>Unity.Hotfix</Name>
+    </ProjectReference>
+    <ProjectReference Include="NodeGraphProcessor.Examples.csproj">
+      <Project>{4fa9d2d7-792f-abe3-350a-36ce3f256551}</Project>
+      <Name>NodeGraphProcessor.Examples</Name>
     </ProjectReference>
     <ProjectReference Include="Animancer.csproj">
       <Project>{159e65f6-d363-1a6d-ec57-6db30da1b98f}</Project>
@@ -980,6 +870,10 @@
     <ProjectReference Include="Unity.Editor.csproj">
       <Project>{041131cd-3018-19b1-81b6-5dbee2467ffb}</Project>
       <Name>Unity.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="com.alelievr.NodeGraphProcessor.Runtime.csproj">
+      <Project>{2c5a86f7-1354-6e9b-6019-90c0890a7359}</Project>
+      <Name>com.alelievr.NodeGraphProcessor.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="Sirenix.OdinInspector.CompatibilityLayer.csproj">
       <Project>{9f5687e3-5f72-c8f5-517b-584709b7d5d8}</Project>

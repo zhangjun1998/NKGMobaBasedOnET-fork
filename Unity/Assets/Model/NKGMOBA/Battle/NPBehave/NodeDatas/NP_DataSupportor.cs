@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.Options;
 using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace ETModel
 {
@@ -19,6 +20,7 @@ namespace ETModel
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
         public Dictionary<long, BuffNodeDataBase> BuffNodeDataDic = new Dictionary<long, BuffNodeDataBase>();
 
+        [HideInInspector]
         public NP_DataSupportorBase NpDataSupportorBase = new NP_DataSupportorBase();
     }
 }

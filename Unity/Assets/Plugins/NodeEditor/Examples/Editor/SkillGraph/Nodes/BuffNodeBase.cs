@@ -1,0 +1,36 @@
+//------------------------------------------------------------
+// Author: 烟雨迷离半世殇
+// Mail: 1778139321@qq.com
+// Data: 2019年9月23日 18:36:38
+//------------------------------------------------------------
+
+using ETModel;
+using GraphProcessor;
+using UnityEditor;
+using UnityEngine;
+
+namespace Plugins.NodeEditor
+{
+    public class BuffNodeBase: BaseNode
+    {
+        [Input("InputBuff")]
+        [HideInInspector]
+        public BuffNodeBase PrevNode;
+        
+        [Output("OutputBuff")]
+        [HideInInspector]
+        public BuffNodeBase NextNode;
+
+        public override Color color => Color.green;
+
+        public virtual void AutoAddLinkedBuffs()
+        {
+            
+        }
+        
+        public virtual BuffNodeDataBase Skill_GetNodeData()
+        {
+            return null;
+        }
+    }
+}

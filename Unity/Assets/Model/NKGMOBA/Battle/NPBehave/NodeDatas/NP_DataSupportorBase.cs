@@ -12,7 +12,6 @@ using Sirenix.OdinInspector;
 
 namespace ETModel
 {
-    [BoxGroup("NPBehave行为树通用基础数据")]
     [HideLabel]
     public class NP_DataSupportorBase
     {
