@@ -29,7 +29,7 @@ namespace ETHotfix
             hotfixUnit.AddComponent<FallingFontComponent>();
             unit.Position = new Vector3(spilingInfo.X, spilingInfo.Y, spilingInfo.Z);
 
-            unit.AddComponent<HeroDataComponent, long>(10001);
+            unit.AddComponent<UnitAttributesDataComponent, long>(10001);
 
             // 创建头顶Bar
             Game.EventSystem.Run(EventIdType.CreateHeadBar, spilingInfo.UnitId);

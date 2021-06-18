@@ -33,7 +33,7 @@ namespace ETHotfix
                         .Session.Call(new C2M_GetHeroDataRequest() { UnitID = unitInfo.UnitId }) as M2C_GetHeroDataResponse;
 
                 UnitComponent.Instance.Get(unitInfo.UnitId)
-                        .AddComponent<HeroDataComponent, long>(M2C_GetHeroDataResponse.HeroDataID);
+                        .AddComponent<UnitAttributesDataComponent, long>(M2C_GetHeroDataResponse.HeroDataID);
 
                 unit.AddComponent<NP_RuntimeTreeManager>();
 

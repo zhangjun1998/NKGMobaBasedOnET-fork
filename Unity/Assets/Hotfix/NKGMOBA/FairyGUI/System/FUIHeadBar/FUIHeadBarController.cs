@@ -44,7 +44,7 @@ namespace ETHotfix
         public void Run(long id, float value)
         {
             FUIHeadBar headBar = Game.Scene.GetComponent<FUIComponent>().Get(id) as FUIHeadBar;
-            headBar.Bar_HP.self.TweenValue(UnitComponent.Instance.Get(id).GetComponent<HeroDataComponent>().GetAttribute(NumericType.Hp),
+            headBar.Bar_HP.self.TweenValue(UnitComponent.Instance.Get(id).GetComponent<UnitAttributesDataComponent>().GetAttribute(NumericType.Hp),
                 0.2f);
         }
     }
@@ -65,7 +65,7 @@ namespace ETHotfix
         public void Run(long id, float value)
         {
             FUIHeadBar headBar = Game.Scene.GetComponent<FUIComponent>().Get(id) as FUIHeadBar;
-            headBar.Bar_MP.self.TweenValue(UnitComponent.Instance.Get(id).GetComponent<HeroDataComponent>().GetAttribute(NumericType.Mp), 0.2f);
+            headBar.Bar_MP.self.TweenValue(UnitComponent.Instance.Get(id).GetComponent<UnitAttributesDataComponent>().GetAttribute(NumericType.Mp), 0.2f);
         }
     }
 }

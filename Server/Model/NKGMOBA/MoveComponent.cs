@@ -9,7 +9,7 @@ namespace ETModel
     {
         public override void Awake(MoveComponent self)
         {
-            self.Speed = self.Entity.GetComponent<HeroDataComponent>().GetAttribute(NumericType.Speed) / 100;
+            self.Speed = self.Entity.GetComponent<UnitAttributesDataComponent>().GetAttribute(NumericType.Speed) / 100;
         }
     }
     
@@ -111,7 +111,7 @@ namespace ETModel
         {
             this.StartPos = this.GetParent<Unit>().Position;
             
-            this.Speed = this.Entity.GetComponent<HeroDataComponent>().GetAttribute(NumericType.Speed) / 100;
+            this.Speed = this.Entity.GetComponent<UnitAttributesDataComponent>().GetAttribute(NumericType.Speed) / 100;
             this.distance = (this.Target - this.StartPos).magnitude;
             
             this.StartTime = TimeHelper.Now();

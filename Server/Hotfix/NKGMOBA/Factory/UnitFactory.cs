@@ -63,7 +63,7 @@ namespace ETHotfix.NKGMOBA.Factory
             Game.Scene.GetComponent<CampAllocManagerComponent>().AllocRoleCamp(unit);
             
             unit.AddComponent<NumericComponent>();
-            unit.AddComponent<HeroDataComponent, long>(10001);
+            unit.AddComponent<UnitAttributesDataComponent, long>(10001);
             unit.AddComponent<ReceiveDamageComponent>();
             unit.AddComponent<CastDamageComponent>();
             unit.AddComponent<DataModifierComponent>();
@@ -119,7 +119,7 @@ namespace ETHotfix.NKGMOBA.Factory
             CreateColliderUnit(unit, Game.Scene.GetComponent<ConfigComponent>().Get<Server_B2SCollisionRelationConfig>(10001).B2S_CollisionRelationId,
                 10006);
             unit.AddComponent<NumericComponent>();
-            unit.AddComponent<HeroDataComponent, long>(10001);
+            unit.AddComponent<UnitAttributesDataComponent, long>(10001);
             unit.AddComponent<ReceiveDamageComponent>();
             unit.AddComponent<CastDamageComponent>();
             unit.AddComponent<DataModifierComponent>();

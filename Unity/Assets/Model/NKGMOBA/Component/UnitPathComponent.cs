@@ -75,8 +75,8 @@ namespace ETModel
                 return;
             }
 
-            HeroDataComponent heroDataComponent = this.Entity.GetComponent<HeroDataComponent>();
-            float animSpeed = heroDataComponent.GetAttribute(NumericType.Speed) / heroDataComponent.GetAttribute(NumericType.SpeedBase);
+            UnitAttributesDataComponent unitAttributesDataComponent = this.Entity.GetComponent<UnitAttributesDataComponent>();
+            float animSpeed = unitAttributesDataComponent.GetAttribute(NumericType.Speed) / unitAttributesDataComponent.GetAttribute(NumericType.SpeedBase);
             this.Entity.GetComponent<AnimationComponent>().PlayAnimByStackFsmCurrent(0.3f, animSpeed);
         }
 

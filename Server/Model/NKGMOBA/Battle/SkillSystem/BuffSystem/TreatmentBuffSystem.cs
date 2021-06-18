@@ -20,7 +20,7 @@ namespace ETModel
             //TODO:同样的治疗量这一数据也要做一个类似DamageData的数据体
             finalTreatValue = this.TheUnitBelongto.GetComponent<DataModifierComponent>().BaptismData("Treat", finalTreatValue);
 
-            this.TheUnitBelongto.GetComponent<HeroDataComponent>().NumericComponent.ApplyChange(NumericType.Hp, finalTreatValue);
+            this.TheUnitBelongto.GetComponent<UnitAttributesDataComponent>().NumericComponent.ApplyChange(NumericType.Hp, finalTreatValue);
             //抛出治疗事件，需要监听治疗的Buff需要监听此事件
             Game.Scene.GetComponent<BattleEventSystem>().Run($"{EventIdType.ExcuteTreate}{this.TheUnitFrom.Id}", finalTreatValue);
             Game.Scene.GetComponent<BattleEventSystem>().Run($"{EventIdType.TakeTreate}{this.GetBuffTarget()}", finalTreatValue);

@@ -59,7 +59,7 @@ namespace ETModel
 
             if (finalDamage >= 0)
             {
-                this.TheUnitBelongto.GetComponent<HeroDataComponent>().NumericComponent.ApplyChange(NumericType.Hp, -finalDamage);
+                this.TheUnitBelongto.GetComponent<UnitAttributesDataComponent>().NumericComponent.ApplyChange(NumericType.Hp, -finalDamage);
                 //抛出伤害事件
                 Game.Scene.GetComponent<BattleEventSystem>().Run($"{EventIdType.ExcuteDamage}{this.TheUnitFrom.Id}", damageData);
                 //抛出受伤事件

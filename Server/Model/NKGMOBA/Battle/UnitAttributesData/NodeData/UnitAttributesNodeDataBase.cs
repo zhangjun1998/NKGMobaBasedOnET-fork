@@ -13,58 +13,18 @@ using Sirenix.OdinInspector;
 namespace ETModel
 {
     /// <summary>
-    /// 英雄基本数据
+    /// Unit基本属性数据
     /// </summary>
-    public class NodeDataForHero
+    public class UnitAttributesNodeDataBase
     {
-        [LabelText("此结点(英雄数据结点)ID为")]
-        public long HeroID;
+        [LabelText("此结点(Unit数据结点)ID为")]
+        public long UnitDataNodeId;
 
-        [LabelText("英雄名称")]
-        public string HeroName;
+        [LabelText("Unit名称")]
+        public string UnitName;
 
-        [LabelText("英雄职业")]
-        public HeroProfession HeroProfession;
-
-        [LabelText("英雄头像Sprite名称")]
-        public string HeroAvatar;
-
-        [LabelText("英雄天赋技能图标名称")]
-        public string Talent_SkillSprite;
-
-        [LabelText("英雄Q技能图标名称")]
-        public string Q_SkillSprite;
-
-        [LabelText("英雄W技能图标名称")]
-        public string W_SkillSprite;
-
-        [LabelText("英雄E技能图标名称")]
-        public string E_SkillSprite;
-
-        [LabelText("英雄R技能图标名称")]
-        public string R_SkillSprite;
-
-        [LabelText("升级所需经验")]
-        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
-        public Dictionary<int, int> LevelUpExp = new Dictionary<int, int>
-        {
-            { 1, 100 },
-            { 2, 200 },
-            { 3, 300 },
-            { 4, 500 },
-            { 5, 700 },
-            { 6, 900 },
-            { 7, 1200 },
-            { 8, 1500 },
-            { 9, 1800 },
-            { 10, 2100 },
-            { 11, 2400 },
-            { 12, 2800 },
-            { 13, 3300 },
-            { 14, 3800 },
-            { 15, 4300 },
-            { 16, 4800 }
-        };
+        [LabelText("Unit头像Sprite名称")]
+        public string UnitAvatar;
 
         [TitleGroup("初始属性")]
         [LabelText("初始生命值")]

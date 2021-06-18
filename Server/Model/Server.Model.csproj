@@ -208,21 +208,6 @@
     <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Battle\Box2DSharp\DataStructure\B2S_PrefabData.cs">
       <Link>NKGMOBA\Battle\Box2DSharp\DataStructure\B2S_PrefabData.cs</Link>
     </Compile>
-    <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Battle\HeroData\HeroBaseDataRepositoryComponent.cs">
-      <Link>NKGMOBA\Battle\HeroData\HeroBaseDataRepositoryComponent.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Battle\HeroData\HeroDataComponent.cs">
-      <Link>NKGMOBA\Battle\HeroData\HeroDataComponent.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Battle\HeroData\HeroDataSupportor.cs">
-      <Link>NKGMOBA\Battle\HeroData\HeroDataSupportor.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Battle\HeroData\HeroProfession.cs">
-      <Link>NKGMOBA\Battle\HeroData\HeroProfession.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Battle\HeroData\NodeDataForHero.cs">
-      <Link>NKGMOBA\Battle\HeroData\NodeDataForHero.cs</Link>
-    </Compile>
     <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Component\ChildrenUnitComponent.cs">
       <Link>NKGMOBA\Component\ChildrenUnitComponent.cs</Link>
     </Compile>

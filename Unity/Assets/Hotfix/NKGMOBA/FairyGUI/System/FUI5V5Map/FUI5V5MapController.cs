@@ -41,7 +41,7 @@ namespace ETHotfix
         {
             if (a != UnitComponent.Instance.MyUnit.Id) return;
             FUI5V5Map fui5V5Map = Game.Scene.GetComponent<FUIComponent>().Get(FUI5V5Map.UIPackageName) as FUI5V5Map;
-            fui5V5Map.RedProBar.self.TweenValue(UnitComponent.Instance.MyUnit.GetComponent<HeroDataComponent>().GetAttribute(NumericType.Hp), 0.2f);
+            fui5V5Map.RedProBar.self.TweenValue(UnitComponent.Instance.MyUnit.GetComponent<UnitAttributesDataComponent>().GetAttribute(NumericType.Hp), 0.2f);
             fui5V5Map.RedText.text = $"{fui5V5Map.RedProBar.self.value}/{fui5V5Map.RedProBar.self.max}";
         }
     }
@@ -80,7 +80,7 @@ namespace ETHotfix
         {
             if (a != UnitComponent.Instance.MyUnit.Id) return;
             FUI5V5Map fui5V5Map = Game.Scene.GetComponent<FUIComponent>().Get(FUI5V5Map.UIPackageName) as FUI5V5Map;
-            fui5V5Map.BlueProBar.self.TweenValue(UnitComponent.Instance.MyUnit.GetComponent<HeroDataComponent>().GetAttribute(NumericType.Mp), 0.2f);
+            fui5V5Map.BlueProBar.self.TweenValue(UnitComponent.Instance.MyUnit.GetComponent<UnitAttributesDataComponent>().GetAttribute(NumericType.Mp), 0.2f);
             fui5V5Map.BlueText.text = $"{fui5V5Map.BlueProBar.self.value}/{fui5V5Map.BlueProBar.self.max}";
         }
     }

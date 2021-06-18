@@ -98,8 +98,8 @@ namespace ETHotfix
             {
                 AttackCasterId = self.Entity.Id, TargetUnitId = self.CachedUnitForAttack.Id, CanAttack = true
             });
-            HeroDataComponent heroDataComponent = self.Entity.GetComponent<HeroDataComponent>();
-            float attackPre = heroDataComponent.NodeDataForHero.OriAttackPre / (1 + heroDataComponent.GetAttribute(NumericType.AttackSpeedAdd));
+            UnitAttributesDataComponent heroDataComponent = self.Entity.GetComponent<UnitAttributesDataComponent>();
+            float attackPre = heroDataComponent.UnitAttributesNodeDataBase.OriAttackPre / (1 + heroDataComponent.GetAttribute(NumericType.AttackSpeedAdd));
             float attackSpeed = heroDataComponent.GetAttribute(NumericType.AttackSpeed);
 
             //播放动画，如果动画播放完成还不能进行下一次普攻，则播放空闲动画
@@ -113,7 +113,7 @@ namespace ETHotfix
 
             if (finalDamage >= 0)
             {
-                self.CachedUnitForAttack.GetComponent<HeroDataComponent>().NumericComponent.ApplyChange(NumericType.Hp, -finalDamage);
+                self.CachedUnitForAttack.GetComponent<UnitAttributesDataComponent>().NumericComponent.ApplyChange(NumericType.Hp, -finalDamage);
                 //抛出伤害事件，需要监听伤害的buff（比如吸血buff）需要监听此事件
                 Game.Scene.GetComponent<BattleEventSystem>().Run($"{EventIdType.ExcuteDamage}{self.Entity.Id}", damageData);
                 //抛出受伤事件，需要监听受伤的Buff（例如反甲）需要监听此事件
@@ -142,7 +142,7 @@ namespace ETHotfix
                 {
                     Vector3 selfUnitPos = (self.Entity as Unit).Position;
                     double distance = Vector3.Distance(selfUnitPos, self.CachedUnitForAttack.Position);
-                    float attackRange = self.Entity.GetComponent<HeroDataComponent>().NumericComponent[NumericType.AttackRange] / 100;
+                    float attackRange = self.Entity.GetComponent<UnitAttributesDataComponent>().NumericComponent[NumericType.AttackRange] / 100;
                     //目标距离大于当前攻击距离会先进行寻路，这里的1.75为175码
                     if (distance >= attackRange)
                     {

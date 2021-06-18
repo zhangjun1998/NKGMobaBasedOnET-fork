@@ -168,8 +168,8 @@ namespace App
 
                         Game.Scene.AddComponent<B2S_CollisionRelationRepositoryComponent>();
 
-                        //增加英雄基础数据仓库组件
-                        Game.Scene.AddComponent<HeroBaseDataRepositoryComponent>();
+                        //增加Unit基础Attribute数据仓库组件
+                        Game.Scene.AddComponent<UnitAttributesDataRepositoryComponent>();
                         Game.Scene.AddComponent<CoroutineLockComponent>();
 
                         Game.Scene.AddComponent<NP_SyncComponent>();

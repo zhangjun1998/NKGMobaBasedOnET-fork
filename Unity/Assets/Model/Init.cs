@@ -74,7 +74,7 @@ namespace ETModel
                 Game.Scene.AddComponent<OpcodeTypeComponent>();
                 Game.Scene.AddComponent<MessageDispatcherComponent>();
 
-                Game.Scene.AddComponent<HeroBaseDataRepositoryComponent>();
+                Game.Scene.AddComponent<UnitAttributesDataRepositoryComponent>();
 
                 Game.Scene.AddComponent<B2S_DebuggerComponent>();
 

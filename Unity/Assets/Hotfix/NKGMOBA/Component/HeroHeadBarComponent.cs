@@ -42,14 +42,14 @@ namespace ETHotfix
         public void Awake(Unit hero, FUI headBar)
         {
             this.m_Hero = hero;
-            HeroDataComponent heroDataComponent = hero.GetComponent<HeroDataComponent>();
+            UnitAttributesDataComponent unitAttributesDataComponent = hero.GetComponent<UnitAttributesDataComponent>();
             this.m_HeadBar = headBar as FUIHeadBar;
             //这个血量最大值有点特殊，还需要设置一下密度用事件比较好一点
 
-            this.SetDensityOfBar(this.m_Hero.GetComponent<HeroDataComponent>().GetAttribute(NumericType.MaxHp));
-            this.m_HeadBar.Bar_HP.self.value = heroDataComponent.GetAttribute(NumericType.MaxHp);
-            this.m_HeadBar.Bar_MP.self.max = heroDataComponent.GetAttribute(NumericType.MaxMp);
-            this.m_HeadBar.Bar_MP.self.value = heroDataComponent.GetAttribute(NumericType.MaxMp);
+            this.SetDensityOfBar(this.m_Hero.GetComponent<UnitAttributesDataComponent>().GetAttribute(NumericType.MaxHp));
+            this.m_HeadBar.Bar_HP.self.value = unitAttributesDataComponent.GetAttribute(NumericType.MaxHp);
+            this.m_HeadBar.Bar_MP.self.max = unitAttributesDataComponent.GetAttribute(NumericType.MaxMp);
+            this.m_HeadBar.Bar_MP.self.value = unitAttributesDataComponent.GetAttribute(NumericType.MaxMp);
         }
 
         public void Update()

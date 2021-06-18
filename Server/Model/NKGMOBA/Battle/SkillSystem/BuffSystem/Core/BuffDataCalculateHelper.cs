@@ -14,7 +14,7 @@ namespace ETModel
         public static float CalculateCurrentData<A, B>(A buffSystem, B buffData) where A : ABuffSystemBase where B : BuffDataBase
         {
             //取得来源Unit的Hero数据
-            HeroDataComponent theUnitFromHeroData = buffSystem.TheUnitFrom.GetComponent<HeroDataComponent>();
+            UnitAttributesDataComponent theUnitFromHeroData = buffSystem.TheUnitFrom.GetComponent<UnitAttributesDataComponent>();
 
             float tempData = 0;
 
@@ -29,8 +29,8 @@ namespace ETModel
                             .GetSkillLevel(buffData.BelongToSkillId.Value)];
                     break;
                 case BuffBaseDataEffectTypes.FromHasLostLifeValue:
-                    tempData = buffSystem.TheUnitBelongto.GetComponent<HeroDataComponent>().GetAttribute(NumericType.MaxHp) -
-                            buffSystem.TheUnitBelongto.GetComponent<HeroDataComponent>().GetAttribute(NumericType.Hp);
+                    tempData = buffSystem.TheUnitBelongto.GetComponent<UnitAttributesDataComponent>().GetAttribute(NumericType.MaxHp) -
+                            buffSystem.TheUnitBelongto.GetComponent<UnitAttributesDataComponent>().GetAttribute(NumericType.Hp);
                     break;
                 case BuffBaseDataEffectTypes.FromCurrentOverlay:
                     tempData = buffData.ValueToBeChanged[buffSystem.CurrentOverlay];

@@ -94,9 +94,9 @@ namespace ETModel
 
         private async ETTask CommonAttack_Internal(Unit targetUnit, CancellationTokenSource cancellationTokenSource)
         {
-            HeroDataComponent heroDataComponent = this.Entity.GetComponent<HeroDataComponent>();
-            float attackPre = heroDataComponent.NodeDataForHero.OriAttackPre / (1 + heroDataComponent.GetAttribute(NumericType.AttackSpeedAdd));
-            float attackSpeed = heroDataComponent.GetAttribute(NumericType.AttackSpeed);
+            UnitAttributesDataComponent unitAttributesDataComponent = this.Entity.GetComponent<UnitAttributesDataComponent>();
+            float attackPre = unitAttributesDataComponent.UnitAttributesNodeDataBase.OriAttackPre / (1 + unitAttributesDataComponent.GetAttribute(NumericType.AttackSpeedAdd));
+            float attackSpeed = unitAttributesDataComponent.GetAttribute(NumericType.AttackSpeed);
 
             //这里假设诺手原始攻击动画0.32s是动画攻击奏效点
             float animationAttackPoint = 0.32f;

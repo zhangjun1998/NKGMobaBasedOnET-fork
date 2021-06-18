@@ -13,7 +13,7 @@ namespace ETHotfix
     {
         protected override ETTask Run(ETModel.Session session, M2C_SyncUnitAttribute message)
         {
-            UnitComponent.Instance.Get(message.UnitId).GetComponent<HeroDataComponent>().NumericComponent[(NumericType) message.NumericType] =
+            UnitComponent.Instance.Get(message.UnitId).GetComponent<UnitAttributesDataComponent>().NumericComponent[(NumericType) message.NumericType] =
                     message.FinalValue;
             return ETTask.CompletedTask;
         }

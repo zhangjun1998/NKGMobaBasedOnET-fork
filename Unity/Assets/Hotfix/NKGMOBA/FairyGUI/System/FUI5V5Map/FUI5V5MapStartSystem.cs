@@ -19,9 +19,9 @@ namespace ETHotfix
         {
             Unit unit = UnitComponent.Instance.MyUnit;
 
-            HeroDataComponent heroDataComponent = unit.GetComponent<HeroDataComponent>();
+            UnitAttributesDataComponent unitAttributesDataComponent = unit.GetComponent<UnitAttributesDataComponent>();
 
-            NodeDataForHero mNodeDataForHero = heroDataComponent.NodeDataForHero;
+            HeroAttributesNodeData heroAttributesNodeData = unitAttributesDataComponent.GetAttributeDataAs<HeroAttributesNodeData>();
 
             self.SmallMapSprite.onRightClick.Add(this.AnyEventHandler);
 
@@ -53,34 +53,34 @@ namespace ETHotfix
             GameObject HeroSkillIcons =
                     ETModel.Game.Scene.GetComponent<ResourcesComponent>().LoadAsset<GameObject>(ABPathUtilities.GetTexturePath("HeroSkillIcons"));
 
-            self.HeroAvatarLoader.texture = new NTexture(HeroAvatars.GetTargetObjectFromRC<Sprite>(mNodeDataForHero.HeroAvatar).texture);
-            self.SkillTalent_Loader.texture = new NTexture(HeroSkillIcons.GetTargetObjectFromRC<Sprite>(mNodeDataForHero.Talent_SkillSprite).texture);
-            self.SkillQ_Loader.texture = new NTexture(HeroSkillIcons.GetTargetObjectFromRC<Sprite>(mNodeDataForHero.Q_SkillSprite).texture);
-            self.SkillW_Loader.texture = new NTexture(HeroSkillIcons.GetTargetObjectFromRC<Sprite>(mNodeDataForHero.W_SkillSprite).texture);
-            self.SkillE_Loader.texture = new NTexture(HeroSkillIcons.GetTargetObjectFromRC<Sprite>(mNodeDataForHero.E_SkillSprite).texture);
-            self.SkillR_Loader.texture = new NTexture(HeroSkillIcons.GetTargetObjectFromRC<Sprite>(mNodeDataForHero.R_SkillSprite).texture);
+            self.HeroAvatarLoader.texture = new NTexture(HeroAvatars.GetTargetObjectFromRC<Sprite>(heroAttributesNodeData.UnitAvatar).texture);
+            self.SkillTalent_Loader.texture = new NTexture(HeroSkillIcons.GetTargetObjectFromRC<Sprite>(heroAttributesNodeData.Talent_SkillSprite).texture);
+            self.SkillQ_Loader.texture = new NTexture(HeroSkillIcons.GetTargetObjectFromRC<Sprite>(heroAttributesNodeData.Q_SkillSprite).texture);
+            self.SkillW_Loader.texture = new NTexture(HeroSkillIcons.GetTargetObjectFromRC<Sprite>(heroAttributesNodeData.W_SkillSprite).texture);
+            self.SkillE_Loader.texture = new NTexture(HeroSkillIcons.GetTargetObjectFromRC<Sprite>(heroAttributesNodeData.E_SkillSprite).texture);
+            self.SkillR_Loader.texture = new NTexture(HeroSkillIcons.GetTargetObjectFromRC<Sprite>(heroAttributesNodeData.R_SkillSprite).texture);
 
-            self.AttackInfo.text = heroDataComponent.GetAttribute(NumericType.Attack).ToString();
-            self.ExtraAttackInfo.text = heroDataComponent.GetAttribute(NumericType.AttackAdd).ToString();
-            self.MagicInfo.text = heroDataComponent.GetAttribute(NumericType.MagicStrength).ToString();
-            self.ExtraMagicInfo.text = heroDataComponent.GetAttribute(NumericType.MagicStrengthAdd).ToString();
-            self.ArmorInfo.text = heroDataComponent.GetAttribute(NumericType.Armor).ToString();
-            self.ArmorpenetrationInfo.text = heroDataComponent.GetAttribute(NumericType.ArmorPenetration).ToString();
-            self.SpellResistanceInfo.text = heroDataComponent.GetAttribute(NumericType.MagicResistance).ToString();
-            self.MagicpenetrationInfo.text = heroDataComponent.GetAttribute(NumericType.MagicPenetration).ToString();
-            self.AttackSpeedInfo.text = heroDataComponent.GetAttribute(NumericType.AttackSpeed).ToString();
-            self.SkillCDInfo.text = heroDataComponent.GetAttribute(NumericType.SkillCD).ToString();
-            self.CriticalstrikeInfo.text = heroDataComponent.GetAttribute(NumericType.CriticalStrikeProbability).ToString();
-            self.MoveSpeedInfo.text = heroDataComponent.GetAttribute(NumericType.Speed).ToString();
+            self.AttackInfo.text = unitAttributesDataComponent.GetAttribute(NumericType.Attack).ToString();
+            self.ExtraAttackInfo.text = unitAttributesDataComponent.GetAttribute(NumericType.AttackAdd).ToString();
+            self.MagicInfo.text = unitAttributesDataComponent.GetAttribute(NumericType.MagicStrength).ToString();
+            self.ExtraMagicInfo.text = unitAttributesDataComponent.GetAttribute(NumericType.MagicStrengthAdd).ToString();
+            self.ArmorInfo.text = unitAttributesDataComponent.GetAttribute(NumericType.Armor).ToString();
+            self.ArmorpenetrationInfo.text = unitAttributesDataComponent.GetAttribute(NumericType.ArmorPenetration).ToString();
+            self.SpellResistanceInfo.text = unitAttributesDataComponent.GetAttribute(NumericType.MagicResistance).ToString();
+            self.MagicpenetrationInfo.text = unitAttributesDataComponent.GetAttribute(NumericType.MagicPenetration).ToString();
+            self.AttackSpeedInfo.text = unitAttributesDataComponent.GetAttribute(NumericType.AttackSpeed).ToString();
+            self.SkillCDInfo.text = unitAttributesDataComponent.GetAttribute(NumericType.SkillCD).ToString();
+            self.CriticalstrikeInfo.text = unitAttributesDataComponent.GetAttribute(NumericType.CriticalStrikeProbability).ToString();
+            self.MoveSpeedInfo.text = unitAttributesDataComponent.GetAttribute(NumericType.Speed).ToString();
 
-            self.RedText.text = $"{heroDataComponent.GetAttribute(NumericType.Hp)}/{heroDataComponent.GetAttribute(NumericType.MaxHp)}";
-            self.BlueText.text = $"{heroDataComponent.GetAttribute(NumericType.Mp)}/{heroDataComponent.GetAttribute(NumericType.MaxMp)}";
+            self.RedText.text = $"{unitAttributesDataComponent.GetAttribute(NumericType.Hp)}/{unitAttributesDataComponent.GetAttribute(NumericType.MaxHp)}";
+            self.BlueText.text = $"{unitAttributesDataComponent.GetAttribute(NumericType.Mp)}/{unitAttributesDataComponent.GetAttribute(NumericType.MaxMp)}";
 
-            self.RedProBar.self.max = heroDataComponent.GetAttribute(NumericType.MaxHp);
-            self.RedProBar.self.value = heroDataComponent.GetAttribute(NumericType.Hp);
+            self.RedProBar.self.max = unitAttributesDataComponent.GetAttribute(NumericType.MaxHp);
+            self.RedProBar.self.value = unitAttributesDataComponent.GetAttribute(NumericType.Hp);
 
-            self.BlueProBar.self.max = heroDataComponent.GetAttribute(NumericType.MaxMp);
-            self.BlueProBar.self.value = heroDataComponent.GetAttribute(NumericType.Mp);
+            self.BlueProBar.self.max = unitAttributesDataComponent.GetAttribute(NumericType.MaxMp);
+            self.BlueProBar.self.value = unitAttributesDataComponent.GetAttribute(NumericType.Mp);
 
             self.SkillTalent_CDInfo.visible = false;
             self.SkillTalent_Bar.Visible = false;

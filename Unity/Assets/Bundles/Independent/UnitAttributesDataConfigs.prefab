@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-  - key: AllHeroDatas
-    gameObject: {fileID: 4900000, guid: 2d6a166304584f9408da1e729b90e6d6, type: 3}
+  - key: AllHeroAttributesData
+    gameObject: {fileID: 4900000, guid: a07caf72d1ff34e47af4a5df15218d9a, type: 3}

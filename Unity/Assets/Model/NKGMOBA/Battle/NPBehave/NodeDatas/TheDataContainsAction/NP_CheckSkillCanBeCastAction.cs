@@ -49,7 +49,7 @@ namespace ETModel
             }
             
             //给要修改的黑板节点进行赋值
-            HeroDataComponent heroDataComponent = UnitComponent.Instance.Get(this.Unitid).GetComponent<HeroDataComponent>();
+            UnitAttributesDataComponent unitAttributesDataComponent = UnitComponent.Instance.Get(this.Unitid).GetComponent<UnitAttributesDataComponent>();
             switch (this.SkillDesNodeData.SkillCostTypes)
             {
                 case SkillCostTypes.MagicValue:

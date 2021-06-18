@@ -11,12 +11,12 @@ using Sirenix.OdinInspector;
 
 namespace ETModel
 {
-    public class HeroDataSupportor
+    public class UnitAttributesDataSupportor
     {
         [LabelText("此数据载体ID")]
         public int SupportId;
         
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
-        public Dictionary<long, NodeDataForHero> MHeroDataSupportorDic = new Dictionary<long, NodeDataForHero>();
+        public Dictionary<long, UnitAttributesNodeDataBase> UnitAttributesDataSupportorDic = new Dictionary<long, UnitAttributesNodeDataBase>();
     }
 }

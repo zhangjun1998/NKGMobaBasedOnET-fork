@@ -103,7 +103,7 @@ namespace ETModel
         {
             this.StartPos = this.GetParent<Unit>().Position;
             
-            float speed = this.Entity.GetComponent<HeroDataComponent>().GetAttribute(NumericType.Speed) / 100;
+            float speed = this.Entity.GetComponent<UnitAttributesDataComponent>().GetAttribute(NumericType.Speed) / 100;
             float distance = (this.Target - this.StartPos).magnitude;
             
             this.StartTime = TimeHelper.Now();

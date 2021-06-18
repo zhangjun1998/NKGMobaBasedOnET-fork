@@ -29,7 +29,7 @@ namespace ETModel
         public void ChangeUnitProperty()
         {
             Unit unit = UnitComponent.Instance.Get(this.Unitid);
-            HeroDataComponent heroDataComponent = unit.GetComponent<HeroDataComponent>();
+            UnitAttributesDataComponent unitAttributesDataComponent = unit.GetComponent<UnitAttributesDataComponent>();
             DataModifierComponent dataModifierComponent = unit.GetComponent<DataModifierComponent>();
             float oriValue, finalValue;
             switch (BuffWorkTypes)

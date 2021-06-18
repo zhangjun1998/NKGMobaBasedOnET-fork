@@ -14,7 +14,7 @@ namespace ETHotfix
     {
         protected override async ETTask Run(Unit unit, C2M_GetHeroDataRequest message, M2C_GetHeroDataResponse response, Action reply)
         {
-            response.HeroDataID = unit.GetComponent<HeroDataComponent>().NodeDataForHero.HeroID;
+            response.HeroDataID = unit.GetComponent<UnitAttributesDataComponent>().GetAttributeDataAs<HeroAttributesNodeData>().UnitDataNodeId;
             reply();
             await ETTask.CompletedTask;
         }
