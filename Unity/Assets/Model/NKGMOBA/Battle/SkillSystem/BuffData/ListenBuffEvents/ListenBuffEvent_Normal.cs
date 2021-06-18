@@ -18,6 +18,7 @@ namespace ETModel
     /// <summary>
     /// 监听Buff事件数据基类，用以监听指定事件
     /// </summary>
+    [BsonDeserializerRegister]
     public class ListenBuffEvent_Normal: AEvent<ABuffSystemBase>
     {
         /// <summary>

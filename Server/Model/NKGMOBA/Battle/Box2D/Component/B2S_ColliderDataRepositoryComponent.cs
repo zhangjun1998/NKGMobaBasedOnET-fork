@@ -41,17 +41,6 @@ namespace ETModel
         /// </summary>
         private void ReadcolliderData()
         {
-            Type[] types = typeof (ColliderDataSupporter).Assembly.GetTypes();
-            foreach (Type type in types)
-            {
-                if (!type.IsSubclassOf(typeof (B2S_ColliderDataStructureBase)))
-                {
-                    continue;
-                }
-
-                BsonClassMap.LookupClassMap(type);
-            }
-
             if (File.Exists($"{this.colliderDataPath}/{this.colliderDataName[0]}.bytes"))
             {
                 byte[] mfile0 = File.ReadAllBytes($"{this.colliderDataPath}/{this.colliderDataName[0]}.bytes");

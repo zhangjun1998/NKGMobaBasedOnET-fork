@@ -31,8 +31,6 @@ namespace ETModel
 
         public void Awake()
         {
-            BsonClassMap.LookupClassMap(typeof (HeroAttributesNodeData));
-
             DirectoryInfo directoryInfo = new DirectoryInfo("../Config/UnitAttributesDatas/");
             foreach (var unitAttributesDataConfigFile in directoryInfo.GetFiles())
             {

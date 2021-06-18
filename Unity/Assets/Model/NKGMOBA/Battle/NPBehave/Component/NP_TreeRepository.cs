@@ -41,24 +41,6 @@ namespace ETModel
 
         public void Awake()
         {
-            Type[] types = typeof (NodeType).Assembly.GetTypes();
-            foreach (Type type in types)
-            {
-                if (type.IsSubclassOf(typeof (NP_NodeDataBase)) || type.IsSubclassOf(typeof (NP_ClassForStoreAction)) ||
-                    type.IsSubclassOf(typeof (BuffNodeDataBase)) || type.IsSubclassOf(typeof (BuffDataBase)) ||
-                    type.IsSubclassOf(typeof (ListenBuffEvent_Normal)) || type.IsSubclassOf(typeof (NP_DataSupportorBase)))
-                {
-                    BsonClassMap.LookupClassMap(type);
-                }
-            }
-            
-            BsonClassMap.LookupClassMap(typeof (NP_BBValue_Int));
-            BsonClassMap.LookupClassMap(typeof (NP_BBValue_Bool));
-            BsonClassMap.LookupClassMap(typeof (NP_BBValue_Float));
-            BsonClassMap.LookupClassMap(typeof (NP_BBValue_String));
-            BsonClassMap.LookupClassMap(typeof (NP_BBValue_Vector3));
-            BsonClassMap.LookupClassMap(typeof (NP_BBValue_Long));
-            BsonClassMap.LookupClassMap(typeof (NP_BBValue_List_Long));
 #if SERVER
             DirectoryInfo directory = new DirectoryInfo(NPDataPath);
             FileInfo[] fileInfos = directory.GetFiles();
@@ -110,7 +92,7 @@ namespace ETModel
 
 #endif
         }
-        
+
         /// <summary>
         /// 获取一棵树的所有数据（默认形式）
         /// </summary>
@@ -145,7 +127,7 @@ namespace ETModel
             Log.Error($"请求的行为树id不存在，id为{id}");
             return null;
         }
-        
+
         /// <summary>
         /// 获取一棵树的所有数据（通过深拷贝形式）
         /// </summary>

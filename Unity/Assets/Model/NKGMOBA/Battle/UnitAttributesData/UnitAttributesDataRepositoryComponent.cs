@@ -30,8 +30,6 @@ namespace ETModel
 
         public void Awake()
         {
-            BsonClassMap.LookupClassMap(typeof (HeroAttributesNodeData));
-            
             ResourcesComponent resourcesComponent = Game.Scene.GetComponent<ResourcesComponent>();
             GameObject heroDataConfigs = resourcesComponent.LoadAsset<GameObject>(ABPathUtilities.GetNormalConfigPath("UnitAttributesDataConfigs"));
             foreach (var referenceCollectorData in heroDataConfigs.GetComponent<ReferenceCollector>().data)

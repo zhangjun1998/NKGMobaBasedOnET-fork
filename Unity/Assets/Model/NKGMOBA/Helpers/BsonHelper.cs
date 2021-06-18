@@ -4,8 +4,12 @@
 // Data: 2019年12月10日 12:53:38
 //------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
 using System.Numerics;
+using ETModel.BBValues;
 using MongoDB.Bson.Serialization;
+
 #if UNITY_EDITOR
 using UnityEditor;
 
@@ -13,6 +17,10 @@ using UnityEditor;
 
 namespace ETModel
 {
+    public class BsonDeserializerRegisterAttribute: Attribute
+    {
+    }
+
     /// <summary>
     /// Bson序列化反序列化辅助类
     /// </summary>
@@ -25,6 +33,7 @@ namespace ETModel
         {
             Log.Info("执行了BsonHelper初始化");
             RegisterStructSerializer();
+            RegisterAllSubClassForDeserialize();
         }
 
         /// <summary>
@@ -36,6 +45,45 @@ namespace ETModel
             BsonSerializer.RegisterSerializer(typeof (Vector3), new StructBsonSerialize<Vector3>());
             BsonSerializer.RegisterSerializer(typeof (VTD_Id), new StructBsonSerialize<VTD_Id>());
             BsonSerializer.RegisterSerializer(typeof (VTD_EventId), new StructBsonSerialize<VTD_EventId>());
+        }
+
+        /// <summary>
+        /// 注册所有供反序列化的子类
+        /// </summary>
+        public static void RegisterAllSubClassForDeserialize()
+        {
+            List<Type> parenTypes = new List<Type>();
+            Type[] allTypes = typeof (BsonHelper).Assembly.GetTypes();
+            // registe by BsonDeserializerRegisterAttribute Automatically
+            foreach (Type type in allTypes)
+            {
+                BsonDeserializerRegisterAttribute[] bsonDeserializerRegisterAttributes = 
+                        type.GetCustomAttributes(typeof (BsonDeserializerRegisterAttribute), false) as BsonDeserializerRegisterAttribute[];
+                if (bsonDeserializerRegisterAttributes.Length > 0)
+                {
+                    parenTypes.Add(type);
+                }
+            }
+            
+            foreach (Type type in allTypes)
+            {
+                foreach (var parentType in parenTypes)
+                {
+                    if (parentType.IsAssignableFrom(type))
+                    {
+                        BsonClassMap.LookupClassMap(type);
+                    }
+                }
+            }
+
+            //技能配置反序列化相关(manually because these type cannot Automatically register)
+            BsonClassMap.LookupClassMap(typeof (NP_BBValue_Int));
+            BsonClassMap.LookupClassMap(typeof (NP_BBValue_Bool));
+            BsonClassMap.LookupClassMap(typeof (NP_BBValue_Float));
+            BsonClassMap.LookupClassMap(typeof (NP_BBValue_String));
+            BsonClassMap.LookupClassMap(typeof (NP_BBValue_Vector3));
+            BsonClassMap.LookupClassMap(typeof (NP_BBValue_Long));
+            BsonClassMap.LookupClassMap(typeof (NP_BBValue_List_Long));
         }
 
         /// <summary>

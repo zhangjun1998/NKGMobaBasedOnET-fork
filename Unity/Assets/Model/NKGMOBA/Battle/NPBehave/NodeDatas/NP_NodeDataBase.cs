@@ -13,6 +13,7 @@ using UnityEngine;
 
 namespace ETModel
 {
+    [BsonDeserializerRegister]
     public abstract class NP_NodeDataBase
     {
         /// <summary>

@@ -15,6 +15,7 @@ namespace ETModel
     /// <summary>
     /// Unit基本属性数据
     /// </summary>
+    [BsonDeserializerRegister]
     public class UnitAttributesNodeDataBase
     {
         [LabelText("此结点(Unit数据结点)ID为")]

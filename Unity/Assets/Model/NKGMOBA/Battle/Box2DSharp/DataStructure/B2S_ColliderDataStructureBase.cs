@@ -20,7 +20,8 @@ namespace ETModel
         [LabelText("多边形碰撞体")]
         PolygonCollider,
     }
-
+    
+    [BsonDeserializerRegister]
     public class B2S_ColliderDataStructureBase
     {
         [LabelText("碰撞体ID")]
