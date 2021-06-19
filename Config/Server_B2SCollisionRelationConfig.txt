@@ -1,1 +1,3 @@
-{"_id":10001,"B2S_CollisionRelationId":105444895096884}
+{"_id":10001,"B2S_ColliderConfigId":10001,"B2S_ColliderHandlerName":"Darius_Q","FriendlyHero":false,"EnemyHero":true,"FriendlySoldier":false,"EnemySoldier":true,"FriendlyBuilds":false,"EnemyBuilds":false,"Creeps":true}
+{"_id":10002,"B2S_ColliderConfigId":10002,"B2S_ColliderHandlerName":"Darius_E","FriendlyHero":false,"EnemyHero":true,"FriendlySoldier":false,"EnemySoldier":true,"FriendlyBuilds":false,"EnemyBuilds":false,"Creeps":true}
+{"_id":10003,"B2S_ColliderConfigId":10003,"B2S_ColliderHandlerName":"Darius_R","FriendlyHero":false,"EnemyHero":true,"FriendlySoldier":false,"EnemySoldier":true,"FriendlyBuilds":false,"EnemyBuilds":false,"Creeps":true}

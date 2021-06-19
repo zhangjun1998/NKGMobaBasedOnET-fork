@@ -48,7 +48,7 @@ message G2C_EnterMap // IResponse
 
 message UnitInfo {
     int64 UnitId = 1;
-    int64 UnitTypeId = 99;
+    int32 UnitTypeId = 99;
 	int32 RoleCamp = 91;
 
     float X = 2;

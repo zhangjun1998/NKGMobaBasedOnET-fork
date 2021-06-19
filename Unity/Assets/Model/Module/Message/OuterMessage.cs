@@ -553,8 +553,8 @@ namespace ETModel {
       }
     }
 
-    private long unitTypeId_;
-    public long UnitTypeId {
+    private int unitTypeId_;
+    public int UnitTypeId {
       get { return unitTypeId_; }
       set {
         unitTypeId_ = value;
@@ -614,9 +614,9 @@ namespace ETModel {
         output.WriteRawTag(216, 5);
         output.WriteInt32(RoleCamp);
       }
-      if (UnitTypeId != 0L) {
+      if (UnitTypeId != 0) {
         output.WriteRawTag(152, 6);
-        output.WriteInt64(UnitTypeId);
+        output.WriteInt32(UnitTypeId);
       }
     }
 
@@ -625,8 +625,8 @@ namespace ETModel {
       if (UnitId != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(UnitId);
       }
-      if (UnitTypeId != 0L) {
-        size += 2 + pb::CodedOutputStream.ComputeInt64Size(UnitTypeId);
+      if (UnitTypeId != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(UnitTypeId);
       }
       if (RoleCamp != 0) {
         size += 2 + pb::CodedOutputStream.ComputeInt32Size(RoleCamp);
@@ -677,7 +677,7 @@ namespace ETModel {
             break;
           }
           case 792: {
-            UnitTypeId = input.ReadInt64();
+            UnitTypeId = input.ReadInt32();
             break;
           }
         }

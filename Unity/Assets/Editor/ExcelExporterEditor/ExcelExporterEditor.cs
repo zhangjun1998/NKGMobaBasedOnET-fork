@@ -332,6 +332,8 @@ public class ExcelExporterEditor: OdinEditorWindow
                 return value;
             case "string":
                 return $"\"{value}\"";
+            case "bool":
+                return value == "0"? "false" : "true";
             default:
                 throw new Exception($"不支持此类型: {type}");
         }

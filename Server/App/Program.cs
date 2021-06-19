@@ -166,8 +166,6 @@ namespace App
                         //增加碰撞体数据仓库
                         Game.Scene.AddComponent<B2S_ColliderDataRepositoryComponent>();
 
-                        Game.Scene.AddComponent<B2S_CollisionRelationRepositoryComponent>();
-
                         //增加Unit基础Attribute数据仓库组件
                         Game.Scene.AddComponent<UnitAttributesDataRepositoryComponent>();
                         Game.Scene.AddComponent<CoroutineLockComponent>();

@@ -8,20 +8,19 @@ using System;
 using System.Collections.Generic;
 using MongoDB.Bson.Serialization.Attributes;
 using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace ETModel
 {
     [Title("创建一个碰撞体", TitleAlignment = TitleAlignments.Centered)]
     public class NP_CreateColliderAction: NP_ClassForStoreAction
     {
-        [LabelText("碰撞体碰撞关系数据载体Id")]
+        [LabelText("碰撞关系配置Id")]
+        [Tooltip("Excel配置表中Id")]
         public int CollisionsRelationSupportIdInExcel;
 
-        [InfoBox("在碰撞关系数据载体中的节点Id，而不是真正的碰撞体数据Id", InfoMessageType.Warning)]
-        [LabelText("碰撞体数据节点Id")]
-        public long CollisionRelationNodeDataId;
-
-        [LabelText("碰撞体身上的行为树Id")]
+        [LabelText("行为树配置表Id")]
+        [Tooltip("Excel配置表中Id")]
         public int ColliderNPBehaveTreeIdInExcel;
 
 
@@ -33,8 +32,8 @@ namespace ETModel
 
         public void CreateColliderData()
         {
-            Game.EventSystem.Run(EventIdType.CreateCollider, this.Unitid, this.CollisionsRelationSupportIdInExcel, this.CollisionRelationNodeDataId,
-                this.ColliderNPBehaveTreeIdInExcel);
+            // Game.EventSystem.Run(EventIdType.CreateCollider, this.Unitid, this.CollisionsRelationSupportIdInExcel, this.CollisionRelationNodeDataId,
+            //     this.ColliderNPBehaveTreeIdInExcel);
         }
     }
 }

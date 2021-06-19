@@ -1,0 +1,4 @@
+{"Id":10001,"B2S_ColliderId":20002,"SyncToUnit":false}
+{"Id":10002,"B2S_ColliderId":30001,"SyncToUnit":false}
+{"Id":10003,"B2S_ColliderId":20003,"SyncToUnit":false}
+{"Id":10004,"B2S_ColliderId":20001,"SyncToUnit":true}

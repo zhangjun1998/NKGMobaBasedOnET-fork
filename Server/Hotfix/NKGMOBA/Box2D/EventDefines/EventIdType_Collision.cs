@@ -9,7 +9,7 @@ namespace ETHotfix
 {
     public static class EventIdType_Collision
     {
-        public const string B2S_Darius_E_CRS = "10002";
-        public const string B2S_Darius_Q_CRS = "10001";
+        public const string B2S_Darius_E_CRS = "B2S_Darius_E_CRS";
+        public const string B2S_Darius_Q_CRS = "B2S_Darius_Q_CRS";
     }
 }

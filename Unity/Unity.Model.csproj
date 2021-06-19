@@ -96,6 +96,7 @@
      <Compile Include="Assets\Model\Component\Config\DBConfig.cs" />
      <Compile Include="Assets\Model\Module\Message\Network\KCP\KChannel.cs" />
      <Compile Include="Assets\Model\Base\Helper\MethodInfoHelper.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Battle\UnitAttributesData\NodeData\HeroAttributesNodeData.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\NodeDatas\Task\NP_WaitUntilStoppedData.cs" />
      <Compile Include="Assets\Model\Component\Config\ClientConfig.cs" />
      <Compile Include="Assets\Model\Base\ProcessHelper.cs" />
@@ -309,7 +310,6 @@
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\NodeDatas\TheDataContainsAction\NP_RemoveBuffAction.cs" />
      <Compile Include="Assets\Model\Base\Object\ComponentWithId.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\NodeDatas\TheDataContainsAction\NP_SetUnitIdTheColliderBelongToAction.cs" />
-     <Compile Include="Assets\Model\NKGMOBA\Config\UnitConfig.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\NodeDatas\BBValues\NP_BBValueBase.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\NodeDatas\Decorator\NP_BlackboardMultipleConditionsNodeData.cs" />
      <Compile Include="Assets\Model\Module\Config\ConfigAttribute.cs" />
@@ -460,7 +460,10 @@
      <Compile Include="Assets\Model\NKGMOBA\FairyGUI\Core\GWindow.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\BuffData\ReplaceAttackBuffData.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\NodeDatas\Decorator\NP_BlackboardQueryNodeData.cs" />
-     <Compile Include="Assets\Model\NKGMOBA\Battle\UnitAttributesData\NodeData\HeroAttributesNodeData.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Config\Server_UnitConfig.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Config\Client_UnitConfig.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Config\UnitAttributesDataConfig.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Config\Server_B2SColliderConfig.cs" />
      <None Include="Assets\Model\Unity.Model.asmdef" />
      <Reference Include="UnityEngine">
      <HintPath>D:/Study/Unity/2020.3.0f1c1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

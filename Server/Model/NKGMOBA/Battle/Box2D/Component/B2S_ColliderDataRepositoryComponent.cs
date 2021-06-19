@@ -73,7 +73,7 @@ namespace ETModel
             }
         }
 
-        public B2S_ColliderDataStructureBase GetDataById(long id)
+        public B2S_ColliderDataStructureBase GetDataByColliderId(long id)
         {
             long flag = id / 10000;
             switch (flag)

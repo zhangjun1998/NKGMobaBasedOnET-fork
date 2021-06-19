@@ -16,9 +16,9 @@ namespace ETModel
     public class B2S_ColliderComponent: Component
     {
         /// <summary>
-        /// 此数据结点ID(在碰撞关系数据载体中的)
+        /// 碰撞体数据表中的Id (Excel中的Id)
         /// </summary>
-        public long NodeDataId;
+        public int B2S_ColliderDataConfigId;
 
         /// <summary>
         /// Box2D世界中的刚体
@@ -32,14 +32,14 @@ namespace ETModel
         public Unit BelongToUnit;
 
         /// <summary>
-        /// 碰撞关系数据实例，同时依靠此实例来决定加载的碰撞体数据
+        /// 是否同步归属的Unit
         /// </summary>
-        public B2S_CollisionInstance B2S_CollisionInstance;
+        public bool Sync;
 
         /// <summary>
-        /// 碰撞体数据实例,因为一个Body可能有多个fixture
+        /// 碰撞体数据实例
         /// </summary>
-        public List<B2S_ColliderDataStructureBase> B2S_ColliderDataStructureBase = new List<B2S_ColliderDataStructureBase>();
+        public B2S_ColliderDataStructureBase B2S_ColliderDataStructureBase = new B2S_ColliderDataStructureBase();
 
         public override void Dispose()
         {
@@ -50,8 +50,7 @@ namespace ETModel
 
             base.Dispose();
             Game.Scene.GetComponent<B2S_WorldComponent>().GetWorld().DestroyBody(this.Body);
-            this.B2S_CollisionInstance = null;
-            this.B2S_ColliderDataStructureBase.Clear();
+            this.B2S_ColliderDataStructureBase = null;
         }
     }
 }

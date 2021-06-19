@@ -30,9 +30,22 @@ namespace ETHotfix
 
                 PlayerComponent.Instance.MyPlayer.UnitId = g2CEnterMap.UnitId;
 
+                // 给自己的Unit添加引用
+                UnitComponent.Instance.MyUnit =
+                        UnitComponent.Instance.Get(PlayerComponent.Instance.MyPlayer.UnitId);
+                UnitComponent.Instance.MyUnit
+                        .AddComponent<CameraComponent, Unit>(UnitComponent.Instance.MyUnit);
+
+                UnitComponent.Instance.MyUnit.AddComponent<OutLineComponent>();
+
+                Game.Scene.GetComponent<M5V5GameComponent>().GetHotfixUnit(PlayerComponent.Instance.MyPlayer.UnitId)
+                        .AddComponent<PlayerHeroControllerComponent>();
+
                 // 添加点击地图寻路组件
                 m5V5Game.AddComponent<MapClickCompoent>();
                 ETModel.Game.EventSystem.Run(ETModel.EventIdType.CloseLoadingUI);
+
+                Game.EventSystem.Run(EventIdType.EnterMapFinish);
             }
             catch (Exception e)
             {

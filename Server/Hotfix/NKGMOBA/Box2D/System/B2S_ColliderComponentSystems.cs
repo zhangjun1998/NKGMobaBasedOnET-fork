@@ -12,13 +12,13 @@ using Vector2 = System.Numerics.Vector2;
 namespace ETHotfix
 {
     [ObjectSystem]
-    public class B2S_ColliderComponentAwakeSystem: AwakeSystem<B2S_ColliderComponent, Unit, B2S_CollisionInstance, long>
+    public class B2S_ColliderComponentAwakeSystem: AwakeSystem<B2S_ColliderComponent, Unit, int>
     {
-        public override void Awake(B2S_ColliderComponent self, Unit belongToUnit, B2S_CollisionInstance b2SCollisionInstance, long id)
+        public override void Awake(B2S_ColliderComponent self, Unit belongToUnit, int colliderDataConfigId)
         {
-            self.NodeDataId = id;
-            self.B2S_CollisionInstance = b2SCollisionInstance;
             self.BelongToUnit = belongToUnit;
+            self.B2S_ColliderDataConfigId = colliderDataConfigId;
+            self.Sync = Game.Scene.GetComponent<ConfigComponent>().Get<Server_B2SColliderConfig>(self.B2S_ColliderDataConfigId).SyncToUnit;
             LoadDependenceRes(self);
         }
 
@@ -33,40 +33,34 @@ namespace ETHotfix
 
             self.Entity.AddComponent<B2S_CollisionResponseComponent>();
 
-            foreach (var VARIABLE in self.B2S_CollisionInstance.collisionId)
-            {
-                self.B2S_ColliderDataStructureBase.Add(b2SColliderDataRepositoryComponent.GetDataById(VARIABLE));
-            }
-
+            self.B2S_ColliderDataStructureBase = b2SColliderDataRepositoryComponent.GetDataByColliderId(Game.Scene.GetComponent<ConfigComponent>()
+                    .Get<Server_B2SColliderConfig>(self.B2S_ColliderDataConfigId).B2S_ColliderId);
             self.Body = B2S_BodyUtility.CreateDynamicBody();
 
-            //根据数据加载具体的碰撞体，有的技能可能会产生多个碰撞体
-            foreach (var colliderData in self.B2S_ColliderDataStructureBase)
+            switch (self.B2S_ColliderDataStructureBase.b2SColliderType)
             {
-                switch (colliderData.b2SColliderType)
-                {
-                    case B2S_ColliderType.BoxColllider:
-                        self.Body.CreateBoxFixture(((B2S_BoxColliderDataStructure) colliderData).hx, ((B2S_BoxColliderDataStructure) colliderData).hy,
-                            colliderData.finalOffset, 0, colliderData.isSensor, self.Entity);
-                        break;
-                    case B2S_ColliderType.CircleCollider:
-                        self.Body.CreateCircleFixture(((B2S_CircleColliderDataStructure) colliderData).radius, colliderData.finalOffset, colliderData.isSensor,
-                            self.Entity);
-                        break;
-                    case B2S_ColliderType.PolygonCollider:
-                        foreach (var VARIABLE1 in ((B2S_PolygonColliderDataStructure) colliderData).finalPoints)
-                        {
-                            self.Body.CreatePolygonFixture(VARIABLE1, colliderData.isSensor, self.Entity);
-                        }
+                case B2S_ColliderType.BoxColllider:
+                    B2S_BoxColliderDataStructure b2SBoxColliderDataStructure = (B2S_BoxColliderDataStructure) self.B2S_ColliderDataStructureBase;
+                    self.Body.CreateBoxFixture(b2SBoxColliderDataStructure.hx, b2SBoxColliderDataStructure.hy,
+                        b2SBoxColliderDataStructure.finalOffset, 0, b2SBoxColliderDataStructure.isSensor, self.Entity);
+                    break;
+                case B2S_ColliderType.CircleCollider:
+                    B2S_CircleColliderDataStructure b2SCircleColliderDataStructure =
+                            (B2S_CircleColliderDataStructure) self.B2S_ColliderDataStructureBase;
+                    self.Body.CreateCircleFixture(b2SCircleColliderDataStructure.radius, b2SCircleColliderDataStructure.finalOffset,
+                        b2SCircleColliderDataStructure.isSensor,
+                        self.Entity);
+                    break;
+                case B2S_ColliderType.PolygonCollider:
+                    B2S_PolygonColliderDataStructure b2SPolygonColliderDataStructure =
+                            (B2S_PolygonColliderDataStructure) self.B2S_ColliderDataStructureBase;
+                    foreach (var verxtPoint in b2SPolygonColliderDataStructure.finalPoints)
+                    {
+                        self.Body.CreatePolygonFixture(verxtPoint, b2SPolygonColliderDataStructure.isSensor, self.Entity);
+                    }
 
-                        break;
-                }
+                    break;
             }
-
-            //根据ID添加对应的碰撞处理组件
-            Game.EventSystem.Run(self.B2S_CollisionInstance.nodeDataId.ToString(), self.Entity);
-            //Log.Info($"已经分发{self.m_B2S_CollisionInstance.nodeDataId}技能组装事件");
-            //Log.Info("FixTureList大小为"+self.m_Body.FixtureList.Count.ToString());
         }
     }
 
@@ -76,7 +70,7 @@ namespace ETHotfix
         public override void FixedUpdate(B2S_ColliderComponent self)
         {
             //如果刚体处于激活状态，且设定上此刚体是跟随Unit的话，就同步位置和角度
-            if (self.Body.IsEnabled && self.B2S_CollisionInstance.FollowUnit && !Game.Scene.GetComponent<B2S_WorldComponent>().GetWorld().IsLocked)
+            if (self.Body.IsEnabled && self.Sync && !Game.Scene.GetComponent<B2S_WorldComponent>().GetWorld().IsLocked)
             {
                 self.SyncBody();
                 //Log.Info($"进行了位置移动，数据结点为{self.ID}");

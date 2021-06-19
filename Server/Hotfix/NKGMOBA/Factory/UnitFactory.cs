@@ -54,14 +54,16 @@ namespace ETHotfix.NKGMOBA.Factory
             //增加寻路相关组件
             unit.AddComponent<UnitPathComponent>();
 
+            ConfigComponent configComponent = Game.Scene.GetComponent<ConfigComponent>();
+
+            Server_UnitConfig serverUnitConfig = configComponent.Get<Server_UnitConfig>(10001);
             //为Unit附加碰撞体
-            CreateColliderUnit(unit, Game.Scene.GetComponent<ConfigComponent>().Get<Server_B2SCollisionRelationConfig>(10001).B2S_CollisionRelationId,
-                10006);
+            CreateColliderUnit(unit, serverUnitConfig.UnitColliderDataConfigId);
 
             unit.AddComponent<B2S_RoleCastComponent>();
 
             Game.Scene.GetComponent<CampAllocManagerComponent>().AllocRoleCamp(unit);
-            
+
             unit.AddComponent<NumericComponent>();
             unit.AddComponent<UnitAttributesDataComponent, long>(10001);
             unit.AddComponent<ReceiveDamageComponent>();
@@ -69,31 +71,34 @@ namespace ETHotfix.NKGMOBA.Factory
             unit.AddComponent<DataModifierComponent>();
             //增加移动组件
             unit.AddComponent<MoveComponent>();
-            
+
             unit.AddComponent<OperatesComponent>();
 
             unit.AddComponent<BuffManagerComponent>();
             unit.AddComponent<NP_RuntimeTreeManager>();
             unit.AddComponent<SkillCanvasManagerComponent>();
 
-            ConfigComponent configComponent = Game.Scene.GetComponent<ConfigComponent>();
             //Log.Info("开始创建行为树");
-            NP_RuntimeTreeFactory.CreateSkillNpRuntimeTree(unit, configComponent.Get<Server_SkillCanvasConfig>(10001).NPBehaveId,
-                        configComponent.Get<Server_SkillCanvasConfig>(10001).BelongToSkillId)
+            NP_RuntimeTreeFactory.CreateSkillNpRuntimeTree(unit,
+                        configComponent.Get<Server_SkillCanvasConfig>(serverUnitConfig.UnitPassiveSkillId).NPBehaveId,
+                        configComponent.Get<Server_SkillCanvasConfig>(serverUnitConfig.UnitPassiveSkillId).BelongToSkillId)
                     .Start();
 
-            NP_RuntimeTreeFactory.CreateSkillNpRuntimeTree(unit, configComponent.Get<Server_SkillCanvasConfig>(10002).NPBehaveId,
-                        configComponent.Get<Server_SkillCanvasConfig>(10002).BelongToSkillId)
+            NP_RuntimeTreeFactory.CreateSkillNpRuntimeTree(unit,
+                        configComponent.Get<Server_SkillCanvasConfig>(serverUnitConfig.UnitQSkillId).NPBehaveId,
+                        configComponent.Get<Server_SkillCanvasConfig>(serverUnitConfig.UnitQSkillId).BelongToSkillId)
                     .Start();
-            
-            NP_RuntimeTreeFactory.CreateSkillNpRuntimeTree(unit, configComponent.Get<Server_SkillCanvasConfig>(10004).NPBehaveId,
-                        configComponent.Get<Server_SkillCanvasConfig>(10004).BelongToSkillId)
+
+            NP_RuntimeTreeFactory.CreateSkillNpRuntimeTree(unit,
+                        configComponent.Get<Server_SkillCanvasConfig>(serverUnitConfig.UnitWSkillId).NPBehaveId,
+                        configComponent.Get<Server_SkillCanvasConfig>(serverUnitConfig.UnitWSkillId).BelongToSkillId)
                     .Start();
-            
-            NP_RuntimeTreeFactory.CreateSkillNpRuntimeTree(unit, configComponent.Get<Server_SkillCanvasConfig>(10005).NPBehaveId,
-                        configComponent.Get<Server_SkillCanvasConfig>(10005).BelongToSkillId)
+
+            NP_RuntimeTreeFactory.CreateSkillNpRuntimeTree(unit,
+                        configComponent.Get<Server_SkillCanvasConfig>(serverUnitConfig.UnitESkillId).NPBehaveId,
+                        configComponent.Get<Server_SkillCanvasConfig>(serverUnitConfig.UnitESkillId).BelongToSkillId)
                     .Start();
-            
+
             //Log.Info("行为树创建完成");
 
             //添加栈式状态机组件
@@ -115,9 +120,10 @@ namespace ETHotfix.NKGMOBA.Factory
             //Log.Info($"服务端响应木桩请求，父id为{message.ParentUnitId}");
             UnitComponent.Instance.Get(parentId).GetComponent<ChildrenUnitComponent>().AddUnit(unit);
             //Log.Info("确认找到了请求的父实体");
+
             //为Unit附加碰撞体
-            CreateColliderUnit(unit, Game.Scene.GetComponent<ConfigComponent>().Get<Server_B2SCollisionRelationConfig>(10001).B2S_CollisionRelationId,
-                10006);
+            CreateColliderUnit(unit, Game.Scene.GetComponent<ConfigComponent>().Get<Server_UnitConfig>(10001).UnitColliderDataConfigId);
+
             unit.AddComponent<NumericComponent>();
             unit.AddComponent<UnitAttributesDataComponent, long>(10001);
             unit.AddComponent<ReceiveDamageComponent>();
@@ -130,9 +136,9 @@ namespace ETHotfix.NKGMOBA.Factory
             unit.AddComponent<MoveComponent>();
             unit.AddComponent<BuffManagerComponent>();
             unit.AddComponent<B2S_RoleCastComponent>();
-            
+
             Game.Scene.GetComponent<CampAllocManagerComponent>().AllocRoleCamp(unit);
-            
+
             //添加栈式状态机组件
             unit.AddComponent<StackFsmComponent>();
             unit.AddComponent<UnitPathComponent>();
@@ -142,8 +148,8 @@ namespace ETHotfix.NKGMOBA.Factory
             ConfigComponent configComponent = Game.Scene.GetComponent<ConfigComponent>();
             // if (RandomHelper.RandomNumber(0, 2) == 0)
             //         //Log.Info("开始创建行为树");
-                NP_RuntimeTreeFactory.CreateNpRuntimeTree(unit, configComponent.Get<Server_AICanvasConfig>(10001).NPBehaveId)
-                        .Start();
+            NP_RuntimeTreeFactory.CreateNpRuntimeTree(unit, configComponent.Get<Server_AICanvasConfig>(10001).NPBehaveId)
+                    .Start();
 
             return unit;
         }
@@ -153,31 +159,39 @@ namespace ETHotfix.NKGMOBA.Factory
         #region 碰撞体Unit
 
         /// <summary>
-        /// 创建碰撞体
+        /// 创建特殊碰撞体，会与其他碰撞体产生碰撞回调函数
         /// </summary>
         /// <param name="belongToUnit">归属的Unit（施法者Unit）</param>
-        /// <param name="collisionRelationId">所处碰撞关系数据载体id</param>
-        /// <param name="nodeDataId">碰撞体数据ID（在碰撞关系数据载体中的节点Id）</param>
+        /// <param name="colliderDataConfigId">碰撞体数据配置Id（B2S_ColliderDataConfig Excel表中Id）</param>
+        /// <param name="collisionRelationDataConfigId">碰撞关系数据配置Id（B2S_CollisionDataConfig Excel表中Id）</param>
         /// <returns></returns>
-        public static Unit CreateColliderUnit(Unit belongToUnit, long collisionRelationId, long nodeDataId)
+        public static Unit CreateSpecialColliderUnit(Unit belongToUnit, int colliderDataConfigId, int collisionRelationDataConfigId)
         {
-            B2S_CollisionsRelationSupport b2SCollisionsRelationSupport = Game.Scene.GetComponent<B2S_CollisionRelationRepositoryComponent>()
-                    .GetB2S_CollisionsRelationSupportById(collisionRelationId);
-
-            if (!b2SCollisionsRelationSupport.B2S_CollisionsRelationDic.ContainsKey(nodeDataId))
-            {
-                Log.Error($"所请求的碰撞关系数据结点不存在,ID为{nodeDataId}");
-                return null;
-            }
-
             //为碰撞体新建一个Unit
-            Unit b2sColliderEntity = CreateUnitBase();
+            Unit b2sColliderEntity = CreateColliderUnit(belongToUnit, colliderDataConfigId);
             b2sColliderEntity.AddComponent<NP_RuntimeTreeManager>();
             b2sColliderEntity.AddComponent<SkillCanvasManagerComponent>();
 
-            b2sColliderEntity.AddComponent<B2S_ColliderComponent, Unit, B2S_CollisionInstance, long>(belongToUnit,
-                b2SCollisionsRelationSupport.B2S_CollisionsRelationDic[nodeDataId],
-                nodeDataId);
+            ConfigComponent configComponent = Game.Scene.GetComponent<ConfigComponent>();
+            //添加注册碰撞回调
+            Game.EventSystem.Run(
+                $"B2S_{configComponent.Get<Server_B2SCollisionRelationConfig>(collisionRelationDataConfigId).B2S_ColliderHandlerName}_CRS",
+                b2sColliderEntity);
+
+            return b2sColliderEntity;
+        }
+
+        /// <summary>
+        /// 创建碰撞体
+        /// </summary>
+        /// <param name="belongToUnit">归属的Unit（施法者Unit）</param>
+        /// <param name="colliderDataConfigId">碰撞体数据配置Id（B2S_ColliderDataConfig Excel表中Id）</param>
+        /// <returns></returns>
+        public static Unit CreateColliderUnit(Unit belongToUnit, int colliderDataConfigId)
+        {
+            //为碰撞体新建一个Unit
+            Unit b2sColliderEntity = CreateUnitBase();
+            b2sColliderEntity.AddComponent<B2S_ColliderComponent, Unit, int>(belongToUnit, colliderDataConfigId);
 
             //把这个碰撞实体增加到管理者维护 TODO 待优化，目的同B2S_ColliderEntityManagerComponent
             Game.Scene.GetComponent<B2S_WorldColliderManagerComponent>().AddColliderEntity(b2sColliderEntity);

@@ -13,22 +13,23 @@ using ETModel;
 namespace EThotfix
 {
     [Event(EventIdType.CreateCollider)]
-    public class NP_CreateColliderAction: AEvent<long, int, long, int>
+    public class NP_CreateColliderAction: AEvent<long, int, int>
     {
         /// <summary>
         /// 创建一次一定要同步一次
         /// </summary>
-        /// <param name="a">释放者unit Id</param>
-        /// <param name="b">碰撞关系数据载体Id(Excel表中的)</param>
-        /// <param name="c">碰撞关系数据载体中的Node的Id</param>
-        /// <param name="d">目标行为树数据载体Id(Excel表中的)</param>
-        public override void Run(long a, int b, long c, int d)
+        /// <param name="casterUnitId">释放者unit Id</param>
+        /// <param name="b2SCollisionRelationConfigId">碰撞体碰撞关系数据Id（Excel表中的）</param>
+        /// <param name="npBehaveConfigId">目标行为树数据载体Id (Excel表中的)</param>
+        public override void Run(long casterUnitId, int b2SCollisionRelationConfigId, int npBehaveConfigId)
         {
-            Unit unit = UnitComponent.Instance.Get(a);
+            Unit unit = UnitComponent.Instance.Get(casterUnitId);
             ConfigComponent configComponent = Game.Scene.GetComponent<ConfigComponent>();
 
             B2S_ColliderComponent colliderComponent = UnitFactory
-                    .CreateColliderUnit(unit, configComponent.Get<Server_B2SCollisionRelationConfig>(b).B2S_CollisionRelationId, c)
+                    .CreateSpecialColliderUnit(unit,
+                        configComponent.Get<Server_B2SCollisionRelationConfig>(b2SCollisionRelationConfigId).B2S_ColliderConfigId,
+                        b2SCollisionRelationConfigId)
                     .GetComponent<B2S_ColliderComponent>();
 
             //这里直接默认以英雄当前位置作为碰撞体生成的位置，如需提前指定位置，请在抛事件那里传参
@@ -37,7 +38,8 @@ namespace EThotfix
 
             //根据传过来的行为树Id来给这个碰撞Unit加上行为树
             NP_RuntimeTreeFactory.CreateSkillNpRuntimeTree(colliderComponent.Entity as Unit,
-                        configComponent.Get<Server_SkillCanvasConfig>(d).NPBehaveId, configComponent.Get<Server_SkillCanvasConfig>(d).BelongToSkillId)
+                        configComponent.Get<Server_SkillCanvasConfig>(npBehaveConfigId).NPBehaveId,
+                        configComponent.Get<Server_SkillCanvasConfig>(npBehaveConfigId).BelongToSkillId)
                     .Start();
 
             //下面这一部分是Debug用的，稳定后请去掉

@@ -28,8 +28,29 @@ namespace ETModel
     {
         private Dictionary<Type, ACategoryBase> allConfig = new Dictionary<Type, ACategoryBase>();
 
+        private static ConfigComponent m_Instance;
+
+        public static ConfigComponent Instance
+        {
+            get
+            {
+                if (m_Instance == null)
+                {
+                    Log.Error("请先注册TimerComponent到Game.Scene中");
+                    
+                    return null;
+                }
+                else
+                {
+                    return m_Instance;
+                }
+
+            }
+        }
+		
         public void Awake()
         {
+            m_Instance = this;
             this.Load();
         }
 

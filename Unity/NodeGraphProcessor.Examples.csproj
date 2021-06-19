@@ -53,6 +53,7 @@
      <Compile Include="Assets\Plugins\NodeEditor\Examples\DefaultNodes\Nodes\ForLoopNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\DefaultNodes\Nodes\Texture2DPreviewNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\NPBehaveGraph\Nodes\Task\NP_WaitUntilStoppedNode.cs" />
+     <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\UnitAttributesDataGraph\UnitAttributesDataGraph.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\DefaultNodes\Editor\Texture2DPreviewNodeView.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\NPBehaveGraph\Nodes\Task\NP_StopSoundActionNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\DefaultNodes\Nodes\StringNode.cs" />
@@ -79,12 +80,14 @@
      <Compile Include="Assets\Plugins\NodeEditor\Examples\GraphBehaviour.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\DefaultNodes\Editor\SwitchNodeView.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\NPBehaveGraph\Nodes\Task\NP_LogActionNode.cs" />
+     <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\UnitAttributesDataGraph\UnitAttributesDataGraphWindow.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\SkillGraph\Nodes\BuffNodes\RefreshTargetBuffTimeBuffNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\ConditionalGraph\Editor\ConditionalProcessorView.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\SkillGraph\Nodes\BuffNodes\BindStateBuffNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\SkillGraph\SkillAssetsOverViewEditor\SkillAssetsOverViewItem.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\NPBehaveGraph\Nodes\Task\NP_PlaySoundActionNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\SkillGraph\Nodes\BuffNodes\ReplaceAttackBuffNode.cs" />
+     <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\UnitAttributesDataGraph\Nodes\UnitAttributesNodeBase.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\DefaultNodes\Nodes\PrefabNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\DefaultNodes\Editor\CircleRadiansView.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\NPBehaveGraph\Nodes\Base\NP_CompositeNodeBase.cs" />
@@ -131,6 +134,7 @@
      <Compile Include="Assets\Plugins\NodeEditor\Examples\DefaultNodes\Nodes\GameObjectNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\NPBehaveGraph\Nodes\Task\NP_CreateColliderActionNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Scenes\ConditionalGraph\RuntimeConditionalGraph.cs" />
+     <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\UnitAttributesDataGraph\Nodes\HeroAttributeNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\ConditionalGraph\StartNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\SkillGraph\SkillAssetsOverViewEditor\SkillAssetsOverViewUtilities.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\FallbackGraph\FallbackGraphWindow.cs" />
@@ -179,10 +183,6 @@
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\SkillGraph\Nodes\BuffNodes\ReplaceAnimBuffNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\NPBehaveGraph\Nodes\Task\NP_MacroActionNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\NPBehaveGraph\Nodes\Task\NP_SyncNPBBValue_BoolActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\UnitAttributesDataGraph\UnitAttributesDataGraphWindow.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\UnitAttributesDataGraph\UnitAttributesDataGraph.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\UnitAttributesDataGraph\Nodes\UnitAttributesNodeBase.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\UnitAttributesDataGraph\Nodes\HeroAttributeNode.cs" />
      <None Include="Assets\Plugins\NodeEditor\Examples\NodeGraphProcessor.Examples.asmdef" />
      <None Include="Assets\Plugins\NodeEditor\Examples\Resources\PortViewTypes.uss" />
      <None Include="Assets\Plugins\NodeEditor\Examples\Resources\TestType.uss" />
