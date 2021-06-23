@@ -6,6 +6,7 @@
 
 using ETHotfix;
 using ETModel;
+using FairyGUI;
 using UnityEngine;
 
 namespace ETHotfix
@@ -19,6 +20,9 @@ namespace ETHotfix
             self.Btn_Login.self.onClick.Add(() => LoginBtnOnClick(self));
             self.Btn_Registe.self.onClick.Add(() => RegisterBtnOnClick(self));
             self.ToTestSceneBtn.self.onClick.Add(() => ToTestSceneBtnBtnOnClick(self));
+            TypingEffect typingEffect = new TypingEffect(self.Tex_OpenDeclaration);
+            typingEffect.Start();
+            typingEffect.PrintAll(0.01f);
         }
 
         private void RegisterBtnOnClick(FUILogin self)
@@ -43,5 +47,4 @@ namespace ETHotfix
             LoginHelper.OnLoginAsync("Test123", "Test123").Coroutine();
         }
     }
-    
 }

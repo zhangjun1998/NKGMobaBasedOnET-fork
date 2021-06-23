@@ -38,7 +38,7 @@ namespace ETHotfix
     public GTextInput passwordText;
     public GGroup Gro_LoginInfo;
     public GImage Gros_Detail_BackGround;
-    public GTextField n26;
+    public GTextField Tex_OpenDeclaration;
     public GGroup Gro_Detail;
     public Btn_VersionInfo Btn_VersionInfo;
     public GGroup Gro_VersionInfo;
@@ -129,7 +129,7 @@ namespace ETHotfix
     		passwordText = (GTextInput)com.GetChildAt(10);
     		Gro_LoginInfo = (GGroup)com.GetChildAt(11);
     		Gros_Detail_BackGround = (GImage)com.GetChildAt(12);
-    		n26 = (GTextField)com.GetChildAt(13);
+    		Tex_OpenDeclaration = (GTextField)com.GetChildAt(13);
     		Gro_Detail = (GGroup)com.GetChildAt(14);
     		Btn_VersionInfo = Btn_VersionInfo.Create(com.GetChildAt(15));
     		Gro_VersionInfo = (GGroup)com.GetChildAt(16);
@@ -165,7 +165,7 @@ namespace ETHotfix
 			passwordText = null;
 			Gro_LoginInfo = null;
 			Gros_Detail_BackGround = null;
-			n26 = null;
+			Tex_OpenDeclaration = null;
 			Gro_Detail = null;
 			Btn_VersionInfo = null;
 			Gro_VersionInfo = null;
