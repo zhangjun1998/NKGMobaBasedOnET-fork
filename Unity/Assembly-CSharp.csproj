@@ -52,15 +52,16 @@
      <None Include="Assets\Res\Shaders\Darius_R_RimLight_Offset.shader" />
      <None Include="Assets\Res\Config\Server_B2SColliderConfig.txt" />
      <None Include="Assets\Res\Config\Server_UnitConfig.txt" />
+     <None Include="Assets\Resources\BillingMode.json" />
      <None Include="Assets\Res\Config\Client_UnitConfig.txt" />
      <Reference Include="UnityEngine">
-     <HintPath>D:/Study/Unity/2020.3.0f1c1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
+     <HintPath>D:/Study/Unity/2020.3.12f1c1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
      </Reference>
      <Reference Include="UnityEngine.CoreModule">
-     <HintPath>D:/Study/Unity/2020.3.0f1c1/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
+     <HintPath>D:/Study/Unity/2020.3.12f1c1/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
      </Reference>
      <Reference Include="UnityEditor">
-     <HintPath>D:/Study/Unity/2020.3.0f1c1/Editor/Data/Managed/UnityEngine/UnityEditor.dll</HintPath>
+     <HintPath>D:/Study/Unity/2020.3.12f1c1/Editor/Data/Managed/UnityEngine/UnityEditor.dll</HintPath>
      </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

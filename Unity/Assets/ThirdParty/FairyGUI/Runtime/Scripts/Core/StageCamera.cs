@@ -196,6 +196,7 @@ namespace FairyGUI
             DontDestroyOnLoad(cameraObject);
             #endregion
             cameraObject.AddComponent<StageCamera>();
+
             return camera;
         }
     }
