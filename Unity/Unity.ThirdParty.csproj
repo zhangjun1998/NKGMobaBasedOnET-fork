@@ -249,8 +249,8 @@
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil\Treatments.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\ILRuntime\Reflection\ILRuntimeConstructorInfo.cs" />
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Filter\BlurFilter.cs" />
-     <Compile Include="Assets\ThirdParty\ILRuntime\ILRuntime\Runtime\Stack\StackObject.cs" />
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Core\Text\TouchScreenKeyboard.cs" />
+     <Compile Include="Assets\ThirdParty\ILRuntime\ILRuntime\Runtime\Stack\StackObject.cs" />
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\UI\GRichTextField.cs" />
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Utils\Html\HtmlImage.cs" />
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Gesture\RotationGesture.cs" />
@@ -409,8 +409,8 @@
      <Compile Include="Assets\ThirdParty\Google.Protobuf\ICustomDiagnosticMessage.cs" />
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Core\Mesh\RegularPolygonMesh.cs" />
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\UI\EMRenderSupport.cs" />
-     <Compile Include="Assets\ThirdParty\ILRuntime\ILRuntime\Runtime\CLRBinding\BindingGeneratorExtensions.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Serializers\DynamicDocumentBaseSerializer.cs" />
+     <Compile Include="Assets\ThirdParty\ILRuntime\ILRuntime\Runtime\CLRBinding\BindingGeneratorExtensions.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil\EmbeddedResource.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Serializers\DecimalSerializer.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Serializers\IPAddressSerializer.cs" />
@@ -531,8 +531,8 @@
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Core\UpdateContext.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\symbols\pdb\Microsoft.Cci.Pdb\CvInfo.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Conventions\EnumRepresentationConvention.cs" />
-     <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Exceptions\TruncationException.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\ObjectModel\BsonArray.cs" />
+     <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Exceptions\TruncationException.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil.Cil\VariableDefinition.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono\Empty.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Serializers\BsonClassMapSerializer.cs" />

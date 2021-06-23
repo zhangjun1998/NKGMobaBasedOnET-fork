@@ -22,7 +22,7 @@ MonoBehaviour:
   IncludeOnlyMenuItemsWithHotKeys: 0
   ExcludedAssemblies: Unity.Model;Unity.Hotfix;MonKey Commander
   ExcludedNameSpaces: 
-  IncludedAssemblies: Assembly-CSharp-Editor-firstpass;Unity.Editor;NodeGraphProcessor.Examples
+  IncludedAssemblies: Assembly-CSharp-Editor-firstpass;Unity.Editor;NodeGraphProcessor.Examples;XAsset.Editor
   IncludeModeOnly: 1
   ForceFocusOnDocked: 0
   ShowHelpOnSelectedOnly: 0
