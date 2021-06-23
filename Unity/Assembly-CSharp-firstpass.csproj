@@ -183,18 +183,14 @@
      <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.xml" />
      <None Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Shaders\ProjectorFillRadialDistort.shader" />
      <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Editor.xml" />
-     <None Include="Assets\Plugins\AstarPathfindingProject\Clipper\ClipperLicense.txt" />
      <None Include="Assets\Plugins\MonKey Commander\MonKey Core.xml" />
-     <None Include="Assets\Plugins\AstarPathfindingProject\DotNetZip\DotNetZipLicense.txt" />
      <None Include="Assets\Plugins\Sirenix\Readme.txt" />
      <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.Editor.xml" />
      <None Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Shaders\ProjectorHoloCone.shader" />
      <None Include="Assets\Plugins\Sirenix\Assemblies\link.xml" />
-     <None Include="Assets\Plugins\AstarPathfindingProject\Poly2Tri\Poly2TriLicense.txt" />
      <None Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Shaders\ProjectorBasic.shader" />
      <None Include="Assets\Plugins\MonKey Commander\MonKey Readme!.txt" />
      <None Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Shaders\ProjectorFillRadial.shader" />
-     <None Include="Assets\Plugins\AstarPathfindingProject\dependencies.txt" />
      <None Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Shaders\ProjectorRadialDistortColor.shader" />
      <Reference Include="UnityEngine">
      <HintPath>D:/Study/Unity/2020.3.0f1c1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
@@ -427,14 +423,8 @@
      <Reference Include="Sirenix.OdinInspector.Attributes">
      <HintPath>D:/Study/GameProject/NKGMobaBasedOnET/Unity/Assets/Plugins/Sirenix/Assemblies/Sirenix.OdinInspector.Attributes.dll</HintPath>
      </Reference>
-     <Reference Include="Pathfinding.Ionic.Zip.Reduced">
-     <HintPath>D:/Study/GameProject/NKGMobaBasedOnET/Unity/Assets/Plugins/AstarPathfindingProject/DotNetZip/Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
-     </Reference>
      <Reference Include="Sirenix.Serialization.Config">
      <HintPath>D:/Study/GameProject/NKGMobaBasedOnET/Unity/Assets/Plugins/Sirenix/Assemblies/Sirenix.Serialization.Config.dll</HintPath>
-     </Reference>
-     <Reference Include="Pathfinding.ClipperLib">
-     <HintPath>D:/Study/GameProject/NKGMobaBasedOnET/Unity/Assets/Plugins/AstarPathfindingProject/Clipper/Pathfinding.ClipperLib.dll</HintPath>
      </Reference>
      <Reference Include="ICSharpCode.SharpZipLib">
      <HintPath>D:/Study/GameProject/NKGMobaBasedOnET/Unity/Assets/Plugins/ICSharpCode.SharpZipLib.dll</HintPath>
@@ -465,9 +455,6 @@
      </Reference>
      <Reference Include="Sirenix.Serialization">
      <HintPath>D:/Study/GameProject/NKGMobaBasedOnET/Unity/Assets/Plugins/Sirenix/Assemblies/Sirenix.Serialization.dll</HintPath>
-     </Reference>
-     <Reference Include="Pathfinding.Poly2Tri">
-     <HintPath>D:/Study/GameProject/NKGMobaBasedOnET/Unity/Assets/Plugins/AstarPathfindingProject/Poly2Tri/Pathfinding.Poly2Tri.dll</HintPath>
      </Reference>
      <Reference Include="mscorlib">
      <HintPath>D:/Study/Unity/2020.3.0f1c1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

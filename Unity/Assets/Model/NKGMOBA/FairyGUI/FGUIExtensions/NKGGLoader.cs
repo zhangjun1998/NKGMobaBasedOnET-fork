@@ -16,7 +16,12 @@ namespace ETModel
     {
         protected override void LoadExternal()
         {
-            Sprite sprite = Game.Scene.GetComponent<ResourcesComponent>().LoadAsset<Sprite>(this.url);
+            LoadSprite().Coroutine();
+        }
+
+        private async ETVoid LoadSprite()
+        {
+            Sprite sprite = await Game.Scene.GetComponent<ResourcesComponent>().LoadAssetAsync<Sprite>(this.url);
             if (sprite != null)
                 onExternalLoadSuccess(new NTexture(sprite));
             else
