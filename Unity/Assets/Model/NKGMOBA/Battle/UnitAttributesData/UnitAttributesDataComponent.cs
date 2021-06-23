@@ -23,12 +23,13 @@ namespace ETModel
             self.NumericComponent.NumericDic[(int) NumericType.MaxHpBase] = self.UnitAttributesNodeDataBase.OriHP;
             self.NumericComponent.NumericDic[(int) NumericType.MaxHpAdd] = self.UnitAttributesNodeDataBase.GroHP;
             self.NumericComponent.NumericDic[(int) NumericType.MaxHp] = self.UnitAttributesNodeDataBase.OriHP + self.UnitAttributesNodeDataBase.GroHP;
-
             self.NumericComponent.NumericDic[(int) NumericType.Hp] = self.UnitAttributesNodeDataBase.OriHP + self.UnitAttributesNodeDataBase.GroHP;
 
             self.NumericComponent.NumericDic[(int) NumericType.MaxMpBase] = self.UnitAttributesNodeDataBase.OriMagicValue;
             self.NumericComponent.NumericDic[(int) NumericType.MaxMpAdd] = self.UnitAttributesNodeDataBase.GroMagicValue;
             self.NumericComponent.NumericDic[(int) NumericType.MaxMp] =
+                    self.UnitAttributesNodeDataBase.OriMagicValue + self.UnitAttributesNodeDataBase.GroMagicValue;
+            self.NumericComponent.NumericDic[(int) NumericType.Mp] =
                     self.UnitAttributesNodeDataBase.OriMagicValue + self.UnitAttributesNodeDataBase.GroMagicValue;
 
             self.NumericComponent.NumericDic[(int) NumericType.AttackBase] = self.UnitAttributesNodeDataBase.OriAttackValue;

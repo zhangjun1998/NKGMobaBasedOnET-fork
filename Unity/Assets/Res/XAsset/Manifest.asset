@@ -14,77 +14,93 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeVariants: []
   dirs:
-  - Assets/Bundles/Altas
   - Assets/Bundles/FUI
   - Assets/Bundles/Independent
   - Assets/Bundles/SkillConfigs
   - Assets/Bundles/Sounds
   - Assets/Bundles/Unit
+  - Assets/Res/Sprites/Avatars/Darius
+  - Assets/Res/Sprites/Skills/Darius
   - Assets/Scenes
   assets:
-  - name: HeroAvatars.prefab
-    bundle: 13
-    dir: 0
-  - name: HeroSkillIcons.prefab
-    bundle: 4
-    dir: 0
   - name: FUI5v5Map_atlas0.png
     bundle: 1
-    dir: 1
+    dir: 0
   - name: FUI5v5Map_fui.bytes
     bundle: 22
-    dir: 1
+    dir: 0
   - name: FUIDialog_atlas0.png
-    bundle: 12
-    dir: 1
+    bundle: 13
+    dir: 0
   - name: FUIDialog_fui.bytes
     bundle: 8
-    dir: 1
+    dir: 0
   - name: FUIFallBleed_atlas0.png
     bundle: 0
-    dir: 1
+    dir: 0
   - name: FUIFallBleed_fui.bytes
     bundle: 10
-    dir: 1
+    dir: 0
   - name: FUIHeadBar_atlas0.png
-    bundle: 18
-    dir: 1
+    bundle: 17
+    dir: 0
   - name: FUIHeadBar_fui.bytes
     bundle: 6
-    dir: 1
+    dir: 0
   - name: FUILobby_atlas0.png
     bundle: 9
-    dir: 1
+    dir: 0
   - name: FUILobby_fui.bytes
     bundle: 15
-    dir: 1
+    dir: 0
   - name: FUILogin_atlas0.png
-    bundle: 19
-    dir: 1
+    bundle: 18
+    dir: 0
   - name: FUILogin_fui.bytes
-    bundle: 20
-    dir: 1
+    bundle: 19
+    dir: 0
   - name: Code.prefab
     bundle: 7
-    dir: 2
+    dir: 1
   - name: Config.prefab
-    bundle: 5
-    dir: 2
-  - name: HeroDataConfigs.prefab
-    bundle: 16
-    dir: 2
+    bundle: 4
+    dir: 1
+  - name: UnitAttributesDataConfigs.prefab
+    bundle: 20
+    dir: 1
   - name: SkillConfigs.prefab
     bundle: 23
-    dir: 3
+    dir: 2
   - name: Sound.prefab
-    bundle: 17
-    dir: 4
+    bundle: 16
+    dir: 3
   - name: Unit.prefab
     bundle: 3
+    dir: 4
+  - name: Darius_Circle_8.png
+    bundle: 11
     dir: 5
+  - name: Darius_Icon_Axe_Grab.png
+    bundle: 5
+    dir: 6
+  - name: Darius_Icon_Decimate.png
+    bundle: 5
+    dir: 6
+  - name: Darius_Icon_Hamstring.png
+    bundle: 5
+    dir: 6
+  - name: Darius_Icon_Hemorrhage.png
+    bundle: 5
+    dir: 6
+  - name: Darius_Icon_Sudden_Death.png
+    bundle: 5
+    dir: 6
+  - name: Darius_PassiveBuff.png
+    bundle: 5
+    dir: 6
   - name: Map.unity
     bundle: 14
-    dir: 6
+    dir: 7
   bundles:
   - name: 0f6cf85bbba89a77ccb62f33dd8ec980.unity3d
     id: 0
@@ -103,19 +119,19 @@ MonoBehaviour:
     hash: 64508cdbc6170a8979469144e51b521b
   - name: 2efc619c3f96e68cc7eaeffd09addad3.unity3d
     id: 3
-    deps: 020000000b00000015000000
-    len: 1840202
-    hash: b1a6e036ba75dab3a6a2197ba76aa71a
-  - name: 30f3b55f87d3cccda2adda15633e4f8d.unity3d
+    deps: 020000000c00000015000000
+    len: 1834708
+    hash: 9d997fecad1a4cd9241f428c17f3c4a4
+  - name: 452268ef4d438d76cf96cb0b78df9000.unity3d
     id: 4
     deps: 
-    len: 42760
-    hash: f0b1042d83749fdcb3d8dc9fdea9d50a
-  - name: 452268ef4d438d76cf96cb0b78df9000.unity3d
+    len: 2830
+    hash: ed4a07b7ded60f24948cd68b47e240c7
+  - name: 4d825bd39d3bc79e4c1de13352c1f5ea.unity3d
     id: 5
     deps: 
-    len: 2829
-    hash: 56b779efa3c26d2ba5a7d34815624c8a
+    len: 20298
+    hash: c155e8af0eea986cba3f480075d4cfe2
   - name: 5154227005c91c567f37838ffbfd1734.unity3d
     id: 6
     deps: 
@@ -124,8 +140,8 @@ MonoBehaviour:
   - name: 55ef7382f5a509040b488a114573722e.unity3d
     id: 7
     deps: 
-    len: 121383
-    hash: 277ee78ef01ddf6eef478ef28a1742c4
+    len: 138023
+    hash: f26e2aee6a4ed617563beb76a141ef67
   - name: 5c4421f6dea60df93b6644a4ec3c6a31.unity3d
     id: 8
     deps: 
@@ -141,56 +157,56 @@ MonoBehaviour:
     deps: 
     len: 1736
     hash: 41dfd1f74d45d6ce545d8c79c0e0e800
-  - name: 6ab7927d6491854f67b427f5e3c53c14.unity3d
+  - name: 6753c6abd8a059e66aec72cd24333240.unity3d
     id: 11
+    deps: 
+    len: 7463
+    hash: ad211340b513e6011da10c3981072031
+  - name: 6ab7927d6491854f67b427f5e3c53c14.unity3d
+    id: 12
     deps: 0200000015000000
     len: 14587
-    hash: 60164465eeae5bd305f5859827d393fd
+    hash: 39fb27e888af80e6892befb80c20f6fa
   - name: 709ccd6951a127a04180a2e93578e134.unity3d
-    id: 12
+    id: 13
     deps: 
     len: 129252
     hash: c9ad772caf6af96b1cb93fff12500d21
-  - name: 73118045ec340244b9c3a8780e6f7af9.unity3d
-    id: 13
-    deps: 
-    len: 13064
-    hash: 88b99e393b17a53da15d76a05787a800
   - name: 79169a669404a1225d75d2917f9af90a.unity3d
     id: 14
-    deps: 020000000b00000015000000
+    deps: 020000000c00000015000000
     len: 43474255
-    hash: 96b4b69a2add7b43ffcf2bb85662d675
+    hash: 39ec5633c20dcb91cb74ec721e74df50
   - name: 7c7161a93744945b4d2c41a648ca8a49.unity3d
     id: 15
     deps: 
     len: 4566
     hash: ac61b0cb6d003399d58bc7e41357f435
-  - name: 973d1d4b191229d8002c8508d546f31b.unity3d
+  - name: ac85522a77e2cb773a5ed7a0f5546abf.unity3d
     id: 16
     deps: 
-    len: 3383
-    hash: 4ce6c1bf0d8d971036b269b2a4da1b94
-  - name: ac85522a77e2cb773a5ed7a0f5546abf.unity3d
-    id: 17
-    deps: 
-    len: 2374052
-    hash: bccfb43655cb47482390935d4eaba2ec
+    len: 2374050
+    hash: 15f90e264446df1763991fccec22327c
   - name: af6f89743b34c79d8e49316598e71e3e.unity3d
-    id: 18
+    id: 17
     deps: 
     len: 4157
     hash: 6b45871ee93c6c4426a48cc7a1c84676
   - name: b4257688263d7fd02cbf56a10c0c1763.unity3d
-    id: 19
+    id: 18
     deps: 
     len: 1359692
     hash: 8c2cd09c821811a1e46169e1c037b681
   - name: c05a465e4b3066ff5a26fae21ab82ced.unity3d
-    id: 20
+    id: 19
     deps: 
     len: 3607
     hash: 80438efcacaab76768ff83aa80f0e9eb
+  - name: ca6e00f556bef6a5e437a2620a1fa438.unity3d
+    id: 20
+    deps: 
+    len: 3422
+    hash: d8db6813ec540b8d992608a660456ff6
   - name: d91ee336bc86d1ab40adcd28131940ff.unity3d
     id: 21
     deps: 
@@ -199,10 +215,10 @@ MonoBehaviour:
   - name: e216a8b81ad4b954b7713a6b1b09fc0c.unity3d
     id: 22
     deps: 
-    len: 7324
-    hash: 16d885f9fe281c1c0d74b9baf39b9988
+    len: 7318
+    hash: 18ccec0a4ecb5b644359f273c0fead8b
   - name: eb2ac7c19dc81ae65f583fb182991f30.unity3d
     id: 23
     deps: 
-    len: 6921
-    hash: eb07003410e0fbc561923208f5abee24
+    len: 6853
+    hash: 50f2de80c892cbbbbe9d05014a91664f

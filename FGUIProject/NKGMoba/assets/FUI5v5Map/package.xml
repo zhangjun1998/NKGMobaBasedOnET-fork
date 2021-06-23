@@ -19,7 +19,7 @@
     <component id="qraf6c" name="BuffProBar.xml" path="/Battle/"/>
     <component id="qraf6d" name="SkillProBar.xml" path="/Battle/"/>
     <image id="qraf6f" name="ReplayAtlas_118.PNG" path="/Clarity_HUDAtlas/"/>
-    <image id="qraf6h" name="PerksAtlas_11.PNG" path="/Clarity_HUDAtlas/"/>
+    <image id="qraf6h" name="PerksAtlas_11.PNG" path="/Clarity_HUDAtlas/" qualityOption="source"/>
     <image id="qraf6i" name="PerksAtlas_13.PNG" path="/Clarity_HUDAtlas/"/>
     <image id="qraf6j" name="PerksAtlas_14.PNG" path="/Clarity_HUDAtlas/"/>
     <image id="qraf6k" name="PerksAtlas_15.PNG" path="/Clarity_HUDAtlas/"/>

@@ -11,41 +11,61 @@ namespace ETModel
     /// </summary>
     public class ABPathUtilities
     {
-        public static string GetTexturePath(string fileName)
+        public static string GetUnitAvatatIcon(string UnitName, string iconName)
         {
-            return $"Assets/Bundles/Altas/{fileName}.prefab";
+            return GetTexturePath($"Avatars/{UnitName}/{iconName}.png");
+        }
+
+        public static string GetSkillIcon(string UnitName, string iconName)
+        {
+            return GetTexturePath($"Skills/{UnitName}/{iconName}.png");
+        }
+
+        public static string GetLoadingIcon(string UnitName, string iconName)
+        {
+            return GetTexturePath($"Loadings/{UnitName}/{iconName}.png");
         }
         
+        /// <summary>
+        /// 获取纹理，filename需要填全路径（包括拓展名）
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static string GetTexturePath(string fileName)
+        {
+            return $"Assets/Res/Sprites/{fileName}";
+        }
+
         public static string GetFGUIDesPath(string fileName)
         {
             return $"Assets/Bundles/FUI/{fileName}.bytes";
         }
-        
-        public static string GetFGUIResPath(string fileName,string extension)
+
+        public static string GetFGUIResPath(string fileName, string extension)
         {
             return $"Assets/Bundles/FUI/{fileName}{extension}";
         }
-        
+
         public static string GetNormalConfigPath(string fileName)
         {
             return $"Assets/Bundles/Independent/{fileName}.prefab";
         }
-        
+
         public static string GetSoundPath(string fileName)
         {
             return $"Assets/Bundles/Sounds/{fileName}.prefab";
         }
-        
+
         public static string GetSkillConfigPath(string fileName)
         {
             return $"Assets/Bundles/SkillConfigs/{fileName}.prefab";
         }
-        
+
         public static string GetUnitPath(string fileName)
         {
             return $"Assets/Bundles/Unit/{fileName}.prefab";
         }
-        
+
         public static string GetScenePath(string fileName)
         {
             return $"Assets/Scenes/{fileName}.unity";

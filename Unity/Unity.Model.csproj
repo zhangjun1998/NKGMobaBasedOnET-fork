@@ -146,7 +146,7 @@
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Exception.cs" />
      <Compile Include="Assets\Model\NKGMOBA\FairyGUI\Component\FUICheckForResUpdateComponent.cs" />
      <Compile Include="Assets\Model\Base\Object\ILateUpdateSystem.cs" />
-     <Compile Include="Assets\Model\NKGMOBA\FairyGUI\FGUIExtensions\SkillGLoaderExtension.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\FairyGUI\FGUIExtensions\NKGGLoader.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\Log\Log.cs" />
      <Compile Include="Assets\Model\Module\Message\Network\WebSocket\WChannel.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Component\SessionComponent.cs" />
@@ -353,7 +353,6 @@
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\BuffSystem\ListenBuffCallBackBuffSystem.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Component\ChildrenUnitComponent.cs" />
      <Compile Include="Assets\Model\Module\Message\Network\AService.cs" />
-     <Compile Include="Assets\Model\NKGMOBA\Battle\Box2DSharp\DataStructure\B2S_PrefabData.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\NodeDatas\Composite\NP_ParallelNodeData.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\BuffSystem\Core\BuffState.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\Box2DSharp\CollisionRelations\B2S_AllCollideableObject.cs" />

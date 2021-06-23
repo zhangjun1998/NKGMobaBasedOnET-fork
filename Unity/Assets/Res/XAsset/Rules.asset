@@ -20,14 +20,10 @@ MonoBehaviour:
   searchPatternPrefab: '*.prefab'
   searchPatternScene: '*.unity'
   searchPatternText: '*.txt,*.bytes,*.json,*.csv,*.xml,*htm,*.html,*.yaml,*.fnt'
-  version: 19
+  version: 27
   scenesInBuild:
   - {fileID: 102900000, guid: e0d691ac8c1d0454ba07089ea820e18a, type: 3}
   rules:
-  - searchPath: Assets/Bundles/Altas
-    searchPattern: '*.prefab'
-    nameBy: 1
-    assetBundleName: 
   - searchPath: Assets/Bundles/FUI
     searchPattern: '*.png'
     nameBy: 1
@@ -60,11 +56,15 @@ MonoBehaviour:
     searchPattern: '*'
     nameBy: 2
     assetBundleName: 
+  - searchPath: Assets/Res/Sprites/Avatars/Darius
+    searchPattern: '*'
+    nameBy: 2
+    assetBundleName: 
+  - searchPath: Assets/Res/Sprites/Skills/Darius
+    searchPattern: '*'
+    nameBy: 2
+    assetBundleName: 
   ruleAssets:
-  - bundle: 73118045ec340244b9c3a8780e6f7af9.unity3d
-    path: Assets/Bundles/Altas/HeroAvatars.prefab
-  - bundle: 30f3b55f87d3cccda2adda15633e4f8d.unity3d
-    path: Assets/Bundles/Altas/HeroSkillIcons.prefab
   - bundle: 1eecddda466df8457971b8fbb4833516.unity3d
     path: Assets/Bundles/FUI/FUI5v5Map_atlas0.png
   - bundle: e216a8b81ad4b954b7713a6b1b09fc0c.unity3d
@@ -93,23 +93,31 @@ MonoBehaviour:
     path: Assets/Bundles/Independent/Code.prefab
   - bundle: 452268ef4d438d76cf96cb0b78df9000.unity3d
     path: Assets/Bundles/Independent/Config.prefab
-  - bundle: 973d1d4b191229d8002c8508d546f31b.unity3d
-    path: Assets/Bundles/Independent/HeroDataConfigs.prefab
+  - bundle: ca6e00f556bef6a5e437a2620a1fa438.unity3d
+    path: Assets/Bundles/Independent/UnitAttributesDataConfigs.prefab
   - bundle: eb2ac7c19dc81ae65f583fb182991f30.unity3d
     path: Assets/Bundles/SkillConfigs/SkillConfigs.prefab
   - bundle: ac85522a77e2cb773a5ed7a0f5546abf.unity3d
     path: Assets/Bundles/Sounds/Sound.prefab
   - bundle: 2efc619c3f96e68cc7eaeffd09addad3.unity3d
     path: Assets/Bundles/Unit/Unit.prefab
+  - bundle: 6753c6abd8a059e66aec72cd24333240.unity3d
+    path: Assets/Res/Sprites/Avatars/Darius/Darius_Circle_8.png
+  - bundle: 4d825bd39d3bc79e4c1de13352c1f5ea.unity3d
+    path: Assets/Res/Sprites/Skills/Darius/Darius_Icon_Axe_Grab.png
+  - bundle: 4d825bd39d3bc79e4c1de13352c1f5ea.unity3d
+    path: Assets/Res/Sprites/Skills/Darius/Darius_Icon_Decimate.png
+  - bundle: 4d825bd39d3bc79e4c1de13352c1f5ea.unity3d
+    path: Assets/Res/Sprites/Skills/Darius/Darius_Icon_Hamstring.png
+  - bundle: 4d825bd39d3bc79e4c1de13352c1f5ea.unity3d
+    path: Assets/Res/Sprites/Skills/Darius/Darius_Icon_Hemorrhage.png
+  - bundle: 4d825bd39d3bc79e4c1de13352c1f5ea.unity3d
+    path: Assets/Res/Sprites/Skills/Darius/Darius_Icon_Sudden_Death.png
+  - bundle: 4d825bd39d3bc79e4c1de13352c1f5ea.unity3d
+    path: Assets/Res/Sprites/Skills/Darius/Darius_PassiveBuff.png
   - bundle: 79169a669404a1225d75d2917f9af90a.unity3d
     path: Assets/Scenes/Map.unity
   ruleBundles:
-  - name: 73118045ec340244b9c3a8780e6f7af9.unity3d
-    assets:
-    - Assets/Bundles/Altas/HeroAvatars.prefab
-  - name: 30f3b55f87d3cccda2adda15633e4f8d.unity3d
-    assets:
-    - Assets/Bundles/Altas/HeroSkillIcons.prefab
   - name: 1eecddda466df8457971b8fbb4833516.unity3d
     assets:
     - Assets/Bundles/FUI/FUI5v5Map_atlas0.png
@@ -152,9 +160,9 @@ MonoBehaviour:
   - name: 452268ef4d438d76cf96cb0b78df9000.unity3d
     assets:
     - Assets/Bundles/Independent/Config.prefab
-  - name: 973d1d4b191229d8002c8508d546f31b.unity3d
+  - name: ca6e00f556bef6a5e437a2620a1fa438.unity3d
     assets:
-    - Assets/Bundles/Independent/HeroDataConfigs.prefab
+    - Assets/Bundles/Independent/UnitAttributesDataConfigs.prefab
   - name: eb2ac7c19dc81ae65f583fb182991f30.unity3d
     assets:
     - Assets/Bundles/SkillConfigs/SkillConfigs.prefab
@@ -167,6 +175,17 @@ MonoBehaviour:
   - name: ac85522a77e2cb773a5ed7a0f5546abf.unity3d
     assets:
     - Assets/Bundles/Sounds/Sound.prefab
+  - name: 6753c6abd8a059e66aec72cd24333240.unity3d
+    assets:
+    - Assets/Res/Sprites/Avatars/Darius/Darius_Circle_8.png
+  - name: 4d825bd39d3bc79e4c1de13352c1f5ea.unity3d
+    assets:
+    - Assets/Res/Sprites/Skills/Darius/Darius_Icon_Axe_Grab.png
+    - Assets/Res/Sprites/Skills/Darius/Darius_Icon_Decimate.png
+    - Assets/Res/Sprites/Skills/Darius/Darius_Icon_Hamstring.png
+    - Assets/Res/Sprites/Skills/Darius/Darius_Icon_Hemorrhage.png
+    - Assets/Res/Sprites/Skills/Darius/Darius_Icon_Sudden_Death.png
+    - Assets/Res/Sprites/Skills/Darius/Darius_PassiveBuff.png
   - name: 2540bb97cd2be86a69d36d7d0c15edcb.unity3d
     assets:
     - Assets/Res/Skins/Darius/Darius_Skin08_TX_CM.dds

@@ -205,9 +205,6 @@
     <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Battle\Box2DSharp\DataStructure\B2S_PolygonColliderDataStructure.cs">
       <Link>NKGMOBA\Battle\Box2DSharp\DataStructure\B2S_PolygonColliderDataStructure.cs</Link>
     </Compile>
-    <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Battle\Box2DSharp\DataStructure\B2S_PrefabData.cs">
-      <Link>NKGMOBA\Battle\Box2DSharp\DataStructure\B2S_PrefabData.cs</Link>
-    </Compile>
     <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Component\ChildrenUnitComponent.cs">
       <Link>NKGMOBA\Component\ChildrenUnitComponent.cs</Link>
     </Compile>

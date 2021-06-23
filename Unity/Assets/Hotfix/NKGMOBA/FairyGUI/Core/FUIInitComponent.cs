@@ -1,4 +1,5 @@
 ﻿using ETModel;
+using FairyGUI;
 
 namespace ETHotfix
 {
@@ -6,6 +7,7 @@ namespace ETHotfix
     {
         public async ETTask Init()
         {
+            UIObjectFactory.SetLoaderExtension(typeof(NKGGLoader));
             //TODO Login中依赖了5V5Map中的资源，所以要加载他，正确做法是将公用资源打入一个包
             await ETModel.Game.Scene.GetComponent<FUIPackageComponent>().AddPackageAsync(FUIPackage.FUI5v5Map);
             await ETModel.Game.Scene.GetComponent<FUIPackageComponent>().AddPackageAsync(FUIPackage.FUILogin);

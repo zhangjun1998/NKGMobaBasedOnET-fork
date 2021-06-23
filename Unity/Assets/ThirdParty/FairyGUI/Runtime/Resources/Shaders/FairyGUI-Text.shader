@@ -81,6 +81,7 @@ Shader "FairyGUI/Text"
                 sampler2D _MainTex;
 
                 CBUFFER_START(UnityPerMaterial)
+            
                 #ifdef CLIPPED
                 float4 _ClipBox = float4(-2, -2, 0, 0);
                 #endif

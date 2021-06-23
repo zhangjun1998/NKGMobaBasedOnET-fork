@@ -48,17 +48,12 @@ namespace ETHotfix
                 ETModel.Log.Info($"发送请求木桩父实体id：{unit.Id}");
             });
 
-            GameObject HeroAvatars =
-                    ETModel.Game.Scene.GetComponent<ResourcesComponent>().LoadAsset<GameObject>(ABPathUtilities.GetTexturePath("HeroAvatars"));
-            GameObject HeroSkillIcons =
-                    ETModel.Game.Scene.GetComponent<ResourcesComponent>().LoadAsset<GameObject>(ABPathUtilities.GetTexturePath("HeroSkillIcons"));
-
-            self.HeroAvatarLoader.texture = new NTexture(HeroAvatars.GetTargetObjectFromRC<Sprite>(heroAttributesNodeData.UnitAvatar).texture);
-            self.SkillTalent_Loader.texture = new NTexture(HeroSkillIcons.GetTargetObjectFromRC<Sprite>(heroAttributesNodeData.Talent_SkillSprite).texture);
-            self.SkillQ_Loader.texture = new NTexture(HeroSkillIcons.GetTargetObjectFromRC<Sprite>(heroAttributesNodeData.Q_SkillSprite).texture);
-            self.SkillW_Loader.texture = new NTexture(HeroSkillIcons.GetTargetObjectFromRC<Sprite>(heroAttributesNodeData.W_SkillSprite).texture);
-            self.SkillE_Loader.texture = new NTexture(HeroSkillIcons.GetTargetObjectFromRC<Sprite>(heroAttributesNodeData.E_SkillSprite).texture);
-            self.SkillR_Loader.texture = new NTexture(HeroSkillIcons.GetTargetObjectFromRC<Sprite>(heroAttributesNodeData.R_SkillSprite).texture);
+            self.HeroAvatarLoader.url = ABPathUtilities.GetUnitAvatatIcon("Darius", heroAttributesNodeData.UnitAvatar);
+            self.SkillTalent_Loader.url = ABPathUtilities.GetSkillIcon("Darius", heroAttributesNodeData.Talent_SkillSprite);
+            self.SkillQ_Loader.url = ABPathUtilities.GetSkillIcon("Darius", heroAttributesNodeData.Q_SkillSprite);
+            self.SkillW_Loader.url = ABPathUtilities.GetSkillIcon("Darius", heroAttributesNodeData.W_SkillSprite);
+            self.SkillE_Loader.url = ABPathUtilities.GetSkillIcon("Darius", heroAttributesNodeData.E_SkillSprite);
+            self.SkillR_Loader.url = ABPathUtilities.GetSkillIcon("Darius", heroAttributesNodeData.R_SkillSprite);
 
             self.AttackInfo.text = unitAttributesDataComponent.GetAttribute(NumericType.Attack).ToString();
             self.ExtraAttackInfo.text = unitAttributesDataComponent.GetAttribute(NumericType.AttackAdd).ToString();
@@ -73,8 +68,10 @@ namespace ETHotfix
             self.CriticalstrikeInfo.text = unitAttributesDataComponent.GetAttribute(NumericType.CriticalStrikeProbability).ToString();
             self.MoveSpeedInfo.text = unitAttributesDataComponent.GetAttribute(NumericType.Speed).ToString();
 
-            self.RedText.text = $"{unitAttributesDataComponent.GetAttribute(NumericType.Hp)}/{unitAttributesDataComponent.GetAttribute(NumericType.MaxHp)}";
-            self.BlueText.text = $"{unitAttributesDataComponent.GetAttribute(NumericType.Mp)}/{unitAttributesDataComponent.GetAttribute(NumericType.MaxMp)}";
+            self.RedText.text =
+                    $"{unitAttributesDataComponent.GetAttribute(NumericType.Hp)}/{unitAttributesDataComponent.GetAttribute(NumericType.MaxHp)}";
+            self.BlueText.text =
+                    $"{unitAttributesDataComponent.GetAttribute(NumericType.Mp)}/{unitAttributesDataComponent.GetAttribute(NumericType.MaxMp)}";
 
             self.RedProBar.self.max = unitAttributesDataComponent.GetAttribute(NumericType.MaxHp);
             self.RedProBar.self.value = unitAttributesDataComponent.GetAttribute(NumericType.Hp);
