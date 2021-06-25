@@ -2720,6 +2720,163 @@ namespace ETHotfix {
 
   }
 
+  /// <summary>
+  ///同步CD信息
+  /// </summary>
+  public partial class M2C_SyncCDData : pb::IMessage {
+    private static readonly pb::MessageParser<M2C_SyncCDData> _parser = new pb::MessageParser<M2C_SyncCDData>(() => (M2C_SyncCDData)MessagePool.Instance.Fetch(typeof(M2C_SyncCDData)));
+    public static pb::MessageParser<M2C_SyncCDData> Parser { get { return _parser; } }
+
+    private int rpcId_;
+    public int RpcId {
+      get { return rpcId_; }
+      set {
+        rpcId_ = value;
+      }
+    }
+
+    private long actorId_;
+    public long ActorId {
+      get { return actorId_; }
+      set {
+        actorId_ = value;
+      }
+    }
+
+    private long unitId_;
+    public long UnitId {
+      get { return unitId_; }
+      set {
+        unitId_ = value;
+      }
+    }
+
+    private string cDName_ = "";
+    /// <summary>
+    ///CD名称
+    /// </summary>
+    public string CDName {
+      get { return cDName_; }
+      set {
+        cDName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    private long cDLength_;
+    /// <summary>
+    ///CD总时长
+    /// </summary>
+    public long CDLength {
+      get { return cDLength_; }
+      set {
+        cDLength_ = value;
+      }
+    }
+
+    private long remainCDLength_;
+    /// <summary>
+    ///剩余CD时长
+    /// </summary>
+    public long RemainCDLength {
+      get { return remainCDLength_; }
+      set {
+        remainCDLength_ = value;
+      }
+    }
+
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (CDName.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(CDName);
+      }
+      if (CDLength != 0L) {
+        output.WriteRawTag(24);
+        output.WriteInt64(CDLength);
+      }
+      if (RemainCDLength != 0L) {
+        output.WriteRawTag(40);
+        output.WriteInt64(RemainCDLength);
+      }
+      if (RpcId != 0) {
+        output.WriteRawTag(208, 5);
+        output.WriteInt32(RpcId);
+      }
+      if (ActorId != 0L) {
+        output.WriteRawTag(232, 5);
+        output.WriteInt64(ActorId);
+      }
+      if (UnitId != 0L) {
+        output.WriteRawTag(240, 5);
+        output.WriteInt64(UnitId);
+      }
+    }
+
+    public int CalculateSize() {
+      int size = 0;
+      if (RpcId != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(RpcId);
+      }
+      if (ActorId != 0L) {
+        size += 2 + pb::CodedOutputStream.ComputeInt64Size(ActorId);
+      }
+      if (UnitId != 0L) {
+        size += 2 + pb::CodedOutputStream.ComputeInt64Size(UnitId);
+      }
+      if (CDName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(CDName);
+      }
+      if (CDLength != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(CDLength);
+      }
+      if (RemainCDLength != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(RemainCDLength);
+      }
+      return size;
+    }
+
+    public void MergeFrom(pb::CodedInputStream input) {
+      cDName_ = "";
+      cDLength_ = 0;
+      remainCDLength_ = 0;
+      rpcId_ = 0;
+      actorId_ = 0;
+      unitId_ = 0;
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 18: {
+            CDName = input.ReadString();
+            break;
+          }
+          case 24: {
+            CDLength = input.ReadInt64();
+            break;
+          }
+          case 40: {
+            RemainCDLength = input.ReadInt64();
+            break;
+          }
+          case 720: {
+            RpcId = input.ReadInt32();
+            break;
+          }
+          case 744: {
+            ActorId = input.ReadInt64();
+            break;
+          }
+          case 752: {
+            UnitId = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   #endregion
 
 }

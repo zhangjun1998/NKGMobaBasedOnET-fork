@@ -14,17 +14,17 @@ using Node = NPBehave.Node;
 
 namespace Plugins.NodeEditor
 {
-    [NodeMenuItem("NPBehave行为树/Task/_ACTIONDES_", typeof(SkillGraph))]
-    [NodeMenuItem("NPBehave行为树/Task/_ACTIONDES_", typeof(NPBehaveGraph))]
-    public class NP__ACTIONNAME_Node : NP_TaskNodeBase
+    [NodeMenuItem("NPBehave行为树/Task/等待CD", typeof(SkillGraph))]
+    [NodeMenuItem("NPBehave行为树/Task/等待CD", typeof(NPBehaveGraph))]
+    public class NP_WaitCDActionNode : NP_TaskNodeBase
     {
         /// <summary>
         /// 内部ID
         /// </summary>
-        public override string name => "_ACTIONDES_";
+        public override string name => "等待CD";
         
         public NP_ActionNodeData NP_ActionNodeData =
-                new NP_ActionNodeData() { NodeType = NodeType.Task, NpClassForStoreAction = new NP__ACTIONNAME_() };
+                new NP_ActionNodeData() { NodeType = NodeType.Task, NpClassForStoreAction = new NP_WaitCDAction() };
 
         public override NP_NodeDataBase NP_GetNodeData()
         {

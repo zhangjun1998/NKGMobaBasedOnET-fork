@@ -86,6 +86,13 @@ namespace ETHotfix
 	public partial class M2C_SyncNPBehaveBoolData : IActorMessage {}
 
 //黑板键
+//同步CD信息
+	[Message(HotfixOpcode.M2C_SyncCDData)]
+	public partial class M2C_SyncCDData : IActorMessage {}
+
+//CD名称
+//CD总时长
+//剩余CD时长
 }
 namespace ETHotfix
 {
@@ -117,5 +124,6 @@ namespace ETHotfix
 		 public const ushort M2C_SyncUnitPos = 10024;
 		 public const ushort M2C_CancelAttack = 10025;
 		 public const ushort M2C_SyncNPBehaveBoolData = 10026;
+		 public const ushort M2C_SyncCDData = 10027;
 	}
 }

@@ -220,3 +220,17 @@ message M2C_SyncNPBehaveBoolData // IActorMessage
     string BBKey = 2;
     bool Value = 5;
 }
+//同步CD信息
+message M2C_SyncCDData // IActorMessage
+{
+    int32 RpcId = 90;
+    int64 ActorId = 93;
+    
+    int64 UnitId = 94;
+    //CD名称
+    string CDName = 2;
+	//CD总时长
+	int64 CDLength = 3;
+	//剩余CD时长
+    int64 RemainCDLength = 5;
+}

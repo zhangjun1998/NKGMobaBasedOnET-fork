@@ -72,6 +72,7 @@
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\NPBehaveGraph\Nodes\Task\NP_AddBuffActionNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\SkillGraph\Nodes\BuffNodes\ChangeMaterialBuffNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\SkillGraph\Nodes\BuffNodes\SustainDamageBuffNode.cs" />
+     <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\NPBehaveGraph\Nodes\Task\NP_SetCDInfoActionNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\NPBehaveGraph\NPBehaveGraphWindow.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\DefaultNodes\Nodes\VectorNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\NPBehaveGraph\NPBehaveGraph.cs" />
@@ -137,6 +138,7 @@
      <Compile Include="Assets\Plugins\NodeEditor\Examples\DefaultNodes\Nodes\TextNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\DefaultNodes\Nodes\SwitchNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\DefaultNodes\Nodes\FloatNode.cs" />
+     <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\NPBehaveGraph\Nodes\Task\NP_WaitCDActionNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\NPBehaveGraph\Nodes\Composite\NP_ParallelNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\UniversalGraph\UniversalGraphWindow.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\DefaultNodes\Nodes\InspectorNode.cs" />
@@ -146,6 +148,7 @@
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\NPBehaveGraph\Nodes\Task\NP_PlayAnimationActionNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\DefaultNodes\Editor\StringNodeView.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\DefaultNodes\Nodes\VerticalNode2.cs" />
+     <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\NPBehaveGraph\Nodes\Task\NP_SendCDInfoToClientActionNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\DefaultNodes\Editor\SettingsNodeView.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\NPBehaveGraph\Nodes\Composite\NP_SelectorNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\SkillGraph\Nodes\BuffNodes\PlayEffectBuffNode.cs" />

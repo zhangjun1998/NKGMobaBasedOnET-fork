@@ -39,7 +39,7 @@ namespace ETModel
         [HideLabel]
         [Title("技能CD", Bold = false)]
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
-        public Dictionary<int, float> SkillCD;
+        public Dictionary<int, long> SkillCD;
         
         [TabGroup("基础信息")]
         [HideLabel]

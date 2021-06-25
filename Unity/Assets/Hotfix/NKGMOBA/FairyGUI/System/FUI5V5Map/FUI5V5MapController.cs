@@ -26,6 +26,7 @@ namespace ETHotfix
             hotfixui.MakeFullScreen();
             //将UI注册到FUIComponent中，正式显示
             Game.Scene.GetComponent<FUIComponent>().Add(hotfixui, true);
+            hotfixui.AddComponent<FUI5V5MapComponent>();
         }
 
         private async ETVoid RunInternal()

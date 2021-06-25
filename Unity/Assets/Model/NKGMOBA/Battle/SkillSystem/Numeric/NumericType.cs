@@ -59,7 +59,7 @@
         //暴击率
         CriticalStrikeProbability = 1012,
 
-        //CD
+        //技能冷却缩减
         SkillCD = 1013,
 
         //生命恢复

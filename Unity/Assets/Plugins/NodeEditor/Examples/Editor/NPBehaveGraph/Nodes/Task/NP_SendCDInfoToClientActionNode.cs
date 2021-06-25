@@ -6,25 +6,25 @@
 
 using System.Collections.Generic;
 using ETModel;
+using GraphProcessor;
 using Sirenix.OdinInspector;
 using UnityEditor;
-using GraphProcessor;
 using UnityEngine;
 using Node = NPBehave.Node;
 
 namespace Plugins.NodeEditor
 {
-    [NodeMenuItem("NPBehave行为树/Task/_ACTIONDES_", typeof(SkillGraph))]
-    [NodeMenuItem("NPBehave行为树/Task/_ACTIONDES_", typeof(NPBehaveGraph))]
-    public class NP__ACTIONNAME_Node : NP_TaskNodeBase
+    [NodeMenuItem("NPBehave行为树/Task/往客户端发送CD信息", typeof(SkillGraph))]
+    [NodeMenuItem("NPBehave行为树/Task/往客户端发送CD信息", typeof(NPBehaveGraph))]
+    public class NP_SendCDInfoToClientNode : NP_TaskNodeBase
     {
         /// <summary>
         /// 内部ID
         /// </summary>
-        public override string name => "_ACTIONDES_";
+        public override string name => "往客户端发送CD信息";
         
         public NP_ActionNodeData NP_ActionNodeData =
-                new NP_ActionNodeData() { NodeType = NodeType.Task, NpClassForStoreAction = new NP__ACTIONNAME_() };
+                new NP_ActionNodeData() { NodeType = NodeType.Task, NpClassForStoreAction = new NP_SendCDInfoToClient() };
 
         public override NP_NodeDataBase NP_GetNodeData()
         {

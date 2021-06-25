@@ -43,6 +43,7 @@
   <ItemGroup>
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil\AssemblyFlags.cs" />
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Utils\Html\HtmlSelect.cs" />
+     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Editor\UIPanelEditor.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\ILRuntime\Runtime\Debugger\VariableInfo.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\ObjectModel\BsonSymbol.cs" />
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Core\Text\TypingEffect.cs" />
@@ -195,6 +196,7 @@
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\UI\Gears\GearText.cs" />
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Core\Text\FontManager.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Conventions\ScalarDiscriminatorConvention.cs" />
+     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Editor\PackagesWindow.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Serializers\StackSerializer.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\IO\BsonBinaryReader.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Serializers\SByteSerializer.cs" />
@@ -219,6 +221,7 @@
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Serializers\TwoDimensionalArraySerializer.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\IO\IElementNameValidator.cs" />
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Core\Mesh\EllipseMesh.cs" />
+     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Editor\UIPainterEditor.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\ILRuntime\Runtime\Enviorment\CrossBindingAdaptor.cs" />
      <Compile Include="Assets\ThirdParty\Google.Protobuf\AdaptHelper.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil\SentinelType.cs" />
@@ -404,6 +407,7 @@
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\IO\BsonReaderSettings.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\IdGenerators\AscendingGuidGenerator.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Attributes\BsonRepresentationAttribute.cs" />
+     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Editor\StageCameraEditor.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil\PropertyReference.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\BsonDeserializationArgs.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\ObjectModel\BsonBoolean.cs" />
@@ -572,6 +576,7 @@
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil\IGenericInstance.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil\PropertyDefinition.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\BsonSerializationArgs.cs" />
+     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Editor\EditorToolSet.cs" />
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\UI\Controller.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\ObjectModel\MaterializedOnDemandBsonArray.cs" />
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Core\HitTest\PixelHitTest.cs" />
@@ -653,6 +658,7 @@
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Serializers\SingleSerializer.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\IO\CStringUtf8Encoding.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\ObjectModel\BsonType.cs" />
+     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Editor\DisplayObjectEditor.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\ILRuntime\Runtime\Intepreter\ILIntepreter.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Serializers\ThreeDimensionalArraySerializer.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\ILRuntime\Runtime\CLRBinding\ValueTypeBindingGenerator.cs" />
@@ -690,6 +696,7 @@
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Serializers\ExpandoObjectSerializer.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\ILRuntime\CLR\TypeSystem\ILType.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil\MethodDefinition.cs" />
+     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Editor\UIContentScalerEditor.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Attributes\BsonDictionaryOptionsAttribute.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\IO\BsonBinaryReaderContext.cs" />
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Core\StageEngine.cs" />
@@ -749,6 +756,7 @@
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\UI\GLabel.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Attributes\BsonElementAttribute.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Attributes\IBsonCreatorMapAttribute.cs" />
+     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Extensions\TextMeshPro\TMPTextFormat.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\IO\BsonBinaryReaderBookmark.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil\IMethodSignature.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\ObjectModel\UInt128.cs" />
@@ -773,6 +781,7 @@
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\ObjectModel\BsonMaxKey.cs" />
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\Serialization\Attributes\BsonDateTimeOptionsAttribute.cs" />
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\UI\Action\ControllerAction.cs" />
+     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Editor\UIConfigEditor.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil.Cil\MethodBody.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil\DefaultAssemblyResolver.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\symbols\pdb\Mono.Cecil.Pdb\SymDocumentWriter.cs" />
@@ -786,17 +795,8 @@
      <Compile Include="Assets\ThirdParty\MongoDB\MongoDB.Bson\IO\InputBufferChunkSource.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil\FieldAttributes.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\LitJson\JsonReader.cs" />
-     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Gesture\LongPressGesture.cs" />
-     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Editor\UIPanelEditor.cs" />
-     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Editor\UIPainterEditor.cs" />
-     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Editor\DisplayObjectEditor.cs" />
-     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Editor\PackagesWindow.cs" />
-     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Editor\UIConfigEditor.cs" />
-     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Editor\StageCameraEditor.cs" />
-     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Editor\EditorToolSet.cs" />
      <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Extensions\TextMeshPro\TMPFont.cs" />
-     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Editor\UIContentScalerEditor.cs" />
-     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Extensions\TextMeshPro\TMPTextFormat.cs" />
+     <Compile Include="Assets\ThirdParty\FairyGUI\Runtime\Scripts\Gesture\LongPressGesture.cs" />
      <None Include="Assets\ThirdParty\FairyGUI\Runtime\Resources\Shaders\FairyGUI-Text.shader" />
      <None Include="Assets\ThirdParty\FairyGUI\Runtime\Resources\Shaders\FairyGUI-Image.shader" />
      <None Include="Assets\ThirdParty\FairyGUI\Runtime\Resources\Shaders\AddOn\FairyGUI-BlurFilter.shader" />

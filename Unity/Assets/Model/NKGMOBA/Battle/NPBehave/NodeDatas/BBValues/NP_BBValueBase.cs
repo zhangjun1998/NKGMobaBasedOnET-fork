@@ -12,7 +12,7 @@ namespace ETModel.BBValues
     public abstract class NP_BBValueBase<T>: ANP_BBValue, INP_BBValue<T>
     {
         [LabelText("值")]
-        public T Value = Activator.CreateInstance<T>();
+        public T Value;
 
         public T GetValue()
         {

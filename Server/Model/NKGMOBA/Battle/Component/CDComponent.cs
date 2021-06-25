@@ -1,6 +1,8 @@
 //此文件格式由工具自动生成
 
+using System;
 using System.Collections.Generic;
+using NPBehave_Core;
 
 namespace ETModel
 {
@@ -49,29 +51,44 @@ namespace ETModel
         /// <summary>
         /// 名称
         /// </summary>
-        public string Name;
-
-        /// <summary>
-        /// 上次触发时间点
-        /// </summary>
-        public long LastTriggerTimer;
+        public string Name { get; set; }
 
         /// <summary>
         /// 时间间隔（CD）
         /// </summary>
-        public long Interval;
+        public long Interval { get; set; }
+
+        /// <summary>
+        /// 剩余CD时长
+        /// </summary>
+        public long RemainCDLength { get; set; }
 
         /// <summary>
         /// CD是否转好了
         /// </summary>
-        public bool Result;
+        public bool Result { get; set; }
+
+        /// <summary>
+        /// CD信息变化时的回调
+        /// </summary>
+        public Action<CDInfo> CDChangedCallBack;
+
+        public void Init(string name, long cdLength, Action<CDInfo> cDChangedCallBack = null)
+        {
+            this.Name = name;
+            this.Interval = cdLength;
+            this.RemainCDLength = cdLength;
+            this.Result = true;
+            this.CDChangedCallBack = cDChangedCallBack;
+        }
 
         public void Clear()
         {
-            Name = null;
-            this.LastTriggerTimer = 0;
+            this.Name = null;
             this.Interval = 0;
+            this.RemainCDLength = 0;
             this.Result = false;
+            this.CDChangedCallBack = null;
         }
     }
 
@@ -101,15 +118,31 @@ namespace ETModel
                 if (m_Instance == null)
                 {
                     Log.Error("请先注册CDComponent到Game.Scene中");
-                    
+
                     return null;
                 }
                 else
                 {
                     return m_Instance;
                 }
-
             }
+        }
+
+        /// <summary>
+        /// 新增一条CD数据
+        /// </summary>
+        public CDInfo AddCDData(long id, string name, long cDLength, Action<CDInfo> onCDChangedCallback = null)
+        {
+            if (this.GetCDData(id, name) != null)
+            {
+                Log.Error($"已注册id为：{id}，Name为：{name}的CD信息，请勿重复注册");
+                return null;
+            }
+
+            CDInfo cdInfo = ReferencePool.Acquire<CDInfo>();
+            cdInfo.Init(name, cDLength, onCDChangedCallback);
+            AddCDData(id, cdInfo);
+            return cdInfo;
         }
 
         /// <summary>
@@ -117,7 +150,7 @@ namespace ETModel
         /// </summary>
         /// <param name="id"></param>
         /// <param name="cdInfo"></param>
-        public void AddCDData(long id, CDInfo cdInfo)
+        public CDInfo AddCDData(long id, CDInfo cdInfo)
         {
             if (this.CDInfos.TryGetValue(id, out var cdInfoDic))
             {
@@ -127,45 +160,22 @@ namespace ETModel
             {
                 CDInfos.Add(id, new Dictionary<string, CDInfo>() { { cdInfo.Name, cdInfo } });
             }
+
+            return cdInfo;
         }
 
         /// <summary>
-        /// 触发某个CD，更新其LastTriggerTimer与结果
+        /// 触发某个CD，使其进入CD状态
         /// </summary>
         /// <param name="id"></param>
         /// <param name="name"></param>
-        public void TriggerCD(long id, string name)
+        /// <param name="cdLength">CD长度</param>
+        public void TriggerCD(long id, string name, long cdLength = -1)
         {
-            if (this.CDInfos.TryGetValue(id, out var cdInfoDic))
-            {
-                if (cdInfoDic.TryGetValue(name, out var cdInfo))
-                {
-                    cdInfo.LastTriggerTimer = TimeHelper.Now();
-                    cdInfo.Result = false;
-                    return;
-                }
-            }
-
-            Log.Error($"尚未注册id为：{id}，Name为：{name}的CD信息");
-        }
-        
-        /// <summary>
-        /// 重置某个CD，仅更新其结果
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="name"></param>
-        public void ResetCD(long id, string name)
-        {
-            if (this.CDInfos.TryGetValue(id, out var cdInfoDic))
-            {
-                if (cdInfoDic.TryGetValue(name, out var cdInfo))
-                {
-                    cdInfo.Result = true;
-                    return;
-                }
-            }
-
-            Log.Error($"尚未注册id为：{id}，Name为：{name}的CD信息");
+            CDInfo cdInfo = GetCDData(id, name);
+            cdInfo.Result = false;
+            cdInfo.Interval = cdLength == -1? cdInfo.Interval : cdLength;
+            cdInfo.RemainCDLength = cdInfo.Interval;
         }
 
         /// <summary>
@@ -183,8 +193,39 @@ namespace ETModel
                 }
             }
 
-            Log.Error($"尚未注册id为：{id}，Name为：{name}的CD信息");
             return null;
+        }
+
+        /// <summary>
+        /// 增加CD时间到指定CD
+        /// </summary>
+        public void AddCD(long id, string name, long addedCDLength)
+        {
+            CDInfo cdInfo = GetCDData(id, name);
+            cdInfo.Interval += addedCDLength;
+            cdInfo.CDChangedCallBack?.Invoke(cdInfo);
+        }
+
+        /// <summary>
+        /// 减少CD时间到指定CD
+        /// </summary>
+        public void ReduceCD(long id, string name, long reducedCDLength)
+        {
+            CDInfo cdInfo = GetCDData(id, name);
+            cdInfo.Interval -= reducedCDLength;
+            cdInfo.CDChangedCallBack?.Invoke(cdInfo);
+        }
+
+        /// <summary>
+        /// 直接设定CD时间到指定CD
+        /// </summary>
+        public void SetCD(long id, string name, long cDLength, long remainCDLength)
+        {
+            CDInfo cdInfo = GetCDData(id, name);
+            cdInfo.Interval = cDLength;
+            cdInfo.RemainCDLength = remainCDLength;
+            cdInfo.Result = false;
+            cdInfo.CDChangedCallBack?.Invoke(cdInfo);
         }
 
         /// <summary>
@@ -232,23 +273,27 @@ namespace ETModel
 
         public void Update()
         {
-            //此处填写Update逻辑
-            long currentTime = TimeHelper.Now();
-            foreach (var cdInfoDic in this.CDInfos)
-            {
-                foreach (var cdInfo in cdInfoDic.Value)
-                {
-                    if (currentTime - cdInfo.Value.LastTriggerTimer >= cdInfo.Value.Interval)
-                    {
-                        cdInfo.Value.Result = true;
-                    }
-                }
-            }
         }
 
         public void FixedUpdate()
         {
             //此处填写FixedUpdate逻辑
+            foreach (var cdInfoDic in this.CDInfos)
+            {
+                foreach (var cdInfo in cdInfoDic.Value)
+                {
+                    if (!cdInfo.Value.Result)
+                    {
+                        //TODO  切换帧同步驱动，使用帧数而非时间
+                        cdInfo.Value.RemainCDLength -= 33;
+                        if (cdInfo.Value.RemainCDLength <= 0)
+                        {
+                            cdInfo.Value.Result = true;
+                            cdInfo.Value.CDChangedCallBack?.Invoke(cdInfo.Value);
+                        }
+                    }
+                }
+            }
         }
 
         public void Destroy()
@@ -276,5 +321,12 @@ namespace ETModel
         }
 
         #endregion
+
+        public void ResetCD(long belongToUnitId, string cdName)
+        {
+            CDInfo cdInfo = GetCDData(belongToUnitId, cdName);
+            cdInfo.RemainCDLength = 0;
+            cdInfo.Result = true;
+        }
     }
 }

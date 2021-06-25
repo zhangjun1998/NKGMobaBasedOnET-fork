@@ -45,7 +45,7 @@ namespace ETHotfix.NKGMOBA.Battle
             MessageHelper.Broadcast(new M2C_SyncUnitAttribute() { UnitId = id, NumericType = (int) NumericType.Attack, FinalValue = value });
         }
     }
-    
+
     [NumericWatcher(NumericType.Speed)]
     public class ChangeSpeed: INumericWatcher
     {
@@ -78,7 +78,19 @@ namespace ETHotfix.NKGMOBA.Battle
             MessageHelper.Broadcast(c);
         }
     }
-    
+
+    /// <summary>
+    /// 向客户端发送CD信息
+    /// </summary>
+    [Event(EventIdType.SendCDInfoToClient)]
+    public class SendCDInfoToClient: AEvent<M2C_SyncCDData>
+    {
+        public override void Run(M2C_SyncCDData a)
+        {
+            MessageHelper.Broadcast(a);
+        }
+    }
+
     /// <summary>
     /// 向客户端发送黑板bool类型值
     /// </summary>
@@ -99,7 +111,7 @@ namespace ETHotfix.NKGMOBA.Battle
             UnitComponent.Instance.Get(a).GetComponent<UnitPathComponent>().CommonNavigate(b);
         }
     }
-    
+
     [Event(EventIdType.RemoveCollider)]
     public class RemoveCollider: AEvent<long>
     {

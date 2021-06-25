@@ -12,6 +12,9 @@ namespace ETModel
         public override void Awake(SkillCanvasManagerComponent self)
         {
             self.Awake();
+            CDComponent.Instance.AddCDData(self.Entity.Id, "Q", 0);
+            CDComponent.Instance.AddCDData(self.Entity.Id, "W", 0);
+            CDComponent.Instance.AddCDData(self.Entity.Id, "E", 0);
         }
     }
 
