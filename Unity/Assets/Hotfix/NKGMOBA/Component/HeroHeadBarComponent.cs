@@ -100,7 +100,7 @@ namespace ETHotfix
             m_HeadBar.Img_Gap.material = ResourcesComponent.Instance.LoadAsset<GameObject>(ABPathUtilities.GetMaterialPath("FGUIMaterials"))
                     .GetTargetObjectFromRC<Material>("Mat_LifeBarGap");
 
-            Vector2[] uv = m_HeadBar.Img_Gap.GetImage().gameObject.GetComponent<MeshFilter>().mesh.uv;
+            Vector2[] uv = m_HeadBar.Img_Gap.GetImage().gameObject.GetComponent<MeshFilter>().sharedMesh.uv;
 
             MaterialPropertyBlock materialPropertyBlock = null;
             

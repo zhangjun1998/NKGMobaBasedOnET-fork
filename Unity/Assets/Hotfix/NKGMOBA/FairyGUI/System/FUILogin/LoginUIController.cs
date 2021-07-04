@@ -7,13 +7,14 @@ namespace ETHotfix
     {
         public override void Run()
         {
-            var m_loginui = FUILogin.CreateInstance();
+            var loginui = FUILogin.CreateInstance();
             //默认将会以Id为Name，也可以自定义Name，方便查询和管理
-            m_loginui.Name = FUIPackage.FUILogin;
-            m_loginui.GObject.sortingOrder = 1000;
-            m_loginui.self.fairyBatching = true;
-            m_loginui.MakeFullScreen();
-            Game.Scene.GetComponent<FUIComponent>().Add(m_loginui, true);
+            loginui.Name = FUIPackage.FUILogin;
+            loginui.GObject.sortingOrder = 1000;
+            loginui.self.fairyBatching = true;
+            loginui.MakeFullScreen();
+            Game.Scene.GetComponent<FUIComponent>().Add(loginui, true);
+            loginui.AddComponent<FUILoginComponent>();
         }
     }
 
