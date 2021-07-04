@@ -29,8 +29,8 @@ namespace ETHotfix
     public GTextField Tex_PlayerName;
     public GImage n15;
     public Bar_HP Bar_HP;
-    public GList HPGapList;
     public Bar_MP Bar_MP;
+    public GImage Img_Gap;
     public const string URL = "ui://ny5r4rwcqrur4";
 
     private static GObject CreateGObject()
@@ -105,8 +105,8 @@ namespace ETHotfix
     		Tex_PlayerName = (GTextField)com.GetChildAt(2);
     		n15 = (GImage)com.GetChildAt(3);
     		Bar_HP = Bar_HP.Create(com.GetChildAt(4));
-    		HPGapList = (GList)com.GetChildAt(5);
-    		Bar_MP = Bar_MP.Create(com.GetChildAt(6));
+    		Bar_MP = Bar_MP.Create(com.GetChildAt(5));
+    		Img_Gap = (GImage)com.GetChildAt(6);
     	}
 }
        public override void Dispose()
@@ -126,8 +126,8 @@ namespace ETHotfix
 			Tex_PlayerName = null;
 			n15 = null;
 			Bar_HP = null;
-			HPGapList = null;
 			Bar_MP = null;
+			Img_Gap = null;
 		}
 }
 }

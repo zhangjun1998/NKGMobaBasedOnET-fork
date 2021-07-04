@@ -30,9 +30,6 @@ namespace ETHotfix
 
                 // 创建头顶Bar
                 Game.EventSystem.Run(EventIdType.CreateHeadBar, unitInfo.UnitId);
-                // 挂载头顶Bar
-                hotfixUnit.AddComponent<HeroHeadBarComponent, Unit, FUI>(unit,
-                    Game.Scene.GetComponent<FUIComponent>().Get(unitInfo.UnitId));
             }
 
             //ETModel.Log.Info($"{DateTime.UtcNow}完成一次创建Unit");

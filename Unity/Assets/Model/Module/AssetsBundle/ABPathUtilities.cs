@@ -70,5 +70,10 @@ namespace ETModel
         {
             return $"Assets/Scenes/{fileName}.unity";
         }
+        
+        public static string GetMaterialPath(string fileName)
+        {
+            return $"Assets/Bundles/Materials/{fileName}.prefab";
+        }
     }
 }

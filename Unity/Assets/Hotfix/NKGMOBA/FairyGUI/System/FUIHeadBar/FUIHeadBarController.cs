@@ -12,20 +12,21 @@ namespace ETHotfix
     [Event(EventIdType.CreateHeadBar)]
     public class LoginSuccess_CreateHeadBar: AEvent<long>
     {
-        public override void Run(long fuiId)
+        public override async void Run(long fuiId)
         {
-            this.RunInternal().Coroutine();
+            await ETModel.Game.Scene.GetComponent<FUIPackageComponent>().AddPackageAsync(FUIPackage.FUIHeadBar);
             var hotfixui = FUIHeadBar.CreateInstance();
             //默认将会以Id为Name，也可以自定义Name，方便查询和管理，这里使用血条归属的Unit id作为Name
             hotfixui.Name = fuiId.ToString();
             //Log.Info($"这个英雄血条id为{hotfixui.Name}");
             hotfixui.MakeFullScreen();
             Game.Scene.GetComponent<FUIComponent>().Add(hotfixui, true);
-        }
 
-        private async ETVoid RunInternal()
-        {
-            await ETModel.Game.Scene.GetComponent<FUIPackageComponent>().AddPackageAsync(FUIPackage.FUIHeadBar);
+            HotfixUnit hotfixUnit = Game.Scene.GetComponent<M5V5GameComponent>().GetHotfixUnit(fuiId);
+            // 挂载头顶Bar
+            HeroHeadBarComponent heroHeadBarComponent = hotfixUnit.AddComponent<HeroHeadBarComponent, Unit, FUI>(hotfixUnit.m_ModelUnit,
+                Game.Scene.GetComponent<FUIComponent>().Get(fuiId));
+            heroHeadBarComponent.SetDensityOfBar(heroHeadBarComponent.Hero.GetComponent<UnitAttributesDataComponent>().GetAttribute(NumericType.MaxHp));
         }
     }
 
@@ -65,7 +66,8 @@ namespace ETHotfix
         public void Run(long id, float value)
         {
             FUIHeadBar headBar = Game.Scene.GetComponent<FUIComponent>().Get(id) as FUIHeadBar;
-            headBar.Bar_MP.self.TweenValue(UnitComponent.Instance.Get(id).GetComponent<UnitAttributesDataComponent>().GetAttribute(NumericType.Mp), 0.2f);
+            headBar.Bar_MP.self.TweenValue(UnitComponent.Instance.Get(id).GetComponent<UnitAttributesDataComponent>().GetAttribute(NumericType.Mp),
+                0.2f);
         }
     }
 }

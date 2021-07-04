@@ -43,6 +43,7 @@
   <ItemGroup>
      <None Include="Assets\Res\Config\Server_SkillCanvasConfig.txt" />
      <None Include="Assets\Res\Config\Client_SkillCanvasConfig.txt" />
+     <None Include="Assets\Res\Shaders\LifeBarGap.shader" />
      <None Include="Assets\Res\Config\Server_AICanvasConfig.txt" />
      <None Include="Assets\Res\Config\Server_B2SCollisionRelationConfig.txt" />
      <None Include="Assets\Res\Config\UnitAttributesDataConfig.txt" />

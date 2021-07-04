@@ -34,29 +34,31 @@ namespace ETHotfix
     /// </summary>
     public class HeroHeadBarComponent: Component
     {
-        private Unit m_Hero;
+        public Unit Hero;
         private FUIHeadBar m_HeadBar;
         private Vector2 m_Hero2Screen;
         private Vector2 m_HeadBarScreenPos;
+        private Renderer m_HeadBarGapRender;
+        private static readonly int UVStart = Shader.PropertyToID("UVStart");
+        private static readonly int UVFactor = Shader.PropertyToID("UVFactor");
+        private static readonly int PerSplitWidth = Shader.PropertyToID("PerSplitWidth");
 
         public void Awake(Unit hero, FUI headBar)
         {
-            this.m_Hero = hero;
+            this.Hero = hero;
             UnitAttributesDataComponent unitAttributesDataComponent = hero.GetComponent<UnitAttributesDataComponent>();
             this.m_HeadBar = headBar as FUIHeadBar;
-            //这个血量最大值有点特殊，还需要设置一下密度用事件比较好一点
-
-            this.SetDensityOfBar(this.m_Hero.GetComponent<UnitAttributesDataComponent>().GetAttribute(NumericType.MaxHp));
             this.m_HeadBar.Bar_HP.self.value = unitAttributesDataComponent.GetAttribute(NumericType.MaxHp);
             this.m_HeadBar.Bar_MP.self.max = unitAttributesDataComponent.GetAttribute(NumericType.MaxMp);
             this.m_HeadBar.Bar_MP.self.value = unitAttributesDataComponent.GetAttribute(NumericType.MaxMp);
+            this.m_HeadBarGapRender = this.m_HeadBar.Img_Gap.GetImage().gameObject.GetComponent<Renderer>();
         }
 
         public void Update()
         {
             // 游戏物体的世界坐标转屏幕坐标
             this.m_Hero2Screen =
-                    Camera.main.WorldToScreenPoint(new Vector3(m_Hero.Position.x, this.m_Hero.Position.y, this.m_Hero.Position.z));
+                    Camera.main.WorldToScreenPoint(new Vector3(this.Hero.Position.x, this.Hero.Position.y, this.Hero.Position.z));
 
             // 屏幕坐标转FGUI全局坐标
             this.m_HeadBarScreenPos.x = m_Hero2Screen.x;
@@ -94,18 +96,30 @@ namespace ETHotfix
             }
 
             this.m_HeadBar.Bar_HP.self.max = maxHP;
-            this.m_HeadBar.HPGapList.numItems = (int) actual;
-            this.m_HeadBar.HPGapList.columnGap = (int) (this.m_HeadBar.HPGapList.actualWidth / (actual - 1));
+
+            m_HeadBar.Img_Gap.material = ResourcesComponent.Instance.LoadAsset<GameObject>(ABPathUtilities.GetMaterialPath("FGUIMaterials"))
+                    .GetTargetObjectFromRC<Material>("Mat_LifeBarGap");
+
+            Vector2[] uv = m_HeadBar.Img_Gap.GetImage().gameObject.GetComponent<MeshFilter>().mesh.uv;
+
+            MaterialPropertyBlock materialPropertyBlock = null;
+            
+            this.m_HeadBarGapRender.GetPropertyBlock(materialPropertyBlock);
+            materialPropertyBlock.SetFloat(UVStart, uv[0].x);
+            materialPropertyBlock.SetFloat(UVFactor, 1 / (uv[2].x - uv[0].x));
+            materialPropertyBlock.SetFloat(PerSplitWidth, 100 / (maxHP / 100));
+            this.m_HeadBarGapRender.SetPropertyBlock(materialPropertyBlock);
         }
 
         public override void Dispose()
         {
             if (this.IsDisposed) return;
             base.Dispose();
-            m_Hero = null;
+            this.Hero = null;
             m_HeadBar = null;
             m_Hero2Screen = Vector2.zero;
             this.m_HeadBarScreenPos = Vector2.zero;
+            this.m_HeadBarGapRender = null;
         }
     }
 }

@@ -64,6 +64,10 @@ MonoBehaviour:
     searchPattern: '*'
     nameBy: 2
     assetBundleName: 
+  - searchPath: Assets/Bundles/Materials
+    searchPattern: '*'
+    nameBy: 2
+    assetBundleName: 
   ruleAssets:
   - bundle: 1eecddda466df8457971b8fbb4833516.unity3d
     path: Assets/Bundles/FUI/FUI5v5Map_atlas0.png
