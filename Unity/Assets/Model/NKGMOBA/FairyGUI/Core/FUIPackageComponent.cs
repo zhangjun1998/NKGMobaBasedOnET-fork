@@ -51,6 +51,8 @@ namespace ETModel
                 var p = UIPackage.GetByName(package.name);
                 if (p != null)
                 {
+                    ResourcesComponent.Instance.UnLoadAsset(ABPathUtilities.GetFGUIResPath(type, ".png"));
+                    ResourcesComponent.Instance.UnLoadAsset(ABPathUtilities.GetFGUIDesPath($"{type}_fui"));
                     UIPackage.RemovePackage(package.name);
                 }
 

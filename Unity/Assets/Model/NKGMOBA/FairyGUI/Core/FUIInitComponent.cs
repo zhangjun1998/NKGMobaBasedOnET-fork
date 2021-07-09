@@ -1,5 +1,4 @@
-﻿
-using FairyGUI;
+﻿using FairyGUI;
 
 namespace ETModel
 {
@@ -26,6 +25,8 @@ namespace ETModel
 
         public void Awake()
         {
+            //对于FGUI来说，其内部在执行 `UIPackage.RemovePackage` 时会进行`ab.Unload(true)`操作，应该是个很贴心的设计，但我们xasset需要管理资源的引用计数，所以不需要这个贴心的功能，故：
+            UIPackage.unloadBundleByFGUI = false;
             //UIConfig.defaultFont = DefaultFont;
             this.checkForResUpdatelPackage = UIPackage.AddPackage(CheckForResUpdatePackageName);
             FUICheckForResUpdateBinder.BindAll();
