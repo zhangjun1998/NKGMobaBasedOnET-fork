@@ -6,6 +6,7 @@
 
 using ETHotfix;
 using ETModel;
+using UnityEngine;
 
 namespace ETHotfix
 {
@@ -24,9 +25,8 @@ namespace ETHotfix
 
             HotfixUnit hotfixUnit = Game.Scene.GetComponent<M5V5GameComponent>().GetHotfixUnit(fuiId);
             // 挂载头顶Bar
-            HeroHeadBarComponent heroHeadBarComponent = hotfixUnit.AddComponent<HeroHeadBarComponent, Unit, FUI>(hotfixUnit.m_ModelUnit,
+            hotfixUnit.AddComponent<HeroHeadBarComponent, Unit, FUI>(hotfixUnit.m_ModelUnit,
                 Game.Scene.GetComponent<FUIComponent>().Get(fuiId));
-            heroHeadBarComponent.SetDensityOfBar(heroHeadBarComponent.Hero.GetComponent<UnitAttributesDataComponent>().GetAttribute(NumericType.MaxHp));
         }
     }
 

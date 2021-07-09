@@ -20,12 +20,7 @@ namespace FairyGUI
             _content.gOwner = this;
             displayObject = _content;
         }
-
-        public Image GetImage()
-        {
-            return _content;
-        }
-
+        
         /// <summary>
         /// Color of the image. 
         /// </summary>

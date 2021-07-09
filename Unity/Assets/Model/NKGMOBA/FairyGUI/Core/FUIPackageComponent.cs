@@ -9,19 +9,18 @@ namespace ETModel
     /// </summary>
     public class FUIPackageComponent: Component
     {
-        private readonly Dictionary<string, UIPackage> packages = new Dictionary<string, UIPackage>();
+        private static Dictionary<string, UIPackage> s_Packages = new Dictionary<string, UIPackage>();
 
         public async ETTask AddPackageAsync(string type)
         {
-            if (this.packages.ContainsKey(type))
+            if (s_Packages.ContainsKey(type))
             {
                 return;
             }
-            
+
             TextAsset desTextAsset =
                     await ResourcesComponent.Instance.LoadAssetAsync<TextAsset>(ABPathUtilities.GetFGUIDesPath($"{type}_fui"));
-
-            packages.Add(type, UIPackage.AddPackage(desTextAsset.bytes, type, LoadPackageInternalAsync));
+            s_Packages.Add(type, UIPackage.AddPackage(desTextAsset.bytes, type, LoadPackageInternalAsync));
         }
 
         /// <summary>
@@ -46,17 +45,17 @@ namespace ETModel
         {
             UIPackage package;
 
-            if (packages.TryGetValue(type, out package))
+            if (s_Packages.TryGetValue(type, out package))
             {
                 var p = UIPackage.GetByName(package.name);
                 if (p != null)
                 {
-                    ResourcesComponent.Instance.UnLoadAsset(ABPathUtilities.GetFGUIResPath(type, ".png"));
-                    ResourcesComponent.Instance.UnLoadAsset(ABPathUtilities.GetFGUIDesPath($"{type}_fui"));
                     UIPackage.RemovePackage(package.name);
+                    ResourcesComponent.Instance.UnLoadAsset(ABPathUtilities.GetFGUIDesPath($"{type}_fui"));
+                    ResourcesComponent.Instance.UnLoadAsset(ABPathUtilities.GetFGUIResPath($"{type}_atlas0", ".png"));
                 }
 
-                packages.Remove(package.name);
+                s_Packages.Remove(package.name);
             }
         }
     }

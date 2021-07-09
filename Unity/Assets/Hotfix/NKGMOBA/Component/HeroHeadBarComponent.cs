@@ -51,7 +51,11 @@ namespace ETHotfix
             this.m_HeadBar.Bar_HP.self.value = unitAttributesDataComponent.GetAttribute(NumericType.MaxHp);
             this.m_HeadBar.Bar_MP.self.max = unitAttributesDataComponent.GetAttribute(NumericType.MaxMp);
             this.m_HeadBar.Bar_MP.self.value = unitAttributesDataComponent.GetAttribute(NumericType.MaxMp);
-            this.m_HeadBarGapRender = this.m_HeadBar.Img_Gap.GetImage().gameObject.GetComponent<Renderer>();
+            
+            this.m_HeadBarGapRender = this.m_HeadBar.Img_Gap.displayObject.gameObject.GetComponent<Renderer>();
+            
+            //因为FGUI的GImage并不会在当前帧构建顶点数据，所以只能使用监听的方式
+            m_HeadBar.Img_Gap.displayObject.graphics.meshModifier += this.InitHPBarGap;
         }
 
         public void Update()
@@ -83,6 +87,13 @@ namespace ETHotfix
             return final;
         }
 
+        private void InitHPBarGap()
+        {
+            SetDensityOfBar(Hero.GetComponent<UnitAttributesDataComponent>()
+                    .GetAttribute(NumericType.MaxHp));
+            m_HeadBar.Img_Gap.displayObject.graphics.meshModifier -= InitHPBarGap;
+        }
+
         public void SetDensityOfBar(float maxHP)
         {
             float actual = 0;
@@ -100,9 +111,9 @@ namespace ETHotfix
             m_HeadBar.Img_Gap.material = ResourcesComponent.Instance.LoadAsset<GameObject>(ABPathUtilities.GetMaterialPath("FGUIMaterials"))
                     .GetTargetObjectFromRC<Material>("Mat_LifeBarGap");
 
-            Vector2[] uv = m_HeadBar.Img_Gap.GetImage().gameObject.GetComponent<MeshFilter>().sharedMesh.uv;
+            Vector2[] uv = m_HeadBar.Img_Gap.displayObject.gameObject.GetComponent<MeshFilter>().sharedMesh.uv;
 
-            MaterialPropertyBlock materialPropertyBlock = null;
+            MaterialPropertyBlock materialPropertyBlock = new MaterialPropertyBlock();
             
             this.m_HeadBarGapRender.GetPropertyBlock(materialPropertyBlock);
             materialPropertyBlock.SetFloat(UVStart, uv[0].x);
