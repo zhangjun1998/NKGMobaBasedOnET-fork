@@ -42,9 +42,11 @@ namespace Plugins.NodeEditor
         public string SavePath;
 
         [BoxGroup("此行为树数据载体")]
+        [DisableInEditorMode]
         public NP_DataSupportorBase NpDataSupportor = new NP_DataSupportorBase();
 
         [BoxGroup("行为树反序列化测试")]
+        [DisableInEditorMode]
         public NP_DataSupportorBase NpDataSupportor1 = new NP_DataSupportorBase();
 
         /// <summary>

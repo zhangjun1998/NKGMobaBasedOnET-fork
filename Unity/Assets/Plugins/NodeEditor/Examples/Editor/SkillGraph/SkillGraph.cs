@@ -17,9 +17,11 @@ namespace Plugins.NodeEditor
     public class SkillGraph: NPBehaveGraph
     {
         [BoxGroup("此技能树数据载体")]
+        [DisableInEditorMode]
         public NP_DataSupportor SkillDataSupportor = new NP_DataSupportor();
         
         [BoxGroup("技能树反序列化测试")]
+        [DisableInEditorMode]
         public NP_DataSupportor SkillDataSupportor1 = new NP_DataSupportor();
         
         [Button("自动配置所有结点数据", 25), GUIColor(0.4f, 0.8f, 1)]
