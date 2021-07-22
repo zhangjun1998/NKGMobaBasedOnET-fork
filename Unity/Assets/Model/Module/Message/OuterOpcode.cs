@@ -72,6 +72,10 @@ namespace ETModel
 	[Message(OuterOpcode.M2C_CommonAttack)]
 	public partial class M2C_CommonAttack : IActorMessage {}
 
+//房间简略信息.用于给客户端列表展示.
+	[Message(OuterOpcode.RoomBriefInfo)]
+	public partial class RoomBriefInfo {}
+
 }
 namespace ETModel
 {
@@ -99,5 +103,6 @@ namespace ETModel
 		 public const ushort M2C_BuffInfo = 120;
 		 public const ushort C2M_CommonAttack = 121;
 		 public const ushort M2C_CommonAttack = 122;
+		 public const ushort RoomBriefInfo = 123;
 	}
 }

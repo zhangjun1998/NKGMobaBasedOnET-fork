@@ -2227,6 +2227,114 @@ namespace ETModel {
 
   }
 
+  /// <summary>
+  ///房间简略信息.用于给客户端列表展示.
+  /// </summary>
+  public partial class RoomBriefInfo : pb::IMessage {
+    private static readonly pb::MessageParser<RoomBriefInfo> _parser = new pb::MessageParser<RoomBriefInfo>(() => (RoomBriefInfo)MessagePool.Instance.Fetch(typeof(RoomBriefInfo)));
+    public static pb::MessageParser<RoomBriefInfo> Parser { get { return _parser; } }
+
+    private int maxMemberCount_;
+    public int MaxMemberCount {
+      get { return maxMemberCount_; }
+      set {
+        maxMemberCount_ = value;
+      }
+    }
+
+    private int currentMemberCount_;
+    public int CurrentMemberCount {
+      get { return currentMemberCount_; }
+      set {
+        currentMemberCount_ = value;
+      }
+    }
+
+    private string masterName_ = "";
+    public string MasterName {
+      get { return masterName_; }
+      set {
+        masterName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    private bool isInBattle_;
+    public bool IsInBattle {
+      get { return isInBattle_; }
+      set {
+        isInBattle_ = value;
+      }
+    }
+
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (MaxMemberCount != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(MaxMemberCount);
+      }
+      if (CurrentMemberCount != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(CurrentMemberCount);
+      }
+      if (MasterName.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(MasterName);
+      }
+      if (IsInBattle != false) {
+        output.WriteRawTag(32);
+        output.WriteBool(IsInBattle);
+      }
+    }
+
+    public int CalculateSize() {
+      int size = 0;
+      if (MaxMemberCount != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MaxMemberCount);
+      }
+      if (CurrentMemberCount != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CurrentMemberCount);
+      }
+      if (MasterName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(MasterName);
+      }
+      if (IsInBattle != false) {
+        size += 1 + 1;
+      }
+      return size;
+    }
+
+    public void MergeFrom(pb::CodedInputStream input) {
+      maxMemberCount_ = 0;
+      currentMemberCount_ = 0;
+      masterName_ = "";
+      isInBattle_ = false;
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            MaxMemberCount = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            CurrentMemberCount = input.ReadInt32();
+            break;
+          }
+          case 26: {
+            MasterName = input.ReadString();
+            break;
+          }
+          case 32: {
+            IsInBattle = input.ReadBool();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   #endregion
 
 }

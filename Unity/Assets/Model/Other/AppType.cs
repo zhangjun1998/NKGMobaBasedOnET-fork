@@ -15,6 +15,8 @@ namespace ETModel
         Location = 1 << 5,
         Map = 1 << 6,
 
+        RoomManager = 1 << 10, 
+        Room = 1 << 11,
         BenchmarkWebsocketServer = 1 << 26,
         BenchmarkWebsocketClient = 1 << 27,
         Robot = 1 << 28,
@@ -27,7 +29,7 @@ namespace ETModel
         ClientM = 1 << 31,
 
         // 7
-        AllServer = Manager | Realm | Gate | Http | DB | Location | Map | BenchmarkWebsocketServer
+        AllServer = Manager | Realm | Gate | Http | DB | Location | Map | BenchmarkWebsocketServer | RoomManager | Room
     }
 
     public static class AppTypeHelper

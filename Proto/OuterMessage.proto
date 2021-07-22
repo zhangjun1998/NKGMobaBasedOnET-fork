@@ -185,3 +185,32 @@ message M2C_CommonAttack // IActorMessage
     int64 TargetUnitId = 3;//攻击目标Id
     bool CanAttack = 2; //是否可以发起攻击
 }
+
+
+
+/*
+    房间消息开始.本应独立文件.暂不做修改
+*/
+
+//房间简略信息.用于给客户端列表展示.
+message RoomBriefInfo
+{
+    int32 MaxMemberCount = 1;
+    int32 CurrentMemberCount = 2;
+    string MasterName = 3;
+    bool IsInBattle = 4;
+}
+message C2RM_CreateRoom // IRequest
+{
+    int32 RpcId = 90;
+}
+
+message RM2C_CreateRoom // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+}
+/*
+    房间消息结束.
+*/
