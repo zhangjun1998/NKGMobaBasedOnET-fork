@@ -197,9 +197,27 @@ message RoomBriefInfo
 {
     int32 MaxMemberCount = 1;
     int32 CurrentMemberCount = 2;
-    string MasterName = 3;
-    bool IsInBattle = 4;
+    string RoomName = 3;
+    string MasterName = 4;
+    string MasterId = 5;
+    bool IsInBattle = 6;
 }
+//房间内玩家
+message RoomPlayer
+{
+    int64 playerId = 1;
+    string Name = 2;
+    bool IsMaster = 3; //是否是房主
+    bool IsRed = 4; //是否是红色阵营
+}
+//房间完整信息.用于客户端构建房间界面.
+message RoomInfo
+{
+    int32 MaxMemberCount = 1;
+    string RoomName = 2;
+    repeated RoomPlayer RoomPlayers = 3; 
+}
+//创建房间
 message C2RM_CreateRoom // IRequest
 {
     int32 RpcId = 90;
@@ -210,6 +228,47 @@ message RM2C_CreateRoom // IResponse
     int32 RpcId = 90;
     int32 Error = 91;
     string Message = 92;
+    RoomInfo Roominfo = 1;
+}
+// 加入指定房间
+message C2RM_JoinRoom // IRequest
+{
+    int32 RpcId = 90;
+    int64 RoomId = 1;
+}
+message RM2C_JoinRoom // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+    RoomInfo Roominfo = 1;
+}
+// 退出房间
+message C2RM_QuitRoom // IActorRequest
+{
+    int32 RpcId = 90;
+    int64 ActorId = 93;
+}
+// 退出房间
+message RM2C_QuitRoom // IActorResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+}
+//服务器通知客户端 退出当前房间,附带原因
+message RM2C_LeaveRoom // IActorMessage
+{
+    int32 RpcId = 90;
+    int64 ActorId = 93;
+    int32 LeaveReason = 1;//离开房间原因: 1 房间解散 2 被踢
+}
+//服务器通知客户端 房间状态变更
+message RM2C_RoomInfoUpdate // IActorMessage
+{
+    int32 RpcId = 90;
+    int64 ActorId = 93;
+    RoomInfo Roominfo = 1;
 }
 /*
     房间消息结束.
