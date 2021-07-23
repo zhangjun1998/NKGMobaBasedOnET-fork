@@ -1,9 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ETModel
 {
-
+    /// <summary>
+    /// gateSession上挂载的房间信息
+    /// </summary>
+    public class SessionRoomComponent : Component
+    {
+        public long RoomActorId;
+    }
     public class RoomManagerEntity : Entity
     {
         /// <summary>
@@ -15,26 +22,48 @@ namespace ETModel
         /// </summary>
         public Dictionary<int, int> RoomCountWithSceneId = new Dictionary<int, int>();
     }
-
-    /// <summary>
-    /// 房间配置信息.
-    /// </summary>
-    public class RoomConfigComponent : Entity
-    {
-        public int MaxMemberCount;
-        public string MasterName;
-        public bool IsInBattle;
-    }
     /// <summary>
     /// 房间的实体.
     /// </summary>
     public class RoomEntity : Entity
     {
-        public Dictionary<long, RoomPlayerEntity> Players = new Dictionary<long, RoomPlayerEntity>();
+        public void Awake()
+        {
+            AddComponent<RoomPlayerComponent>();
+            AddComponent<RoomConfigComponent>();
+        }
+        /// <summary>
+        /// 玩家进入房间
+        /// </summary>
+        /// <param name="userInfo"></param>
+        public void AddUser(long gateSessionId,UserInfo userInfo)
+        {
+            throw new NotImplementedException();
+        }
     }
-    public class RoomPlayerEntity : Entity
+    /// <summary>
+    /// 房间配置信息.
+    /// </summary>
+    public class RoomConfigComponent : Component
     {
-        public long GateActorId;
+        public int MaxMemberCount;
+        public string MasterName;
+        public string RoomName;
+        public bool IsInBattle;
+    }
+    /// <summary>
+    /// 管理房间内成员
+    /// </summary>
+    public class RoomPlayerComponent : Entity
+    {
+        public Dictionary<long, Unit> Players = new Dictionary<long, Unit>();
+        public Unit[] PlayerArray => Players.Values.ToArray();
+    }
+    /// <summary>
+    /// 与房间逻辑有关的成员信息,挂载在unit下
+    /// </summary>
+    public class RoomPlayerData : Component
+    {
         public string NickName;
         public string Icon;
         public bool IsMaster;

@@ -34,6 +34,8 @@ namespace ETModel
 		public List<StartConfig> MapConfigs { get; private set; }
 
 		public List<StartConfig> GateConfigs { get; private set; }
+		public StartConfig RoomManagerConfig { get; private set; }
+		public List<StartConfig> RoomConfigs { get; private set; }
 
 		public void Awake(string path, int appId)
 		{
@@ -85,6 +87,14 @@ namespace ETModel
 					if (startConfig.AppType.Is(AppType.Gate))
 					{
 						this.GateConfigs.Add(startConfig);
+					}
+					if (startConfig.AppType.Is(AppType.RoomManager))
+					{
+						this.RoomManagerConfig = startConfig;
+					}
+					if (startConfig.AppType.Is(AppType.Room))
+					{
+						this.RoomConfigs.Add(startConfig);
 					}
 				}
 				catch (Exception e)

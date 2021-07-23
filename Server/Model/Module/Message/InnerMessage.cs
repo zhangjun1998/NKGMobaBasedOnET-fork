@@ -406,4 +406,29 @@ namespace ETModel
 
 	}
 
+// 房间相关
+	[Message(InnerOpcode.G2RM_CreateRoom)]
+	public partial class G2RM_CreateRoom: IRequest
+	{
+		public int RpcId { get; set; }
+
+		public long UnitId { get; set; }
+
+		public long GateSessionId { get; set; }
+
+	}
+
+	[Message(InnerOpcode.RM2G_CreateRoom)]
+	public partial class RM2G_CreateRoom: IResponse
+	{
+		public int RpcId { get; set; }
+
+		public int Error { get; set; }
+
+		public string Message { get; set; }
+
+		public long RoomActorId { get; set; }
+
+	}
+
 }

@@ -6,6 +6,7 @@
 
 using ETHotfix.NKGMOBA.Factory;
 using ETModel;
+using System.Linq;
 using UnityEngine;
 
 namespace ETHotfix.NKGMOBA.Battle
@@ -13,54 +14,54 @@ namespace ETHotfix.NKGMOBA.Battle
     [NumericWatcher(NumericType.Hp)]
     public class ChangeHP: INumericWatcher
     {
-        public void Run(long id, float value)
+        public void Run(Unit unit, float value)
         {
-            MessageHelper.Broadcast(new M2C_SyncUnitAttribute() { UnitId = id, NumericType = (int) NumericType.Hp, FinalValue = value });
+            MessageHelper.Broadcast(unit.GetParent<RoomPlayerComponent>().PlayerArray,new M2C_SyncUnitAttribute() { UnitId = unit.Id, NumericType = (int) NumericType.Hp, FinalValue = value });
         }
     }
 
     [NumericWatcher(NumericType.Mp)]
     public class ChangeMP: INumericWatcher
     {
-        public void Run(long id, float value)
+        public void Run(Unit unit, float value)
         {
-            MessageHelper.Broadcast(new M2C_SyncUnitAttribute() { UnitId = id, NumericType = (int) NumericType.Mp, FinalValue = value });
+            MessageHelper.Broadcast(unit.GetParent<RoomPlayerComponent>().PlayerArray, new M2C_SyncUnitAttribute() { UnitId = unit.Id, NumericType = (int) NumericType.Mp, FinalValue = value });
         }
     }
 
     [NumericWatcher(NumericType.AttackAdd)]
     public class ChangeAttackAdd: INumericWatcher
     {
-        public void Run(long id, float value)
+        public void Run(Unit unit, float value)
         {
-            MessageHelper.Broadcast(new M2C_SyncUnitAttribute() { UnitId = id, NumericType = (int) NumericType.AttackAdd, FinalValue = value });
+            MessageHelper.Broadcast(unit.GetParent<RoomPlayerComponent>().PlayerArray, new M2C_SyncUnitAttribute() { UnitId = unit.Id, NumericType = (int) NumericType.AttackAdd, FinalValue = value });
         }
     }
 
     [NumericWatcher(NumericType.Attack)]
     public class ChangeAttack: INumericWatcher
     {
-        public void Run(long id, float value)
+        public void Run(Unit unit, float value)
         {
-            MessageHelper.Broadcast(new M2C_SyncUnitAttribute() { UnitId = id, NumericType = (int) NumericType.Attack, FinalValue = value });
+            MessageHelper.Broadcast(unit.GetParent<RoomPlayerComponent>().PlayerArray, new M2C_SyncUnitAttribute() { UnitId = unit.Id, NumericType = (int) NumericType.Attack, FinalValue = value });
         }
     }
 
     [NumericWatcher(NumericType.Speed)]
     public class ChangeSpeed: INumericWatcher
     {
-        public void Run(long id, float value)
+        public void Run(Unit unit, float value)
         {
-            MessageHelper.Broadcast(new M2C_SyncUnitAttribute() { UnitId = id, NumericType = (int) NumericType.Speed, FinalValue = value });
+            MessageHelper.Broadcast(unit.GetParent<RoomPlayerComponent>().PlayerArray, new M2C_SyncUnitAttribute() { UnitId = unit.Id, NumericType = (int) NumericType.Speed, FinalValue = value });
         }
     }
 
     [Event(EventIdType.NumericApplyChangeValue)]
-    public class SendDamageInfoToClient: AEvent<long, NumericType, float>
+    public class SendDamageInfoToClient: AEvent<Entity, NumericType, float>
     {
-        public override void Run(long unitId, NumericType numberType, float changedValue)
+        public override void Run(Entity unit, NumericType numberType, float changedValue)
         {
-            MessageHelper.Broadcast(new M2C_ChangeUnitAttribute() { UnitId = unitId, NumericType = (int) numberType, ChangeValue = changedValue });
+            MessageHelper.Broadcast(unit.GetParent<RoomPlayerComponent>().PlayerArray, new M2C_ChangeUnitAttribute() { UnitId = unit.Id, NumericType = (int) numberType, ChangeValue = changedValue });
         }
     }
 
@@ -71,11 +72,11 @@ namespace ETHotfix.NKGMOBA.Battle
     /// string：要传给客户端的事件ID
     /// </summary>
     [Event(EventIdType.SendBuffInfoToClient)]
-    public class SendBuffInfoToClient: AEvent<M2C_BuffInfo>
+    public class SendBuffInfoToClient: AEvent<Unit,M2C_BuffInfo>
     {
-        public override void Run(M2C_BuffInfo c)
+        public override void Run(Unit unit,M2C_BuffInfo c)
         {
-            MessageHelper.Broadcast(c);
+            MessageHelper.Broadcast(unit.GetParent<RoomPlayerComponent>().PlayerArray, c);
         }
     }
 
@@ -87,7 +88,8 @@ namespace ETHotfix.NKGMOBA.Battle
     {
         public override void Run(M2C_SyncCDData a)
         {
-            MessageHelper.Broadcast(a);
+            var unit = UnitComponent.Instance.Get(a.UnitId);
+            MessageHelper.Broadcast(unit.GetParent<RoomPlayerComponent>().PlayerArray, a);
         }
     }
 
@@ -99,7 +101,8 @@ namespace ETHotfix.NKGMOBA.Battle
     {
         public override void Run(M2C_SyncNPBehaveBoolData a)
         {
-            MessageHelper.Broadcast(a);
+            var unit = UnitComponent.Instance.Get(a.UnitId);
+            MessageHelper.Broadcast(unit.GetParent<RoomPlayerComponent>().PlayerArray, a);
         }
     }
 

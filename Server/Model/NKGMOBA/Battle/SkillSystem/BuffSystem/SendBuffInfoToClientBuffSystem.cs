@@ -17,7 +17,7 @@ namespace ETModel
                         (this.BelongtoRuntimeTree.BelongNP_DataSupportor.BuffNodeDataDic[sendBuffInfoToClientBuffData.TargetBuffNodeId.Value] as
                                 NormalBuffNodeData).BuffData.BuffId);
 
-            Game.EventSystem.Run(EventIdType.SendBuffInfoToClient,
+            Game.EventSystem.Run(EventIdType.SendBuffInfoToClient, this.TheUnitBelongto,
                 new M2C_BuffInfo()
                 {
                     UnitId = this.BelongtoRuntimeTree.BelongToUnitId,

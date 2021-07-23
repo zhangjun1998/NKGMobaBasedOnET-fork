@@ -2,6 +2,6 @@
 {
 	public interface INumericWatcher
 	{
-		void Run(long id, float value);
+		void Run(Unit unit, float value);
 	}
 }

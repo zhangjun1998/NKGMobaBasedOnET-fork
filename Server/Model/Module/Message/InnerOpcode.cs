@@ -37,5 +37,7 @@ namespace ETModel
 		 public const ushort G2M_SessionDisconnect = 1033;
 		 public const ushort G2R_PlayerOnline = 1034;
 		 public const ushort R2G_PlayerOnline = 1035;
+		 public const ushort G2RM_CreateRoom = 1036;
+		 public const ushort RM2G_CreateRoom = 1037;
 	}
 }

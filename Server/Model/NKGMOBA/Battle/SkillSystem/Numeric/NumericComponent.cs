@@ -46,7 +46,7 @@ namespace ETModel
         /// </summary>
         public void ApplyChange(NumericType numericType, float changedValue)
         {
-            Game.EventSystem.Run(EventIdType.NumericApplyChangeValue, this.Entity.Id, numericType, changedValue);
+            Game.EventSystem.Run(EventIdType.NumericApplyChangeValue, this.Entity, numericType, changedValue);
             this[numericType] += changedValue;
         }
 

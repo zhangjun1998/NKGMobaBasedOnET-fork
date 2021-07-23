@@ -266,3 +266,20 @@ message R2G_PlayerOnline // IResponse
     int32 Error = 91;
     string Message = 92;
 }
+
+// 房间相关
+
+message G2RM_CreateRoom // IRequest
+{
+    int32 RpcId = 90;
+    int64 UnitId = 1;
+    int64 GateSessionId = 2;
+}
+
+message RM2G_CreateRoom // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+    int64 RoomActorId = 1;
+}
