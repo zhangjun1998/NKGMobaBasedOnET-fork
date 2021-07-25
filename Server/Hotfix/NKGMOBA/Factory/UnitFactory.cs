@@ -45,10 +45,9 @@ namespace ETHotfix.NKGMOBA.Factory
         /// TODO 后期需要改，应该是一个通用的创建英雄接口，只需要提供Id，然后自动索引其所需要的数据（比如技能数据，英雄数据）
         /// </summary>
         /// <returns></returns>
-        public static Unit CreateDarius()
+        public static Unit CreateDarius(Unit unit)
         {
             //创建战斗单位
-            Unit unit = CreateUnitBase();
             unit.AddComponent<ChildrenUnitComponent>();
 
             //增加寻路相关组件
@@ -114,11 +113,11 @@ namespace ETHotfix.NKGMOBA.Factory
         /// 创建假人,需要传入一个父UnitId
         /// </summary>
         /// <returns></returns>
-        public static Unit CreateSpiling(long parentId)
+        public static Unit CreateSpiling(Unit parentUnit)
         {
             Unit unit = CreateUnitBase();
             //Log.Info($"服务端响应木桩请求，父id为{message.ParentUnitId}");
-            UnitComponent.Instance.Get(parentId).GetComponent<ChildrenUnitComponent>().AddUnit(unit);
+            parentUnit.GetComponent<ChildrenUnitComponent>().AddUnit(unit);
             //Log.Info("确认找到了请求的父实体");
 
             //为Unit附加碰撞体
@@ -136,8 +135,8 @@ namespace ETHotfix.NKGMOBA.Factory
             unit.AddComponent<MoveComponent>();
             unit.AddComponent<BuffManagerComponent>();
             unit.AddComponent<B2S_RoleCastComponent>();
-
-            Game.Scene.GetComponent<CampAllocManagerComponent>().AllocRoleCamp(unit);
+            parentUnit.TempScene.GetComponent<CampAllocManagerComponent>().AllocRoleCamp(unit);
+            //Game.Scene.GetComponent<CampAllocManagerComponent>().AllocRoleCamp(unit);
 
             //添加栈式状态机组件
             unit.AddComponent<StackFsmComponent>();

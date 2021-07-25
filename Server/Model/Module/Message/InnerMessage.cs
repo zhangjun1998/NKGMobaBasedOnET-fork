@@ -427,7 +427,29 @@ namespace ETModel
 
 		public string Message { get; set; }
 
-		public long RoomActorId { get; set; }
+	}
+
+	[Message(InnerOpcode.G2RM_JoinRoom)]
+	public partial class G2RM_JoinRoom: IActorRequest
+	{
+		public int RpcId { get; set; }
+
+		public long ActorId { get; set; }
+
+		public long UnitId { get; set; }
+
+		public long GateSessionId { get; set; }
+
+	}
+
+	[Message(InnerOpcode.RM2G_JoinRoom)]
+	public partial class RM2G_JoinRoom: IActorResponse
+	{
+		public int RpcId { get; set; }
+
+		public int Error { get; set; }
+
+		public string Message { get; set; }
 
 	}
 

@@ -12,12 +12,6 @@ namespace ETHotfix
             Player player = session.GetComponent<SessionPlayerComponent>().Player;
             using (await CoroutineLockComponent.Instance.Wait(player.PlayerIdInDB))
             {
-                if (session.GetComponent<SessionRoomComponent>() != null)
-                {
-                    response.Error = ErrorCode.ERR_AlreadyInRoom;
-                    reply();
-                    return;
-                }
                 try
                 {
                     //获取到了说明已经在战斗中
@@ -26,7 +20,7 @@ namespace ETHotfix
                     reply();
                     return;
                 }
-                //说明没在战斗中.继续创建逻辑.太粗暴了
+                //说明没在战斗中.继续创建逻辑.太粗暴了,在6.0没有找到actor会返回0
                 catch
                 {
 
@@ -35,10 +29,6 @@ namespace ETHotfix
                 Session mgrSession = Game.Scene.GetComponent<NetInnerComponent>().Get(StartConfigComponent.Instance.RoomConfigs[0].GetComponent<InnerConfig>().IPEndPoint);
                 RM2G_CreateRoom createRoomResponse =(RM2G_CreateRoom)await mgrSession.Call(new G2RM_CreateRoom() { UnitId = player.PlayerIdInDB,GateSessionId=session.InstanceId });
                 response.Error = createRoomResponse.Error;
-                if (response.Error==0)
-                {
-                    session.AddComponent<SessionRoomComponent>().RoomActorId= createRoomResponse.RoomActorId;
-                }
                 reply();
             }
         }
@@ -52,9 +42,8 @@ namespace ETHotfix
             DBProxyComponent dbProxyComponent = Game.Scene.GetComponent<DBProxyComponent>();
             UserInfo userInfo = await dbProxyComponent.Query<UserInfo>(message.UnitId);
             var room=ComponentFactory.Create<RoomEntity,string>(userInfo.NickName);
-            response.RoomActorId = room.InstanceId;
             reply();
-            room.AddUser(message.GateSessionId,userInfo);
+            await room.AddUnit(message.GateSessionId,userInfo);
         }
     }
 }

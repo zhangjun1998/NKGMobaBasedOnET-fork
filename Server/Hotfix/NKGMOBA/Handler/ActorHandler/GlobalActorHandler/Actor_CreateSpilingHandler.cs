@@ -15,7 +15,7 @@ namespace ETHotfix
     {
         protected override ETTask Run(Unit entity, Actor_CreateSpiling message)
         {
-            Unit unit = UnitFactory.CreateSpiling(message.ParentUnitId);
+            Unit unit = UnitFactory.CreateSpiling(entity);
             //设置木桩位置
             unit.Position = new Vector3(message.X, 0, message.Z);
             // 广播创建的木桩unit
@@ -31,7 +31,7 @@ namespace ETHotfix
             createSpilings.Spilings = spilingInfo;
 
             //向所有小骷髅广播信息
-            MessageHelper.Broadcast(createSpilings);
+            MessageHelper.Broadcast(entity.RoomPlayerArray,createSpilings);
             return ETTask.CompletedTask;
         }
     }

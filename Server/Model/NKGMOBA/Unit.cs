@@ -7,15 +7,8 @@ namespace ETModel
         public Vector3 Position { get; set; }
 
         public Quaternion Rotation { get; set; }
-
-        public override void Dispose()
-        {
-            if (this.IsDisposed)
-            {
-                return;
-            }
-
-            base.Dispose();
-        }
+        //假设RoomEntity 为Scene. unit->RoomPlayerComponent->RoomEntity
+        public Entity TempScene => Parent.GetParent<Entity>();
+        public Unit[] RoomPlayerArray => GetParent<RoomPlayerComponent>().PlayerArray;
     }
 }

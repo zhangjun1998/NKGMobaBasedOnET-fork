@@ -4,13 +4,7 @@ using System.Linq;
 
 namespace ETModel
 {
-    /// <summary>
-    /// gateSession上挂载的房间信息
-    /// </summary>
-    public class SessionRoomComponent : Component
-    {
-        public long RoomActorId;
-    }
+
     public class RoomManagerEntity : Entity
     {
         /// <summary>
@@ -27,19 +21,18 @@ namespace ETModel
     /// </summary>
     public class RoomEntity : Entity
     {
+        /// <summary>
+        /// 只有在非战斗状态的房间才可以修改玩家状态
+        /// </summary>
+        public bool CanUnitChangeState => 
+            GetComponent<BattleLoadingComponent>() != null &&
+            GetComponent<BattleEntity>()!=null;
         public void Awake()
         {
             AddComponent<RoomPlayerComponent>();
             AddComponent<RoomConfigComponent>();
         }
-        /// <summary>
-        /// 玩家进入房间
-        /// </summary>
-        /// <param name="userInfo"></param>
-        public void AddUser(long gateSessionId,UserInfo userInfo)
-        {
-            throw new NotImplementedException();
-        }
+
     }
     /// <summary>
     /// 房间配置信息.
@@ -73,14 +66,15 @@ namespace ETModel
     /// </summary>
     public class BattleEntity : Entity
     {
-        public Dictionary<long, Unit> BattlePlayers = new Dictionary<long, Unit>();
+        //public Dictionary<long, Unit> BattlePlayers =>GetParent<RoomEntity>().GetComponent<RoomPlayerComponent>().Players;
         public void Awake()
         {
             AddComponent<B2S_WorldColliderManagerComponent>();
             AddComponent<B2S_WorldComponent>();
             AddComponent<B2S_CollisionListenerComponent>();
             AddComponent<CampAllocManagerComponent>();
-            AddComponent<BattleEventSystem>();
+            //改造成本较高.BattleEventSystem先不移到单独战斗里
+            //AddComponent<BattleEventSystem>();
         }
     }
 }

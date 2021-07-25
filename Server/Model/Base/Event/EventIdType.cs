@@ -50,5 +50,10 @@
         /// 取消攻击但不重置攻击对象
         /// </summary>
         public const string CancelAttackWithOutResetAttackTarget = "CancelAttackWithOutResetAttackTarget";
+        /// <summary>
+        /// 广播消息
+        /// </summary>
+        public const string BroadcastMsg = "BroadcastMsg";
+
     }
 }

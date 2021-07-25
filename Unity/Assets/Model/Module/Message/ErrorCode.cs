@@ -47,7 +47,25 @@ namespace ETModel
 		
 		// 踢下线
 		public const int ERR_LoginError = 210005;
+
+
+		//房间相关
 		
+		public const int ERR_AlreadyInRoom = 220001;
+		/// <summary>
+		/// 玩家已经在房间或者战斗中
+		/// </summary>
+		public const int ERR_AlreadyInBattle = 220002;
+
+		/// <summary>
+		/// 已经在准备中
+		/// </summary>
+		public const int ERR_AlreadyInLoading = 220003;
+		/// <summary>
+		/// 房间在战斗中.不可加入
+		/// </summary>
+		public const int ERR_RoomAlreadyInBattle = 220004;
+
 		//-----------------------------------
 		public static bool IsRpcNeedThrowException(int error)
 		{

@@ -76,6 +76,62 @@ namespace ETModel
 	[Message(OuterOpcode.RoomBriefInfo)]
 	public partial class RoomBriefInfo {}
 
+//房间内玩家
+	[Message(OuterOpcode.RoomPlayer)]
+	public partial class RoomPlayer {}
+
+//房间完整信息.用于客户端构建房间界面.
+	[Message(OuterOpcode.RoomInfo)]
+	public partial class RoomInfo {}
+
+//创建房间
+	[Message(OuterOpcode.C2RM_CreateRoom)]
+	public partial class C2RM_CreateRoom : IRequest {}
+
+	[Message(OuterOpcode.RM2C_CreateRoom)]
+	public partial class RM2C_CreateRoom : IResponse {}
+
+// 加入指定房间
+	[Message(OuterOpcode.C2RM_JoinRoom)]
+	public partial class C2RM_JoinRoom : IRequest {}
+
+	[Message(OuterOpcode.RM2C_JoinRoom)]
+	public partial class RM2C_JoinRoom : IResponse {}
+
+// 退出房间
+	[Message(OuterOpcode.C2RM_QuitRoom)]
+	public partial class C2RM_QuitRoom : IActorLocationRequest {}
+
+	[Message(OuterOpcode.RM2C_QuitRoom)]
+	public partial class RM2C_QuitRoom : IActorLocationResponse {}
+
+//服务器通知客户端 退出当前房间,附带原因
+	[Message(OuterOpcode.RM2C_LeaveRoom)]
+	public partial class RM2C_LeaveRoom : IActorMessage {}
+
+//服务器通知客户端 房间状态变更
+	[Message(OuterOpcode.RM2C_RoomInfoUpdate)]
+	public partial class RM2C_RoomInfoUpdate : IActorMessage {}
+
+// 房主请求开始战斗
+	[Message(OuterOpcode.C2RM_RequestStartBattle)]
+	public partial class C2RM_RequestStartBattle : IActorLocationRequest {}
+
+	[Message(OuterOpcode.RM2C_RequestStartBattle)]
+	public partial class RM2C_RequestStartBattle : IActorLocationResponse {}
+
+//客户端收到这条消息开始加载战斗相关资源
+	[Message(OuterOpcode.RM2C_EnterBattleMessage)]
+	public partial class RM2C_EnterBattleMessage : IActorMessage {}
+
+//客户端加载完毕,通知服务端可以开始战斗
+	[Message(OuterOpcode.C2RM_LoadComplete)]
+	public partial class C2RM_LoadComplete : IActorLocationMessage {}
+
+//所有客户端均加载完毕,通知战斗正式开始(有人超时直接跳过).
+	[Message(OuterOpcode.RM2C_StartBattleMessage)]
+	public partial class RM2C_StartBattleMessage : IActorMessage {}
+
 }
 namespace ETModel
 {
@@ -104,5 +160,20 @@ namespace ETModel
 		 public const ushort C2M_CommonAttack = 121;
 		 public const ushort M2C_CommonAttack = 122;
 		 public const ushort RoomBriefInfo = 123;
+		 public const ushort RoomPlayer = 124;
+		 public const ushort RoomInfo = 125;
+		 public const ushort C2RM_CreateRoom = 126;
+		 public const ushort RM2C_CreateRoom = 127;
+		 public const ushort C2RM_JoinRoom = 128;
+		 public const ushort RM2C_JoinRoom = 129;
+		 public const ushort C2RM_QuitRoom = 130;
+		 public const ushort RM2C_QuitRoom = 131;
+		 public const ushort RM2C_LeaveRoom = 132;
+		 public const ushort RM2C_RoomInfoUpdate = 133;
+		 public const ushort C2RM_RequestStartBattle = 134;
+		 public const ushort RM2C_RequestStartBattle = 135;
+		 public const ushort RM2C_EnterBattleMessage = 136;
+		 public const ushort C2RM_LoadComplete = 137;
+		 public const ushort RM2C_StartBattleMessage = 138;
 	}
 }

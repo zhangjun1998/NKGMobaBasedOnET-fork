@@ -39,5 +39,7 @@ namespace ETModel
 		 public const ushort R2G_PlayerOnline = 1035;
 		 public const ushort G2RM_CreateRoom = 1036;
 		 public const ushort RM2G_CreateRoom = 1037;
+		 public const ushort G2RM_JoinRoom = 1038;
+		 public const ushort RM2G_JoinRoom = 1039;
 	}
 }

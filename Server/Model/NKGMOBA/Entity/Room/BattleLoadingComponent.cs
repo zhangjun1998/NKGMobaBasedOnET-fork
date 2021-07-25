@@ -16,8 +16,6 @@ namespace ETModel
         }
     }
 
-
-
     #endregion
 
 
@@ -35,25 +33,29 @@ namespace ETModel
         #region 公有成员
         public long timerId;
         public List<long> LoadCompletedIds;
-
+        public int NeedNum;
 
         #endregion
 
         #region 生命周期函数
 
-        public void Awake()
+        public void Awake(int num)
         {
             //此处填写Awake逻辑
+            LoadCompletedIds = new List<long>();
+            NeedNum = num;
         }
-        
+
         public void Destroy()
         {
             //此处填写Destroy逻辑
-            
+            NeedNum = 0;
+            LoadCompletedIds = null;
+            timerId = 0;
         }
-        
-    
-    #endregion
+
+
+        #endregion
 
     }
 }

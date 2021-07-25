@@ -16,7 +16,7 @@ namespace ETHotfix.NKGMOBA.Battle
     {
         public void Run(Unit unit, float value)
         {
-            MessageHelper.Broadcast(unit.GetParent<RoomPlayerComponent>().PlayerArray,new M2C_SyncUnitAttribute() { UnitId = unit.Id, NumericType = (int) NumericType.Hp, FinalValue = value });
+            MessageHelper.Broadcast(unit.RoomPlayerArray,new M2C_SyncUnitAttribute() { UnitId = unit.Id, NumericType = (int) NumericType.Hp, FinalValue = value });
         }
     }
 
@@ -25,7 +25,7 @@ namespace ETHotfix.NKGMOBA.Battle
     {
         public void Run(Unit unit, float value)
         {
-            MessageHelper.Broadcast(unit.GetParent<RoomPlayerComponent>().PlayerArray, new M2C_SyncUnitAttribute() { UnitId = unit.Id, NumericType = (int) NumericType.Mp, FinalValue = value });
+            MessageHelper.Broadcast(unit.RoomPlayerArray, new M2C_SyncUnitAttribute() { UnitId = unit.Id, NumericType = (int) NumericType.Mp, FinalValue = value });
         }
     }
 
@@ -34,7 +34,7 @@ namespace ETHotfix.NKGMOBA.Battle
     {
         public void Run(Unit unit, float value)
         {
-            MessageHelper.Broadcast(unit.GetParent<RoomPlayerComponent>().PlayerArray, new M2C_SyncUnitAttribute() { UnitId = unit.Id, NumericType = (int) NumericType.AttackAdd, FinalValue = value });
+            MessageHelper.Broadcast(unit.RoomPlayerArray, new M2C_SyncUnitAttribute() { UnitId = unit.Id, NumericType = (int) NumericType.AttackAdd, FinalValue = value });
         }
     }
 
@@ -43,7 +43,7 @@ namespace ETHotfix.NKGMOBA.Battle
     {
         public void Run(Unit unit, float value)
         {
-            MessageHelper.Broadcast(unit.GetParent<RoomPlayerComponent>().PlayerArray, new M2C_SyncUnitAttribute() { UnitId = unit.Id, NumericType = (int) NumericType.Attack, FinalValue = value });
+            MessageHelper.Broadcast(unit.RoomPlayerArray, new M2C_SyncUnitAttribute() { UnitId = unit.Id, NumericType = (int) NumericType.Attack, FinalValue = value });
         }
     }
 
@@ -52,7 +52,7 @@ namespace ETHotfix.NKGMOBA.Battle
     {
         public void Run(Unit unit, float value)
         {
-            MessageHelper.Broadcast(unit.GetParent<RoomPlayerComponent>().PlayerArray, new M2C_SyncUnitAttribute() { UnitId = unit.Id, NumericType = (int) NumericType.Speed, FinalValue = value });
+            MessageHelper.Broadcast(unit.RoomPlayerArray, new M2C_SyncUnitAttribute() { UnitId = unit.Id, NumericType = (int) NumericType.Speed, FinalValue = value });
         }
     }
 
@@ -61,7 +61,7 @@ namespace ETHotfix.NKGMOBA.Battle
     {
         public override void Run(Entity unit, NumericType numberType, float changedValue)
         {
-            MessageHelper.Broadcast(unit.GetParent<RoomPlayerComponent>().PlayerArray, new M2C_ChangeUnitAttribute() { UnitId = unit.Id, NumericType = (int) numberType, ChangeValue = changedValue });
+            MessageHelper.Broadcast((unit as Unit).RoomPlayerArray, new M2C_ChangeUnitAttribute() { UnitId = unit.Id, NumericType = (int) numberType, ChangeValue = changedValue });
         }
     }
 
@@ -76,7 +76,7 @@ namespace ETHotfix.NKGMOBA.Battle
     {
         public override void Run(Unit unit,M2C_BuffInfo c)
         {
-            MessageHelper.Broadcast(unit.GetParent<RoomPlayerComponent>().PlayerArray, c);
+            MessageHelper.Broadcast(unit.RoomPlayerArray, c);
         }
     }
 
@@ -89,7 +89,7 @@ namespace ETHotfix.NKGMOBA.Battle
         public override void Run(M2C_SyncCDData a)
         {
             var unit = UnitComponent.Instance.Get(a.UnitId);
-            MessageHelper.Broadcast(unit.GetParent<RoomPlayerComponent>().PlayerArray, a);
+            MessageHelper.Broadcast(unit.RoomPlayerArray, a);
         }
     }
 
@@ -102,7 +102,7 @@ namespace ETHotfix.NKGMOBA.Battle
         public override void Run(M2C_SyncNPBehaveBoolData a)
         {
             var unit = UnitComponent.Instance.Get(a.UnitId);
-            MessageHelper.Broadcast(unit.GetParent<RoomPlayerComponent>().PlayerArray, a);
+            MessageHelper.Broadcast(unit.RoomPlayerArray, a);
         }
     }
 

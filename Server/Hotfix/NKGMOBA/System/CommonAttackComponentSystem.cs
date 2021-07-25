@@ -94,7 +94,7 @@ namespace ETHotfix
 
         private static async ETTask CommonAttack_Internal(this CommonAttackComponent self)
         {
-            MessageHelper.Broadcast(new M2C_CommonAttack()
+            MessageHelper.Broadcast(self.GetParent<Unit>().RoomPlayerArray,new M2C_CommonAttack()
             {
                 AttackCasterId = self.Entity.Id, TargetUnitId = self.CachedUnitForAttack.Id, CanAttack = true
             });

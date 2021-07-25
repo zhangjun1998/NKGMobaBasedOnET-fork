@@ -243,12 +243,12 @@ message RM2C_JoinRoom // IResponse
     string Message = 92;
 }
 // 退出房间
-message C2RM_QuitRoom // IActorRequest
+message C2RM_QuitRoom // IActorLocationRequest
 {
     int32 RpcId = 90;
     int64 ActorId = 93;
 }
-message RM2C_QuitRoom // IActorResponse
+message RM2C_QuitRoom // IActorLocationResponse
 {
     int32 RpcId = 90;
     int32 Error = 91;
@@ -269,12 +269,12 @@ message RM2C_RoomInfoUpdate // IActorMessage
     RoomInfo Roominfo = 1;
 }
 // 房主请求开始战斗
-message C2RM_RequestStartBattle // IActorRequest
+message C2RM_RequestStartBattle // IActorLocationRequest
 {
     int32 RpcId = 90;
     int64 ActorId = 93;
 }
-message RM2C_RequestStartBattle // IActorResponse
+message RM2C_RequestStartBattle // IActorLocationResponse
 {
     int32 RpcId = 90;
     int32 Error = 91;
