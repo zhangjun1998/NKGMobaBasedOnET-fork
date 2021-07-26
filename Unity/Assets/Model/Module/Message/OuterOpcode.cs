@@ -84,6 +84,12 @@ namespace ETModel
 	[Message(OuterOpcode.RoomInfo)]
 	public partial class RoomInfo {}
 
+	[Message(OuterOpcode.C2G_AllRoomList)]
+	public partial class C2G_AllRoomList : IRequest {}
+
+	[Message(OuterOpcode.G2C_AllRoomList)]
+	public partial class G2C_AllRoomList : IResponse {}
+
 //创建房间
 	[Message(OuterOpcode.C2RM_CreateRoom)]
 	public partial class C2RM_CreateRoom : IRequest {}
@@ -97,6 +103,13 @@ namespace ETModel
 
 	[Message(OuterOpcode.RM2C_JoinRoom)]
 	public partial class RM2C_JoinRoom : IResponse {}
+
+// 房主踢人
+	[Message(OuterOpcode.C2RM_KickRoomPlayer)]
+	public partial class C2RM_KickRoomPlayer : IActorLocationRequest {}
+
+	[Message(OuterOpcode.RM2C_KickRoomPlayer)]
+	public partial class RM2C_KickRoomPlayer : IActorLocationResponse {}
 
 // 退出房间
 	[Message(OuterOpcode.C2RM_QuitRoom)]
@@ -162,18 +175,22 @@ namespace ETModel
 		 public const ushort RoomBriefInfo = 123;
 		 public const ushort RoomPlayer = 124;
 		 public const ushort RoomInfo = 125;
-		 public const ushort C2RM_CreateRoom = 126;
-		 public const ushort RM2C_CreateRoom = 127;
-		 public const ushort C2RM_JoinRoom = 128;
-		 public const ushort RM2C_JoinRoom = 129;
-		 public const ushort C2RM_QuitRoom = 130;
-		 public const ushort RM2C_QuitRoom = 131;
-		 public const ushort RM2C_LeaveRoom = 132;
-		 public const ushort RM2C_RoomInfoUpdate = 133;
-		 public const ushort C2RM_RequestStartBattle = 134;
-		 public const ushort RM2C_RequestStartBattle = 135;
-		 public const ushort RM2C_EnterBattleMessage = 136;
-		 public const ushort C2RM_LoadComplete = 137;
-		 public const ushort RM2C_StartBattleMessage = 138;
+		 public const ushort C2G_AllRoomList = 126;
+		 public const ushort G2C_AllRoomList = 127;
+		 public const ushort C2RM_CreateRoom = 128;
+		 public const ushort RM2C_CreateRoom = 129;
+		 public const ushort C2RM_JoinRoom = 130;
+		 public const ushort RM2C_JoinRoom = 131;
+		 public const ushort C2RM_KickRoomPlayer = 132;
+		 public const ushort RM2C_KickRoomPlayer = 133;
+		 public const ushort C2RM_QuitRoom = 134;
+		 public const ushort RM2C_QuitRoom = 135;
+		 public const ushort RM2C_LeaveRoom = 136;
+		 public const ushort RM2C_RoomInfoUpdate = 137;
+		 public const ushort C2RM_RequestStartBattle = 138;
+		 public const ushort RM2C_RequestStartBattle = 139;
+		 public const ushort RM2C_EnterBattleMessage = 140;
+		 public const ushort C2RM_LoadComplete = 141;
+		 public const ushort RM2C_StartBattleMessage = 142;
 	}
 }

@@ -268,11 +268,6 @@ message R2G_PlayerOnline // IResponse
 }
 
 // 房间相关
-message RegisterRoomToRoomManager // IMessage
-{
-    int64 Roomid = 1;
-    RoomBriefInfo BriefInfo = 2;
-}
 message UnRegisterRoomToRoomManager // IMessage
 {
     int64 Roomid = 1;

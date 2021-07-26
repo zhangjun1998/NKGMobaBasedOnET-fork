@@ -34,7 +34,7 @@ namespace ETHotfix
         public override void Start(RoomEntity self)
         {
             Session mgrSession = Game.Scene.GetComponent<NetInnerComponent>().Get(StartConfigComponent.Instance.RoomManagerConfig.GetComponent<InnerConfig>().IPEndPoint);
-            mgrSession.Send(new RegisterRoomToRoomManager() { Roomid = self.InstanceId, BriefInfo = self.BriefInfo });
+            mgrSession.Send(new UpdateRoomToRoomManager() {  BriefInfo = self.BriefInfo });
         }
     }
 }

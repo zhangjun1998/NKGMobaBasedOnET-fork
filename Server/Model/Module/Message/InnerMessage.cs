@@ -407,15 +407,6 @@ namespace ETModel
 	}
 
 // 房间相关
-	[Message(InnerOpcode.RegisterRoomToRoomManager)]
-	public partial class RegisterRoomToRoomManager: IMessage
-	{
-		public long Roomid { get; set; }
-
-		public RoomBriefInfo BriefInfo { get; set; }
-
-	}
-
 	[Message(InnerOpcode.UnRegisterRoomToRoomManager)]
 	public partial class UnRegisterRoomToRoomManager: IMessage
 	{

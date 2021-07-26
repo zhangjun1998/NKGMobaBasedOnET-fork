@@ -219,6 +219,18 @@ message RoomInfo
     string RoomName = 3;
     repeated RoomPlayer RoomPlayers = 4; 
 }
+message C2G_AllRoomList // IRequest
+{
+    int32 RpcId = 90;
+}
+
+message G2C_AllRoomList // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+    repeated RoomBriefInfo RoomList = 1; 
+}
 //创建房间
 message C2RM_CreateRoom // IRequest
 {
@@ -275,7 +287,7 @@ message RM2C_LeaveRoom // IActorMessage
     int64 ActorId = 93;
     int32 LeaveReason = 1;//离开房间原因: 1 房间解散 2 被踢
 }
-//服务器通知客户端 房间状态变更
+//服务器通知客户端 房间状态变更 (收到消息要进入房间界面)
 message RM2C_RoomInfoUpdate // IActorMessage
 {
     int32 RpcId = 90;

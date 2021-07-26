@@ -65,6 +65,10 @@ namespace ETModel
 		/// 房间在战斗中.不可加入
 		/// </summary>
 		public const int ERR_RoomAlreadyInBattle = 220004;
+		/// <summary>
+		/// 不可以踢出自己
+		/// </summary>
+		public const int ERR_RoomKickSelf = 220005;
 
 		//-----------------------------------
 		public static bool IsRpcNeedThrowException(int error)

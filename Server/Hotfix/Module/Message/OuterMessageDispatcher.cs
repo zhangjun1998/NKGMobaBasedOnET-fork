@@ -47,6 +47,19 @@ namespace ETHotfix
 				{
 					break;
 				}
+				// 定向转发到RoomManager 为了一个请求新建接口不必要.如果未来有多个请求类型则新建接口类型
+				case C2G_AllRoomList c2G_AllRoomList:
+					int mrgrpcId = c2G_AllRoomList.RpcId; // 这里要保存客户端的rpcId
+					long mrginstanceId = session.InstanceId;
+					Session mgrSession = Game.Scene.GetComponent<NetInnerComponent>().Get(StartConfigComponent.Instance.RoomManagerConfig.GetComponent<InnerConfig>().IPEndPoint);
+					IResponse mrgresponse = await mgrSession.Call(c2G_AllRoomList);
+					mrgresponse.RpcId = mrgrpcId;
+					// session可能已经断开了，所以这里需要判断
+					if (session.InstanceId == mrginstanceId)
+					{
+						session.Reply(mrgresponse);
+					}
+					break;
 				default:
 				{
 					// 非Actor消息

@@ -2234,6 +2234,14 @@ namespace ETModel {
     private static readonly pb::MessageParser<RoomBriefInfo> _parser = new pb::MessageParser<RoomBriefInfo>(() => (RoomBriefInfo)MessagePool.Instance.Fetch(typeof(RoomBriefInfo)));
     public static pb::MessageParser<RoomBriefInfo> Parser { get { return _parser; } }
 
+    private long roomId_;
+    public long RoomId {
+      get { return roomId_; }
+      set {
+        roomId_ = value;
+      }
+    }
+
     private int maxMemberCount_;
     public int MaxMemberCount {
       get { return maxMemberCount_; }
@@ -2266,11 +2274,11 @@ namespace ETModel {
       }
     }
 
-    private string masterId_ = "";
-    public string MasterId {
+    private long masterId_;
+    public long MasterId {
       get { return masterId_; }
       set {
-        masterId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        masterId_ = value;
       }
     }
 
@@ -2283,34 +2291,41 @@ namespace ETModel {
     }
 
     public void WriteTo(pb::CodedOutputStream output) {
-      if (MaxMemberCount != 0) {
+      if (RoomId != 0L) {
         output.WriteRawTag(8);
+        output.WriteInt64(RoomId);
+      }
+      if (MaxMemberCount != 0) {
+        output.WriteRawTag(16);
         output.WriteInt32(MaxMemberCount);
       }
       if (CurrentMemberCount != 0) {
-        output.WriteRawTag(16);
+        output.WriteRawTag(24);
         output.WriteInt32(CurrentMemberCount);
       }
       if (RoomName.Length != 0) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(34);
         output.WriteString(RoomName);
       }
       if (MasterName.Length != 0) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(42);
         output.WriteString(MasterName);
       }
-      if (MasterId.Length != 0) {
-        output.WriteRawTag(42);
-        output.WriteString(MasterId);
+      if (MasterId != 0L) {
+        output.WriteRawTag(48);
+        output.WriteInt64(MasterId);
       }
       if (IsInBattle != false) {
-        output.WriteRawTag(48);
+        output.WriteRawTag(56);
         output.WriteBool(IsInBattle);
       }
     }
 
     public int CalculateSize() {
       int size = 0;
+      if (RoomId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(RoomId);
+      }
       if (MaxMemberCount != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(MaxMemberCount);
       }
@@ -2323,8 +2338,8 @@ namespace ETModel {
       if (MasterName.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(MasterName);
       }
-      if (MasterId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(MasterId);
+      if (MasterId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(MasterId);
       }
       if (IsInBattle != false) {
         size += 1 + 1;
@@ -2333,11 +2348,12 @@ namespace ETModel {
     }
 
     public void MergeFrom(pb::CodedInputStream input) {
+      roomId_ = 0;
       maxMemberCount_ = 0;
       currentMemberCount_ = 0;
       roomName_ = "";
       masterName_ = "";
-      masterId_ = "";
+      masterId_ = 0;
       isInBattle_ = false;
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
@@ -2346,26 +2362,30 @@ namespace ETModel {
             input.SkipLastField();
             break;
           case 8: {
-            MaxMemberCount = input.ReadInt32();
+            RoomId = input.ReadInt64();
             break;
           }
           case 16: {
+            MaxMemberCount = input.ReadInt32();
+            break;
+          }
+          case 24: {
             CurrentMemberCount = input.ReadInt32();
             break;
           }
-          case 26: {
+          case 34: {
             RoomName = input.ReadString();
             break;
           }
-          case 34: {
+          case 42: {
             MasterName = input.ReadString();
             break;
           }
-          case 42: {
-            MasterId = input.ReadString();
+          case 48: {
+            MasterId = input.ReadInt64();
             break;
           }
-          case 48: {
+          case 56: {
             IsInBattle = input.ReadBool();
             break;
           }
@@ -2593,6 +2613,152 @@ namespace ETModel {
 
   }
 
+  public partial class C2G_AllRoomList : pb::IMessage {
+    private static readonly pb::MessageParser<C2G_AllRoomList> _parser = new pb::MessageParser<C2G_AllRoomList>(() => (C2G_AllRoomList)MessagePool.Instance.Fetch(typeof(C2G_AllRoomList)));
+    public static pb::MessageParser<C2G_AllRoomList> Parser { get { return _parser; } }
+
+    private int rpcId_;
+    public int RpcId {
+      get { return rpcId_; }
+      set {
+        rpcId_ = value;
+      }
+    }
+
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (RpcId != 0) {
+        output.WriteRawTag(208, 5);
+        output.WriteInt32(RpcId);
+      }
+    }
+
+    public int CalculateSize() {
+      int size = 0;
+      if (RpcId != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(RpcId);
+      }
+      return size;
+    }
+
+    public void MergeFrom(pb::CodedInputStream input) {
+      rpcId_ = 0;
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 720: {
+            RpcId = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public partial class G2C_AllRoomList : pb::IMessage {
+    private static readonly pb::MessageParser<G2C_AllRoomList> _parser = new pb::MessageParser<G2C_AllRoomList>(() => (G2C_AllRoomList)MessagePool.Instance.Fetch(typeof(G2C_AllRoomList)));
+    public static pb::MessageParser<G2C_AllRoomList> Parser { get { return _parser; } }
+
+    private int rpcId_;
+    public int RpcId {
+      get { return rpcId_; }
+      set {
+        rpcId_ = value;
+      }
+    }
+
+    private int error_;
+    public int Error {
+      get { return error_; }
+      set {
+        error_ = value;
+      }
+    }
+
+    private string message_ = "";
+    public string Message {
+      get { return message_; }
+      set {
+        message_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    private static readonly pb::FieldCodec<global::ETModel.RoomBriefInfo> _repeated_roomList_codec
+        = pb::FieldCodec.ForMessage(10, global::ETModel.RoomBriefInfo.Parser);
+    private pbc::RepeatedField<global::ETModel.RoomBriefInfo> roomList_ = new pbc::RepeatedField<global::ETModel.RoomBriefInfo>();
+    public pbc::RepeatedField<global::ETModel.RoomBriefInfo> RoomList {
+      get { return roomList_; }
+      set { roomList_ = value; }
+    }
+
+    public void WriteTo(pb::CodedOutputStream output) {
+      roomList_.WriteTo(output, _repeated_roomList_codec);
+      if (RpcId != 0) {
+        output.WriteRawTag(208, 5);
+        output.WriteInt32(RpcId);
+      }
+      if (Error != 0) {
+        output.WriteRawTag(216, 5);
+        output.WriteInt32(Error);
+      }
+      if (Message.Length != 0) {
+        output.WriteRawTag(226, 5);
+        output.WriteString(Message);
+      }
+    }
+
+    public int CalculateSize() {
+      int size = 0;
+      if (RpcId != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(RpcId);
+      }
+      if (Error != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(Error);
+      }
+      if (Message.Length != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeStringSize(Message);
+      }
+      size += roomList_.CalculateSize(_repeated_roomList_codec);
+      return size;
+    }
+
+    public void MergeFrom(pb::CodedInputStream input) {
+      for (int i = 0; i < roomList_.Count; i++) { MessagePool.Instance.Recycle(roomList_[i]); }
+      roomList_.Clear();
+      rpcId_ = 0;
+      error_ = 0;
+      message_ = "";
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 10: {
+            roomList_.AddEntriesFrom(input, _repeated_roomList_codec);
+            break;
+          }
+          case 720: {
+            RpcId = input.ReadInt32();
+            break;
+          }
+          case 728: {
+            Error = input.ReadInt32();
+            break;
+          }
+          case 738: {
+            Message = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   /// <summary>
   ///创建房间
   /// </summary>
@@ -2797,6 +2963,179 @@ namespace ETModel {
   public partial class RM2C_JoinRoom : pb::IMessage {
     private static readonly pb::MessageParser<RM2C_JoinRoom> _parser = new pb::MessageParser<RM2C_JoinRoom>(() => (RM2C_JoinRoom)MessagePool.Instance.Fetch(typeof(RM2C_JoinRoom)));
     public static pb::MessageParser<RM2C_JoinRoom> Parser { get { return _parser; } }
+
+    private int rpcId_;
+    public int RpcId {
+      get { return rpcId_; }
+      set {
+        rpcId_ = value;
+      }
+    }
+
+    private int error_;
+    public int Error {
+      get { return error_; }
+      set {
+        error_ = value;
+      }
+    }
+
+    private string message_ = "";
+    public string Message {
+      get { return message_; }
+      set {
+        message_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (RpcId != 0) {
+        output.WriteRawTag(208, 5);
+        output.WriteInt32(RpcId);
+      }
+      if (Error != 0) {
+        output.WriteRawTag(216, 5);
+        output.WriteInt32(Error);
+      }
+      if (Message.Length != 0) {
+        output.WriteRawTag(226, 5);
+        output.WriteString(Message);
+      }
+    }
+
+    public int CalculateSize() {
+      int size = 0;
+      if (RpcId != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(RpcId);
+      }
+      if (Error != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(Error);
+      }
+      if (Message.Length != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeStringSize(Message);
+      }
+      return size;
+    }
+
+    public void MergeFrom(pb::CodedInputStream input) {
+      rpcId_ = 0;
+      error_ = 0;
+      message_ = "";
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 720: {
+            RpcId = input.ReadInt32();
+            break;
+          }
+          case 728: {
+            Error = input.ReadInt32();
+            break;
+          }
+          case 738: {
+            Message = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  /// 房主踢人
+  /// </summary>
+  public partial class C2RM_KickRoomPlayer : pb::IMessage {
+    private static readonly pb::MessageParser<C2RM_KickRoomPlayer> _parser = new pb::MessageParser<C2RM_KickRoomPlayer>(() => (C2RM_KickRoomPlayer)MessagePool.Instance.Fetch(typeof(C2RM_KickRoomPlayer)));
+    public static pb::MessageParser<C2RM_KickRoomPlayer> Parser { get { return _parser; } }
+
+    private int rpcId_;
+    public int RpcId {
+      get { return rpcId_; }
+      set {
+        rpcId_ = value;
+      }
+    }
+
+    private long actorId_;
+    public long ActorId {
+      get { return actorId_; }
+      set {
+        actorId_ = value;
+      }
+    }
+
+    private long kickId_;
+    public long KickId {
+      get { return kickId_; }
+      set {
+        kickId_ = value;
+      }
+    }
+
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (KickId != 0L) {
+        output.WriteRawTag(8);
+        output.WriteInt64(KickId);
+      }
+      if (RpcId != 0) {
+        output.WriteRawTag(208, 5);
+        output.WriteInt32(RpcId);
+      }
+      if (ActorId != 0L) {
+        output.WriteRawTag(232, 5);
+        output.WriteInt64(ActorId);
+      }
+    }
+
+    public int CalculateSize() {
+      int size = 0;
+      if (RpcId != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(RpcId);
+      }
+      if (ActorId != 0L) {
+        size += 2 + pb::CodedOutputStream.ComputeInt64Size(ActorId);
+      }
+      if (KickId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(KickId);
+      }
+      return size;
+    }
+
+    public void MergeFrom(pb::CodedInputStream input) {
+      kickId_ = 0;
+      rpcId_ = 0;
+      actorId_ = 0;
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            KickId = input.ReadInt64();
+            break;
+          }
+          case 720: {
+            RpcId = input.ReadInt32();
+            break;
+          }
+          case 744: {
+            ActorId = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public partial class RM2C_KickRoomPlayer : pb::IMessage {
+    private static readonly pb::MessageParser<RM2C_KickRoomPlayer> _parser = new pb::MessageParser<RM2C_KickRoomPlayer>(() => (RM2C_KickRoomPlayer)MessagePool.Instance.Fetch(typeof(RM2C_KickRoomPlayer)));
+    public static pb::MessageParser<RM2C_KickRoomPlayer> Parser { get { return _parser; } }
 
     private int rpcId_;
     public int RpcId {
