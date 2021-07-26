@@ -14,8 +14,10 @@ namespace ETHotfix
     {
         protected override async ETTask Run(Session session, C2G_AllRoomList message, G2C_AllRoomList response, Action reply)
         {
-            Session mgrSession = Game.Scene.GetComponent<NetInnerComponent>().Get(StartConfigComponent.Instance.RoomManagerConfig.GetComponent<InnerConfig>().IPEndPoint);
-            response= (G2C_AllRoomList)await mgrSession.Call(message);
+            foreach (var item in Game.Scene.GetComponent<RoomManagerEntity>().AllRoomDic.Values)
+            {
+                response.RoomList.Add(item);
+            }
             reply();
         }
     }
