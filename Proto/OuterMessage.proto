@@ -195,12 +195,13 @@ message M2C_CommonAttack // IActorMessage
 //房间简略信息.用于给客户端列表展示.
 message RoomBriefInfo
 {
-    int32 MaxMemberCount = 1;
-    int32 CurrentMemberCount = 2;
-    string RoomName = 3;
-    string MasterName = 4;
-    string MasterId = 5;
-    bool IsInBattle = 6;
+    int64 RoomId = 1;
+    int32 MaxMemberCount = 2;
+    int32 CurrentMemberCount = 3;
+    string RoomName = 4;
+    string MasterName = 5;
+    int64 MasterId = 6;
+    bool IsInBattle = 7;
 }
 //房间内玩家
 message RoomPlayer
@@ -237,6 +238,19 @@ message C2RM_JoinRoom // IRequest
     int64 RoomId = 1;
 }
 message RM2C_JoinRoom // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+}
+// 房主踢人
+message C2RM_KickRoomPlayer // IActorLocationRequest
+{
+    int32 RpcId = 90;
+    int64 ActorId = 93;
+    int64 KickId = 1;
+}
+message RM2C_KickRoomPlayer // IActorLocationResponse
 {
     int32 RpcId = 90;
     int32 Error = 91;

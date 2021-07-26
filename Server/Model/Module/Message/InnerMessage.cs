@@ -407,6 +407,29 @@ namespace ETModel
 	}
 
 // 房间相关
+	[Message(InnerOpcode.RegisterRoomToRoomManager)]
+	public partial class RegisterRoomToRoomManager: IMessage
+	{
+		public long Roomid { get; set; }
+
+		public RoomBriefInfo BriefInfo { get; set; }
+
+	}
+
+	[Message(InnerOpcode.UnRegisterRoomToRoomManager)]
+	public partial class UnRegisterRoomToRoomManager: IMessage
+	{
+		public long Roomid { get; set; }
+
+	}
+
+	[Message(InnerOpcode.UpdateRoomToRoomManager)]
+	public partial class UpdateRoomToRoomManager: IMessage
+	{
+		public RoomBriefInfo BriefInfo { get; set; }
+
+	}
+
 	[Message(InnerOpcode.G2RM_CreateRoom)]
 	public partial class G2RM_CreateRoom: IRequest
 	{

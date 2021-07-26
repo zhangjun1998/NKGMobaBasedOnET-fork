@@ -46,7 +46,7 @@ namespace ETHotfix
             }
             DBProxyComponent dbProxyComponent = Game.Scene.GetComponent<DBProxyComponent>();
             UserInfo userInfo = await dbProxyComponent.Query<UserInfo>(message.UnitId);
-            await room.AddUnit(message.GateSessionId, userInfo);
+            await room.AddUnit(message.GateSessionId,false,userInfo);
             reply();
         }
     }

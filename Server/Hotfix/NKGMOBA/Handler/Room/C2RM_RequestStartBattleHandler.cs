@@ -9,14 +9,17 @@ namespace ETHotfix
     {
         protected override async ETTask Run(Unit unit, C2RM_RequestStartBattle request, RM2C_RequestStartBattle response, Action reply)
         {
-            if (unit.GetParent<RoomEntity>().GetComponent<BattleLoadingComponent>()!=null)
+            if (unit.GetComponent<RoomPlayerData>().IsMaster)
             {
-                response.Error = ErrorCode.ERR_AlreadyInLoading;
-                reply();
-                return;
+                if (unit.GetParent<RoomEntity>().GetComponent<BattleLoadingComponent>() != null)
+                {
+                    response.Error = ErrorCode.ERR_AlreadyInLoading;
+                    reply();
+                    return;
+                }
+                unit.TempScene.AddComponent<BattleEntity>();
+                unit.TempScene.AddComponent<BattleLoadingComponent>();
             }
-            unit.GetParent<RoomEntity>().AddComponent<BattleEntity>();
-            unit.GetParent<RoomEntity>().AddComponent<BattleLoadingComponent>();
             reply();
         }
     }

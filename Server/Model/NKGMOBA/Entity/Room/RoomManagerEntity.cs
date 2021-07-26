@@ -1,10 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ETModel
 {
-
+    public enum RoomPlayerQuitTypeEnum
+    {
+        /// <summary>
+        /// 自己退
+        /// </summary>
+        SelfQuit = 0,
+        /// <summary>
+        /// 被踢
+        /// </summary>
+        BeKicked = 1,
+        /// <summary>
+        /// 房间解散
+        /// </summary>
+        RoomDismiss = 2
+    }
     public class RoomManagerEntity : Entity
     {
         /// <summary>
@@ -17,24 +30,6 @@ namespace ETModel
         public Dictionary<int, int> RoomCountWithSceneId = new Dictionary<int, int>();
     }
     /// <summary>
-    /// 房间的实体.
-    /// </summary>
-    public class RoomEntity : Entity
-    {
-        /// <summary>
-        /// 只有在非战斗状态的房间才可以修改玩家状态
-        /// </summary>
-        public bool CanUnitChangeState => 
-            GetComponent<BattleLoadingComponent>() != null &&
-            GetComponent<BattleEntity>()!=null;
-        public void Awake()
-        {
-            AddComponent<RoomPlayerComponent>();
-            AddComponent<RoomConfigComponent>();
-        }
-
-    }
-    /// <summary>
     /// 房间配置信息.
     /// </summary>
     public class RoomConfigComponent : Component
@@ -43,14 +38,6 @@ namespace ETModel
         public string MasterName;
         public string RoomName;
         public bool IsInBattle;
-    }
-    /// <summary>
-    /// 管理房间内成员
-    /// </summary>
-    public class RoomPlayerComponent : Entity
-    {
-        public Dictionary<long, Unit> Players = new Dictionary<long, Unit>();
-        public Unit[] PlayerArray => Players.Values.ToArray();
     }
     /// <summary>
     /// 与房间逻辑有关的成员信息,挂载在unit下

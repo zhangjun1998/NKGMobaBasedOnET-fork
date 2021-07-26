@@ -16,9 +16,8 @@ namespace ETModel
     [NumericWatcher(NumericType.Speed)]
     public class SpeedSynced_MoveComponent: INumericWatcher
     {
-        public void Run(long id, float value)
+        public void Run(Unit unit, float value)
         {
-            Unit unit = UnitComponent.Instance.Get(id);
             unit.GetComponent<MoveComponent>().CorrectMoveSpeed();
         }
     }

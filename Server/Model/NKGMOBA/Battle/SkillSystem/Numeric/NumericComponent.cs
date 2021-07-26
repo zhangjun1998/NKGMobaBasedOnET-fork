@@ -76,7 +76,7 @@ namespace ETModel
             }
 
             //将改变的值以事件的形式发送出去
-            Game.EventSystem.Run(EventIdType.NumbericChange, this.Entity.Id, numericType, result);
+            Game.EventSystem.Run(EventIdType.NumbericChange, this.Entity, numericType, result);
         }
     }
 }

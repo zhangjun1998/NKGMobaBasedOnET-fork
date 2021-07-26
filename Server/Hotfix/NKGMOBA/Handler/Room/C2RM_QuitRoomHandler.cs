@@ -9,14 +9,20 @@ namespace ETHotfix
     {
         protected override async ETTask Run(Unit unit, C2RM_QuitRoom request, RM2C_QuitRoom response, Action reply)
         {
-            if (!unit.GetParent<RoomEntity>().CanUnitChangeState)
+            bool isMaster = unit.GetComponent<RoomPlayerData>().IsMaster;
+            RoomEntity room = unit.TempScene;
+            if (!unit.TempScene.CanUnitChangeState)
             {
                 response.Error = ErrorCode.ERR_AlreadyInBattle;
                 reply();
                 return;
             }
-            unit.GetParent<RoomEntity>().RemoveUnit(unit);
+            unit.TempScene.RemoveUnit(unit.Id,RoomPlayerQuitTypeEnum.SelfQuit);
             reply();
+            if (isMaster)
+            {
+                room.Dispose();
+            }
         }
     }
 }

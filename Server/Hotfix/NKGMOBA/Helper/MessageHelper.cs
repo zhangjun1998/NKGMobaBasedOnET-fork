@@ -40,5 +40,17 @@ namespace ETHotfix
                 actorMessageSender.Send(message);
             }
         }
+        public static void SendMsgToUnit(Unit unit, IActorMessage message)
+        {
+            ActorMessageSenderComponent actorLocationSenderComponent = Game.Scene.GetComponent<ActorMessageSenderComponent>();
+            UnitGateComponent unitGateComponent = unit.GetComponent<UnitGateComponent>();
+            if (unitGateComponent == null || unitGateComponent.IsDisconnect)
+            {
+                Log.Debug("unitGateComponent not found or unit offline");
+                return;
+            }
+            ActorMessageSender actorMessageSender = actorLocationSenderComponent.Get(unitGateComponent.GateSessionActorId);
+            actorMessageSender.Send(message);
+        }
     }
 }

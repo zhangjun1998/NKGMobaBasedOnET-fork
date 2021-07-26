@@ -190,10 +190,11 @@ namespace ETHotfix.NKGMOBA.Factory
         {
             //为碰撞体新建一个Unit
             Unit b2sColliderEntity = CreateUnitBase();
+            b2sColliderEntity.Parent = belongToUnit.Parent;
             b2sColliderEntity.AddComponent<B2S_ColliderComponent, Unit, int>(belongToUnit, colliderDataConfigId);
 
             //把这个碰撞实体增加到管理者维护 TODO 待优化，目的同B2S_ColliderEntityManagerComponent
-            Game.Scene.GetComponent<B2S_WorldColliderManagerComponent>().AddColliderEntity(b2sColliderEntity);
+            belongToUnit.TempScene.GetComponent<B2S_WorldColliderManagerComponent>().AddColliderEntity(b2sColliderEntity);
             return b2sColliderEntity;
         }
 
@@ -203,7 +204,8 @@ namespace ETHotfix.NKGMOBA.Factory
         /// <param name="id"></param>
         public static void RemoveColliderUnit(long id)
         {
-            Game.Scene.GetComponent<B2S_WorldColliderManagerComponent>().RemoveColliderEntity(id);
+            UnitComponent.Instance.Get(id).TempScene.GetComponent<B2S_WorldColliderManagerComponent>().RemoveColliderEntity(id);
+            //Game.Scene.GetComponent<B2S_WorldColliderManagerComponent>().RemoveColliderEntity(id);
             UnitComponent.Instance.Remove(id);
             //Log.Error("移除碰撞体");
         }

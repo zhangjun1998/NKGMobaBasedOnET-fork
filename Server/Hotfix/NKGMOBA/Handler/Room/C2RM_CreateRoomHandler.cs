@@ -43,7 +43,7 @@ namespace ETHotfix
             UserInfo userInfo = await dbProxyComponent.Query<UserInfo>(message.UnitId);
             var room=ComponentFactory.Create<RoomEntity,string>(userInfo.NickName);
             reply();
-            await room.AddUnit(message.GateSessionId,userInfo);
+            await room.AddUnit(message.GateSessionId,true,userInfo);
         }
     }
 }

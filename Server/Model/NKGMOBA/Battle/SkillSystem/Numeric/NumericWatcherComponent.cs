@@ -55,7 +55,7 @@ namespace ETModel
 			}
 		}
 
-		public void Run(NumericType numericType, long id, float value)
+		public void Run(NumericType numericType, Unit unit, float value)
 		{
 			List<INumericWatcher> list;
 			if (!this.allWatchers.TryGetValue(numericType, out list))
@@ -64,7 +64,7 @@ namespace ETModel
 			}
 			foreach (INumericWatcher numericWatcher in list)
 			{
-				numericWatcher.Run(id, value);
+				numericWatcher.Run(unit, value);
 			}
 		}
 	}
