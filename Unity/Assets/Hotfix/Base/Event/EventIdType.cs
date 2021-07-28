@@ -6,7 +6,34 @@
         /// 登录完毕
         /// </summary>
         public const string LoginFinish = "LoginFinish";
-
+        /// <summary>
+        /// 进入房间列表界面
+        /// </summary>
+        public const string ShowRoomList = "ShowRoomList";
+        /// <summary>
+        /// 进入房间界面
+        /// </summary>
+        public const string ShowRoom = "ShowRoom";
+        /// <summary>
+        /// 更新房间信息
+        /// </summary>
+        public const string UpdateRoom = "UpdateRoom";
+        /// <summary>
+        /// 退出房间返回RoomList
+        /// </summary>
+        public const string QuitRoomToRoomList = "QuitRoomToRoomList";
+        /// <summary>
+        /// 退出房间列表房间返回lobby
+        /// </summary>
+        public const string QuitRoomListToLobby = "QuitRoomListToLobby";
+        /// <summary>
+        /// 显示错误通知
+        /// </summary>
+        public const string ShowErrorDialog = "ShowErrorDialog";
+        /// <summary>
+        /// 显示通知
+        /// </summary>
+        public const string ShowMsgDialog = "ShowMsgDialog";
         /// <summary>
         /// 显示战斗UI
         /// </summary>

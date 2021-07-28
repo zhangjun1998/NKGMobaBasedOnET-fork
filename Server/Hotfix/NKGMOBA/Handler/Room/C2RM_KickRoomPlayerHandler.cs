@@ -17,7 +17,7 @@ namespace ETHotfix
             }
             if (unit.GetComponent<RoomPlayerData>().IsMaster)
             {
-                if (unit.GetParent<RoomEntity>().GetComponent<BattleLoadingComponent>() != null)
+                if (unit.TempScene.GetComponent<BattleLoadingComponent>() != null)
                 {
                     response.Error = ErrorCode.ERR_AlreadyInLoading;
                     reply();

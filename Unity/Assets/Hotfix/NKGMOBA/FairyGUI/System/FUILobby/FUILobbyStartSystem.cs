@@ -15,6 +15,7 @@ namespace ETHotfix
         {
             GetUserInfo().Coroutine();
             self.normalPVPBtn.self.onClick.Add(() => this.EnterMapAsync());
+            self.pveBtn.self.onClick.Add(() => this.EnterRoomList());
         }
 
         private async ETVoid GetUserInfo()
@@ -32,7 +33,10 @@ namespace ETHotfix
 
             Game.EventSystem.Run(EventIdType.LobbyUIAllDataLoadComplete);
         }
-
+        private void EnterRoomList()
+        {
+            Game.EventSystem.Run(EventIdType.ShowRoomList);
+        }
         private void EnterMapAsync()
         {
             ETModel.Game.EventSystem.Run(ETModel.EventIdType.ShowLoadingUI);

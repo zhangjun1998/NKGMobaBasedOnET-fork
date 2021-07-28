@@ -61,7 +61,7 @@
     <group id="n54_rfuv" name="nomalpvp" xy="1006,164" size="279,120" group="n57_rfuv" advanced="true"/>
     <image id="n49_rfuv" name="n49" src="rfuvo" fileName="Res/UIPublic_61.PNG" xy="1005,400" group="n55_rfuv" alpha="0.7" flip="hz"/>
     <image id="n53_rfuv" name="n53" src="rfuvp" fileName="Res/Dungeon.PNG" xy="1173,405" group="n55_rfuv"/>
-    <text id="n62_rfuv" name="n62" xy="1029,435" size="144,48" group="n55_rfuv" fontSize="35" color="#00ccff" align="center" vAlign="middle" bold="true" text="地牢模式"/>
+    <text id="n62_rfuv" name="n62" xy="1029,435" size="144,48" group="n55_rfuv" fontSize="35" color="#00ccff" align="center" vAlign="middle" bold="true" text="房间模式"/>
     <component id="n59_rfuv" name="pveBtn" src="rfuvs" fileName="BattleBtn.xml" xy="1011,404" size="269,117" group="n55_rfuv" alpha="0"/>
     <group id="n55_rfuv" name="pve" xy="1005,400" size="279,120" group="n57_rfuv" advanced="true"/>
     <image id="n50_rfuv" name="n50" src="rfuvo" fileName="Res/UIPublic_61.PNG" xy="1006,283" group="n56_rfuv" flip="hz"/>

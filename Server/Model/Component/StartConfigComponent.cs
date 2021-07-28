@@ -44,6 +44,7 @@ namespace ETModel
 			this.configDict = new Dictionary<int, StartConfig>();
 			this.MapConfigs = new List<StartConfig>();
 			this.GateConfigs = new List<StartConfig>();
+			this.RoomConfigs = new List<StartConfig>();
 
 			string[] ss = File.ReadAllText(path).Split('\n');
 			foreach (string s in ss)

@@ -22,6 +22,7 @@ namespace ETHotfix
     {
         public override void Awake(RoomEntity self, string masterName)
         {
+            self.AddComponent<MailBoxComponent>();
             self.AddComponent<RoomPlayerComponent>();
             var conf = self.AddComponent<RoomConfigComponent>();
             conf.RoomName = $"{masterName}的房间";

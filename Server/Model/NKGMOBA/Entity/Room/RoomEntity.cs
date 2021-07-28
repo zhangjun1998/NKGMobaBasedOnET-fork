@@ -9,8 +9,8 @@
         /// 只有在非战斗状态的房间才可以修改玩家状态
         /// </summary>
         public bool CanUnitChangeState =>
-            GetComponent<BattleLoadingComponent>() != null &&
-            GetComponent<BattleEntity>() != null;
+            GetComponent<BattleLoadingComponent>() == null &&
+            GetComponent<BattleEntity>() == null;
 
         public RoomBriefInfo BriefInfo =>
             new RoomBriefInfo() {

@@ -24,11 +24,11 @@ namespace ETHotfix
                 // 临时引用5v5游戏
                 M5V5Game m5V5Game = Game.Scene.GetComponent<M5V5GameComponent>().m_5V5Game;
 
-                G2C_EnterMap g2CEnterMap = await ETModel.SessionComponent.Instance.Session.Call(new C2G_EnterMap()) as G2C_EnterMap;
+                //G2C_EnterMap g2CEnterMap = await ETModel.SessionComponent.Instance.Session.Call(new C2G_EnterMap()) as G2C_EnterMap;
 
                 //ETModel.Log.Info($"{DateTime.UtcNow}处理完成服务端发来的进入Map后的信息");
 
-                PlayerComponent.Instance.MyPlayer.UnitId = g2CEnterMap.UnitId;
+                PlayerComponent.Instance.MyPlayer.UnitId = PlayerComponent.Instance.MyPlayer.Id;
 
                 // 给自己的Unit添加引用
                 UnitComponent.Instance.MyUnit =

@@ -285,7 +285,7 @@ message RM2C_LeaveRoom // IActorMessage
 {
     int32 RpcId = 90;
     int64 ActorId = 93;
-    int32 LeaveReason = 1;//离开房间原因: 1 房间解散 2 被踢
+    int32 LeaveReason = 1;//离开房间原因: 1 被踢 2 房间解散
 }
 //服务器通知客户端 房间状态变更 (收到消息要进入房间界面)
 message RM2C_RoomInfoUpdate // IActorMessage
