@@ -59,9 +59,9 @@ namespace ETHotfix.NKGMOBA.Factory
             //为Unit附加碰撞体
             CreateColliderUnit(unit, serverUnitConfig.UnitColliderDataConfigId);
 
-            unit.AddComponent<B2S_RoleCastComponent>();
+            //unit.AddComponent<B2S_RoleCastComponent>();
 
-            Game.Scene.GetComponent<CampAllocManagerComponent>().AllocRoleCamp(unit);
+            //Game.Scene.GetComponent<CampAllocManagerComponent>().AllocRoleCamp(unit);
 
             unit.AddComponent<NumericComponent>();
             unit.AddComponent<UnitAttributesDataComponent, long>(10001);
@@ -192,7 +192,6 @@ namespace ETHotfix.NKGMOBA.Factory
             Unit b2sColliderEntity = CreateUnitBase();
             b2sColliderEntity.Parent = belongToUnit.Parent;
             b2sColliderEntity.AddComponent<B2S_ColliderComponent, Unit, int>(belongToUnit, colliderDataConfigId);
-
             //把这个碰撞实体增加到管理者维护 TODO 待优化，目的同B2S_ColliderEntityManagerComponent
             belongToUnit.TempScene.GetComponent<B2S_WorldColliderManagerComponent>().AddColliderEntity(b2sColliderEntity);
             return b2sColliderEntity;

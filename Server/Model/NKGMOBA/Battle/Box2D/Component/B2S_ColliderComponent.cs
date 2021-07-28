@@ -49,7 +49,7 @@ namespace ETModel
             }
 
             base.Dispose();
-            Game.Scene.GetComponent<B2S_WorldComponent>().GetWorld().DestroyBody(this.Body);
+            BelongToUnit.TempScene.GetComponent<B2S_WorldComponent>().GetWorld().DestroyBody(this.Body);
             this.B2S_ColliderDataStructureBase = null;
         }
     }

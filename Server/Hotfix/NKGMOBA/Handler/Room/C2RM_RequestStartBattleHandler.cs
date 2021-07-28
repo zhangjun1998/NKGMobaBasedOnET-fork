@@ -17,10 +17,19 @@ namespace ETHotfix
                     reply();
                     return;
                 }
+                reply();
+                unit.TempScene.AddComponent<B2S_WorldColliderManagerComponent>();
+                unit.TempScene.AddComponent<B2S_WorldComponent>();
+                unit.TempScene.AddComponent<B2S_CollisionListenerComponent>();
                 unit.TempScene.AddComponent<BattleEntity>();
                 unit.TempScene.AddComponent<BattleLoadingComponent>();
             }
-            reply();
+            else
+            {
+                response.Error = ErrorCode.ERR_RoomSelfNotAdmin;
+                reply();
+            }
+            
         }
     }
 }

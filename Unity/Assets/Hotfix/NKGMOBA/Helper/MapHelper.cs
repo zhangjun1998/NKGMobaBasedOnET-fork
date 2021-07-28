@@ -9,7 +9,7 @@ namespace ETHotfix
         /// 进入战斗地图
         /// </summary>
         /// <returns></returns>
-        public static async ETVoid EnterMapAsync()
+        public static async ETTask EnterMapAsync()
         {
             try
             {

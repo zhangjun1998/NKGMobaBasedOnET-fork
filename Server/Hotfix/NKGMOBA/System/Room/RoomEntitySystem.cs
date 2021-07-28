@@ -24,6 +24,7 @@ namespace ETHotfix
         {
             self.AddComponent<MailBoxComponent>();
             self.AddComponent<RoomPlayerComponent>();
+            self.AddComponent<CampAllocManagerComponent>();
             var conf = self.AddComponent<RoomConfigComponent>();
             conf.RoomName = $"{masterName}的房间";
             conf.MaxMemberCount = 10;
@@ -36,6 +37,21 @@ namespace ETHotfix
         {
             Session mgrSession = Game.Scene.GetComponent<NetInnerComponent>().Get(StartConfigComponent.Instance.RoomManagerConfig.GetComponent<InnerConfig>().IPEndPoint);
             mgrSession.Send(new UpdateRoomToRoomManager() {  BriefInfo = self.BriefInfo });
+        }
+    }
+
+
+    [ObjectSystem]
+    public class BattleEntityRoomEntityAwakeSystem : AwakeSystem<BattleEntity>
+    {
+        public override void Awake(BattleEntity self)
+        {
+            self.Awake();
+            var roomEntity = self.GetParent<RoomEntity>();
+            foreach (var unit in roomEntity.GetComponent<RoomPlayerComponent>().Players.Values)
+            {
+                NKGMOBA.Factory.UnitFactory.CreateDarius(unit);
+            }
         }
     }
 }

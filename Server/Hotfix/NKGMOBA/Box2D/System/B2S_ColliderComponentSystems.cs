@@ -35,7 +35,7 @@ namespace ETHotfix
 
             self.B2S_ColliderDataStructureBase = b2SColliderDataRepositoryComponent.GetDataByColliderId(Game.Scene.GetComponent<ConfigComponent>()
                     .Get<Server_B2SColliderConfig>(self.B2S_ColliderDataConfigId).B2S_ColliderId);
-            self.Body = B2S_BodyUtility.CreateDynamicBody();
+            self.Body = B2S_BodyUtility.CreateDynamicBody(self.BelongToUnit);
 
             switch (self.B2S_ColliderDataStructureBase.b2SColliderType)
             {
@@ -70,7 +70,7 @@ namespace ETHotfix
         public override void FixedUpdate(B2S_ColliderComponent self)
         {
             //如果刚体处于激活状态，且设定上此刚体是跟随Unit的话，就同步位置和角度
-            if (self.Body.IsEnabled && self.Sync && !Game.Scene.GetComponent<B2S_WorldComponent>().GetWorld().IsLocked)
+            if (self.Body.IsEnabled && self.Sync && !self.BelongToUnit.TempScene.GetComponent<B2S_WorldComponent>().GetWorld().IsLocked)
             {
                 self.SyncBody();
                 //Log.Info($"进行了位置移动，数据结点为{self.ID}");

@@ -19,9 +19,9 @@ namespace ETModel
         public override void Awake(B2S_CollisionListenerComponent self)
         {
             //绑定指定的物理世界，正常来说一个房间一个物理世界,这里是Demo，直接获取了
-            Game.Scene.GetComponent<B2S_WorldComponent>().GetWorld().SetContactListener(self);
+            self.GetParent<RoomEntity>().GetComponent<B2S_WorldComponent>().GetWorld().SetContactListener(self);
             //self.TestCollision();
-            self.B2SWorldColliderManagerComponent = Game.Scene.GetComponent<B2S_WorldColliderManagerComponent>();
+            self.B2SWorldColliderManagerComponent = self.GetParent<RoomEntity>().GetComponent<B2S_WorldColliderManagerComponent>();
         }
     }
 

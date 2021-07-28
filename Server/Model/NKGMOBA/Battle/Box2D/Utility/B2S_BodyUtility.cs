@@ -16,17 +16,17 @@ namespace ETModel
         /// <summary>
         /// 创造一个动态刚体
         /// </summary>
-        public static Body CreateDynamicBody()
+        public static Body CreateDynamicBody(Unit unit)
         {
-            return Game.Scene.GetComponent<B2S_WorldComponent>().GetWorld().CreateBody(new BodyDef() { BodyType = BodyType.DynamicBody });
+            return unit.TempScene.GetComponent<B2S_WorldComponent>().GetWorld().CreateBody(new BodyDef() { BodyType = BodyType.DynamicBody });
         }
         
         /// <summary>
         /// 创造一个静态刚体
         /// </summary>
-        public static Body CreateStaticBody()
+        public static Body CreateStaticBody(Unit unit)
         {
-            return Game.Scene.GetComponent<B2S_WorldComponent>().GetWorld().CreateBody(new BodyDef() { BodyType = BodyType.DynamicBody });
+            return unit.TempScene.GetComponent<B2S_WorldComponent>().GetWorld().CreateBody(new BodyDef() { BodyType = BodyType.DynamicBody });
         }
     }
 }

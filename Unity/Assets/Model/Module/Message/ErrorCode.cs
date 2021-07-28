@@ -69,6 +69,10 @@ namespace ETModel
 		/// 不可以踢出自己
 		/// </summary>
 		public const int ERR_RoomKickSelf = 220005;
+		/// <summary>
+		/// 不是房主
+		/// </summary>
+		public const int ERR_RoomSelfNotAdmin = 220006;
 
 		//-----------------------------------
 		public static bool IsRpcNeedThrowException(int error)

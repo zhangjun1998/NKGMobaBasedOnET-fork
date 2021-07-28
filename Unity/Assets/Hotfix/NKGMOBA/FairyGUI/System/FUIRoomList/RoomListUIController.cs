@@ -34,4 +34,12 @@ namespace ETHotfix
             Game.Scene.GetComponent<FUIComponent>().Remove(FUIPackage.FUIRoom_FUIRoomList);
         }
     }
+    [Event(EventIdType.EnterMapFinish)]
+    public class EnterMapCloseRoomListUI : AEvent
+    {
+        public override void Run()
+        {
+            Game.Scene.GetComponent<FUIComponent>().Remove(FUIPackage.FUIRoom_FUIRoomList);
+        }
+    }
 }

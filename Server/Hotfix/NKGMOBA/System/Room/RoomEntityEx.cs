@@ -13,11 +13,13 @@ namespace ETHotfix
             var unit = ComponentFactory.CreateWithId<Unit>(userInfo.Id);
             //添加同gate服务器通信基础组件，记录GateSeesion的Id为ActorId
             unit.AddComponent<UnitGateComponent, long>(gateSessionId);
+            //设置阵容
+            unit.AddComponent<B2S_RoleCastComponent>();
+            self.GetComponent<CampAllocManagerComponent>().AllocRoleCamp(unit);
             //设置房间内玩家信息
             var playerdata = unit.AddComponent<RoomPlayerData>();
             playerdata.NickName = userInfo.NickName;
             playerdata.IsMaster = isMaster;
-
             self.GetComponent<RoomPlayerComponent>().Players.Add(unit.Id, unit);
             //设置unit父节点为RoomPlayerComponent
             unit.Parent = self.GetComponent<RoomPlayerComponent>();

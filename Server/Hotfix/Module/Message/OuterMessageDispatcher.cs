@@ -34,7 +34,7 @@ namespace ETHotfix
 				}
 				case IActorLocationMessage actorLocationMessage:
 				{
-					long unitId = session.GetComponent<SessionPlayerComponent>().Player.UnitId;
+					long unitId = session.GetComponent<SessionPlayerComponent>().Player.PlayerIdInDB;
 					ActorLocationSender actorLocationSender = Game.Scene.GetComponent<ActorLocationSenderComponent>().Get(unitId);
 					actorLocationSender.Send(actorLocationMessage);
 					break;

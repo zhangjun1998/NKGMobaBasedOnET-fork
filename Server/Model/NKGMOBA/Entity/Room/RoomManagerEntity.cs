@@ -53,15 +53,8 @@ namespace ETModel
     /// </summary>
     public class BattleEntity : Entity
     {
-        //public Dictionary<long, Unit> BattlePlayers =>GetParent<RoomEntity>().GetComponent<RoomPlayerComponent>().Players;
         public void Awake()
         {
-            AddComponent<B2S_WorldColliderManagerComponent>();
-            AddComponent<B2S_WorldComponent>();
-            AddComponent<B2S_CollisionListenerComponent>();
-            AddComponent<CampAllocManagerComponent>();
-            //改造成本较高.BattleEventSystem先不移到单独战斗里
-            //AddComponent<BattleEventSystem>();
         }
     }
 }

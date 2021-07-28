@@ -20,6 +20,7 @@ namespace ETModel
                     IsMaster=unit.GetComponent<RoomPlayerData>().IsMaster,
                     Name= unit.GetComponent<RoomPlayerData>().NickName,
                     PlayerId= unit.Id,
+                    IsRed= unit.GetComponent<B2S_RoleCastComponent>().RoleCamp==RoleCamp.HuiYue
                     //IsRed=
                 });
             }
