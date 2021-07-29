@@ -43,5 +43,6 @@ namespace ETModel
 		 public const ushort RM2G_CreateRoom = 1039;
 		 public const ushort G2RM_JoinRoom = 1040;
 		 public const ushort RM2G_JoinRoom = 1041;
+		 public const ushort G2RM_ReconnectBattle = 1042;
 	}
 }

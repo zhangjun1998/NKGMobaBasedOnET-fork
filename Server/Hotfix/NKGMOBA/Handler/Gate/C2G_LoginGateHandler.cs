@@ -32,12 +32,13 @@ namespace ETHotfix
 
             //给这个session安排上Player
             session.AddComponent<SessionPlayerComponent>().Player = player;
-            
+
             // 增加心跳包
-            session.AddComponent<HeartBeatComponent>().CurrentTime = TimeHelper.ClientNowSeconds();
+            HeartBeatComponent heartbeat =ComponentFactory.CreateWithId<HeartBeatComponent>(playerIdInDB);
+            session.AddComponent(heartbeat);
 
             //添加邮箱组件表示该session是一个Actor,接收的消息将会队列处理
-            await session.AddComponent<MailBoxComponent, string>(MailboxType.GateSession).AddLocation();
+            session.AddComponent<MailBoxComponent, string>(MailboxType.GateSession);
 
             //Log.Info($"gate的actorid为{session.Id}");
             //向登录服务器发送玩家上线消息

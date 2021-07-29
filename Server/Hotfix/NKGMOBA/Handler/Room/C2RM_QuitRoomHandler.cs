@@ -17,7 +17,7 @@ namespace ETHotfix
                 reply();
                 return;
             }
-            unit.TempScene.RemoveUnit(unit.Id,RoomPlayerQuitTypeEnum.SelfQuit);
+            await unit.TempScene.RemoveUnit(unit.Id,RoomPlayerQuitTypeEnum.SelfQuit);
             reply();
             if (isMaster)
             {

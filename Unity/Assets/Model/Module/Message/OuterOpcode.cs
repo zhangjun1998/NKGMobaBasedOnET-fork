@@ -122,7 +122,7 @@ namespace ETModel
 	[Message(OuterOpcode.RM2C_LeaveRoom)]
 	public partial class RM2C_LeaveRoom : IActorMessage {}
 
-//服务器通知客户端 房间状态变更
+//服务器通知客户端 房间状态变更 (收到消息要进入房间界面)
 	[Message(OuterOpcode.RM2C_RoomInfoUpdate)]
 	public partial class RM2C_RoomInfoUpdate : IActorMessage {}
 
@@ -144,6 +144,10 @@ namespace ETModel
 //所有客户端均加载完毕,通知战斗正式开始(有人超时直接跳过).
 	[Message(OuterOpcode.RM2C_StartBattleMessage)]
 	public partial class RM2C_StartBattleMessage : IActorMessage {}
+
+// 战斗重连
+	[Message(OuterOpcode.C2RM_ReconnetBattle)]
+	public partial class C2RM_ReconnetBattle : IMessage {}
 
 }
 namespace ETModel
@@ -192,5 +196,6 @@ namespace ETModel
 		 public const ushort RM2C_EnterBattleMessage = 140;
 		 public const ushort C2RM_LoadComplete = 141;
 		 public const ushort RM2C_StartBattleMessage = 142;
+		 public const ushort C2RM_ReconnetBattle = 143;
 	}
 }

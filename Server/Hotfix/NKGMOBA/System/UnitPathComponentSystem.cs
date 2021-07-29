@@ -177,7 +177,7 @@ namespace ETHotfix
             pathfindingResult.Xs.Clear();
             pathfindingResult.Ys.Clear();
             pathfindingResult.Zs.Clear();
-            MessageHelper.Broadcast(pathfindingResult);
+            MessageHelper.Broadcast(self.Entity.GetParent<RoomPlayerComponent>().PlayerArray, pathfindingResult);
         }
 
         // 从index找接下来3个点，广播
@@ -204,7 +204,7 @@ namespace ETHotfix
                 m2CPathfindingResult.Zs.Add(v.z);
             }
 
-            MessageHelper.Broadcast(m2CPathfindingResult);
+            MessageHelper.Broadcast(unit.GetParent<RoomPlayerComponent>().PlayerArray,m2CPathfindingResult);
         }
     }
 }

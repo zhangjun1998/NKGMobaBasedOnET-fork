@@ -4,22 +4,6 @@ namespace ETHotfix
 {
     public static class MessageHelper
     {
-        public static void Broadcast(IActorMessage message)
-        {
-            Unit[] units = UnitComponent.Instance.GetAll();
-            ActorMessageSenderComponent actorLocationSenderComponent = Game.Scene.GetComponent<ActorMessageSenderComponent>();
-            foreach (Unit unit in units)
-            {
-                UnitGateComponent unitGateComponent = unit.GetComponent<UnitGateComponent>();
-                if (unitGateComponent == null || unitGateComponent.IsDisconnect)
-                {
-                    continue;
-                }
-
-                ActorMessageSender actorMessageSender = actorLocationSenderComponent.Get(unitGateComponent.GateSessionActorId);
-                actorMessageSender.Send(message);
-            }
-        }
         /// <summary>
         /// 范围广播 
         /// </summary>
@@ -44,9 +28,9 @@ namespace ETHotfix
         {
             ActorMessageSenderComponent actorLocationSenderComponent = Game.Scene.GetComponent<ActorMessageSenderComponent>();
             UnitGateComponent unitGateComponent = unit.GetComponent<UnitGateComponent>();
-            if (unitGateComponent == null || unitGateComponent.IsDisconnect)
+            if (unitGateComponent == null)
             {
-                Log.Debug("unitGateComponent not found or unit offline");
+                Log.Debug("unitGateComponent not found");
                 return;
             }
             ActorMessageSender actorMessageSender = actorLocationSenderComponent.Get(unitGateComponent.GateSessionActorId);

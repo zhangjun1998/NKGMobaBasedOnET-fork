@@ -25,7 +25,7 @@ namespace ETHotfix
             switch (error)
             {
                 case ErrorCode.ERR_AlreadyInBattle:
-                    content = "已经在战斗中";
+                    content = "已经在战斗中,点击确定返回战斗";
                     break;
                 default:
                     content = $"服务端返回错误码:{error}";
@@ -36,6 +36,10 @@ namespace ETHotfix
             hotfixui.one_confirm.self.onClick.Add(() =>
             {
                 Game.Scene.GetComponent<FUIComponent>().Remove(FUIPackage.FUIDialog);
+                if (error == ErrorCode.ERR_AlreadyInBattle)
+                {
+                    ETModel.SessionComponent.Instance.Session.Send(new C2RM_ReconnetBattle());
+                }
             });
 
             hotfixui.GObject.sortingOrder = 40;

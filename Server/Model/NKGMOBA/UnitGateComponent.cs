@@ -8,7 +8,15 @@
 			self.Awake(a);
 		}
 	}
-
+	[ObjectSystem]
+	public class UnitGateComponentDestroySystem : DestroySystem<UnitGateComponent>
+	{
+		public override void Destroy(UnitGateComponent self)
+		{
+			self.IsDisconnect = false;
+			self.GateSessionActorId = 0;
+		}
+	}
 	public class UnitGateComponent : Component, ISerializeToEntity
 	{
 		/// <summary>
@@ -21,6 +29,7 @@
 		public void Awake(long gateSessionId)
 		{
 			this.GateSessionActorId = gateSessionId;
+			IsDisconnect = false;
 		}
 	}
 }

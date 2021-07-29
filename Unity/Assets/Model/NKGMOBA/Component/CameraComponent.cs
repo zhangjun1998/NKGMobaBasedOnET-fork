@@ -41,6 +41,7 @@ namespace ETModel
         {
             this.m_MainCamera = Camera.main;
             this.Unit = unit;
+            this.m_MainCamera.transform.position = new Vector3(this.m_MainCamera.transform.position.x+this.Unit.Position.x+10, this.m_MainCamera.transform.position.y, this.m_MainCamera.transform.position.z+this.Unit.Position.z + 10);
             offenPosition = m_MainCamera.transform.position - this.Unit.Position;
         }
 

@@ -12,18 +12,14 @@ namespace ETHotfix
             Player player = session.GetComponent<SessionPlayerComponent>().Player;
             using (await CoroutineLockComponent.Instance.Wait(player.PlayerIdInDB))
             {
-                try
+
+                //获取到了说明已经在战斗中
+                var UnitId = await Game.Scene.GetComponent<LocationProxyComponent>().Get(player.PlayerIdInDB);
+                if (UnitId!=0)
                 {
-                    //获取到了说明已经在战斗中
-                    var UnitId = await Game.Scene.GetComponent<LocationProxyComponent>().Get(player.PlayerIdInDB);
                     response.Error = ErrorCode.ERR_AlreadyInBattle;
                     reply();
                     return;
-                }
-                //说明没在战斗中.继续创建逻辑.太粗暴了,在6.0没有找到actor会返回0
-                catch
-                {
-
                 }
                 var actorSender = Game.Scene.GetComponent<ActorMessageSenderComponent>().Get(message.RoomId);
                 RM2G_JoinRoom JoinRoomResponse = (RM2G_JoinRoom)await actorSender.Call(new G2RM_JoinRoom() { UnitId = player.PlayerIdInDB, GateSessionId = session.InstanceId });
@@ -34,7 +30,7 @@ namespace ETHotfix
     }
 
     [ActorMessageHandler(AppType.Room)]
-    public class G2RM_JoinRoomHandler : AMActorRpcHandler<RoomEntity,G2RM_JoinRoom, RM2G_JoinRoom>
+    public class G2RM_JoinRoomHandler : AMActorRpcHandler<RoomEntity, G2RM_JoinRoom, RM2G_JoinRoom>
     {
         protected override async ETTask Run(RoomEntity room, G2RM_JoinRoom message, RM2G_JoinRoom response, Action reply)
         {
@@ -46,7 +42,7 @@ namespace ETHotfix
             }
             DBProxyComponent dbProxyComponent = Game.Scene.GetComponent<DBProxyComponent>();
             UserInfo userInfo = await dbProxyComponent.Query<UserInfo>(message.UnitId);
-            await room.AddUnit(message.GateSessionId,false,userInfo);
+            await room.AddUnit(message.GateSessionId, false, userInfo);
             reply();
         }
     }

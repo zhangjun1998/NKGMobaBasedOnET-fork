@@ -23,7 +23,7 @@ namespace ETHotfix
                     reply();
                     return;
                 }
-                unit.TempScene.RemoveUnit(request.KickId,RoomPlayerQuitTypeEnum.BeKicked);
+                await unit.TempScene.RemoveUnit(request.KickId,RoomPlayerQuitTypeEnum.BeKicked);
             }
             reply();
         }

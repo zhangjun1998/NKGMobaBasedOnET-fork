@@ -34,6 +34,17 @@ namespace ETHotfix
                     MessageHelper.Broadcast(units, msg);
                 }
             }
+            //已经ready过了.说明是重连
+            else
+            {
+                if (self.GetParent<RoomEntity>().GetComponent<RoomPlayerComponent>().Players.TryGetValue(uid, out var unit))
+                {
+                    //设置为上线.说明可以接受广播数据
+                    unit.GetComponent<UnitGateComponent>().IsDisconnect = false;
+                    var msg = new RM2C_StartBattleMessage();
+                    MessageHelper.SendMsgToUnit(unit, msg);
+                }
+            }
         }
     }
 }

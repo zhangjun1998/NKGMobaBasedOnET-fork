@@ -119,7 +119,8 @@ namespace ETHotfix.NKGMOBA.Factory
             //Log.Info($"服务端响应木桩请求，父id为{message.ParentUnitId}");
             parentUnit.GetComponent<ChildrenUnitComponent>().AddUnit(unit);
             //Log.Info("确认找到了请求的父实体");
-
+            //目的是为了让他们处于同一个层级
+            unit.Parent = parentUnit.Parent;
             //为Unit附加碰撞体
             CreateColliderUnit(unit, Game.Scene.GetComponent<ConfigComponent>().Get<Server_UnitConfig>(10001).UnitColliderDataConfigId);
 

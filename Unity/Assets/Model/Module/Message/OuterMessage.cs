@@ -3396,7 +3396,7 @@ namespace ETModel {
 
     private int leaveReason_;
     /// <summary>
-    ///离开房间原因: 1 房间解散 2 被踢
+    ///离开房间原因: 1 被踢 2 房间解散
     /// </summary>
     public int LeaveReason {
       get { return leaveReason_; }
@@ -3463,7 +3463,7 @@ namespace ETModel {
   }
 
   /// <summary>
-  ///服务器通知客户端 房间状态变更
+  ///服务器通知客户端 房间状态变更 (收到消息要进入房间界面)
   /// </summary>
   public partial class RM2C_RoomInfoUpdate : pb::IMessage {
     private static readonly pb::MessageParser<RM2C_RoomInfoUpdate> _parser = new pb::MessageParser<RM2C_RoomInfoUpdate>(() => (RM2C_RoomInfoUpdate)MessagePool.Instance.Fetch(typeof(RM2C_RoomInfoUpdate)));
@@ -3920,6 +3920,34 @@ namespace ETModel {
             ActorId = input.ReadInt64();
             break;
           }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  /// 战斗重连
+  /// </summary>
+  public partial class C2RM_ReconnetBattle : pb::IMessage {
+    private static readonly pb::MessageParser<C2RM_ReconnetBattle> _parser = new pb::MessageParser<C2RM_ReconnetBattle>(() => (C2RM_ReconnetBattle)MessagePool.Instance.Fetch(typeof(C2RM_ReconnetBattle)));
+    public static pb::MessageParser<C2RM_ReconnetBattle> Parser { get { return _parser; } }
+
+    public void WriteTo(pb::CodedOutputStream output) {
+    }
+
+    public int CalculateSize() {
+      int size = 0;
+      return size;
+    }
+
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
         }
       }
     }

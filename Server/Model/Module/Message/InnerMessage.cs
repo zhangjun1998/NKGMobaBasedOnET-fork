@@ -467,4 +467,16 @@ namespace ETModel
 
 	}
 
+//重连信息
+	[Message(InnerOpcode.G2RM_ReconnectBattle)]
+	public partial class G2RM_ReconnectBattle: IActorLocationMessage
+	{
+		public int RpcId { get; set; }
+
+		public long ActorId { get; set; }
+
+		public long GateSessionId { get; set; }
+
+	}
+
 }

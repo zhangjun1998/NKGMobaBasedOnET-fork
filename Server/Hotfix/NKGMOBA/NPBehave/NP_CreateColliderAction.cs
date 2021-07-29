@@ -57,7 +57,7 @@ namespace EThotfix
                                 test.Vects.Add(new M2C_B2S_VectorBase() { X = worldPoint.X, Y = worldPoint.Y });
                             }
 
-                            MessageHelper.Broadcast(test);
+                            MessageHelper.Broadcast(unit.GetParent<RoomPlayerComponent>().PlayerArray, test);
                             break;
                         case ShapeType.Circle: //圆形
                             CircleShape myShape = (CircleShape) VARIABLE.Shape;
@@ -72,7 +72,7 @@ namespace EThotfix
                                     Y = colliderComponent.Body.GetWorldPoint(myShape.Position).Y
                                 },
                             };
-                            MessageHelper.Broadcast(test1);
+                            MessageHelper.Broadcast(unit.GetParent<RoomPlayerComponent>().PlayerArray,test1);
                             //Log.Info($"是圆形，并且已经朝客户端发送绘制数据,半径为{myShape.Radius}");
                             break;
                     }

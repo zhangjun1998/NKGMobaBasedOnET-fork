@@ -17,11 +17,18 @@ namespace ETModel
             self.Update();
         }
     }
-
+    [ObjectSystem]
+    public class HeartBeatAwakeSystem : AwakeSystem<HeartBeatComponent>
+    {
+        public override void Awake(HeartBeatComponent self)
+        {
+            self.CurrentTime = TimeHelper.ClientNowSeconds();
+        }
+    }
     /// <summary>
     /// Session心跳组件(需要挂载到Session上)
     /// </summary>
-    public class HeartBeatComponent: Component
+    public class HeartBeatComponent: Entity
     {
         /// <summary>
         /// 更新间隔
@@ -32,7 +39,7 @@ namespace ETModel
         /// 超出时间
         /// </summary>
         /// <remarks>如果跟客户端连接时间间隔大于在服务器上删除该Session</remarks>
-        public long OutInterval = 10000000;
+        public long OutInterval = 20;
 
         /// <summary>
         /// 记录时间
@@ -46,10 +53,10 @@ namespace ETModel
 
         public void Update()
         {
-            // 如果没有到达发包时间、直接返回
-            if ((TimeHelper.ClientNowSeconds() - this._recordDeltaTime) < this.UpdateInterval || this.CurrentTime == 0) return;
-            // 记录当前时间
-            this._recordDeltaTime = TimeHelper.ClientNowSeconds();
+            //// 如果没有到达发包时间、直接返回
+            //if ((TimeHelper.ClientNowSeconds() - this._recordDeltaTime) < this.UpdateInterval || this.CurrentTime == 0) return;
+            //// 记录当前时间
+            //this._recordDeltaTime = TimeHelper.ClientNowSeconds();
 
             if (TimeHelper.ClientNowSeconds() - CurrentTime > OutInterval)
             {

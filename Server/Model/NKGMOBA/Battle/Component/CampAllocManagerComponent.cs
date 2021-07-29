@@ -35,7 +35,20 @@ namespace ETModel
                 TianZaiCount++;
             }
         }
-
+        public void RemoveRoleCamp(Unit unit)
+        {
+            RoleCamp roleCamp = unit.GetComponent<B2S_RoleCastComponent>().RoleCamp;
+            switch (roleCamp)
+            {
+                case RoleCamp.HuiYue:
+                    this.HuiYueCount--;
+                    break;
+                case RoleCamp.TianZai:
+                    this.TianZaiCount--;
+                    break;
+                default: return;
+            }
+        }
         /// <summary>
         /// 玩家掉线就清空其信息
         /// </summary>

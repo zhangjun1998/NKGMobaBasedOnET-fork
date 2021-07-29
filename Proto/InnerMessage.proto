@@ -305,3 +305,10 @@ message RM2G_JoinRoom // IActorResponse
     int32 Error = 91;
     string Message = 92;
 }
+//重连信息 
+message G2RM_ReconnectBattle // IActorLocationMessage
+{
+    int32 RpcId = 90;
+    int64 ActorId = 94;
+    int64 GateSessionId = 1;
+}

@@ -12,22 +12,19 @@ namespace ETHotfix
             Player player = session.GetComponent<SessionPlayerComponent>().Player;
             using (await CoroutineLockComponent.Instance.Wait(player.PlayerIdInDB))
             {
-                try
+
+                //获取到了说明已经在战斗中
+                var UnitId = await Game.Scene.GetComponent<LocationProxyComponent>().Get(player.PlayerIdInDB);
+                if (UnitId != 0)
                 {
-                    //获取到了说明已经在战斗中
-                    var UnitId = await Game.Scene.GetComponent<LocationProxyComponent>().Get(player.PlayerIdInDB);
                     response.Error = ErrorCode.ERR_AlreadyInBattle;
                     reply();
                     return;
                 }
-                //说明没在战斗中.继续创建逻辑.太粗暴了,在6.0没有找到actor会返回0
-                catch
-                {
 
-                }
-                //统一入口的话应该到roommanager上请求战斗
+                //统一入口的话应该到roommanager上请求战斗,目前都先找第一个房间进程开房
                 Session mgrSession = Game.Scene.GetComponent<NetInnerComponent>().Get(StartConfigComponent.Instance.RoomConfigs[0].GetComponent<InnerConfig>().IPEndPoint);
-                RM2G_CreateRoom createRoomResponse =(RM2G_CreateRoom)await mgrSession.Call(new G2RM_CreateRoom() { UnitId = player.PlayerIdInDB,GateSessionId=session.InstanceId });
+                RM2G_CreateRoom createRoomResponse = (RM2G_CreateRoom)await mgrSession.Call(new G2RM_CreateRoom() { UnitId = player.PlayerIdInDB, GateSessionId = session.InstanceId });
                 response.Error = createRoomResponse.Error;
                 reply();
             }
@@ -41,9 +38,9 @@ namespace ETHotfix
         {
             DBProxyComponent dbProxyComponent = Game.Scene.GetComponent<DBProxyComponent>();
             UserInfo userInfo = await dbProxyComponent.Query<UserInfo>(message.UnitId);
-            var room=ComponentFactory.Create<RoomEntity,string>(userInfo.NickName);
+            var room = ComponentFactory.Create<RoomEntity, string>(userInfo.NickName);
             reply();
-            await room.AddUnit(message.GateSessionId,true,userInfo);
+            await room.AddUnit(message.GateSessionId, true, userInfo);
         }
     }
 }

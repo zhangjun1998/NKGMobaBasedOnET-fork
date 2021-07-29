@@ -9,7 +9,7 @@ namespace ETHotfix
         {
             foreach (var unitid in self.Players.Keys)
             {
-                UnitComponent.Instance.Remove(unitid);
+                self.RemoveUnit(unitid).Coroutine();
             }
             self.Players = null;
         }

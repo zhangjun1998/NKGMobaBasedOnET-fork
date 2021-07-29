@@ -219,6 +219,7 @@ message RoomInfo
     string RoomName = 3;
     repeated RoomPlayer RoomPlayers = 4; 
 }
+//当前所有房间
 message C2G_AllRoomList // IRequest
 {
     int32 RpcId = 90;
@@ -307,7 +308,7 @@ message RM2C_RequestStartBattle // IActorLocationResponse
     string Message = 92;
 }
 
-//客户端收到这条消息开始加载战斗相关资源
+//客户端收到这条消息开始加载战斗相关资源(包括重连时也是收到这条消息)
 message RM2C_EnterBattleMessage // IActorMessage
 {
     int32 RpcId = 90;
@@ -321,12 +322,17 @@ message C2RM_LoadComplete // IActorLocationMessage
     int64 ActorId = 93;
 }
 
-//所有客户端均加载完毕,通知战斗正式开始(有人超时直接跳过).
+//所有客户端均加载完毕,通知战斗正式开始
 message RM2C_StartBattleMessage // IActorMessage
 {
     int32 RpcId = 90;
     int64 ActorId = 93;
 }
+// 战斗重连 这个请求代表客户端打算重进战斗
+message C2RM_ReconnetBattle // IMessage
+{
+}
+
 /*
     房间消息结束.
 */
