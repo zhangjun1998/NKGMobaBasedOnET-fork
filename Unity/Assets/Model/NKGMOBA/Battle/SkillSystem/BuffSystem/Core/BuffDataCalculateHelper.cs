@@ -11,13 +11,15 @@ namespace ETModel
     /// </summary>
     public static class BuffDataCalculateHelper
     {
-        public static float CalculateCurrentData<A, B>(A buffSystem, B buffData) where A : ABuffSystemBase where B : BuffDataBase
+        public static float CalculateCurrentData(IBuffSystem buffSystem)
         {
             //取得来源Unit的Hero数据
             UnitAttributesDataComponent theUnitFromUnitAttributesData = buffSystem.TheUnitFrom.GetComponent<UnitAttributesDataComponent>();
 
             float tempData = 0;
 
+            BuffDataBase buffData = buffSystem.BuffData;
+            
             //依据基础数值的加成方式来获取对应数据
             switch (buffData.BaseBuffBaseDataEffectTypes)
             {

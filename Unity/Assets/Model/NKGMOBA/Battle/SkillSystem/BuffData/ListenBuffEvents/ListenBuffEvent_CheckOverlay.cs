@@ -16,7 +16,7 @@ namespace ETModel
         [LabelText("目标层数")]
         public int TargetOverlay;
 
-        public override void Run(ABuffSystemBase a)
+        public override void Run(IBuffSystem a)
         {
             //Log.Info($"层数判定_通过监听机制添加Buff");
             if (a.CurrentOverlay == this.TargetOverlay)

@@ -8,37 +8,23 @@ using System.Collections.Generic;
 
 namespace ETModel
 {
-    public class ReplaceAnimBuffSystem: ABuffSystemBase
+    public class ReplaceAnimBuffSystem: ABuffSystemBase<ReplaceAnimBuffData>
     {
         /// <summary>
         /// 被替换下来的动画信息
         /// </summary>
         private Dictionary<string, string> m_ReplacedAnimData = new Dictionary<string, string>();
-        
+
         public override void OnExecute()
         {
-            ReplaceAnimBuffData replaceAnimBuffData = this.GetSelfBuffData<ReplaceAnimBuffData>();
             AnimationComponent animationComponent = this.GetBuffTarget().GetComponent<AnimationComponent>();
-            foreach (var animMapInfo in replaceAnimBuffData.AnimReplaceInfo)
+            foreach (var animMapInfo in this.GetBuffDataWithTType.AnimReplaceInfo)
             {
                 this.m_ReplacedAnimData[animMapInfo.StateType] = animationComponent.RuntimeAnimationClips[animMapInfo.StateType];
                 animationComponent.RuntimeAnimationClips[animMapInfo.StateType] = animMapInfo.AnimName;
             }
+
             animationComponent.PlayAnimByStackFsmCurrent();
-
-            this.BuffState = BuffState.Running;
-        }
-
-        public override void OnUpdate()
-        {
-            //只有不是永久Buff的情况下才会执行Update判断
-            if (this.BuffData.SustainTime + 1 > 0)
-            {
-                if (TimeHelper.Now() > this.MaxLimitTime)
-                {
-                    this.BuffState = BuffState.Finished;
-                }
-            }
         }
 
         public override void OnFinished()

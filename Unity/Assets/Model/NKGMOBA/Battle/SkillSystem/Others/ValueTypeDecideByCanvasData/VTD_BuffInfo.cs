@@ -48,7 +48,7 @@ namespace ETModel
 
             if (self.LayersIsAbs)
             {
-                ABuffSystemBase nextBuffSystemBase = BuffFactory.AcquireBuff(dataId, buffNodeId, theUnitFrom, theUnitBelongTo,
+                IBuffSystem nextBuffSystemBase = BuffFactory.AcquireBuff(dataId, buffNodeId, theUnitFrom, theUnitBelongTo,
                     theSkillCanvasBelongTo);
                 if (nextBuffSystemBase.CurrentOverlay < nextBuffSystemBase.BuffData.MaxOverlay && nextBuffSystemBase.CurrentOverlay < Layers)
                 {
@@ -83,7 +83,7 @@ namespace ETModel
 
             if (self.LayersIsAbs)
             {
-                ABuffSystemBase nextBuffSystemBase = BuffFactory.AcquireBuff(npDataSupportor, buffNodeId, theUnitFrom, theUnitBelongTo,
+                IBuffSystem nextBuffSystemBase = BuffFactory.AcquireBuff(npDataSupportor, buffNodeId, theUnitFrom, theUnitBelongTo,
                     theSkillCanvasBelongTo);
                 if (nextBuffSystemBase.CurrentOverlay < nextBuffSystemBase.BuffData.MaxOverlay && nextBuffSystemBase.CurrentOverlay < Layers)
                 {

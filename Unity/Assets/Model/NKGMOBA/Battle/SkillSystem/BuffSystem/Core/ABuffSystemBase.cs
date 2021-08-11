@@ -8,44 +8,71 @@ using Sirenix.OdinInspector;
 
 namespace ETModel
 {
-    public abstract class ABuffSystemBase: IReference
+    public abstract class ABuffSystemBase<T>: IBuffSystem, IReference where T : BuffDataBase
     {
-        /// <summary>
-        /// 归属的运行时行为树实例
-        /// </summary>
-        public NP_RuntimeTree BelongtoRuntimeTree;
+        public NP_RuntimeTree BelongtoRuntimeTree { get; set; }
+        public BuffState BuffState { get; set; }
+        public int CurrentOverlay { get; set; }
+        public long MaxLimitTime { get; set; }
+        public BuffDataBase BuffData { get; set; }
+        public Unit TheUnitFrom { get; set; }
+        public Unit TheUnitBelongto { get; set; }
 
         /// <summary>
-        /// Buff当前状态
+        /// 获取自身的BuffData数据，自动转型为T
         /// </summary>
-        public BuffState BuffState;
+        public T GetBuffDataWithTType => BuffData as T;
 
-        /// <summary>
-        /// 当前叠加数
-        /// </summary>
-        public int CurrentOverlay;
+        public void Init(BuffDataBase buffData, Unit theUnitFrom, Unit theUnitBelongto)
+        {
+            //设置Buff来源Unit和归属Unit
+            this.TheUnitFrom = theUnitFrom;
+            this.TheUnitBelongto = theUnitBelongto;
+            this.BuffData = buffData as T;
+            BuffTimerAndOverlayHelper.CalculateTimerAndOverlay(this);
+            this.BuffState = BuffState.Waiting;
+            OnInit(buffData, theUnitFrom, theUnitBelongto);
+        }
 
-        /// <summary>
-        /// 最多持续到什么时候
-        /// </summary>
-        public long MaxLimitTime;
+        public void Excute()
+        {
+            switch (this.BuffData.SustainTime)
+            {
+                case 0:
+                    this.BuffState = BuffState.Finished;
+                    break;
+                case -1:
+                    this.BuffState = BuffState.Forever;
+                    break;
+                default:
+                    this.BuffState = BuffState.Running;
+                    break;
+            }
 
-        /// <summary>
-        /// Buff数据
-        /// </summary>
-        public BuffDataBase BuffData;
+            this.OnExecute();
+        }
 
-        /// <summary>
-        /// 来自哪个Unit
-        /// </summary>
-        [DisableInEditorMode]
-        public Unit TheUnitFrom;
+        public void Update()
+        {
+            if (TimeHelper.Now() > this.MaxLimitTime && this.BuffState != BuffState.Forever)
+            {
+                this.BuffState = BuffState.Finished;
+            }
+            else
+            {
+                this.OnUpdate();
+            }
+        }
 
-        /// <summary>
-        /// 寄生于哪个Unit，并不代表当前Buff实际寄居者，需要通过GetBuffTarget来获取，因为它赋值于Buff链起源的地方，具体值取决于那个起源Buff
-        /// </summary>
-        [DisableInEditorMode]
-        public Unit TheUnitBelongto;
+        public void Finished()
+        {
+            this.OnFinished();
+        }
+
+        public void Refresh()
+        {
+            this.OnRefreshed();
+        }
 
         /// <summary>
         /// 初始化buff数据
@@ -55,11 +82,6 @@ namespace ETModel
         /// <param name="theUnitBelongto">寄生于哪个Unit</param>
         public virtual void OnInit(BuffDataBase buffData, Unit theUnitFrom, Unit theUnitBelongto)
         {
-            //设置Buff来源Unit和归属Unit
-            this.TheUnitFrom = theUnitFrom;
-            this.TheUnitBelongto = theUnitBelongto;
-            this.BuffData = buffData;
-            BuffTimerAndOverlayHelper.CalculateTimerAndOverlay(this, this.BuffData);
         }
 
         /// <summary>
@@ -79,13 +101,12 @@ namespace ETModel
         /// </summary>
         public virtual void OnFinished()
         {
-            
         }
 
         /// <summary>
         /// 刷新，用于刷新Buff状态
         /// </summary>
-        public virtual void OnRefresh()
+        public virtual void OnRefreshed()
         {
         }
 

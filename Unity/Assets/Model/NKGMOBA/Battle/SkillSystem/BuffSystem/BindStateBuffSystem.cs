@@ -11,45 +11,29 @@ namespace ETModel
     /// <summary>
     /// 绑定一个状态
     /// </summary>
-    public class BindStateBuffSystem: ABuffSystemBase
+    public class BindStateBuffSystem: ABuffSystemBase<BindStateBuffData>
     {
         public override void OnExecute()
         {
             ExcuteInternal();
-            this.BuffState = BuffState.Running;
-        }
-
-        public override void OnUpdate()
-        {
-            //只有不是永久Buff的情况下才会执行Update判断
-            if (this.BuffData.SustainTime + 1 > 0)
-            {
-                if (TimeHelper.Now() > this.MaxLimitTime)
-                {
-                    this.BuffState = BuffState.Finished;
-                }
-            }
         }
 
         public override void OnFinished()
         {
-            BindStateBuffData tempData = this.GetSelfBuffData<BindStateBuffData>();
-            if (tempData.OriState != null)
+            if (this.GetBuffDataWithTType.OriState != null)
             {
-                this.GetBuffTarget().GetComponent<StackFsmComponent>().RemoveState(tempData.OriState.StateName);
+                this.GetBuffTarget().GetComponent<StackFsmComponent>().RemoveState(this.GetBuffDataWithTType.OriState.StateName);
             }
         }
 
-        public override void OnRefresh()
+        public override void OnRefreshed()
         {
             ExcuteInternal();
         }
 
         private void ExcuteInternal()
         {
-            BindStateBuffData tempData = this.GetSelfBuffData<BindStateBuffData>();
-
-            foreach (var buffData in tempData.OriBuff)
+            foreach (var buffData in this.GetBuffDataWithTType.OriBuff)
             {
                 buffData.AutoAddBuff(this.BuffData.BelongToBuffDataSupportorId, buffData.BuffNodeId.Value,
                     this.TheUnitFrom, this.TheUnitBelongto, this.BelongtoRuntimeTree);
@@ -64,9 +48,9 @@ namespace ETModel
                 }
             }
 
-            if (tempData.OriState != null)
+            if (this.GetBuffDataWithTType.OriState != null)
             {
-                this.GetBuffTarget().GetComponent<StackFsmComponent>().ChangeState(tempData.OriState);
+                this.GetBuffTarget().GetComponent<StackFsmComponent>().ChangeState(this.GetBuffDataWithTType.OriState);
             }
         }
     }

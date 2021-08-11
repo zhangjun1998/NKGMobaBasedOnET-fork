@@ -11,18 +11,20 @@ namespace ETModel
     /// </summary>
     public static class BuffDataCalculateHelper
     {
-        public static float CalculateCurrentData<A, B>(A buffSystem, B buffData) where A : ABuffSystemBase where B : BuffDataBase
+        public static float CalculateCurrentData(IBuffSystem buffSystem)
         {
             //取得来源Unit的Hero数据
-            UnitAttributesDataComponent theUnitFromHeroData = buffSystem.TheUnitFrom.GetComponent<UnitAttributesDataComponent>();
+            UnitAttributesDataComponent theUnitFromUnitAttributesData = buffSystem.TheUnitFrom.GetComponent<UnitAttributesDataComponent>();
 
             float tempData = 0;
 
+            BuffDataBase buffData = buffSystem.BuffData;
+            
             //依据基础数值的加成方式来获取对应数据
             switch (buffData.BaseBuffBaseDataEffectTypes)
             {
                 case BuffBaseDataEffectTypes.FromHeroLevel:
-                    tempData = buffData.ValueToBeChanged[(int) theUnitFromHeroData.GetAttribute(NumericType.Level)];
+                    tempData = buffData.ValueToBeChanged[(int) theUnitFromUnitAttributesData.GetAttribute(NumericType.Level)];
                     break;
                 case BuffBaseDataEffectTypes.FromSkillLevel:
                     tempData = buffData.ValueToBeChanged[buffSystem.TheUnitFrom.GetComponent<SkillCanvasManagerComponent>()
@@ -44,11 +46,11 @@ namespace ETModel
                 {
                     case BuffAdditionTypes.Percentage_Physical:
                         tempData += additionValue.Value *
-                                theUnitFromHeroData.GetAttribute(NumericType.Attack);
+                                theUnitFromUnitAttributesData.GetAttribute(NumericType.Attack);
                         break;
                     case BuffAdditionTypes.Percentage_Magic:
                         tempData += additionValue.Value *
-                                theUnitFromHeroData.GetAttribute(NumericType.MagicStrength);
+                                theUnitFromUnitAttributesData.GetAttribute(NumericType.MagicStrength);
                         break;
                     case BuffAdditionTypes.SelfOverlay_Mul:
                         tempData *= additionValue.Value * buffSystem.CurrentOverlay;

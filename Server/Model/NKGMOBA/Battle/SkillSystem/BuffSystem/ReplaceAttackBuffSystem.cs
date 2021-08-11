@@ -8,11 +8,11 @@ using NPBehave;
 
 namespace ETModel
 {
-    public class ReplaceAttackBuffSystem: ABuffSystemBase
+    public class ReplaceAttackBuffSystem: ABuffSystemBase<ReplaceAttackBuffData>
     {
         public override void OnExecute()
         {
-            ReplaceAttackBuffData replaceAttackBuffData = this.GetSelfBuffData<ReplaceAttackBuffData>();
+            ReplaceAttackBuffData replaceAttackBuffData = this.GetBuffDataWithTType;
 
             Unit unit = UnitComponent.Instance.Get(this.GetBuffTarget().Id);
             unit.GetComponent<CommonAttackComponent>().SetAttackReplaceInfo(this.BelongtoRuntimeTree.Id, replaceAttackBuffData.AttackReplaceInfo);
@@ -32,25 +32,11 @@ namespace ETModel
                     //Log.Info($"抛出了{this.MSkillBuffDataBase.theEventID}{this.theUnitFrom.Id}");
                 }
             }
-
-            this.BuffState = BuffState.Running;
         }
-
-        public override void OnUpdate()
-        {
-            //只有不是永久Buff的情况下才会执行Update判断
-            if (this.BuffData.SustainTime + 1 > 0)
-            {
-                if (TimeHelper.Now() > this.MaxLimitTime)
-                {
-                    this.BuffState = BuffState.Finished;
-                }
-            }
-        }
-
+        
         public override void OnFinished()
         {
-            ReplaceAttackBuffData replaceAttackBuffData = this.GetSelfBuffData<ReplaceAttackBuffData>();
+            ReplaceAttackBuffData replaceAttackBuffData = this.GetBuffDataWithTType;
 
             Unit unit = UnitComponent.Instance.Get(this.GetBuffTarget().Id);
             unit.GetComponent<CommonAttackComponent>().ReSetAttackReplaceInfo();

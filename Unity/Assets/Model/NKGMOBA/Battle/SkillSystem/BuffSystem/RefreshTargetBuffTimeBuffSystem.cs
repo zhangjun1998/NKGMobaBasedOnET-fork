@@ -6,18 +6,16 @@
 
 namespace ETModel
 {
-    public class RefreshTargetBuffTimeBuffSystem: ABuffSystemBase
+    public class RefreshTargetBuffTimeBuffSystem: ABuffSystemBase<RefreshTargetBuffTimeBuffData>
     {
         public override void OnExecute()
         {
-            RefreshTargetBuffTimeBuffData refreshTargetBuffTimeBuffData = this.GetSelfBuffData<RefreshTargetBuffTimeBuffData>();
-
             BuffManagerComponent buffManagerComponent = this.GetBuffTarget().GetComponent<BuffManagerComponent>();
 
-            foreach (var buffNodeId in refreshTargetBuffTimeBuffData.TheBuffNodeIdToBeRefreshed)
+            foreach (var buffNodeId in this.GetBuffDataWithTType.TheBuffNodeIdToBeRefreshed)
             {
                 //Log.Info($"准备刷新指定Buff——{buffId}持续时间");
-                ABuffSystemBase aBuffSystemBase =
+                IBuffSystem aBuffSystemBase =
                         buffManagerComponent.GetBuffById(
                             (this.BelongtoRuntimeTree.BelongNP_DataSupportor.BuffNodeDataDic[buffNodeId.Value] as NormalBuffNodeData).BuffData
                             .BuffId);
@@ -28,8 +26,6 @@ namespace ETModel
                     aBuffSystemBase.MaxLimitTime = TimeHelper.Now() + aBuffSystemBase.BuffData.SustainTime;
                 }
             }
-
-            this.BuffState = BuffState.Finished;
         }
     }
 }

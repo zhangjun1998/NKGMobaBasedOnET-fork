@@ -16,20 +16,9 @@ namespace ETModel
         /// </summary>
         /// <param name="self"></param>
         /// <returns></returns>
-        public static Unit GetBuffTarget(this ABuffSystemBase self)
+        public static Unit GetBuffTarget<T>(this ABuffSystemBase<T> self) where T : BuffDataBase
         {
             return self.BuffData.BuffTargetTypes == BuffTargetTypes.Self? self.TheUnitFrom : self.TheUnitBelongto;
-        }
-
-        /// <summary>
-        /// 获取BuffSystem对应的BuffData，封装一下转型操作
-        /// </summary>
-        /// <param name="self"></param>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static T GetSelfBuffData<T>(this ABuffSystemBase self) where T : BuffDataBase
-        {
-            return self.BuffData as T;
         }
     }
 }

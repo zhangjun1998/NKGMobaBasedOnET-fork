@@ -19,7 +19,7 @@ namespace ETModel
     /// 监听Buff事件数据基类，用以监听指定事件
     /// </summary>
     [BsonDeserializerRegister]
-    public class ListenBuffEvent_Normal: AEvent<ABuffSystemBase>
+    public class ListenBuffEvent_Normal: AEvent<IBuffSystem>
     {
         /// <summary>
         /// Buff回调条件达成时会添加的Buff的节点Id
@@ -28,7 +28,7 @@ namespace ETModel
         [LabelText("Buff回调条件达成时会添加的Buff的节点Id")]
         public List<VTD_BuffInfo> BuffInfoWillBeAdded = new List<VTD_BuffInfo>();
 
-        public override void Run(ABuffSystemBase a)
+        public override void Run(IBuffSystem a)
         {
             //Log.Info($"直接添加_通过监听机制增加Buff");
             foreach (var buffInfo in this.BuffInfoWillBeAdded)

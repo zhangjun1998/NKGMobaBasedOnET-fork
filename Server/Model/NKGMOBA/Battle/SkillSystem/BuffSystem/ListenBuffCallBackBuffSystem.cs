@@ -9,33 +9,16 @@ namespace ETModel
     /// <summary>
     /// 监听Buff回调
     /// </summary>
-    public class ListenBuffCallBackBuffSystem: ABuffSystemBase
+    public class ListenBuffCallBackBuffSystem: ABuffSystemBase<ListenBuffCallBackBuffData>
     {
         public override void OnExecute()
         {
-            ListenBuffCallBackBuffData temp = this.GetSelfBuffData<ListenBuffCallBackBuffData>();
-
-            Game.Scene.GetComponent<BattleEventSystem>().RegisterEvent($"{temp.EventId}{this.TheUnitFrom.Id}", temp.ListenBuffEventNormal);
-
-            this.BuffState = BuffState.Running;
+            Game.Scene.GetComponent<BattleEventSystem>().RegisterEvent($"{this.GetBuffDataWithTType.EventId}{this.TheUnitFrom.Id}", this.GetBuffDataWithTType.ListenBuffEventNormal);
         }
-
-        public override void OnUpdate()
-        {
-            //只有不是永久Buff的情况下才会执行Update判断
-            if (this.BuffData.SustainTime + 1 > 0)
-            {
-                if (TimeHelper.Now() > this.MaxLimitTime)
-                {
-                    this.BuffState = BuffState.Finished;
-                }
-            }
-        }
-
+        
         public override void OnFinished()
         {
-            ListenBuffCallBackBuffData temp = this.GetSelfBuffData<ListenBuffCallBackBuffData>();
-            Game.Scene.GetComponent<BattleEventSystem>().UnRegisterEvent($"{temp.EventId}{this.TheUnitFrom.Id}", temp.ListenBuffEventNormal);
+            Game.Scene.GetComponent<BattleEventSystem>().UnRegisterEvent($"{this.GetBuffDataWithTType.EventId}{this.TheUnitFrom.Id}", this.GetBuffDataWithTType.ListenBuffEventNormal);
         }
     }
 }

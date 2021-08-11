@@ -6,7 +6,7 @@
 
 namespace ETModel
 {
-    public class ChangePropertyBuffSystem: ABuffSystemBase
+    public class ChangePropertyBuffSystem: ABuffSystemBase<ChangePropertyBuffData>
     {
         /// <summary>
         /// 之所以要缓存一下是因为某些修改器比较特殊
@@ -21,7 +21,7 @@ namespace ETModel
             {
                 case BuffWorkTypes.ChangeAttackValue:
                     ConstantModifier constantModifier_AttackValue = ReferencePool.Acquire<ConstantModifier>();
-                    constantModifier_AttackValue.ChangeValue = BuffDataCalculateHelper.CalculateCurrentData(this, this.BuffData);
+                    constantModifier_AttackValue.ChangeValue = BuffDataCalculateHelper.CalculateCurrentData(this);
                     dataModifier = constantModifier_AttackValue;
 
                     this.GetBuffTarget().GetComponent<DataModifierComponent>()
@@ -29,7 +29,7 @@ namespace ETModel
                     break;
                 case BuffWorkTypes.ChangeMagic:
                     PercentageModifier constantModifier_Magic = ReferencePool.Acquire<PercentageModifier>();
-                    constantModifier_Magic.Percentage = BuffDataCalculateHelper.CalculateCurrentData(this, this.BuffData);
+                    constantModifier_Magic.Percentage = BuffDataCalculateHelper.CalculateCurrentData(this);
                     this.dataModifier = constantModifier_Magic;
 
                     this.GetBuffTarget().GetComponent<DataModifierComponent>()
@@ -37,26 +37,12 @@ namespace ETModel
                     break;
                 case BuffWorkTypes.ChangeSpeed:
                     PercentageModifier percentageModifier_Speed = ReferencePool.Acquire<PercentageModifier>();
-                    percentageModifier_Speed.Percentage = BuffDataCalculateHelper.CalculateCurrentData(this, this.BuffData);
+                    percentageModifier_Speed.Percentage = BuffDataCalculateHelper.CalculateCurrentData(this);
                     this.dataModifier = percentageModifier_Speed;
 
                     this.GetBuffTarget().GetComponent<DataModifierComponent>()
                             .AddDataModifier(NumericType.SpeedAdd.ToString(), this.dataModifier, NumericType.SpeedAdd);
                     break;
-            }
-
-            this.BuffState = BuffState.Running;
-        }
-
-        public override void OnUpdate()
-        {
-            //只有不是永久Buff的情况下才会执行Update判断
-            if (this.BuffData.SustainTime + 1 > 0)
-            {
-                if (TimeHelper.Now() >= this.MaxLimitTime)
-                {
-                    this.BuffState = BuffState.Finished;
-                }
             }
         }
 

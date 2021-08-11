@@ -39,7 +39,7 @@ namespace ETModel
         /// <param name="theUnitFrom">Buff来源者</param>
         /// <param name="theUnitBelongTo">Buff寄生者</param>
         /// <returns></returns>
-        public static ABuffSystemBase AcquireBuff(long dataId, long buffNodeId, Unit theUnitFrom, Unit theUnitBelongTo,
+        public static IBuffSystem AcquireBuff(long dataId, long buffNodeId, Unit theUnitFrom, Unit theUnitBelongTo,
         NP_RuntimeTree theSkillCanvasBelongTo)
         {
             return AcquireBuff(
@@ -55,7 +55,7 @@ namespace ETModel
         /// <param name="theUnitFrom">Buff来源者</param>
         /// <param name="theUnitBelongTo">Buff寄生者</param>
         /// <returns></returns>
-        public static ABuffSystemBase AcquireBuff(NP_DataSupportor npDataSupportor, long buffNodeId, Unit theUnitFrom, Unit theUnitBelongTo,
+        public static IBuffSystem AcquireBuff(NP_DataSupportor npDataSupportor, long buffNodeId, Unit theUnitFrom, Unit theUnitBelongTo,
         NP_RuntimeTree theSkillCanvasBelongTo)
         {
             return AcquireBuff((npDataSupportor.BuffNodeDataDic[buffNodeId] as NormalBuffNodeData).BuffData, theUnitFrom, theUnitBelongTo,
@@ -69,12 +69,12 @@ namespace ETModel
         /// <param name="theUnitFrom">Buff来源者</param>
         /// <param name="theUnitBelongTo">Buff寄生者</param>
         /// <returns></returns>
-        public static ABuffSystemBase AcquireBuff(BuffDataBase buffDataBase, Unit theUnitFrom, Unit theUnitBelongTo,
+        public static IBuffSystem AcquireBuff(BuffDataBase buffDataBase, Unit theUnitFrom, Unit theUnitBelongTo,
         NP_RuntimeTree theSkillCanvasBelongTo)
         {
-            ABuffSystemBase resultBuff = ReferencePool.Acquire(AllBuffSystemTypes[buffDataBase.BelongBuffSystemType]) as ABuffSystemBase;
+            IBuffSystem resultBuff = ReferencePool.Acquire(AllBuffSystemTypes[buffDataBase.BelongBuffSystemType]) as IBuffSystem;
             resultBuff.BelongtoRuntimeTree = theSkillCanvasBelongTo;
-            resultBuff.OnInit(buffDataBase, theUnitFrom, theUnitBelongTo);
+            resultBuff.Init(buffDataBase, theUnitFrom, theUnitBelongTo);
             return resultBuff;
         }
 
@@ -82,7 +82,7 @@ namespace ETModel
         /// 回收一个Buff
         /// </summary>
         /// <param name="aBuffSystemBase"></param>
-        public static void RecycleBuff(ABuffSystemBase aBuffSystemBase)
+        public static void RecycleBuff<T>(ABuffSystemBase<T> aBuffSystemBase) where T : BuffDataBase
         {
             ReferencePool.Release(aBuffSystemBase);
         }

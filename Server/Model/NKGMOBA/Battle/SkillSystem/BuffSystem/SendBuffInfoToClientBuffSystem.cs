@@ -6,13 +6,13 @@
 
 namespace ETModel
 {
-    public class SendBuffInfoToClientBuffSystem: ABuffSystemBase
+    public class SendBuffInfoToClientBuffSystem: ABuffSystemBase<SendBuffInfoToClientBuffData>
     {
         public override void OnExecute()
         {
-            SendBuffInfoToClientBuffData sendBuffInfoToClientBuffData = this.GetSelfBuffData<SendBuffInfoToClientBuffData>();
+            SendBuffInfoToClientBuffData sendBuffInfoToClientBuffData = this.GetBuffDataWithTType;
 
-            ABuffSystemBase targetBuffSystem = this.TheUnitBelongto.GetComponent<BuffManagerComponent>()
+            IBuffSystem targetBuffSystem = this.TheUnitBelongto.GetComponent<BuffManagerComponent>()
                     .GetBuffById(
                         (this.BelongtoRuntimeTree.BelongNP_DataSupportor.BuffNodeDataDic[sendBuffInfoToClientBuffData.TargetBuffNodeId.Value] as
                                 NormalBuffNodeData).BuffData.BuffId);
@@ -28,7 +28,6 @@ namespace ETModel
                     BuffLayers = targetBuffSystem.CurrentOverlay,
                     BuffMaxLimitTime = targetBuffSystem.MaxLimitTime,
                 });
-            this.BuffState = BuffState.Finished;
         }
     }
 }

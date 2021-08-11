@@ -11,13 +11,14 @@ namespace ETModel
     /// <summary>
     /// 瞬时伤害
     /// </summary>
-    public class FlashDamageBuffSystem: ABuffSystemBase
+    public class FlashDamageBuffSystem: ABuffSystemBase<FlashDamageBuffData>
     {
         public override void OnExecute()
         {
-            FlashDamageBuffData flashDamageBuffData = this.GetSelfBuffData<FlashDamageBuffData>();
+            FlashDamageBuffData flashDamageBuffData = this.GetBuffDataWithTType;
+            
             DamageData damageData = ReferencePool.Acquire<DamageData>().InitData(flashDamageBuffData.BuffDamageTypes,
-                BuffDataCalculateHelper.CalculateCurrentData(this, this.BuffData), this.TheUnitFrom, this.TheUnitBelongto,
+                BuffDataCalculateHelper.CalculateCurrentData(this), this.TheUnitFrom, this.TheUnitBelongto,
                 flashDamageBuffData.CustomData);
 
             damageData.DamageValue *= flashDamageBuffData.DamageFix;
@@ -44,9 +45,6 @@ namespace ETModel
                     //Log.Info($"抛出了{this.MSkillBuffDataBase.theEventID}{this.theUnitFrom.Id}");
                 }
             }
-
-            this.BuffState = BuffState.Finished;
-            //Log.Info($"设置瞬时伤害Buff：{this.MSkillBuffDataBase.FlagId}状态为Finshed");
         }
     }
 }

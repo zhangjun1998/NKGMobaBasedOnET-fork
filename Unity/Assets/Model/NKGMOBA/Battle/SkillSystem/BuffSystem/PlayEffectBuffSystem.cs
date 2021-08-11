@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace ETModel
 {
-    public class PlayEffectBuffSystem: ABuffSystemBase
+    public class PlayEffectBuffSystem: ABuffSystemBase<PlayEffectBuffData>
     {
         public override void OnExecute()
         {
@@ -21,36 +21,21 @@ namespace ETModel
                     //Log.Info($"抛出了{this.MSkillBuffDataBase.theEventID}{this.theUnitFrom.Id}");
                 }
             }
-
-            this.BuffState = BuffState.Running;
-        }
-
-        public override void OnUpdate()
-        {
-            //只有不是永久Buff的情况下才会执行Update判断
-            if (this.BuffData.SustainTime + 1 > 0)
-            {
-                if (TimeHelper.Now() > this.MaxLimitTime)
-                {
-                    this.BuffState = BuffState.Finished;
-                }
-            }
         }
 
         public override void OnFinished()
         {
-            PlayEffectBuffData playEffectBuffData = this.GetSelfBuffData<PlayEffectBuffData>();
-            string targetEffectName = playEffectBuffData.EffectName;
-            if (playEffectBuffData.CanChangeNameByCurrentOverlay)
+            string targetEffectName = this.GetBuffDataWithTType.EffectName;
+            if (this.GetBuffDataWithTType.CanChangeNameByCurrentOverlay)
             {
-                targetEffectName = $"{playEffectBuffData.EffectName}{this.CurrentOverlay}";
+                targetEffectName = $"{this.GetBuffDataWithTType.EffectName}{this.CurrentOverlay}";
             }
 
             this.TheUnitBelongto.GetComponent<EffectComponent>()
                     .Remove(targetEffectName);
         }
 
-        public override void OnRefresh()
+        public override void OnRefreshed()
         {
             PlayEffect();
             if (this.BuffData.EventIds != null)
@@ -61,18 +46,15 @@ namespace ETModel
                     //Log.Info($"抛出了{this.MSkillBuffDataBase.theEventID}{this.theUnitFrom.Id}");
                 }
             }
-
-            this.BuffState = BuffState.Running;
         }
 
         void PlayEffect()
         {
-            PlayEffectBuffData playEffectBuffData = this.GetSelfBuffData<PlayEffectBuffData>();
-            string targetEffectName = playEffectBuffData.EffectName;
+            string targetEffectName =  this.GetBuffDataWithTType.EffectName;
 
-            if (playEffectBuffData.CanChangeNameByCurrentOverlay)
+            if ( this.GetBuffDataWithTType.CanChangeNameByCurrentOverlay)
             {
-                targetEffectName = $"{playEffectBuffData.EffectName}{this.CurrentOverlay}";
+                targetEffectName = $"{ this.GetBuffDataWithTType.EffectName}{this.CurrentOverlay}";
                 //Log.Info($"播放{targetEffectName}");
             }
 
@@ -90,10 +72,10 @@ namespace ETModel
 
             Unit effectUnit = gameObjectPool.FetchEntity(targetEffectName);
 
-            if (playEffectBuffData.FollowUnit)
+            if ( this.GetBuffDataWithTType.FollowUnit)
             {
                 effectUnit.GameObject.transform.SetParent(this.GetBuffTarget().GetComponent<HeroTransformComponent>()
-                        .GetTranform(playEffectBuffData.PosType));
+                        .GetTranform( this.GetBuffDataWithTType.PosType));
 
                 effectUnit.GameObject.transform.localPosition = Vector3.zero;
             }
