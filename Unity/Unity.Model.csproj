@@ -298,6 +298,7 @@
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Component\NP_TreeIds.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\Others\ValueTypeDecideByCanvasData\VTD_Id.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\BuffData\SkillBuffDataBase\BuffDataBase.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Battle\Component\MapClickCompoent.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\Component\B2S_RoleCastComponent.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\Fsm\StackFsmComponent.cs" />
      <Compile Include="Assets\Model\Generate\Config\StartSceneConfig.cs" />
@@ -319,7 +320,6 @@
      <Compile Include="Assets\Model\Core\Object\ObjectPool.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Decorator\Failer.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\BuffData\ReplaceAttackBuffData.cs" />
-     <Compile Include="Assets\Model\NKGMOBA\Battle\Component\MapClickCompoent.cs" />
      <None Include="Assets\Model\csc.rsp" />
      <None Include="Assets\Model\Unity.Model.asmdef" />
  <Reference Include="UnityEngine">
