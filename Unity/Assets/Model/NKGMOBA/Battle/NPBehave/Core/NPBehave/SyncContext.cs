@@ -5,7 +5,7 @@
 //------------------------------------------------------------
 
 using System.Collections.Generic;
-using ETModel;
+using ET;
 
 namespace NPBehave
 {
@@ -14,19 +14,9 @@ namespace NPBehave
         private static SyncContext _instance;
 
         /// <summary>
-        /// 世界默认更新频率为60hz
-        /// </summary>
-        private const float c_GameUpdateInterval = 1 / 60f;
-
-        /// <summary>
-        /// 行为树默认更新频率为30hz
-        /// </summary>
-        private const float s_UpdateInterval = c_GameUpdateInterval * 2;
-
-        /// <summary>
         /// 计时器
         /// </summary>
-        private static float s_Timer = s_UpdateInterval;
+        private static float s_Timer = 0;
 
         public static SyncContext Instance
         {
@@ -57,11 +47,11 @@ namespace NPBehave
 
         public void Update()
         {
-            s_Timer += c_GameUpdateInterval;
-            if (s_Timer >= s_UpdateInterval)
+            s_Timer += GlobalDefine.FixedUpdateTargetDTTime;
+            if (s_Timer >= GlobalDefine.FixedUpdateTargetDTTime)
             {
                 //默认30hz运行
-                clock.Update(s_UpdateInterval);
+                clock.Update(GlobalDefine.FixedUpdateTargetDTTime);
                 s_Timer = 0;
             }
         }

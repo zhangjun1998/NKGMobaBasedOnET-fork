@@ -4,7 +4,7 @@
 // Data: 2020年1月21日 17:07:02
 //------------------------------------------------------------
 
-namespace ETModel
+namespace ET
 {
     public enum RoleCast
     {
@@ -27,13 +27,39 @@ namespace ETModel
     [System.Flags]
     public enum RoleCamp
     {
-        TianZai = 0b1,
-        HuiYue = 0b10,
-        JunHeng = 0b100
+        TianZai = 0b0000001,
+        HuiYue = 0b0000010,
+        red = 0b0000100,
+        bule = 0b0001000,
+        yellow = 0b0010000,
+        green = 0b0100000,
+        JunHeng = 0b1000000
     }
 
-    public class B2S_RoleCastComponent: Component
+    public enum RoleTag
     {
+        Sprite,
+        AttackRange,
+        NoCollision,
+        Hero,
+        Map,
+        Creeps,
+        SkillCollision,
+    }
+
+    public class B2S_RoleCastComponentAwakeSystem : AwakeSystem<B2S_RoleCastComponent, RoleCamp, RoleTag>
+    {
+        public override void Awake(B2S_RoleCastComponent self, RoleCamp a, RoleTag b)
+        {
+            self.RoleCamp = a;
+            self.RoleTag = b;
+        }
+    }
+
+    public class B2S_RoleCastComponent : Entity
+    {
+        public RoleTag RoleTag;
+
         /// <summary>
         /// 归属阵营
         /// </summary>
@@ -52,19 +78,30 @@ namespace ETModel
             }
 
             RoleCamp roleCamp = unit.GetComponent<B2S_RoleCastComponent>().RoleCamp;
-            
+
             if (roleCamp == this.RoleCamp)
             {
                 return RoleCast.Friendly;
             }
 
-            switch (roleCamp | this.RoleCamp)
+            // switch (roleCamp | this.RoleCamp)
+            // {
+            //     case RoleCamp.TianZai | RoleCamp.HuiYue:
+            //         return RoleCast.Adverse;
+            //     case RoleCamp.TianZai | RoleCamp.JunHeng:
+            //     case RoleCamp.HuiYue | RoleCamp.JunHeng:
+            //         return RoleCast.Neutral;
+            // }
+            if (roleCamp != this.RoleCamp)
             {
-                case RoleCamp.TianZai | RoleCamp.HuiYue:
-                    return RoleCast.Adverse;
-                case RoleCamp.TianZai | RoleCamp.JunHeng:
-                case RoleCamp.HuiYue | RoleCamp.JunHeng:
+                if (roleCamp == RoleCamp.JunHeng || this.RoleCamp == RoleCamp.JunHeng)
+                {
                     return RoleCast.Neutral;
+                }
+                else
+                {
+                    return RoleCast.Adverse;
+                }
             }
 
             return RoleCast.Friendly;

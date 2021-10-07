@@ -11,22 +11,22 @@ using Box2DSharp.Collision.Shapes;
 using Box2DSharp.Dynamics;
 using Box2DSharp.Dynamics.Contacts;
 
-namespace ETModel
+namespace ET
 {
     [ObjectSystem]
-    public class B2S_CollisionListenerComponentAwake: AwakeSystem<B2S_CollisionListenerComponent>
+    public class B2S_CollisionListenerComponentAwake : AwakeSystem<B2S_CollisionListenerComponent>
     {
         public override void Awake(B2S_CollisionListenerComponent self)
         {
             //绑定指定的物理世界，正常来说一个房间一个物理世界,这里是Demo，直接获取了
-            Game.Scene.GetComponent<B2S_WorldComponent>().GetWorld().SetContactListener(self);
+            self.Parent.GetComponent<B2S_WorldComponent>().GetWorld().SetContactListener(self);
             //self.TestCollision();
-            self.B2SWorldColliderManagerComponent = Game.Scene.GetComponent<B2S_WorldColliderManagerComponent>();
+            self.B2SWorldColliderManagerComponent = self.Parent.GetComponent<B2S_WorldColliderManagerComponent>();
         }
     }
 
     [ObjectSystem]
-    public class B2S_CollisionListenerComponentFixedUpdate: FixedUpdateSystem<B2S_CollisionListenerComponent>
+    public class B2S_CollisionListenerComponentFixedUpdate : FixedUpdateSystem<B2S_CollisionListenerComponent>
     {
         public override void FixedUpdate(B2S_CollisionListenerComponent self)
         {
@@ -37,35 +37,47 @@ namespace ETModel
     /// <summary>
     /// 某一物理世界所有碰撞的监听者，负责碰撞事件的分发
     /// </summary>
-    public class B2S_CollisionListenerComponent: Component, IContactListener
+    public class B2S_CollisionListenerComponent : Entity, IContactListener
     {
         public B2S_WorldColliderManagerComponent B2SWorldColliderManagerComponent;
 
-        private Dictionary<(long, long), bool> m_CollisionRecorder = new Dictionary<(long, long), bool>();
+        private List<(long, long)> m_CollisionRecorder = new List<(long, long)>();
 
         private List<(long, long)> m_ToBeRemovedCollisionData = new List<(long, long)>();
 
         public void BeginContact(Contact contact)
         {
             //这里获取的是碰撞实体，比如诺克Q技能的碰撞体Unit，这里获取的就是它
-            Entity entitya = (Entity) contact.FixtureA.UserData;
-            Entity entityb = (Entity) contact.FixtureB.UserData;
+            Unit unitA = (Unit) contact.FixtureA.UserData;
+            Unit unitB = (Unit) contact.FixtureB.UserData;
 
-            this.m_CollisionRecorder[(entitya.Id, entityb.Id)] = true;
+            if (unitA.IsDisposed || unitB.IsDisposed)
+            {
+                return;
+            }
+            
+            m_CollisionRecorder.Add((unitA.Id, unitB.Id));
 
-            entitya.GetComponent<B2S_CollisionResponseComponent>().OnCollideStart(entityb);
-            entityb.GetComponent<B2S_CollisionResponseComponent>().OnCollideStart(entitya);
+            B2S_CollisionDispatcherComponent.Instance.HandleCollisionStart(unitA, unitB);
+            B2S_CollisionDispatcherComponent.Instance.HandleCollisionStart(unitB, unitA);
         }
 
         public void EndContact(Contact contact)
         {
-            Entity entitya = (Entity) contact.FixtureA.UserData;
-            Entity entityb = (Entity) contact.FixtureB.UserData;
+            Unit unitA = (Unit) contact.FixtureA.UserData;
+            Unit unitB = (Unit) contact.FixtureB.UserData;
+            
+            // Id不分顺序，防止移除失败
+            this.m_ToBeRemovedCollisionData.Add((unitA.Id, unitB.Id));
+            this.m_ToBeRemovedCollisionData.Add((unitB.Id, unitA.Id));
 
-            this.m_CollisionRecorder.Remove((entitya.Id, entityb.Id));
-
-            entitya.GetComponent<B2S_CollisionResponseComponent>().OnCollideFinish(entityb);
-            entityb.GetComponent<B2S_CollisionResponseComponent>().OnCollideFinish(entitya);
+            if (unitA.IsDisposed || unitB.IsDisposed)
+            {
+                return;
+            }
+            
+            B2S_CollisionDispatcherComponent.Instance.HandleCollsionEnd(unitA, unitB);
+            B2S_CollisionDispatcherComponent.Instance.HandleCollsionEnd(unitB, unitA);
         }
 
         public void PreSolve(Contact contact, in Manifold oldManifold)
@@ -83,21 +95,23 @@ namespace ETModel
                 this.m_CollisionRecorder.Remove(tobeRemovedData);
             }
 
+            m_ToBeRemovedCollisionData.Clear();
+            
             foreach (var cachedCollisionData in this.m_CollisionRecorder)
             {
-                if (cachedCollisionData.Value)
-                {
-                    var a = this.B2SWorldColliderManagerComponent.GetColliderEntity(cachedCollisionData.Key.Item1);
-                    var b = this.B2SWorldColliderManagerComponent.GetColliderEntity(cachedCollisionData.Key.Item2);
-                    if (a == null || b == null)
-                    {
-                        this.m_ToBeRemovedCollisionData.Add((a.Id, b.Id));
-                        return;
-                    }
+                Unit unitA = this.GetParent<Room>().GetComponent<UnitComponent>().Get(cachedCollisionData.Item1);
+                Unit unitB = this.GetParent<Room>().GetComponent<UnitComponent>().Get(cachedCollisionData.Item2);
 
-                    a.GetComponent<B2S_CollisionResponseComponent>().OnCollideSustain(b);
-                    b.GetComponent<B2S_CollisionResponseComponent>().OnCollideSustain(a);
+                if (unitA.IsDisposed || unitB.IsDisposed)
+                {
+                    // Id不分顺序，防止移除失败
+                    this.m_ToBeRemovedCollisionData.Add((unitA.Id, unitB.Id));
+                    this.m_ToBeRemovedCollisionData.Add((unitB.Id, unitA.Id));
+                    continue;
                 }
+
+                B2S_CollisionDispatcherComponent.Instance.HandleCollisionSustain(unitA, unitB);
+                B2S_CollisionDispatcherComponent.Instance.HandleCollisionSustain(unitB, unitA);
             }
         }
 
@@ -115,18 +129,19 @@ namespace ETModel
         /// </summary>
         public void TestCollision()
         {
-            BodyDef bodyDef = new BodyDef { BodyType = BodyType.DynamicBody };
-            Body m_Body = Game.Scene.GetComponent<B2S_WorldComponent>().GetWorld().CreateBody(bodyDef);
+            BodyDef bodyDef = new BodyDef {BodyType = BodyType.DynamicBody};
+            Body m_Body = this.parent.GetComponent<B2S_WorldComponent>().GetWorld().CreateBody(bodyDef);
             CircleShape m_CircleShape = new CircleShape();
             m_CircleShape.Radius = 5;
             m_Body.CreateFixture(m_CircleShape, 5);
 
-            BodyDef bodyDef1 = new BodyDef { BodyType = BodyType.DynamicBody };
-            Body m_Body1 = Game.Scene.GetComponent<B2S_WorldComponent>().GetWorld().CreateBody(bodyDef1);
+            BodyDef bodyDef1 = new BodyDef {BodyType = BodyType.DynamicBody};
+            Body m_Body1 = this.parent.GetComponent<B2S_WorldComponent>().GetWorld().CreateBody(bodyDef1);
             CircleShape m_CircleShape1 = new CircleShape();
             m_CircleShape1.Radius = 5;
             m_Body1.CreateFixture(m_CircleShape1, 5);
-            Log.Info("创建完毕");
+
+            Log.Info("创建完成");
         }
     }
 }

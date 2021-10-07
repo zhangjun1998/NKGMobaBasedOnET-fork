@@ -4,7 +4,7 @@
 // Data: 2019年9月26日 21:30:55
 //------------------------------------------------------------
 
-using ETModel;
+using ET;
 using GraphProcessor;
 using Sirenix.OdinInspector;
 
@@ -19,7 +19,7 @@ namespace Plugins.NodeEditor
         [BoxGroup("重复执行结点数据")]
         [HideReferenceObjectPicker]
         [HideLabel]
-        public NP_RepeaterNodeData NpRepeaterNodeData = new NP_RepeaterNodeData { NodeType = NodeType.Decorator, NodeDes = "重复执行结点数据" };
+        public NP_RepeaterNodeData NpRepeaterNodeData = new NP_RepeaterNodeData { NodeDes = "重复执行结点数据" };
 
         public override NP_NodeDataBase NP_GetNodeData()
         {

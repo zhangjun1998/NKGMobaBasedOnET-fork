@@ -11,7 +11,7 @@ using Sirenix.OdinInspector;
 using UnityEditor;
 
 #endif
-namespace ETModel
+namespace ET
 {
     [HideReferenceObjectPicker]
     public struct VTD_Id

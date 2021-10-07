@@ -4,7 +4,7 @@
 // Data: 2019年9月7日 12:30:38
 //------------------------------------------------------------
 
-using ETModel;
+using ET;
 using GraphProcessor;
 using Sirenix.OdinInspector;
 
@@ -19,7 +19,7 @@ namespace Plugins.NodeEditor
         [BoxGroup("并行结点数据")]
         [HideReferenceObjectPicker]
         [HideLabel]
-        public NP_ParallelNodeData NP_ParallelNodeData = new NP_ParallelNodeData { NodeType = NodeType.Composite, NodeDes = "并行组合器" };
+        public NP_ParallelNodeData NP_ParallelNodeData = new NP_ParallelNodeData { NodeDes = "并行组合器" };
 
         public override NP_NodeDataBase NP_GetNodeData()
         {

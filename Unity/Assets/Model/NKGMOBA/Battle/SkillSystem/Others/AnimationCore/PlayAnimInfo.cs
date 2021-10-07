@@ -4,12 +4,10 @@
 // Data: 2020年1月12日 20:21:51
 //------------------------------------------------------------
 
-using ETModel;
-using ETModel.NKGMOBA.Battle.State;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace ET
 {
     public class PlayAnimInfo
     {

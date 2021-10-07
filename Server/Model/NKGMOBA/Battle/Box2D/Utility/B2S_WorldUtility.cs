@@ -7,7 +7,7 @@
 using System.Numerics;
 using Box2DSharp.Dynamics;
 
-namespace ETModel
+namespace ET
 {
     public class B2S_WorldUtility
     {

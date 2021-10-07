@@ -5,7 +5,7 @@
 //------------------------------------------------------------
 
 using System.Collections.Generic;
-using ETModel;
+using ET;
 using GraphProcessor;
 using UnityEditor;
 
@@ -19,7 +19,7 @@ namespace Plugins.NodeEditor
         public NormalBuffNodeData SkillBuffBases =
                 new NormalBuffNodeData()
                 {
-                    BuffDes = "绑定一个状态Buff", BuffData = new BindStateBuffData() { BelongBuffSystemType = BuffSystemType.BindStateBuffSystem }
+                    BuffDes = "绑定一个状态Buff", BuffData = new BindStateBuffData() { }
                 };
 
         public override BuffNodeDataBase GetBuffNodeData()

@@ -4,7 +4,7 @@
 // Data: 2019年8月23日 17:54:50
 //------------------------------------------------------------
 
-using ETModel;
+using ET;
 using GraphProcessor;
 
 namespace Plugins.NodeEditor
@@ -16,7 +16,7 @@ namespace Plugins.NodeEditor
         public override string name => "黑板条件结点";
 
         public NP_BlackboardConditionNodeData NP_BlackboardConditionNodeData =
-                new NP_BlackboardConditionNodeData { NodeType = NodeType.Decorator, NodeDes = "黑板条件结点" };
+                new NP_BlackboardConditionNodeData { NodeDes = "黑板条件结点" };
 
         public override NP_NodeDataBase NP_GetNodeData()
         {

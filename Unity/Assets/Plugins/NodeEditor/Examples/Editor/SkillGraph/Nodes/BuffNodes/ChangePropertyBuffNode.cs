@@ -4,7 +4,7 @@
 // 此代码由工具自动生成，请勿更改
 //------------------------------------------------------------
 
-using ETModel;
+using ET;
 using GraphProcessor;
 using UnityEditor;
 
@@ -19,7 +19,7 @@ namespace Plugins.NodeEditor
                 new NormalBuffNodeData()
                 {
                     BuffDes = "修改属性Buff",
-                    BuffData = new ChangePropertyBuffData() { BelongBuffSystemType = BuffSystemType.ChangePropertyBuffSystem }
+                    BuffData = new ChangePropertyBuffData() { }
                 };
         
         public override BuffNodeDataBase GetBuffNodeData()

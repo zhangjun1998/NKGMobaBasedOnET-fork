@@ -8,52 +8,43 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ETModel;
+using ET;
 using GraphProcessor;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEngine;
 
 namespace Plugins.NodeEditor
 {
-    public class NPBehaveGraph: BaseGraph
+    public class NPBehaveGraph : BaseGraph
     {
-        [BoxGroup("本Canvas所有数据整理部分")]
-        [LabelText("保存文件名"), GUIColor(0.9f, 0.7f, 1)]
+        [BoxGroup("本Canvas所有数据整理部分")] [LabelText("保存文件名"), GUIColor(0.9f, 0.7f, 1)]
         public string Name;
 
-        [BoxGroup("本Canvas所有数据整理部分")]
-        [LabelText("对应的配置表"), GUIColor(0.9f, 0.7f, 1)]
+        [BoxGroup("本Canvas所有数据整理部分")] [LabelText("对应的配置表"), GUIColor(0.9f, 0.7f, 1)]
         public TextAsset Config;
 
-        [BoxGroup("本Canvas所有数据整理部分")]
-        [LabelText("对应的配置表类型"), GUIColor(0.9f, 0.7f, 1)]
-        [ValueDropdown("GetConfigTypes")]
+        [BoxGroup("本Canvas所有数据整理部分")] [LabelText("对应的配置表类型"), GUIColor(0.9f, 0.7f, 1)] [ValueDropdown("GetConfigTypes")]
         public Type ConfigType;
 
-        [BoxGroup("本Canvas所有数据整理部分")]
-        [LabelText("配置表中的Id"), GUIColor(0.9f, 0.7f, 1)]
+        [BoxGroup("本Canvas所有数据整理部分")] [LabelText("配置表中的Id"), GUIColor(0.9f, 0.7f, 1)]
         public int IdInConfig;
 
-        [BoxGroup("本Canvas所有数据整理部分")]
-        [LabelText("保存路径"), GUIColor(0.1f, 0.7f, 1)]
-        [FolderPath]
+        [BoxGroup("本Canvas所有数据整理部分")] [LabelText("保存路径"), GUIColor(0.1f, 0.7f, 1)] [FolderPath]
         public string SavePath;
 
-        [BoxGroup("此行为树数据载体")]
-        [DisableInEditorMode]
+        [BoxGroup("此行为树数据载体")] [DisableInEditorMode]
         public NP_DataSupportorBase NpDataSupportor = new NP_DataSupportorBase();
 
-        [BoxGroup("行为树反序列化测试")]
-        [DisableInEditorMode]
+        [BoxGroup("行为树反序列化测试")] [DisableInEditorMode]
         public NP_DataSupportorBase NpDataSupportor1 = new NP_DataSupportorBase();
 
         /// <summary>
         /// 黑板数据管理器
         /// </summary>
-        [HideInInspector]
-        public NP_BlackBoardDataManager NpBlackBoardDataManager = new NP_BlackBoardDataManager();
+        [HideInInspector] public NP_BlackBoardDataManager NpBlackBoardDataManager = new NP_BlackBoardDataManager();
 
         /// <summary>
         /// 自动配置当前图所有数据（结点，黑板）
@@ -80,9 +71,12 @@ namespace Plugins.NodeEditor
                 return;
             }
 
-            using (FileStream file = File.Create($"{SavePath}/{this.Name}.bytes"))
+            byte[] bytes = SerializationUtility.SerializeValue(NpDataSupportor, DataFormat.Binary);
+            using (var fs = new FileStream($"{SavePath}/{this.Name}.bytes", FileMode.Create, FileAccess.Write,
+                FileShare.Write))
+            using (var writer = new BinaryWriter(fs))
             {
-                BsonSerializer.Serialize(new BsonBinaryWriter(file), this.NpDataSupportor);
+                writer.Write(bytes);
             }
 
             Log.Info($"保存 {SavePath}/{this.Name}.bytes 成功");
@@ -91,13 +85,17 @@ namespace Plugins.NodeEditor
         [Button("测试反序列化", 25), GUIColor(0.4f, 0.8f, 1)]
         public void TestDe()
         {
-            byte[] mfile = File.ReadAllBytes($"{SavePath}/{this.Name}.bytes");
-
-            if (mfile.Length == 0) Log.Info("没有读取到文件");
-
             try
             {
-                this.NpDataSupportor1 = BsonSerializer.Deserialize<NP_DataSupportorBase>(mfile);
+                this.NpDataSupportor1 = null;
+                using (var fs = new FileStream($"{SavePath}/{this.Name}.bytes", FileMode.Open, FileAccess.Read,
+                    FileShare.Read))
+                using (var reader = new BinaryReader(fs))
+                {
+                    this.NpDataSupportor1 =
+                        SerializationUtility.DeserializeValue<NP_DataSupportorBase>(reader.BaseStream,
+                            DataFormat.Binary);
+                }
             }
             catch (Exception e)
             {
@@ -137,7 +135,7 @@ namespace Plugins.NodeEditor
             //配置每个节点Id
             foreach (var node in allNodes)
             {
-                node.NP_GetNodeData().id = IdGenerater.GenerateId();
+                node.NP_GetNodeData().id = IdGenerater.Instance.GenerateId();
             }
 
             if (this.Config == null)
@@ -145,54 +143,39 @@ namespace Plugins.NodeEditor
                 return;
             }
 
-            //设置导出的Id
-            foreach (string str in this.Config.text.Split(new[] { "\n" }, StringSplitOptions.None))
+            object config = ProtobufHelper.FromBytes(this.ConfigType, this.Config.bytes, 0, this.Config.bytes.Length);
+
+            //目前行为树只有三种类型，直接在这里写出
+            switch (config)
             {
-                try
-                {
-                    string str2 = str.Trim();
-                    if (str2 == "")
+                case Server_SkillCanvasConfigCategory serverSkillCanvasConfigCategory:
+                    serverSkillCanvasConfigCategory.AfterDeserialization();
+                    Server_SkillCanvasConfig skillCanvasConfig = serverSkillCanvasConfigCategory.Get(this.IdInConfig);
+                    if (skillCanvasConfig != null)
                     {
-                        continue;
+                        npDataSupportorBase.NPBehaveTreeDataId = skillCanvasConfig.NPBehaveId;
                     }
 
-                    object config = JsonHelper.FromJson(this.ConfigType, str2);
-
-                    //目前行为树只有三种类型，直接在这里写出
-                    switch (config)
+                    break;
+                case Client_SkillCanvasConfigCategory clientSkillCanvasConfigCategory:
+                    clientSkillCanvasConfigCategory.AfterDeserialization();
+                    Client_SkillCanvasConfig clientSkillCanvasConfig =
+                        clientSkillCanvasConfigCategory.Get(this.IdInConfig);
+                    if (clientSkillCanvasConfig != null)
                     {
-                        case Server_AICanvasConfig serverAICanvasConfig:
-                            if (serverAICanvasConfig.Id == this.IdInConfig)
-                            {
-                                npDataSupportorBase.NPBehaveTreeDataId = serverAICanvasConfig.NPBehaveId;
-                            }
-
-                            break;
-                        case Client_SkillCanvasConfig clientSkillCanvasConfig:
-                            if (clientSkillCanvasConfig.Id == this.IdInConfig)
-                            {
-                                npDataSupportorBase.NPBehaveTreeDataId = clientSkillCanvasConfig.NPBehaveId;
-                            }
-
-                            break;
-                        case Server_SkillCanvasConfig serverSkillCanvasConfig:
-                            if (serverSkillCanvasConfig.Id == this.IdInConfig)
-                            {
-                                npDataSupportorBase.NPBehaveTreeDataId = serverSkillCanvasConfig.NPBehaveId;
-                            }
-
-                            break;
+                        npDataSupportorBase.NPBehaveTreeDataId = clientSkillCanvasConfig.NPBehaveId;
                     }
 
-                    if (npDataSupportorBase.NPBehaveTreeDataId != 0)
+                    break;
+                case Server_AICanvasConfigCategory serverSkillCanvasConfigCategory:
+                    serverSkillCanvasConfigCategory.AfterDeserialization();
+                    Server_AICanvasConfig serverAICanvasConfig = serverSkillCanvasConfigCategory.Get(this.IdInConfig);
+                    if (serverAICanvasConfig != null)
                     {
-                        break;
+                        npDataSupportorBase.NPBehaveTreeDataId = serverAICanvasConfig.NPBehaveId;
                     }
-                }
-                catch (Exception e)
-                {
-                    throw new Exception($"parser json fail: {str}", e);
-                }
+
+                    break;
             }
 
             if (npDataSupportorBase.NPBehaveTreeDataId == 0)
@@ -256,10 +239,10 @@ namespace Plugins.NodeEditor
 
         public IEnumerable<Type> GetConfigTypes()
         {
-            var q = typeof (Init).Assembly.GetTypes()
-                    .Where(x => !x.IsAbstract)
-                    .Where(x => !x.IsGenericTypeDefinition)
-                    .Where(x => typeof (IConfig).IsAssignableFrom(x));
+            var q = typeof(ProtoObject).Assembly.GetTypes()
+                .Where(x => !x.IsAbstract)
+                .Where(x => !x.IsGenericTypeDefinition)
+                .Where(x => typeof(ProtoObject).IsAssignableFrom(x));
 
             return q;
         }

@@ -4,10 +4,10 @@
 // Data: 2019年8月19日 18:04:17
 //------------------------------------------------------------
 
-using ETModel;
+using ET;
 using NPBehave;
 
-namespace ETModel
+namespace ET
 {
     [ObjectSystem]
     public class SyncComponentFixedUpdate: FixedUpdateSystem<NP_SyncComponent>
@@ -18,7 +18,7 @@ namespace ETModel
         }
     }
     
-    public class NP_SyncComponent: Component
+    public class NP_SyncComponent: Entity
     {
         public void FixedUpdate()
         {

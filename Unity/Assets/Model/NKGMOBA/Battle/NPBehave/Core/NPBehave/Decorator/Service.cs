@@ -1,4 +1,4 @@
-﻿using ETModel;
+﻿using ET;
 
 namespace NPBehave
 {

@@ -5,7 +5,7 @@
 //------------------------------------------------------------
 
 using System.Collections.Generic;
-using ETModel;
+using ET;
 using GraphProcessor;
 using UnityEditor;
 
@@ -20,7 +20,7 @@ namespace Plugins.NodeEditor
                 new NormalBuffNodeData()
                 {
                     BuffDes = "监听Buff",
-                    BuffData = new ListenBuffCallBackBuffData() { BelongBuffSystemType = BuffSystemType.ListenBuffCallBackBuffSystem }
+                    BuffData = new ListenBuffCallBackBuffData() { }
                 };
 
         public override BuffNodeDataBase GetBuffNodeData()
@@ -31,34 +31,34 @@ namespace Plugins.NodeEditor
         public override void AutoAddLinkedBuffs()
         {
             ListenBuffCallBackBuffData listenBuffCallBackBuffData = SkillBuffBases.BuffData as ListenBuffCallBackBuffData;
-            if (listenBuffCallBackBuffData.ListenBuffEventNormal == null)
+            if (listenBuffCallBackBuffData.BuffInfoWillBeAdded == null)
             {
-                listenBuffCallBackBuffData.ListenBuffEventNormal = new ListenBuffEvent_Normal();
+                listenBuffCallBackBuffData.BuffInfoWillBeAdded = new List<VTD_BuffInfo>();
             }
 
             //备份Buff Id和对应层数键值对，防止被覆写
             Dictionary<long, int> buffDataBack = new Dictionary<long, int>();
 
-            foreach (var vtdBuffInfo in listenBuffCallBackBuffData.ListenBuffEventNormal.BuffInfoWillBeAdded)
+            foreach (var vtdBuffInfo in listenBuffCallBackBuffData.BuffInfoWillBeAdded)
             {
                 buffDataBack[vtdBuffInfo.BuffNodeId.Value] = vtdBuffInfo.Layers;
             }
 
-            listenBuffCallBackBuffData.ListenBuffEventNormal.BuffInfoWillBeAdded.Clear();
+            listenBuffCallBackBuffData.BuffInfoWillBeAdded.Clear();
 
             foreach (var outputNode in this.GetOutputNodes())
             {
                 BuffNodeBase targetNode = (outputNode as BuffNodeBase);
                 if (targetNode != null)
                 {
-                    listenBuffCallBackBuffData.ListenBuffEventNormal.BuffInfoWillBeAdded.Add(new VTD_BuffInfo()
+                    listenBuffCallBackBuffData.BuffInfoWillBeAdded.Add(new VTD_BuffInfo()
                     {
                         BuffNodeId = targetNode.GetBuffNodeData().NodeId
                     });
                 }
             }
 
-            foreach (var vtdBuffInfo in listenBuffCallBackBuffData.ListenBuffEventNormal.BuffInfoWillBeAdded)
+            foreach (var vtdBuffInfo in listenBuffCallBackBuffData.BuffInfoWillBeAdded)
             {
                 if (buffDataBack.TryGetValue(vtdBuffInfo.BuffNodeId.Value, out var buffLayer))
                 {

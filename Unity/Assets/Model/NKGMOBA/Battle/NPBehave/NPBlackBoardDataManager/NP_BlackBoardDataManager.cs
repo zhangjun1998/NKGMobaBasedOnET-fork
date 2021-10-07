@@ -6,13 +6,15 @@
 
 using System;
 using System.Collections.Generic;
-using ETModel;
-using ETModel.BBValues;
 using Sirenix.OdinInspector;
+
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
+
 using UnityEngine;
 
-namespace ETModel
+namespace ET
 {
 #if UNITY_EDITOR
     //TODO 我们是不是可以把所有数据都做到这里，实现编辑时逻辑数据分离，也就可以做到Excel和节点编辑器数据互相导出

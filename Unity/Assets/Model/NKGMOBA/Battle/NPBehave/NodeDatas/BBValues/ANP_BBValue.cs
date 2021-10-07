@@ -6,7 +6,7 @@
 
 using System;
 
-namespace ETModel.BBValues
+namespace ET
 {
     public abstract class ANP_BBValue
     {

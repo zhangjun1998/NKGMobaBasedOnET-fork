@@ -1,9 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ETModel
+namespace ET
 {
-    public class RecastPath: IReference
+    public class RecastPathDestorySystem : DestroySystem<RecastPath>
+    {
+        public override void Destroy(RecastPath self)
+        {
+            self.Clear();
+        }
+    }
+
+    public class RecastPath: Entity
     {
         public Vector3 StartPos = Vector3.zero;
         public Vector3 EndPos = Vector3.zero;
@@ -18,32 +26,19 @@ namespace ETModel
         }
     }
 
-    public static class RecastPathExtension
-    {
-        /// <summary>
-        /// 修改坐标以适配Recast
-        /// </summary>
-        /// <param name="self"></param>
-        public static void AujustSelfContentForRecast(this RecastPath self)
-        {
-            self.StartPos.x = -self.StartPos.x;
-            self.EndPos.x = -self.EndPos.x;
-        }
-    }
-
     /// <summary>
     /// 寻路处理者
     /// </summary>
-    public class RecastPathProcessor: IReference
+    public class RecastPathProcessor: Entity
     {
         /// <summary>
         /// 归属的地图Id
         /// </summary>
         public int MapId;
 
-        public void CalculatePath(RecastPath recastPath)
+        public void CalculatePath(Vector3 from, Vector3 to, List<Vector3> result)
         {
-            if (RecastInterface.FindPath(this.MapId, recastPath.StartPos, recastPath.EndPos))
+            if (RecastInterface.FindPath(this.MapId, from, to))
             {
                 RecastInterface.Smooth(this.MapId, 2f, 0.5f);
                 {
@@ -52,8 +47,7 @@ namespace ETModel
                     for (int i = 0; i < smoothCount; ++i)
                     {
                         Vector3 node = new Vector3(smooths[i * 3], smooths[i * 3 + 1], smooths[i * 3 + 2]);
-                        recastPath.Results.Add(node);
-                        //Log.Info($"路径点：{node}");
+                        result.Add(node);
                     }
                 }
             }

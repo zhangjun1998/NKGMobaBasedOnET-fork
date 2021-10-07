@@ -1,6 +1,6 @@
 //此文件格式由工具自动生成
 
-namespace ETModel
+namespace ET
 {
     #region System
 
@@ -71,7 +71,7 @@ namespace ETModel
     /// <summary>
     /// 对象阵容组件，用于标识对象阵营
     /// </summary>
-    public class B2S_RoleCastComponent: Component
+    public class B2S_RoleCastComponent: Entity
     {
         #region 私有成员
 

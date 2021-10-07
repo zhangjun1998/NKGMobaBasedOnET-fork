@@ -4,7 +4,7 @@
 // Data: 2019年9月13日 20:28:02
 //------------------------------------------------------------
 
-using ETModel;
+using ET;
 using GraphProcessor;
 
 namespace Plugins.NodeEditor
@@ -15,7 +15,7 @@ namespace Plugins.NodeEditor
     {
         public override string name => "等待节点";
 
-        public NP_WaitNodeData NP_WaitNodeData = new NP_WaitNodeData { NodeType = NodeType.Task };
+        public NP_WaitNodeData NP_WaitNodeData = new NP_WaitNodeData { };
 
         public override NP_NodeDataBase NP_GetNodeData()
         {

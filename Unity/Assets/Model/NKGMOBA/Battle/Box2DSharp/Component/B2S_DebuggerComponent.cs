@@ -5,14 +5,16 @@
 //------------------------------------------------------------
 
 using System.Collections.Generic;
+using ET;
 using UnityEngine;
 
-namespace ETModel
+namespace ET
 {
-    /// <summary>
+#if !SERVER
+        /// <summary>
     /// Box2D的碰撞体可视化Debugger组件
     /// </summary>
-    public class B2S_DebuggerComponent: Component
+    public class B2S_DebuggerComponent: Entity
     {
         /// <summary>
         /// 直线渲染者,int为ID，bool为是否空闲
@@ -89,4 +91,6 @@ namespace ETModel
             GameObject.Destroy(this.targetGo);
         }
     }
+#endif
+
 }

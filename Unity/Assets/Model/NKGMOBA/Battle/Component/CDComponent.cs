@@ -2,13 +2,10 @@
 
 using System;
 using System.Collections.Generic;
-using NPBehave_Core;
-
-namespace ETModel
+namespace ET
 {
     #region System
-
-    [ObjectSystem]
+    
     public class CDComponentAwakeSystem: AwakeSystem<CDComponent>
     {
         public override void Awake(CDComponent self)
@@ -16,8 +13,7 @@ namespace ETModel
             self.Awake();
         }
     }
-
-    [ObjectSystem]
+    
     public class CDComponentUpdateSystem: UpdateSystem<CDComponent>
     {
         public override void Update(CDComponent self)
@@ -25,8 +21,7 @@ namespace ETModel
             self.Update();
         }
     }
-
-    [ObjectSystem]
+    
     public class CDComponentFixedUpdateSystem: FixedUpdateSystem<CDComponent>
     {
         public override void FixedUpdate(CDComponent self)
@@ -34,8 +29,7 @@ namespace ETModel
             self.FixedUpdate();
         }
     }
-
-    [ObjectSystem]
+    
     public class CDComponentDestroySystem: DestroySystem<CDComponent>
     {
         public override void Destroy(CDComponent self)
@@ -95,7 +89,7 @@ namespace ETModel
     /// <summary>
     /// CD组件，用于统一管理所有的CD类型的数据，比如攻速CD，服务器上因试图攻击导致的循环MoveTo CD
     /// </summary>
-    public class CDComponent: Component
+    public class CDComponent: Entity
     {
         #region 私有成员
 
@@ -108,25 +102,6 @@ namespace ETModel
         #endregion
 
         #region 公有成员
-
-        private static CDComponent m_Instance;
-
-        public static CDComponent Instance
-        {
-            get
-            {
-                if (m_Instance == null)
-                {
-                    Log.Error("请先注册CDComponent到Game.Scene中");
-
-                    return null;
-                }
-                else
-                {
-                    return m_Instance;
-                }
-            }
-        }
 
         /// <summary>
         /// 新增一条CD数据
@@ -267,8 +242,6 @@ namespace ETModel
 
         public void Awake()
         {
-            //此处填写Awake逻辑
-            m_Instance = this;
         }
 
         public void Update()

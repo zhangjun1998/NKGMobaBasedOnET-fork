@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Numerics;
-using ETModel;
-using ETModel.BBValues;
+using ET;
 using Vector3 = UnityEngine.Vector3;
 
 namespace NPBehave

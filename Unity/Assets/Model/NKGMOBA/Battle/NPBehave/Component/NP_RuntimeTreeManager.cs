@@ -6,9 +6,9 @@
 
 using System.Collections.Generic;
 
-namespace ETModel
+namespace ET
 {
-    public class NP_RuntimeTreeManager: Component
+    public class NP_RuntimeTreeManager: Entity
     {
         public Dictionary<long, NP_RuntimeTree> RuntimeTrees = new Dictionary<long, NP_RuntimeTree>();
 

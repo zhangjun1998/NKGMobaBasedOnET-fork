@@ -2,14 +2,13 @@
 
 using System;
 using System.Collections.Generic;
-using NPBehave_Core;
 
-namespace ETModel
+namespace ET
 {
     #region System
 
     [ObjectSystem]
-    public class CDComponentAwakeSystem: AwakeSystem<CDComponent>
+    public class CDComponentAwakeSystem : AwakeSystem<CDComponent>
     {
         public override void Awake(CDComponent self)
         {
@@ -18,7 +17,7 @@ namespace ETModel
     }
 
     [ObjectSystem]
-    public class CDComponentUpdateSystem: UpdateSystem<CDComponent>
+    public class CDComponentUpdateSystem : UpdateSystem<CDComponent>
     {
         public override void Update(CDComponent self)
         {
@@ -27,7 +26,7 @@ namespace ETModel
     }
 
     [ObjectSystem]
-    public class CDComponentFixedUpdateSystem: FixedUpdateSystem<CDComponent>
+    public class CDComponentFixedUpdateSystem : FixedUpdateSystem<CDComponent>
     {
         public override void FixedUpdate(CDComponent self)
         {
@@ -36,7 +35,7 @@ namespace ETModel
     }
 
     [ObjectSystem]
-    public class CDComponentDestroySystem: DestroySystem<CDComponent>
+    public class CDComponentDestroySystem : DestroySystem<CDComponent>
     {
         public override void Destroy(CDComponent self)
         {
@@ -46,7 +45,7 @@ namespace ETModel
 
     #endregion
 
-    public class CDInfo: IReference
+    public class CDInfo : IReference
     {
         /// <summary>
         /// 名称
@@ -95,7 +94,7 @@ namespace ETModel
     /// <summary>
     /// CD组件，用于统一管理所有的CD类型的数据，比如攻速CD，服务器上因试图攻击导致的循环MoveTo CD
     /// </summary>
-    public class CDComponent: Component
+    public class CDComponent : Entity
     {
         #region 私有成员
 
@@ -103,7 +102,8 @@ namespace ETModel
         /// 包含所有CD信息的字典
         /// 键为id，值为对应所有CD信息
         /// </summary>
-        private Dictionary<long, Dictionary<string, CDInfo>> CDInfos = new Dictionary<long, Dictionary<string, CDInfo>>();
+        private Dictionary<long, Dictionary<string, CDInfo>> CDInfos =
+            new Dictionary<long, Dictionary<string, CDInfo>>();
 
         #endregion
 
@@ -158,7 +158,7 @@ namespace ETModel
             }
             else
             {
-                CDInfos.Add(id, new Dictionary<string, CDInfo>() { { cdInfo.Name, cdInfo } });
+                CDInfos.Add(id, new Dictionary<string, CDInfo>() {{cdInfo.Name, cdInfo}});
             }
 
             return cdInfo;
@@ -174,7 +174,7 @@ namespace ETModel
         {
             CDInfo cdInfo = GetCDData(id, name);
             cdInfo.Result = false;
-            cdInfo.Interval = cdLength == -1? cdInfo.Interval : cdLength;
+            cdInfo.Interval = cdLength == -1 ? cdInfo.Interval : cdLength;
             cdInfo.RemainCDLength = cdInfo.Interval;
         }
 
@@ -222,6 +222,12 @@ namespace ETModel
         public void SetCD(long id, string name, long cDLength, long remainCDLength)
         {
             CDInfo cdInfo = GetCDData(id, name);
+
+            if (cdInfo == null)
+            {
+                cdInfo = this.AddCDData(id, name, cDLength, null);
+            }
+
             cdInfo.Interval = cDLength;
             cdInfo.RemainCDLength = remainCDLength;
             cdInfo.Result = false;

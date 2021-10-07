@@ -4,7 +4,7 @@
 // Data: 2020年10月2日 16:53:17
 //------------------------------------------------------------
 
-using ETModel;
+using ET;
 using GraphProcessor;
 using UnityEditor;
 using UnityEngine;
@@ -22,7 +22,7 @@ namespace Plugins.NodeEditor
                     BuffDes = "往客户端发送Buff信息Buff",
                     BuffData = new SendBuffInfoToClientBuffData()
                     {
-                        BBKey = new NP_BlackBoardRelationData(), BelongBuffSystemType = BuffSystemType.SendBuffInfoToClientBuffSystem
+                        BBKey = new NP_BlackBoardRelationData(), 
                     }
                 };
 

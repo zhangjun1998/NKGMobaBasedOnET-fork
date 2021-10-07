@@ -5,8 +5,6 @@
 //------------------------------------------------------------
 
 using System.Collections.Generic;
-using System.Numerics;
-using ETModel.BBValues;
 using MongoDB.Bson.Serialization.Attributes;
 using NPBehave;
 using Sirenix.OdinInspector;
@@ -17,7 +15,7 @@ using UnityEngine;
 
 #endif
 
-namespace ETModel
+namespace ET
 {
     /// <summary>
     /// 与黑板节点相关的数据

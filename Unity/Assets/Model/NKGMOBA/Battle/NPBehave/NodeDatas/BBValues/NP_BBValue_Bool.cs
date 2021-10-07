@@ -8,7 +8,7 @@ using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace ETModel.BBValues
+namespace ET
 {
     [HideLabel]
     [HideReferenceObjectPicker]

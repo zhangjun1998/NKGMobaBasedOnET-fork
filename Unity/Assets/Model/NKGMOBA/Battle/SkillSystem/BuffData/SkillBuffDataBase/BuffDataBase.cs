@@ -10,7 +10,7 @@ using MongoDB.Bson.Serialization.Options;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace ETModel
+namespace ET
 {
     [Title("Buff数据块", TitleAlignment = TitleAlignments.Centered)]
     [HideLabel]
@@ -32,15 +32,11 @@ namespace ETModel
         [HideInInspector]
         [LabelText("Buff的Id")]
         [BoxGroup("必填项")]
-        public long BuffId = IdGenerater.GenerateId();
+        public long BuffId = IdGenerater.Instance.GenerateId();
 
         [BoxGroup("必填项")]
         [LabelText("Buff归属技能的Id"), GUIColor(1, 140 / 255f, 0)]
         public VTD_Id BelongToSkillId = new VTD_Id();
-
-        [HideInInspector]
-        [BoxGroup("必填项")]
-        public BuffSystemType BelongBuffSystemType;
 
         [LabelText("Buff的添加目标")]
         [BoxGroup("必填项")]

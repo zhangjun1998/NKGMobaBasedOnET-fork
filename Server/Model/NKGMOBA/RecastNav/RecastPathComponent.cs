@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using ET;
+using UnityEngine;
 
-namespace ETModel
+namespace ET
 {
-    [ObjectSystem]
     public class RecastPathAwakeSystem: AwakeSystem<RecastPathComponent>
     {
         public override void Awake(RecastPathComponent self)
@@ -11,13 +12,8 @@ namespace ETModel
         }
     }
 
-    public class RecastPathComponent: Component
+    public class RecastPathComponent: Entity
     {
-        /// <summary>
-        /// 体素文件，用于碰撞
-        /// </summary>
-        public VoxelFile VoxelFile;
-
         /// <summary>
         /// 5v5地图的Nav数据路径
         /// </summary>
@@ -27,7 +23,7 @@ namespace ETModel
         /// 寻路处理者（可用于拓展多线程，参考A*插件）
         /// key为地图id，value为具体处理者
         /// </summary>
-        public Dictionary<int, RecastPathProcessor> m_RecastPathProcessorDic = new Dictionary<int, RecastPathProcessor>();
+        private Dictionary<int, RecastPathProcessor> m_RecastPathProcessorDic = new Dictionary<int, RecastPathProcessor>();
 
         /// <summary>
         /// 初始化寻路引擎
@@ -44,9 +40,9 @@ namespace ETModel
         /// <summary>
         /// 寻路
         /// </summary>
-        public void SearchPath(int mapId, RecastPath recastPath)
+        public void SearchPath(int mapId, Vector3 from, Vector3 to, List<Vector3> result)
         {
-            GetRecastPathProcessor(mapId).CalculatePath(recastPath);
+            GetRecastPathProcessor(mapId).CalculatePath(from, to, result);
         }
 
         public RecastPathProcessor GetRecastPathProcessor(int mapId)
@@ -75,10 +71,10 @@ namespace ETModel
 
             if (RecastInterface.LoadMap(mapId, navDataPath))
             {
-                RecastPathProcessor recastPathProcessor = ReferencePool.Acquire<RecastPathProcessor>();
+                RecastPathProcessor recastPathProcessor = Entity.Create<RecastPathProcessor>(this);
                 recastPathProcessor.MapId = mapId;
                 m_RecastPathProcessorDic[mapId] = recastPathProcessor;
-                Log.Warning($"加载Id为{mapId}的地图Nav数据成功！");
+                Log.Debug($"加载Id为{mapId}的地图Nav数据成功！");
             }
         }
 
@@ -94,15 +90,15 @@ namespace ETModel
                 return;
             }
 
-            ReferencePool.Release(m_RecastPathProcessorDic[mapId]);
+            m_RecastPathProcessorDic[mapId].Dispose();
             m_RecastPathProcessorDic.Remove(mapId);
             if (RecastInterface.FreeMap(mapId))
             {
-                Log.Info($"地图： {mapId}  释放成功");
+                Log.Debug($"地图： {mapId}  释放成功");
             }
             else
             {
-                Log.Info($"地图： {mapId}  释放失败");
+                Log.Debug($"地图： {mapId}  释放失败");
             }
         }
 
@@ -114,7 +110,11 @@ namespace ETModel
             }
 
             base.Dispose();
-            RecastInterface.Fini();
+            
+            //
+            // UnLoadMapNavData(10001);
+            // m_RecastPathProcessorDic.Clear();
+            // RecastInterface.Fini();
         }
     }
 }

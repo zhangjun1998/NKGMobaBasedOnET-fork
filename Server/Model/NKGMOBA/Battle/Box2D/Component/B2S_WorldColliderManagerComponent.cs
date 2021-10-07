@@ -6,28 +6,28 @@
 
 using System.Collections.Generic;
 
-namespace ETModel
+namespace ET
 {
     /// <summary>
     /// 用于管理一个物理世界中所有的碰撞实体
     /// </summary>
-    public class B2S_WorldColliderManagerComponent: Component
+    public class B2S_WorldColliderManagerComponent: Entity
     {
         /// <summary>
         /// 用于管理碰撞实体
         /// </summary>
-        public Dictionary<long, Entity> AllColliderEntitys = new Dictionary<long, Entity>();
+        private Dictionary<long, Unit> m_AllColliderUnits = new Dictionary<long, Unit>();
 
-        public void AddColliderEntity(Entity b2SCollider)
+        public void AddColliderUnit(Unit b2SCollider)
         {
-            this.AllColliderEntitys.Add(b2SCollider.Id, b2SCollider);
+            this.m_AllColliderUnits.Add(b2SCollider.Id, b2SCollider);
         }
 
-        public void RemoveColliderEntity(long id)
+        public void RemoveColliderUnit(long id)
         {
-            if (this.AllColliderEntitys.ContainsKey(id))
+            if (this.m_AllColliderUnits.ContainsKey(id))
             {
-                this.AllColliderEntitys.Remove(id);
+                this.m_AllColliderUnits.Remove(id);
             }
             else
             {
@@ -35,9 +35,9 @@ namespace ETModel
             }
         }
 
-        public Entity GetColliderEntity(long id)
+        public Unit GetColliderUnit(long id)
         {
-            if (this.AllColliderEntitys.TryGetValue(id, out var b2SColliderEntity))
+            if (this.m_AllColliderUnits.TryGetValue(id, out var b2SColliderEntity))
             {
                 return b2SColliderEntity;
             }

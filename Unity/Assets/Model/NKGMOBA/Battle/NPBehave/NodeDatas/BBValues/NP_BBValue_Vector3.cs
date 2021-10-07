@@ -8,7 +8,7 @@ using System;
 using System.Numerics;
 using Sirenix.OdinInspector;
 
-namespace ETModel.BBValues
+namespace ET
 {
     [HideLabel]
     [HideReferenceObjectPicker]
@@ -27,13 +27,13 @@ namespace ETModel.BBValues
         public bool Equals(NP_BBValue_Vector3 other)
         {
             // If parameter is null, return false.
-            if (Object.ReferenceEquals(other, null))
+            if (System.Object.ReferenceEquals(other, null))
             {
                 return false;
             }
 
             // Optimization for a common success case.
-            if (Object.ReferenceEquals(this, other))
+            if (System.Object.ReferenceEquals(this, other))
             {
                 return true;
             }
@@ -78,9 +78,9 @@ namespace ETModel.BBValues
         public static bool operator ==(NP_BBValue_Vector3 lhs, NP_BBValue_Vector3 rhs)
         {
             // Check for null on left side.
-            if (Object.ReferenceEquals(lhs, null))
+            if (System.Object.ReferenceEquals(lhs, null))
             {
-                if (Object.ReferenceEquals(rhs, null))
+                if (System.Object.ReferenceEquals(rhs, null))
                 {
                     // null == null = true.
                     return true;

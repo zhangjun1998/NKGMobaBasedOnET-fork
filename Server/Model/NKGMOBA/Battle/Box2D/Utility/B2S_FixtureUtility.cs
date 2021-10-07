@@ -9,7 +9,7 @@ using System.Numerics;
 using Box2DSharp.Collision.Shapes;
 using Box2DSharp.Dynamics;
 
-namespace ETModel
+namespace ET
 {
     /// <summary>
     /// Box2D形状使用函数集

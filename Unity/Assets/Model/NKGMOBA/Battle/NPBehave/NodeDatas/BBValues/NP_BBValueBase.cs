@@ -7,7 +7,7 @@
 using System;
 using Sirenix.OdinInspector;
 
-namespace ETModel.BBValues
+namespace ET
 {
     public abstract class NP_BBValueBase<T>: ANP_BBValue, INP_BBValue<T>
     {

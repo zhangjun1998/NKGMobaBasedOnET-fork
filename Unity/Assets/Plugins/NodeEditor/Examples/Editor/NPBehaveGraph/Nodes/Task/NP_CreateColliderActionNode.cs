@@ -4,7 +4,7 @@
 // 代码由工具自动生成，请勿手动修改
 //------------------------------------------------------------
 
-using ETModel;
+using ET;
 using GraphProcessor;
 
 namespace Plugins.NodeEditor
@@ -16,7 +16,7 @@ namespace Plugins.NodeEditor
         public override string name => "创建碰撞体";
 
         public NP_ActionNodeData NP_ActionNodeData =
-                new NP_ActionNodeData() { NodeType = NodeType.Task, NpClassForStoreAction = new NP_CreateColliderAction() };
+                new NP_ActionNodeData() { NpClassForStoreAction = new NP_CreateColliderAction() };
 
         // [BsonIgnore]
         // [LabelText("碰撞体附带的子图数据(预览用)")]

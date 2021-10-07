@@ -4,7 +4,7 @@ using System.Numerics;
 using Box2DSharp.Collision.Shapes;
 using Box2DSharp.Dynamics;
 
-namespace ETModel
+namespace ET
 {
     public static class Separator
     {

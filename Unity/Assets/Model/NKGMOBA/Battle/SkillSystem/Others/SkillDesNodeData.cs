@@ -10,7 +10,7 @@ using MongoDB.Bson.Serialization.Options;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace ETModel
+namespace ET
 {
     [BsonIgnoreExtraElements]
     [GUIColor(0.4f, 0.8f, 1)]

@@ -1,103 +1,63 @@
-# NKGMobaBasedOnET
+# [English](https://github.com/egametang/Egametang/blob/master/README-EN.md) 
 
-<div align=center><img width="128" height="128" src="https://images.gitee.com/uploads/images/2021/0422/123950_25e45fe3_2253805.png"/></div>
+__讨论QQ群 : 474643097__  
 
-## 介绍
-基于ET框架致敬LOL的Moba游戏，包含完整的客户端与服务端交互，热更新，基于双端行为树的技能系统，更多精彩等你发现！
+[ET论坛](https://et-framework.cn)  
 
-如果你对这个开源项目有好的想法或者想和大家一起交流，可以提Issues
+# 本项目是ET6.0接入ILRuntime代码热更新，xAsset资源热更新，FairyGUI跨平台UI的示例，后续将保持维护状态，与ET同步更新。
 
-对于想系统学习本项目而无从下手的，推荐去看看本项目的Wiki，里面有运行指南和基础教程以及常见问题，相关技术点讲解（如果运行出现问题请先看Wiki，解决99%问题）。
-[这是Wiki地址](https://gitee.com/NKG_admin/NKGMobaBasedOnET/wikis)
+接入ILRtuntime教程地址：[https://www.lfzxb.top/et-6-with-ilruntime/](https://www.lfzxb.top/et-6-with-ilruntime/) (完全仿照ET 5.0接入ILRuntime的思路进行开发的) 但已过时，出于学习的目的，可以前往：[et6以5.0思路接入ilrt里程碑](https://github.com/wqaetly/ET/releases/tag/ilrt-change) 进行查看
 
-**基于行为树的技能系统架构系列博客总目录：[博客链接](https://www.lfzxb.top/nkgmoba-totaltabs/)** 
+**当前master采用了一种与上述博客不同的，全新的思路**
 
-**基于行为树的技能系统架构讲解视频1：[视频链接](https://www.bilibili.com/video/av74833675)** 
+- 热更层：当前master会把Model, ModelView，Hotfix，HotfixView打成一个程序集，然后以全热更的方式进行，最大限度保留了ET的结构，方便后续跟进更新
+- 非热更层：Unity.Mono，整个框架的底层驱动，网络协议的收发与序列化都在这里
 
-**基于行为树的技能系统架构讲解视频2：[视频链接](https://www.bilibili.com/video/av85318986)**
+# 环境 && 版本
 
-**战斗系统联网演示视频：[视频链接](https://www.bilibili.com/video/BV1cK4y1S7ko)**
+ - Unity：2020.3.16
+ - 服务端：.Net 5.0
+ - 客户端：.Net Framework 4.7.2
+ - IDE：Rider 2020.2
+ - ET：commit 1535
+ - FGUI：2021.3.1
+ - ILRuntime：commit 1231
+ - xAsset 4.0
 
-**基于行为树的技能系统架构直播录屏：[视频链接](https://www.bilibili.com/video/BV13K4y137vR)** 
+# ET的介绍：
 
+ET是一个开源的游戏客户端（基于unity3d）服务端双端框架，服务端是使用C# .net core开发的分布式游戏服务端，其特点是开发效率高，性能强，双端共享逻辑代码，客户端服务端热更机制完善，同时支持可靠udp tcp websocket协议，支持服务端3D recast寻路等等
 
-## 特别鸣谢
+# 致命BUG
 
-感谢JetBrains公司提供的使用许可证！
+ILRuntime模式下，如果往一个async ETVoid/ETTask函数中传递Scene参数，并且这个函数最终产生了异常（ETTask.SetException）就会引发崩溃，目前原因仍然未知，请务必避免这种情况的出现！
 
-<p><a href="https://www.jetbrains.com/?from=NKGMobaBasedOnET ">
-<img src="https://images.gitee.com/uploads/images/2020/0722/084147_cc1c0a4a_2253805.png" alt="JetBrains的Logo" width="20%" height="20%"></a></p>
+参见这个Commit：[https://github.com/wqaetly/ET/commit/ee5483de2c4f8b9bf053f23ae62eaf504035a306](https://github.com/wqaetly/ET/commit/ee5483de2c4f8b9bf053f23ae62eaf504035a306)
 
- **本项目中使用了如下插件（仅供学习交流使用，请务必支持正版！）** 
+因为测试用例过于特殊，如果传递除Scene以外的任何值，都不会由于ETTask.SetException崩溃，所以我连issue都不知道要怎么提，只能一直跟进ET和ILRuntime的更新，说不定哪天机缘一到这个致命BUG就好了
 
+其实我是猜测因为ETTask把ILRT的运行堆栈给搞烂了，但是代码翻来覆去也没找到什么缘由，只好作罢（顺带一提，如果开启了ILRuntime的调试服务，即Appdomain.DebugService.StartDebugService(56000); 就不会崩溃了，会卡一下，然后程序继续进行）
 
--  **[ParadoxNotion-Slate](https://slate.paradoxnotion.com/)** 
--  **[Odin](https://odininspector.com/)** 
--  **[Animancer](https://kybernetik.com.au/animancer/)** 
--  **[MonKey Commander](https://assetstore.unity.com/packages/tools/utilities/monkey-productivity-commands-119938?locale=zh-CN)** 
--  **[Status Indicators](https://assetstore.unity.com/packages/tools/particles-effects/status-indicators-88156)** 
+# TODO && Features
 
+- [x] 接入 [ILRuntime](https://github.com/Ourpalm/ILRuntime)
+- [x] 接入 [xAsset](https://github.com/xasset/xasset) 作为资源管理方案（必要，因为当前非热更层直接从Resources目录加载的Hotfix Dll和配置数据，而这些数据理应是热更的）
+- [x] 更新 [ET 6.0学习笔记](https://www.lfzxb.top/et6.0-study/)
+- [x] 更新 [FGUI](https://www.fairygui.com/) 代码生成插件
+- [x] 更新 [ET使用FGUI开发的工作流程](https://www.lfzxb.top/et-fguilearn/)
+- [ ] 新增 [FGUI基于Lua的插件开发指南]
+- [ ] 以ET 6.0为底层框架，更新 [状态帧同步Moba，包含基于双端行为树技能系统](https://gitee.com/NKG_admin/NKGMobaBasedOnET)
 
-## 运行环境
+# 项目截图
 
- **编辑器：Unity 2020.3.12 LTS** 
+![项目热更新演示](https://user-images.githubusercontent.com/35335061/130990459-4818145a-7ce3-4e39-95bc-0a2048e78c7a.png)
 
- **客户端：.Net Framework 4.7.2** 
+# 引用
 
- **IDE：JetBrain Rider 2020**
+[ET 6.0学习笔记](https://www.lfzxb.top/et6.0-study/)
 
- **服务端：.Net Core 3.1** 
+[状态帧同步Moba，包含基于双端行为树技能系统](https://gitee.com/NKG_admin/NKGMobaBasedOnET)
 
-## 已实现功能列表
+[ET框架视频教程-6.0版本](https://space.bilibili.com/33595745/favlist?fid=759596845&ftype=create)
 
-- 基于 **[FGUI](https://www.fairygui.com/)** 的UI解决方案
-- 基于 **[ILRuntime](http://ourpalm.github.io/ILRuntime/public/v1/guide/index.html)** 的代码热更新方案
-- 基于 **[xasset](https://github.com/xasset/xasset)** 的资源热更新方案
-- 基于状态帧同步的网络同步方案（目前仅为状态同步，状态帧参照： **[守望先锋GDC2017分享](https://www.lfzxb.top/ow-gdc-share-table-of-contents/)** ）
-- 基于 **[kcp](https://github.com/skywind3000/kcp)** 的网络通信算法
-- 基于 **[Unity GraphView](https://github.com/wqaetly/NodeGraphProcessor)** 的可视化节点解决方案，可用于制作各种可视化编辑器（技能编辑器，剧情编辑器，任务编辑器，新手引导编辑器等）
-- 基于 **[NPBehave行为树](https://github.com/meniku/NPBehave)** 的可视化节点技能编辑器
-- 基于 **[Animancer（PlayableAPI）](https://kybernetik.com.au/animancer/)** 的动画系统
-- 基于Visual Effect Graph的特效系统
-- 基于ECS架构的战斗系统，包括Buff系统，技能系统，状态系统，数值系统等，相关博客参见： **[基于行为树的MOBA技能系统：总目录](https://www.lfzxb.top/nkgmoba-totaltabs/)** 
-- 基于 **[recastnavigation](https://github.com/recastnavigation/recastnavigation)** 的寻路系统
-
-## 开发计划
-
-1. 接入 **[Slate编辑器](https://slate.paradoxnotion.com/)** ，作为Timeline方案，可用于制作ACT技能编辑器
-2. 实现状态帧同步
-3. 为服务端定制一套行为树数据可视化DEBUG方案
-4. 实现人物在河道行走时的水波纹效果，战争迷雾效果
-5. 加入寒冰，盖伦，赵信
-6. 开发匹配系统
-
-
-## 开发进度展示
-### 资源热更新界面
-
-![image-20200722083928209](https://images.gitee.com/uploads/images/2020/0722/084147_fc1f9a7c_2253805.png)
-### 登录界面
-
-![输入图片说明](https://images.gitee.com/uploads/images/2021/0318/170241_c54f448d_2253805.png "屏幕截图.png")
-### 大厅界面
-
-![image-20200722083952197](https://images.gitee.com/uploads/images/2020/0722/084147_e41d6ac7_2253805.png)
-### 战斗界面
-
-![image-20200722084012352](https://images.gitee.com/uploads/images/2020/0722/084147_079e755b_2253805.png)
-
-### 基于VEG特效制作
-
-![诺手血怒特效制作](https://images.gitee.com/uploads/images/2021/0516/211303_0fec4407_2253805.png "屏幕截图.png")
-### 基于Monkey Commander改造的编辑器拓展，按F呼出界面，输入关键字，选中之后点击/回车即可运行
-
-![基于Monkey Commander改造的编辑器拓展，按F呼出界面，输入关键字，选中之后点击/回车即可运行](https://images.gitee.com/uploads/images/2020/1029/194658_b5dee162_2253805.png "QQ截图20201029192331.png")
-### Box2D编辑器
-
-![Box2D编辑器](https://images.gitee.com/uploads/images/2021/0324/121226_528a85b5_2253805.png "QQ截图20210324121119.png")
-### 技能编辑器v1.0
-
-![技能编辑器v1.0](https://images.gitee.com/uploads/images/2021/0617/221210_d98d04bb_2253805.png "技能编辑器v1.0")
-### 技能系统架构图
-
-![163758_138e22e9_2253805](https://images.gitee.com/uploads/images/2020/0722/084148_1f2eb6b1_2253805.png)
+[91焦先生ET-ILRuntime](https://github.com/mister91jiao/ET_ILRuntime/)

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using MongoDB.Bson.Serialization;
 
-namespace ETModel
+namespace ET
 {
     [ObjectSystem]
     public class B2S_ColliderDataRepositoryComponentAwakeSystem: AwakeSystem<B2S_ColliderDataRepositoryComponent>
@@ -23,7 +23,7 @@ namespace ETModel
     /// <summary>
     /// 碰撞体数据仓库，从二进制文件读取数据
     /// </summary>
-    public class B2S_ColliderDataRepositoryComponent: Component
+    public class B2S_ColliderDataRepositoryComponent: Entity
     {
         private string colliderDataPath = "../Config/ColliderDatas/";
         private List<string> colliderDataName = new List<string>() { "BoxColliderData", "CircleColliderData", "PolygonColliderData" };

@@ -7,7 +7,7 @@
 using NPBehave;
 using Sirenix.OdinInspector;
 
-namespace ETModel
+namespace ET
 {
     [BoxGroup("行为结点数据")]
     [HideLabel]
@@ -17,9 +17,9 @@ namespace ETModel
         
         public NP_ClassForStoreAction NpClassForStoreAction;
 
-        public override Task CreateTask(long unitId, NP_RuntimeTree runtimeTree)
+        public override Task CreateTask(Unit unit, NP_RuntimeTree runtimeTree)
         {
-            this.NpClassForStoreAction.Unitid = unitId;
+            this.NpClassForStoreAction.BelongToUnit = unit;
             this.NpClassForStoreAction.BelongtoRuntimeTree = runtimeTree;
             this.m_ActionNode = this.NpClassForStoreAction._CreateNPBehaveAction();
             return this.m_ActionNode;

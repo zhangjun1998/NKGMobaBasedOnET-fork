@@ -5,7 +5,7 @@
 //------------------------------------------------------------
 
 using System.Collections.Generic;
-using ETModel;
+using ET;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using GraphProcessor;
@@ -24,7 +24,7 @@ namespace Plugins.NodeEditor
         public override string name => "等待CD";
         
         public NP_ActionNodeData NP_ActionNodeData =
-                new NP_ActionNodeData() { NodeType = NodeType.Task, NpClassForStoreAction = new NP_WaitCDAction() };
+                new NP_ActionNodeData() { NpClassForStoreAction = new NP_WaitCDAction() };
 
         public override NP_NodeDataBase NP_GetNodeData()
         {

@@ -5,7 +5,7 @@
 //------------------------------------------------------------
 
 using System.Collections.Generic;
-using ETModel;
+using ET;
 using GraphProcessor;
 using Sirenix.OdinInspector;
 using UnityEditor;
@@ -24,7 +24,7 @@ namespace Plugins.NodeEditor
         public override string name => "往客户端发送CD信息";
         
         public NP_ActionNodeData NP_ActionNodeData =
-                new NP_ActionNodeData() { NodeType = NodeType.Task, NpClassForStoreAction = new NP_SendCDInfoToClient() };
+                new NP_ActionNodeData() { NpClassForStoreAction = new NP_SendCDInfoToClient() };
 
         public override NP_NodeDataBase NP_GetNodeData()
         {

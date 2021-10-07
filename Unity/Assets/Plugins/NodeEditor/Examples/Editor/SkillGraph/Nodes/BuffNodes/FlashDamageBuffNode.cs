@@ -4,7 +4,7 @@
 // 此代码由工具自动生成，请勿更改
 //------------------------------------------------------------
 
-using ETModel;
+using ET;
 using GraphProcessor;
 using UnityEditor;
 
@@ -19,7 +19,7 @@ namespace Plugins.NodeEditor
                 new NormalBuffNodeData()
                 {
                     BuffDes = "瞬时伤害Buff",
-                    BuffData = new FlashDamageBuffData() { BelongBuffSystemType = BuffSystemType.FlashDamageBuffSystem }
+                    BuffData = new FlashDamageBuffData() {}
                 };
         
         public override BuffNodeDataBase GetBuffNodeData()

@@ -4,7 +4,7 @@
 // Data: 2019年9月26日 19:47:29
 //------------------------------------------------------------
 
-using ETModel;
+using ET;
 using GraphProcessor;
 
 namespace Plugins.NodeEditor
@@ -19,7 +19,7 @@ namespace Plugins.NodeEditor
         public override string name => "等待一个可变化的时间";
 
         public NP_ActionNodeData NP_ActionNodeData =
-                new NP_ActionNodeData() { NodeType = NodeType.Task, NpClassForStoreAction = new NP_WaitAChangeableTimeAction() };
+                new NP_ActionNodeData() { NpClassForStoreAction = new NP_WaitAChangeableTimeAction() };
 
         public override NP_NodeDataBase NP_GetNodeData()
         {

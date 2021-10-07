@@ -1,13 +1,8 @@
-//此文件格式由工具自动生成
+﻿//此文件格式由工具自动生成
 
-using System.Collections.Generic;
-using System.Threading;
-using ETModel.NKGMOBA.Battle.Fsm;
-using ETModel.NKGMOBA.Battle.State;
 using Sirenix.OdinInspector;
-using UnityEngine;
 
-namespace ETModel
+namespace ET
 {
     #region System
 
@@ -34,7 +29,7 @@ namespace ETModel
         CancelAttack,
     }
 
-    public class CommonAttackComponent: Component
+    public class CommonAttackComponent: Entity
     {
         #region 私有成员
 
@@ -70,7 +65,7 @@ namespace ETModel
         /// </summary>
         public NP_BlackBoardRelationData CancelAttackReplaceBB;
 
-        public CancellationTokenSource CancellationTokenSource;
+        public ETCancellationToken CancellationTokenSource;
 
         #endregion
 
@@ -125,34 +120,19 @@ namespace ETModel
             this.CancelAttackReplaceNPTreeId = 0;
             this.CancelAttackReplaceBB = null;
         }
-
-        /// <summary>
-        /// 取消攻击并且重置攻击对象
-        /// </summary>
-        public void CancelCommonAttack()
-        {
-            Game.EventSystem.Run(EventIdType.CancelAttack, this.Entity.Id);
-        }
-
-        /// <summary>
-        /// 取消攻击但不重置攻击对象，比如我们会因为与目标距离大于攻击距离而先寻路
-        /// </summary>
-        public void CancelAttackWithOutResetAttackTarget()
-        {
-            Game.EventSystem.Run(EventIdType.CancelAttackWithOutResetAttackTarget, this.Entity.Id);
-        }
-
+        
         #endregion
 
         #region 生命周期函数
 
         public void Awake()
         {
+            Unit unit = this.GetParent<Unit>();
+            
             //此处填写Awake逻辑
-            m_StackFsmComponent = this.Entity.GetComponent<StackFsmComponent>();
-            this.CancellationTokenSource = new CancellationTokenSource();
-            this.CancellationTokenSource = null;
-
+            m_StackFsmComponent = unit.GetComponent<StackFsmComponent>();
+            this.CancellationTokenSource = new ETCancellationToken();
+            
             CDInfo attackCDInfo = ReferencePool.Acquire<CDInfo>();
             attackCDInfo.Name = "CommonAttack";
             attackCDInfo.Interval = 750;
@@ -161,8 +141,8 @@ namespace ETModel
             moveCDInfo.Name = "MoveToAttack";
             moveCDInfo.Interval = 300;
 
-            CDComponent.Instance.AddCDData(this.Entity.Id, attackCDInfo);
-            CDComponent.Instance.AddCDData(this.Entity.Id, moveCDInfo);
+            CDComponent.Instance.AddCDData(unit.Id, attackCDInfo);
+            CDComponent.Instance.AddCDData(unit.Id, moveCDInfo);
         }
 
         public override void Dispose()

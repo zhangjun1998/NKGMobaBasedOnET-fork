@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using ETModel;
-using ETModel.BBValues;
+﻿using ET;
 using Log = NPBehave_Core.Log;
 
 namespace NPBehave

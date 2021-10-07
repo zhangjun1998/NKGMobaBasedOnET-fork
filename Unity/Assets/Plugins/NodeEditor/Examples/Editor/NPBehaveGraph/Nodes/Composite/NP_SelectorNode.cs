@@ -4,7 +4,7 @@
 // Data: 2019年8月23日 17:35:02
 //------------------------------------------------------------
 
-using ETModel;
+using ET;
 using GraphProcessor;
 using Sirenix.OdinInspector;
 
@@ -19,7 +19,7 @@ namespace Plugins.NodeEditor
         [BoxGroup("Selector结点数据")]
         [HideReferenceObjectPicker]
         [HideLabel]
-        public NP_SelectorNodeData NP_SelectorNodeData = new NP_SelectorNodeData {NodeType = NodeType.Composite, NodeDes = "选择组合器"};
+        public NP_SelectorNodeData NP_SelectorNodeData = new NP_SelectorNodeData { NodeDes = "选择组合器"};
 
         public override NP_NodeDataBase NP_GetNodeData()
         {

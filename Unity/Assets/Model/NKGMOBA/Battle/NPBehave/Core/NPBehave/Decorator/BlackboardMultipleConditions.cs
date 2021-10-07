@@ -5,8 +5,7 @@
 //------------------------------------------------------------
 
 using System.Collections.Generic;
-using ETModel;
-using ETModel.BBValues;
+using ET;
 
 namespace NPBehave
 {

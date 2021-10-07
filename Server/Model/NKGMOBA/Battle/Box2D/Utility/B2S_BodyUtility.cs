@@ -6,27 +6,28 @@
 
 using Box2DSharp.Dynamics;
 
-namespace ETModel
+namespace ET
 {
     /// <summary>
     /// Box2D刚体实用函数集
     /// </summary>
-    public class B2S_BodyUtility
+    public static class B2S_BodyUtility
     {
         /// <summary>
         /// 创造一个动态刚体
         /// </summary>
-        public static Body CreateDynamicBody()
+        public static Body CreateDynamicBody(this B2S_WorldComponent self)
         {
-            return Game.Scene.GetComponent<B2S_WorldComponent>().GetWorld().CreateBody(new BodyDef() { BodyType = BodyType.DynamicBody });
+            // 一定不准睡哦
+            return self.GetWorld().CreateBody(new BodyDef() { BodyType = BodyType.DynamicBody , AllowSleep = false});
         }
         
         /// <summary>
         /// 创造一个静态刚体
         /// </summary>
-        public static Body CreateStaticBody()
+        public static Body CreateStaticBody(this B2S_WorldComponent self)
         {
-            return Game.Scene.GetComponent<B2S_WorldComponent>().GetWorld().CreateBody(new BodyDef() { BodyType = BodyType.DynamicBody });
+            return self.GetWorld().CreateBody(new BodyDef() { BodyType = BodyType.StaticBody });
         }
     }
 }

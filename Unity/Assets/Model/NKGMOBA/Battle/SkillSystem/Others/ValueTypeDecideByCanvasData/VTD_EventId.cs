@@ -11,7 +11,7 @@ using UnityEditor;
 
 #endif
 
-namespace ETModel
+namespace ET
 {
     [HideReferenceObjectPicker]
     public struct VTD_EventId

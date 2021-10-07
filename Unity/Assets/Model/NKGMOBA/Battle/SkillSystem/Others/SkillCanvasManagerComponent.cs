@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 
-namespace ETModel
+namespace ET
 {
     #region System
 
@@ -47,7 +47,7 @@ namespace ETModel
     /// <summary>
     /// 技能行为树管理器
     /// </summary>
-    public class SkillCanvasManagerComponent: Component
+    public class SkillCanvasManagerComponent: Entity
     {
         #region 私有成员
 
@@ -87,9 +87,10 @@ namespace ETModel
                 Skills.Add(skillId, new List<NP_RuntimeTree>() { npRuntimeTree });
             }
 
+            //TODO 这里默认一级了
             if (!this.SkillLevels.ContainsKey(skillId))
             {
-                SkillLevels.Add(skillId, 0);
+                SkillLevels.Add(skillId, 1);
             }
         }
         
@@ -150,7 +151,7 @@ namespace ETModel
                 {
                     if (targetSkillContent[i] == npRuntimeTree)
                     {
-                        this.Entity.GetComponent<NP_RuntimeTreeManager>().RemoveTree(npRuntimeTree.Id);
+                        this.GetParent<Unit>().GetComponent<NP_RuntimeTreeManager>().RemoveTree(npRuntimeTree.Id);
                         targetSkillContent.RemoveAt(i);
                     }
                 }

@@ -4,7 +4,7 @@
 // Data: 2020年9月14日 21:48:24
 //------------------------------------------------------------
 
-using ETModel;
+using ET;
 using GraphProcessor;
 
 namespace Plugins.NodeEditor
@@ -16,7 +16,7 @@ namespace Plugins.NodeEditor
         public override string name => "黑板多条件节点";
 
         public NP_BlackboardMultipleConditionsNodeData NP_BlackboardMultipleConditionsNodeData =
-                new NP_BlackboardMultipleConditionsNodeData { NodeType = NodeType.Decorator, NodeDes = "黑板多条件节点" };
+                new NP_BlackboardMultipleConditionsNodeData { NodeDes = "黑板多条件节点" };
 
         public override NP_NodeDataBase NP_GetNodeData()
         {

@@ -4,7 +4,7 @@
 // Data: 2019年8月22日 20:30:01
 //------------------------------------------------------------
 
-using ETModel;
+using ET;
 using GraphProcessor;
 using Sirenix.OdinInspector;
 
@@ -19,7 +19,7 @@ namespace Plugins.NodeEditor
         [BoxGroup("服务结点数据")]
         [HideReferenceObjectPicker]
         [HideLabel]
-        public NP_ServiceNodeData NP_ServiceNodeData = new NP_ServiceNodeData { NodeType = NodeType.Decorator };
+        public NP_ServiceNodeData NP_ServiceNodeData = new NP_ServiceNodeData { };
 
         public override NP_NodeDataBase NP_GetNodeData()
         {

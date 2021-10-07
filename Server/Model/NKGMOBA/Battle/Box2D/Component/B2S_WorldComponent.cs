@@ -4,13 +4,13 @@
 // Data: 2019年7月20日 19:21:49
 //------------------------------------------------------------
 
+using System.Collections.Generic;
 using System.Numerics;
 using Box2DSharp.Dynamics;
 
-namespace ETModel
+namespace ET
 {
-    [ObjectSystem]
-    public class B2S_WorldComponentAwakeSystem: AwakeSystem<B2S_WorldComponent>
+    public class B2S_WorldComponentAwakeSystem : AwakeSystem<B2S_WorldComponent>
     {
         public override void Awake(B2S_WorldComponent self)
         {
@@ -18,8 +18,7 @@ namespace ETModel
         }
     }
 
-    [ObjectSystem]
-    public class B2S_WorldComponentFixedUpdateSystem: FixedUpdateSystem<B2S_WorldComponent>
+    public class B2S_WorldComponentFixedUpdateSystem : FixedUpdateSystem<B2S_WorldComponent>
     {
         public override void FixedUpdate(B2S_WorldComponent self)
         {
@@ -30,12 +29,20 @@ namespace ETModel
     /// <summary>
     /// 物理世界组件，代表一个物理世界
     /// </summary>
-    public class B2S_WorldComponent: Component
+    public class B2S_WorldComponent : Entity
     {
         private World m_World;
+
+        public List<Body> BodyToDestroy = new List<Body>();
+
         public const int VelocityIteration = 10;
         public const int PositionIteration = 10;
 
+        public void AddBodyTobeDestroyed(Body body)
+        {
+            BodyToDestroy.Add(body);
+        }
+        
         public void Awake()
         {
             this.m_World = B2S_WorldUtility.CreateWorld(new Vector2(0, 0));
@@ -43,7 +50,12 @@ namespace ETModel
 
         public void FixedUpdate()
         {
-            this.m_World.Step(EventSystem.FixedUpdateTimeDelta, VelocityIteration, PositionIteration);
+            foreach (var body in BodyToDestroy)
+            {
+                m_World.DestroyBody(body);
+            }
+            BodyToDestroy.Clear();
+            this.m_World.Step(GlobalDefine.FixedUpdateTargetDTTime, VelocityIteration, PositionIteration);
         }
 
         public World GetWorld()
@@ -57,8 +69,16 @@ namespace ETModel
             {
                 return;
             }
+
             base.Dispose();
+            foreach (var body in BodyToDestroy)
+            {
+                m_World.DestroyBody(body);
+            }
+            BodyToDestroy.Clear();
+            
             this.m_World.Dispose();
+            this.m_World = null;
         }
     }
 }

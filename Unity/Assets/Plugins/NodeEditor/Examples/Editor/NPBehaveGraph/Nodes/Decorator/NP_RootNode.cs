@@ -4,7 +4,7 @@
 // Data: 2019年8月20日 8:00:48
 //------------------------------------------------------------
 
-using ETModel;
+using ET;
 using GraphProcessor;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -26,7 +26,7 @@ namespace Plugins.NodeEditor
         [BoxGroup("根结点数据")]
         [HideReferenceObjectPicker]
         [HideLabel]
-        public NP_RootNodeData MRootNodeData = new NP_RootNodeData { NodeType = NodeType.Decorator };
+        public NP_RootNodeData MRootNodeData = new NP_RootNodeData { };
 
         public override NP_NodeDataBase NP_GetNodeData()
         {

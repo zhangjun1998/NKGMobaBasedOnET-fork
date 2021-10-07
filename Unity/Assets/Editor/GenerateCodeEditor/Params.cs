@@ -5,11 +5,10 @@
 //------------------------------------------------------------
 
 using System.Collections.Generic;
-using ETModel;
 using Sirenix.OdinInspector;
 using UnityEditor;
 
-namespace ETEditor
+namespace ET
 {
     public class TemplateAssetPaths
     {
