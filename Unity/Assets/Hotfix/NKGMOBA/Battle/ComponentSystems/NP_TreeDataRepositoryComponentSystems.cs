@@ -4,12 +4,6 @@ using System.IO;
 using MongoDB.Bson.Serialization;
 
 
-#if SERVER
-using OdinSerializer;
-#else
-using Sirenix.Serialization;
-#endif
-
 using UnityEngine;
 
 namespace ET
