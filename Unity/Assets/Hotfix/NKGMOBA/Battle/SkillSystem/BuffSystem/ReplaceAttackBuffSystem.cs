@@ -16,6 +16,10 @@ namespace ET
             ReplaceAttackBuffData replaceAttackBuffData = this.GetBuffDataWithTType;
 
             Unit unit = this.GetBuffTarget();
+            
+            // 默认重置一次普攻
+            unit.GetComponent<CommonAttackComponent>().CancelCommonAttackWithOutResetTarget_ResetAttackCD();
+            
             unit.GetComponent<CommonAttackComponent>().SetAttackReplaceInfo(this.BelongtoRuntimeTree.Id,
                 replaceAttackBuffData.AttackReplaceInfo);
             unit.GetComponent<CommonAttackComponent>()

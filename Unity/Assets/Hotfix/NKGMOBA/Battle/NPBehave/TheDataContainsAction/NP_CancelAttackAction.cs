@@ -4,7 +4,7 @@ using Sirenix.OdinInspector;
 
 namespace ET
 {
-    [Title("取消普攻",TitleAlignment = TitleAlignments.Centered)]
+    [Title("取消普攻(重置普攻CD)",TitleAlignment = TitleAlignments.Centered)]
     public class NP_CancelAttackAction:NP_ClassForStoreAction
     {        
         public override Action GetActionToBeDone()
@@ -15,7 +15,9 @@ namespace ET
 
         public void CancelAttackAction()
         {
-
+#if SERVER
+            this.BelongToUnit.GetComponent<CommonAttackComponent>().CancelCommonAttackWithOutResetTarget_ResetAttackCD(); 
+#endif
         }
     }
 }

@@ -207,6 +207,31 @@ namespace ET
         }
 
         /// <summary>
+        /// 取消攻击但不重置攻击对象，会重置普攻CD，可以立即进行下一次普攻
+        /// </summary>
+        public static void CancelCommonAttackWithOutResetTarget_ResetAttackCD(this CommonAttackComponent self)
+        {
+            self.CancellationTokenSource?.Cancel();
+            self.CancellationTokenSource = null;
+
+            if (self.HasCancelAttackReplaceInfo())
+            {
+                Unit unit = self.GetParent<Unit>();
+                unit.GetComponent<NP_RuntimeTreeManager>().GetTreeByRuntimeID(self.CancelAttackReplaceNPTreeId)
+                    .GetBlackboard()
+                    .Set(self.AttackReplaceBB.BBKey, false);
+                unit.GetComponent<NP_RuntimeTreeManager>().GetTreeByRuntimeID(self.CancelAttackReplaceNPTreeId)
+                    .GetBlackboard()
+                    .Set(self.CancelAttackReplaceBB.BBKey, true);
+            }
+
+            CDComponent.Instance.ResetCD(self.GetParent<Unit>().Id, "CommonAttack");
+
+            MessageHelper.BroadcastToRoom(self.GetParent<Unit>().BelongToRoom,
+                new M2C_CancelCommonAttack() {TargetUnitId = self.GetParent<Unit>().Id});
+        }
+
+        /// <summary>
         /// 取消攻击并且重置攻击对象
         /// </summary>
         public static void CancelCommonAttack(this CommonAttackComponent self)

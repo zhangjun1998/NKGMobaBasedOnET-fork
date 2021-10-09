@@ -10,8 +10,8 @@ namespace ET
     {
         protected override async ETVoid Run(Session session, M2C_CancelCommonAttack message)
         {
-            // Unit unit = session.DomainScene().GetComponent<UnitComponent>().Get(message.TargetUnitId);
-            // Game.EventSystem.Publish(new EventType.CancelCommonAttack() {AttackCast = unit}).Coroutine();
+            Unit unit = session.DomainScene().GetComponent<UnitComponent>().Get(message.TargetUnitId);
+            Game.EventSystem.Publish(new EventType.CancelCommonAttack() {AttackCast = unit}).Coroutine();
 
             await ETTask.CompletedTask;
         }

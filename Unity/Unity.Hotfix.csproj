@@ -61,6 +61,7 @@
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\ComponentSystems\UnitAttributesDataComponentSystems.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\SkillSystem\BuffSystem\Core\ABuffSystemBase.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\NP_SyncNPBBValue_BoolAction.cs" />
+     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\M2C_CancelAttackHandler.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\SkillSystem\BuffSystem\SendBuffInfoToClientBuffSystem.cs" />
      <Compile Include="Assets\Hotfix\Module\Numeric\NumericChangeEvent_NotifyWatcher.cs" />
      <Compile Include="Assets\Hotfix\Core\Scene\ZoneSceneManagerComponentSystem.cs" />
@@ -154,7 +155,6 @@
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\M2C_CommonAttackHandler.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\BBValue\NP_ChangeTargetSkillBBValueAction.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\NP_TriggerAttackCDAction.cs" />
-     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\M2C_CancelAttackHandler.cs" />
      <None Include="Assets\Hotfix\Unity.Hotfix.asmdef" />
      <None Include="Assets\Hotfix\csc.rsp" />
  <Reference Include="UnityEngine">
