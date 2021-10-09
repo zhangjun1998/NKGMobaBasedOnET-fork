@@ -65,7 +65,7 @@ namespace ET
             List<NP_RuntimeTree> skillContent = targetUnit.GetComponent<SkillCanvasManagerComponent>()
                 .GetSkillCanvas(this.TargetSkillId.Value);
 
-            Log.Info(this.TargetSkillId.Value.ToString());
+            //Log.Info(this.TargetSkillId.Value.ToString());
             foreach (var skillCanvas in skillContent)
             {
                 //除自己之外

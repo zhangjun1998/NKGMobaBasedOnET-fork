@@ -31,7 +31,7 @@ namespace ET
                 (SkillDesNodeData) this.BelongtoRuntimeTree.BelongNP_DataSupportor.BuffNodeDataDic[this.DataId.Value];
             long cd = skillDesNodeData.SkillCD[
                 unit.GetComponent<SkillCanvasManagerComponent>().GetSkillLevel(this.SkillIdBelongTo.Value)];
-            cdComponent.SetCD(unit.Id, TheTimeToWait.GetTheBBDataValue<string>(), cd, cd);
+            cdComponent.SetCD(unit.Id, TheTimeToWait.GetBlackBoardValue<string>(this.BelongtoRuntimeTree.GetBlackboard()), cd, cd);
         }
     }
 }

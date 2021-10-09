@@ -188,7 +188,7 @@ namespace ET
             Unit unit = self.DomainScene().GetComponent<UnitComponent>().MyUnit;
             long playerUnitId = unit.Id;
             //此处填写Update逻辑
-            if (self.m_CDComponent.GetCDResult(playerUnitId, "Q"))
+            if (!self.m_CDComponent.GetCDResult(playerUnitId, "Q"))
             {
                 self.FuiUIPanelBattle.m_SkillQ_CDInfo.text =
                     ((int) Math.Ceiling((double) (self.m_QCDInfo.RemainCDLength) / 1000))

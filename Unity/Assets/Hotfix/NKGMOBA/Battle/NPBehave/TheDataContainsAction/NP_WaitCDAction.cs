@@ -22,7 +22,7 @@ namespace ET
             Unit unit = BelongToUnit;
             CDComponent cdComponent = unit.BelongToRoom.GetComponent<CDComponent>();
             
-            if (!cdComponent.GetCDResult(BelongToUnit.Id, CDName.GetTheBBDataValue<string>()))
+            if (!cdComponent.GetCDResult(BelongToUnit.Id, CDName.GetBlackBoardValue<string>(this.BelongtoRuntimeTree.GetBlackboard())))
             {
                 return NPBehave.Action.Result.PROGRESS;
             }

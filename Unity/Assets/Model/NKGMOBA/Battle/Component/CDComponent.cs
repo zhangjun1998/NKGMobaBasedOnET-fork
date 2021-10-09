@@ -2,35 +2,40 @@
 
 using System;
 using System.Collections.Generic;
+
 namespace ET
 {
     #region System
-    
-    public class CDComponentAwakeSystem: AwakeSystem<CDComponent>
+
+    [ObjectSystem]
+    public class CDComponentAwakeSystem : AwakeSystem<CDComponent>
     {
         public override void Awake(CDComponent self)
         {
             self.Awake();
         }
     }
-    
-    public class CDComponentUpdateSystem: UpdateSystem<CDComponent>
+
+    [ObjectSystem]
+    public class CDComponentUpdateSystem : UpdateSystem<CDComponent>
     {
         public override void Update(CDComponent self)
         {
             self.Update();
         }
     }
-    
-    public class CDComponentFixedUpdateSystem: FixedUpdateSystem<CDComponent>
+
+    [ObjectSystem]
+    public class CDComponentFixedUpdateSystem : FixedUpdateSystem<CDComponent>
     {
         public override void FixedUpdate(CDComponent self)
         {
             self.FixedUpdate();
         }
     }
-    
-    public class CDComponentDestroySystem: DestroySystem<CDComponent>
+
+    [ObjectSystem]
+    public class CDComponentDestroySystem : DestroySystem<CDComponent>
     {
         public override void Destroy(CDComponent self)
         {
@@ -40,7 +45,7 @@ namespace ET
 
     #endregion
 
-    public class CDInfo: IReference
+    public class CDInfo : IReference
     {
         /// <summary>
         /// 名称
@@ -89,7 +94,7 @@ namespace ET
     /// <summary>
     /// CD组件，用于统一管理所有的CD类型的数据，比如攻速CD，服务器上因试图攻击导致的循环MoveTo CD
     /// </summary>
-    public class CDComponent: Entity
+    public class CDComponent : Entity
     {
         #region 私有成员
 
@@ -97,11 +102,31 @@ namespace ET
         /// 包含所有CD信息的字典
         /// 键为id，值为对应所有CD信息
         /// </summary>
-        private Dictionary<long, Dictionary<string, CDInfo>> CDInfos = new Dictionary<long, Dictionary<string, CDInfo>>();
+        private Dictionary<long, Dictionary<string, CDInfo>> CDInfos =
+            new Dictionary<long, Dictionary<string, CDInfo>>();
 
         #endregion
 
         #region 公有成员
+
+        private static CDComponent m_Instance;
+
+        public static CDComponent Instance
+        {
+            get
+            {
+                if (m_Instance == null)
+                {
+                    Log.Error("请先注册CDComponent到Game.Scene中");
+
+                    return null;
+                }
+                else
+                {
+                    return m_Instance;
+                }
+            }
+        }
 
         /// <summary>
         /// 新增一条CD数据
@@ -133,7 +158,7 @@ namespace ET
             }
             else
             {
-                CDInfos.Add(id, new Dictionary<string, CDInfo>() { { cdInfo.Name, cdInfo } });
+                CDInfos.Add(id, new Dictionary<string, CDInfo>() {{cdInfo.Name, cdInfo}});
             }
 
             return cdInfo;
@@ -149,7 +174,7 @@ namespace ET
         {
             CDInfo cdInfo = GetCDData(id, name);
             cdInfo.Result = false;
-            cdInfo.Interval = cdLength == -1? cdInfo.Interval : cdLength;
+            cdInfo.Interval = cdLength == -1 ? cdInfo.Interval : cdLength;
             cdInfo.RemainCDLength = cdInfo.Interval;
         }
 
@@ -197,6 +222,12 @@ namespace ET
         public void SetCD(long id, string name, long cDLength, long remainCDLength)
         {
             CDInfo cdInfo = GetCDData(id, name);
+
+            if (cdInfo == null)
+            {
+                cdInfo = this.AddCDData(id, name, cDLength, null);
+            }
+
             cdInfo.Interval = cDLength;
             cdInfo.RemainCDLength = remainCDLength;
             cdInfo.Result = false;
@@ -242,6 +273,8 @@ namespace ET
 
         public void Awake()
         {
+            //此处填写Awake逻辑
+            m_Instance = this;
         }
 
         public void Update()
@@ -258,7 +291,7 @@ namespace ET
                     if (!cdInfo.Value.Result)
                     {
                         //TODO  切换帧同步驱动，使用帧数而非时间
-                        cdInfo.Value.RemainCDLength -= 16;
+                        cdInfo.Value.RemainCDLength -= 33;
                         if (cdInfo.Value.RemainCDLength <= 0)
                         {
                             cdInfo.Value.Result = true;

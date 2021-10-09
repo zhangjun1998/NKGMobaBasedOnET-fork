@@ -37,7 +37,7 @@ namespace ET
                                 if (Vector3.Distance(aColliderComponent.BelongToUnit.Position,
                                     bColliderComponent.BelongToUnit.Position) >= 2.3f)
                                 {
-                                    Log.Info("Q技能打到了诺克，外圈，开始添加Buff");
+                                    //Log.Info("Q技能打到了诺克，外圈，开始添加Buff");
 
                                     foreach (var skillCanvas in targetSkillCanvas)
                                     {
@@ -48,7 +48,7 @@ namespace ET
                                 }
                                 else
                                 {
-                                    Log.Info("Q技能打到了诺克，内圈，开始添加Buff");
+                                    //Log.Info("Q技能打到了诺克，内圈，开始添加Buff");
 
                                     foreach (var skillCanvas in targetSkillCanvas)
                                     {

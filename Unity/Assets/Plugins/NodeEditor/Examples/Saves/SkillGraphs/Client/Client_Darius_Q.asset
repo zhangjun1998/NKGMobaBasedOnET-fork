@@ -140,7 +140,7 @@ MonoBehaviour:
   exposedParameters: []
   serializedParameterList: []
   stickyNotes: []
-  position: {x: 115.333336, y: -388.66666, z: 0}
+  position: {x: 163.33333, y: 234.66667, z: 0}
   scale: {x: 0.8695652, y: 0.8695652, z: 1}
   Name: Client_Darius_Q
   Config: {fileID: 4900000, guid: 442476aff99365044b3cd596fb80afce, type: 3}
