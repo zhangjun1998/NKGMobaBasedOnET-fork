@@ -90,7 +90,7 @@ namespace ET
             public Unit Unit;
         }
 
-        public struct StopMoveFromFSM
+        public struct CancelMoveFromFSM
         {
             public Unit Unit;
         }
@@ -98,6 +98,7 @@ namespace ET
         public struct CancelAttackFromFSM
         {
             public Unit Unit;
+            public bool ResetAttackTarget;
         }
 
         /// <summary>
@@ -117,6 +118,11 @@ namespace ET
         {
             public Unit AttackCast;
             public Unit AttackTarget;
+        }
+
+        public struct CancelCommonAttack
+        {
+            public Unit AttackCast;
         }
     }
 }

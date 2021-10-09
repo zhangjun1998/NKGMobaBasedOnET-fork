@@ -25,6 +25,11 @@ namespace ET
         // 开启移动协程的时间
         public long BeginTime;
 
+        /// <summary>
+        /// 目标的范围
+        /// </summary>
+        public float TargetRange = 0;
+
         // 每个点的开始时间
         public long StartTime { get; set; }
 

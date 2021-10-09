@@ -34,7 +34,7 @@ namespace ET
 
         public override void OnExit(StackFsmComponent stackFsmComponent)
         {
-            Game.EventSystem.Publish(new EventType.StopMoveFromFSM() {Unit = stackFsmComponent.GetParent<Unit>()}).Coroutine();
+            Game.EventSystem.Publish(new EventType.CancelMoveFromFSM() {Unit = stackFsmComponent.GetParent<Unit>()}).Coroutine();
         }
 
         public override void OnRemoved(StackFsmComponent stackFsmComponent)

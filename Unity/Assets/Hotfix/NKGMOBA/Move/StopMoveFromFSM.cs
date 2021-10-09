@@ -1,10 +1,13 @@
 ﻿namespace ET
 {
-    public class StopMoveFromFSM : AEvent<EventType.StopMoveFromFSM>
+    public class StopMoveFromFSM : AEvent<EventType.CancelMoveFromFSM>
     {
-        protected override async ETTask Run(EventType.StopMoveFromFSM a)
+        protected override async ETTask Run(EventType.CancelMoveFromFSM a)
         {
-            a.Unit.GetComponent<MoveComponent>().Stop();
+#if SERVER
+                        a.Unit.Stop(1);
+#endif
+
             await ETTask.CompletedTask;
         }
     }

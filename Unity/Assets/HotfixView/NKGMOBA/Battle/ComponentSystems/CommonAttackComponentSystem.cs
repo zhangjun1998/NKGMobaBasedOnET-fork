@@ -34,7 +34,6 @@ namespace ET
         }
     }
 
-
     public class CancelAttackFromFsm : AEvent<EventType.CancelAttackFromFSM>
     {
         protected override async ETTask Run(CancelAttackFromFSM a)
@@ -43,7 +42,7 @@ namespace ET
             await ETTask.CompletedTask;
         }
     }
-
+    
     public static class CommonAttackComponentSystem
     {
         public static async ETVoid CommonAttackStart(this CommonAttackComponent self, Unit targetUnit)
@@ -55,14 +54,14 @@ namespace ET
             self.GetParent<Unit>().GetComponent<TurnComponent>().Turn(targetUnit.Position);
             self.m_StackFsmComponent.ChangeState<CommonAttackState>(StateTypes.CommonAttack, "Attack", 1);
 
-            await self.CommonAttack_Internal(targetUnit, self.CancellationTokenSource);
-
-            //此次攻击完成
-            self.CancellationTokenSource = null;
-            self.m_StackFsmComponent.RemoveState("Attack");
+            if (await self.CommonAttack_Internal(targetUnit, self.CancellationTokenSource))
+            {
+                self.CancellationTokenSource = null;
+                self.m_StackFsmComponent.RemoveState("Attack");
+            }
         }
 
-        private static async ETTask CommonAttack_Internal(this CommonAttackComponent self, Unit targetUnit,
+        private static async ETTask<bool> CommonAttack_Internal(this CommonAttackComponent self, Unit targetUnit,
             ETCancellationToken cancellationTokenSource)
         {
             UnitAttributesDataComponent unitAttributesDataComponent =
@@ -80,7 +79,7 @@ namespace ET
 
             Game.Scene.GetComponent<SoundComponent>().PlayClip("Darius/Sound_Darius_NormalAttack", 0.4f).Coroutine();
 
-            await TimerComponent.Instance.WaitAsync((long) (1 / attackSpeed * 1000), cancellationTokenSource);
+            return await TimerComponent.Instance.WaitAsync((long) (1 / attackSpeed * 1000), cancellationTokenSource);
         }
 
         public static void CancelCommonAttack(this CommonAttackComponent self)

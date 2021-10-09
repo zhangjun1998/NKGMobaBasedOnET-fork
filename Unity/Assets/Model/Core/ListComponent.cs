@@ -1,4 +1,3 @@
-#if SERVER
 
 
 /**
@@ -73,5 +72,3 @@ namespace ET
         }
     }
 }
-
-#endif

@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace ET
 {
+    
+    
     [ObjectSystem]
     public class MoveComponentDestroySystem : DestroySystem<MoveComponent>
     {
@@ -67,12 +69,14 @@ namespace ET
         }
 
         public static async ETTask<bool> MoveToAsync(this MoveComponent self, List<Vector3> target, float speed,
-            int turnTime = 100, ETCancellationToken cancellationToken = null)
+            int turnTime = 100, float targetRange = 0, ETCancellationToken cancellationToken = null)
         {
             if (!self.GetParent<Unit>().GetComponent<StackFsmComponent>()
                 .ChangeState<NavigateState>(StateTypes.Run, "Navigate", 1)) return false;
-
+            
             self.Stop();
+
+            self.TargetRange = targetRange;
 
             foreach (Vector3 v in target)
             {
@@ -156,6 +160,19 @@ namespace ET
                 }
 
                 moveTime -= self.NeedTime;
+
+                // 如果抵达了目标范围，强行让客户端停止
+                if (Vector3.Distance(unit.Position, self.FinalTarget) - self.TargetRange <= 0.01f)
+                {
+                    unit.Rotation = self.To;
+                    
+                    Action<bool> callback = self.Callback;
+                    self.Callback = null;
+
+                    self.Clear();
+                    callback?.Invoke(true);
+                    return;
+                }
 
                 // 表示这个点还没走完，等下一帧再来
                 if (moveTime < 0)
@@ -268,38 +285,32 @@ namespace ET
         /// <param name="target">目标地点</param>
         /// <param name="targetRange">目标距离</param>
         /// <param name="targetState">目标状态</param>
-        public static async ETVoid NavigateTodoSomething(this MoveComponent self, Vector3 target, float targetRange,
-            AFsmStateBase targetState, ETCancellationToken etCancellationToken)
+        public static async ETVoid NavigateTodoSomething(this Unit self, Vector3 target, float targetRange,
+            AFsmStateBase targetState)
         {
-            Unit unit = self.GetParent<Unit>();
-            if (Vector3.Distance(unit.Position, target) >= targetRange)
+            Unit unit = self;
+
+            if (!unit.GetComponent<StackFsmComponent>().ChangeState<NavigateState>(StateTypes.Run, "Navigate", 1))
             {
-                if (!unit.GetComponent<StackFsmComponent>().ChangeState<NavigateState>(StateTypes.Run, "Navigate", 1))
-                {
-                    ReferencePool.Release(targetState);
-                    return;
-                }
+                ReferencePool.Release(targetState);
+                return;
+            }
 
 #if SERVER
-                if (await unit.FindPathMoveToAsync(target, etCancellationToken))
-                {
-                    if (targetState != null)
-                    {
-                        unit.GetComponent<StackFsmComponent>().ChangeState(targetState);
-                    }
-
-                    unit.GetComponent<StackFsmComponent>().RemoveState(targetState.StateName);
-                }
-
-#endif
-                await ETTask.CompletedTask;
-            }
-            else
+            if (await unit.FindPathMoveToAsync(target, targetRange))
             {
-                unit.GetComponent<StackFsmComponent>().ChangeState(targetState);
+                if (targetState != null)
+                {
+                    if (unit.GetComponent<StackFsmComponent>().ChangeState(targetState))
+                    {
+                        //Log.Info($"切换至{targetState.StateName} ");
+                    }
+                }
             }
+#endif
+            await ETTask.CompletedTask;
         }
-        
+
         private static Vector3 GetFaceV(this MoveComponent self)
         {
             return self.NextTarget - self.PreTarget;
@@ -368,7 +379,6 @@ namespace ET
             {
                 self.MoveForward(true);
             }
-
             self.Clear();
         }
 

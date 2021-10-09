@@ -7,7 +7,7 @@ namespace ET
     #region System
 
     [ObjectSystem]
-    public class CommonAttackComponentAwakeSystem: AwakeSystem<CommonAttackComponent>
+    public class CommonAttackComponentAwakeSystem : AwakeSystem<CommonAttackComponent>
     {
         public override void Awake(CommonAttackComponent self)
         {
@@ -22,23 +22,16 @@ namespace ET
     /// </summary>
     public enum AttackCastReplaceType
     {
-        [LabelText("替换攻击")]
-        Attack,
+        [LabelText("替换攻击")] Attack,
 
-        [LabelText("替换取消攻击")]
-        CancelAttack,
+        [LabelText("替换取消攻击")] CancelAttack,
     }
 
-    public class CommonAttackComponent: Entity
+    public class CommonAttackComponent : Entity
     {
         #region 私有成员
 
         public StackFsmComponent m_StackFsmComponent;
-
-        /// <summary>
-        /// 是否正在移向目标
-        /// </summary>
-        public bool IsMoveToTarget;
 
         /// <summary>
         /// 上次选中的Unit，用于自动攻击
@@ -64,7 +57,6 @@ namespace ET
         /// 用于替换取消攻击流程的黑板键值
         /// </summary>
         public NP_BlackBoardRelationData CancelAttackReplaceBB;
-
         public ETCancellationToken CancellationTokenSource;
 
         #endregion
@@ -120,7 +112,7 @@ namespace ET
             this.CancelAttackReplaceNPTreeId = 0;
             this.CancelAttackReplaceBB = null;
         }
-        
+
         #endregion
 
         #region 生命周期函数
@@ -128,11 +120,11 @@ namespace ET
         public void Awake()
         {
             Unit unit = this.GetParent<Unit>();
-            
+
             //此处填写Awake逻辑
             m_StackFsmComponent = unit.GetComponent<StackFsmComponent>();
             this.CancellationTokenSource = new ETCancellationToken();
-            
+
             CDInfo attackCDInfo = ReferencePool.Acquire<CDInfo>();
             attackCDInfo.Name = "CommonAttack";
             attackCDInfo.Interval = 750;
@@ -153,6 +145,7 @@ namespace ET
             //此处填写释放逻辑,但涉及Entity的操作，请放在Destroy中
             this.CancellationTokenSource?.Cancel();
             this.CancellationTokenSource = null;
+
             this.ReSetAttackReplaceInfo();
             this.ReSetCancelAttackReplaceInfo();
         }

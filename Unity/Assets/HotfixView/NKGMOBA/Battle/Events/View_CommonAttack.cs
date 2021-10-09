@@ -10,4 +10,13 @@ namespace ET
             await ETTask.CompletedTask;
         }
     }
+    
+    public class View_CancelCommonAttack: AEvent<EventType.CancelCommonAttack>
+    {
+        protected override async ETTask Run(CancelCommonAttack a)
+        {
+            a.AttackCast.GetComponent<CommonAttackComponent>().CancelCommonAttack();
+            await ETTask.CompletedTask;
+        }
+    }
 }

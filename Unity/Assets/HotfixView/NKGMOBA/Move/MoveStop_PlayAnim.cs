@@ -7,6 +7,7 @@ namespace ET
         protected override async ETTask Run(MoveStop a)
         {
             a.Unit.GetComponent<StackFsmComponent>().RemoveState("Navigate");
+            Log.Info("移除了Navigate");
             a.Unit.GetComponent<AnimationComponent>().PlayAnimByStackFsmCurrent();
             await ETTask.CompletedTask;
         }

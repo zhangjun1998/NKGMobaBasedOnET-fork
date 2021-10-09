@@ -431,6 +431,16 @@ message C2M_CommonAttack // IActorLocationMessage
   int64 TargetUnitId = 1;
 }
 
+//请求攻击
+message M2C_CancelCommonAttack // IActorMessage
+{
+  int32 RpcId = 90;
+  int64 ActorId = 93;
+
+  int64 TargetUnitId = 1;
+}
+
+
 //服务器返回攻击指令，开始播放动画
 message M2C_CommonAttack // IActorMessage
 {
@@ -441,6 +451,7 @@ message M2C_CommonAttack // IActorMessage
   int64 TargetUnitId = 3;//攻击目标Id
   bool CanAttack = 2; //是否可以发起攻击
 }
+
 
 message M2C_BuffInfo // IActorMessage
 {

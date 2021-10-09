@@ -2,7 +2,7 @@
 {
     namespace EventType
     {
-        public struct StopMoveFromFSM
+        public struct CancelMoveFromFSM
         {
             public Unit Unit;
         }
@@ -10,6 +10,7 @@
         public struct CancelAttackFromFSM
         {
             public Unit Unit;
+            public bool ResetAttackTarget;
         }
     }
 }

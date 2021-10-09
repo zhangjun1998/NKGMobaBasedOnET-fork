@@ -5,6 +5,7 @@
 //------------------------------------------------------------
 
 using System.Collections.Generic;
+using ET.EventType;
 using NPBehave;
 using UnityEngine;
 
@@ -15,6 +16,23 @@ namespace ET
         public override void FixedUpdate(CommonAttackComponent self)
         {
             self.FixedUpdate();
+        }
+    }
+
+    public class CancelAttackFromFsm : AEvent<EventType.CancelAttackFromFSM>
+    {
+        protected override async ETTask Run(CancelAttackFromFSM a)
+        {
+            if (a.ResetAttackTarget)
+            {
+                a.Unit.GetComponent<CommonAttackComponent>().CancelCommonAttack();
+            }
+            else
+            {
+                a.Unit.GetComponent<CommonAttackComponent>().CancelCommonAttackWithOutResetTarget();
+            }
+
+            await ETTask.CompletedTask;
         }
     }
 
@@ -85,7 +103,10 @@ namespace ET
             float attackSpeed = heroDataComponent.GetAttribute(NumericType.AttackSpeed);
 
             //播放动画，如果动画播放完成还不能进行下一次普攻，则播放空闲动画
-            await TimerComponent.Instance.WaitAsync((long) (attackPre * 1000), self.CancellationTokenSource);
+            if (!await TimerComponent.Instance.WaitAsync((long) (attackPre * 1000), self.CancellationTokenSource))
+            {
+                return;
+            }
 
             DamageData damageData = ReferencePool.Acquire<DamageData>().InitData(
                 BuffDamageTypes.PhysicalSingle | BuffDamageTypes.CommonAttack,
@@ -101,7 +122,7 @@ namespace ET
                     .ApplyChange(NumericType.Hp, -finalDamage);
 
                 BattleEventSystem battleEventSystem = unit.BelongToRoom.GetComponent<BattleEventSystem>();
-                
+
                 //抛出伤害事件，需要监听伤害的buff（比如吸血buff）需要监听此事件
                 battleEventSystem.Run($"ExcuteDamage{unit.Id}", damageData);
                 //抛出受伤事件，需要监听受伤的Buff（例如反甲）需要监听此事件
@@ -126,6 +147,7 @@ namespace ET
         public static void FixedUpdate(this CommonAttackComponent self)
         {
             Unit unit = self.GetParent<Unit>();
+
             if (unit.GetComponent<StackFsmComponent>().GetCurrentFsmState().StateTypes == StateTypes.CommonAttack)
             {
                 if (self.CachedUnitForAttack != null && !self.CachedUnitForAttack.IsDisposed)
@@ -134,28 +156,26 @@ namespace ET
                     double distance = Vector3.Distance(selfUnitPos, self.CachedUnitForAttack.Position);
                     float attackRange = unit.GetComponent<UnitAttributesDataComponent>()
                         .NumericComponent[NumericType.AttackRange] / 100;
+
                     //目标距离大于当前攻击距离会先进行寻路，这里的1.75为175码
-                    if (distance >= attackRange)
+                    if (distance - attackRange >= 0.1f)
                     {
                         if (!CDComponent.Instance.GetCDResult(unit.Id, "MoveToAttack")) return;
-
                         CDComponent.Instance.TriggerCD(unit.Id, "MoveToAttack");
-                        self.IsMoveToTarget = true;
 
-                        //移动完进入攻击状态
                         CommonAttackState commonAttackState = ReferencePool.Acquire<CommonAttackState>();
                         commonAttackState.SetData(StateTypes.CommonAttack, "CommonAttack", 1);
 
-                        unit.GetComponent<MoveComponent>()
-                            .NavigateTodoSomething(self.CachedUnitForAttack.Position, attackRange, commonAttackState,
-                                self.CancellationTokenSource).Coroutine();
+                        unit.NavigateTodoSomething(self.CachedUnitForAttack.Position, 1.75f, commonAttackState)
+                            .Coroutine();
                     }
                     else
                     {
                         //目标不为空，且处于攻击状态，且上次攻击已完成或取消
                         if ((self.CancellationTokenSource == null || self.CancellationTokenSource.IsCancel()))
                         {
-                            if (distance <= 1.75 && CDComponent.Instance.GetCDResult(unit.Id, "CommonAttack"))
+                            if (distance - attackRange <= 0.1f &&
+                                CDComponent.Instance.GetCDResult(unit.Id, "CommonAttack"))
                                 self.StartCommonAttack().Coroutine();
                         }
                     }
@@ -170,6 +190,7 @@ namespace ET
         {
             self.CancellationTokenSource?.Cancel();
             self.CancellationTokenSource = null;
+
             if (self.HasCancelAttackReplaceInfo())
             {
                 Unit unit = self.GetParent<Unit>();
@@ -181,7 +202,8 @@ namespace ET
                     .Set(self.CancelAttackReplaceBB.BBKey, true);
             }
 
-            //MessageHelper.Broadcast(new M2C_CancelAttack() { UnitId = self.Entity.Id });
+            MessageHelper.BroadcastToRoom(self.GetParent<Unit>().BelongToRoom,
+                new M2C_CancelCommonAttack() {TargetUnitId = self.GetParent<Unit>().Id});
         }
 
         /// <summary>

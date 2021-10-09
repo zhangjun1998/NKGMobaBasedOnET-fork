@@ -8,7 +8,7 @@ namespace ET
         {
             if (a.Unit.GetComponent<StackFsmComponent>().GetCurrentFsmState().StateTypes != StateTypes.Run)
             {
-                await ETTask.CompletedTask;
+                return;
             }
 
             UnitAttributesDataComponent unitAttributesDataComponent = a.Unit.GetComponent<UnitAttributesDataComponent>();

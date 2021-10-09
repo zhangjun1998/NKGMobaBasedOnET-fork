@@ -22,7 +22,37 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f1715052-b88e-4a65-9b40-1aa413711389" name="Default Changelist" comment="" />
+    <list default="true" id="f1715052-b88e-4a65-9b40-1aa413711389" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../Proto/OuterMessage.proto" beforeDir="false" afterPath="$PROJECT_DIR$/../Proto/OuterMessage.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Battle/ComponentSystems/CommonAttackComponentSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Battle/ComponentSystems/CommonAttackComponentSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Map/C2M_PathfindingResultHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Map/C2M_PathfindingResultHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Move/MoveHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Move/MoveHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/Server.Hotfix.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/Server.Hotfix.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Model/Generate/Message/OuterMessage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Model/Generate/Message/OuterMessage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Model/Generate/Message/OuterOpcode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Model/Generate/Message/OuterOpcode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Model/NKGMOBA/Battle/Component/CommonAttackComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Model/NKGMOBA/Battle/Component/CommonAttackComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Model/NKGMOBA/Battle/Events/BattleEventType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Model/NKGMOBA/Battle/Events/BattleEventType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Unity/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unity/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Move/M2C_PathfindingResultHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Move/M2C_PathfindingResultHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Move/MoveComponentSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Move/MoveComponentSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Move/StopMoveFromFSM.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Move/StopMoveFromFSM.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HotfixView/NKGMOBA/Battle/ComponentSystems/CommonAttackComponentSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HotfixView/NKGMOBA/Battle/ComponentSystems/CommonAttackComponentSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HotfixView/NKGMOBA/Battle/Events/View_CommonAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HotfixView/NKGMOBA/Battle/Events/View_CommonAttack.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HotfixView/NKGMOBA/Move/MoveStart_PlayRunAnimationByMoveSpeed.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HotfixView/NKGMOBA/Move/MoveStart_PlayRunAnimationByMoveSpeed.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HotfixView/NKGMOBA/Move/MoveStop_PlayAnim.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HotfixView/NKGMOBA/Move/MoveStop_PlayAnim.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/Core/ListComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/Core/ListComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/Core/Object/EventSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/Core/Object/EventSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/Generate/Message/OuterMessage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/Generate/Message/OuterMessage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/Generate/Message/OuterOpcode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/Generate/Message/OuterOpcode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/NKGMOBA/Battle/BattleEventType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/NKGMOBA/Battle/BattleEventType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/NKGMOBA/Battle/Fsm/StackFsmComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/NKGMOBA/Battle/Fsm/StackFsmComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/NKGMOBA/Battle/Fsm/States/CommonAttackState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/NKGMOBA/Battle/Fsm/States/CommonAttackState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/NKGMOBA/Battle/Fsm/States/NavigateState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/NKGMOBA/Battle/Fsm/States/NavigateState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/NKGMOBA/Move/MoveComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/NKGMOBA/Move/MoveComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.dll.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.dll.bytes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.pdb.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.pdb.bytes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Unity.Hotfix.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Unity.Hotfix.csproj" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -151,7 +181,6 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/af218701fe324032b521ddd91f13662b13b600/b6/ad6c03e1/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/af218701fe324032b521ddd91f13662b13b600/9c/aca6ee42/Application.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Generation/Collections/FieldCollection.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.rider@2.0.7/Rider/Editor/PluginSettings.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6918f29e7fd34dfcbfd1ae203995ddd924000/72/b923b1ac/ParticleSystem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.rider@2.0.7/Rider/Editor/RiderScriptEditor.cs" root0="SKIP_HIGHLIGHTING" />
@@ -204,7 +233,6 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.test-framework@1.1.27/UnityEngine.TestRunner/NUnitExtensions/Attributes/UnityPlatformAttribute.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/treeview/TrackPropertyCurvesDataSource.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/af218701fe324032b521ddd91f13662b13b600/56/b17286fc/ExecuteInEditMode.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.1.0/Unity.Mathematics/double2x2.gen.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/CanvasUpdateRegistry.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Data/Nodes/Artistic/Utility/ColorspaceConversion.cs" root0="SKIP_HIGHLIGHTING" />
@@ -295,10 +323,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="26260">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="26260" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -332,6 +360,8 @@
       <workItem from="1633233257675" duration="2647000" />
       <workItem from="1633247127413" duration="20410000" />
       <workItem from="1633325183852" duration="90022000" />
+      <workItem from="1633658996395" duration="3786000" />
+      <workItem from="1633752729492" duration="13578000" />
     </task>
     <servers />
   </component>

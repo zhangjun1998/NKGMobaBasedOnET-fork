@@ -22,6 +22,11 @@
     <Compile Include="..\..\Unity\Assets\Hotfix\NKGMOBA\Move\MoveComponentSystem.cs">
       <Link>NKGMOBA\Move\MoveComponentSystem.cs</Link>
     </Compile>
+
+    <Compile Include="..\..\Unity\Assets\Hotfix\NKGMOBA\Move\StopMoveFromFSM.cs">
+      <Link>NKGMOBA\Move\StopMoveFromFSM.cs</Link>
+    </Compile>
+    
     <Compile Include="..\..\Unity\Assets\Hotfix\Module\Config\ConfigComponentSystem.cs">
       <Link>Module\Config\ConfigComponentSystem.cs</Link>
     </Compile>

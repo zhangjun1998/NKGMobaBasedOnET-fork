@@ -35,12 +35,16 @@ namespace ET
 
         public override void OnExit(StackFsmComponent stackFsmComponent)
         {
-            Game.EventSystem.Publish(new EventType.CancelAttackFromFSM() {Unit = stackFsmComponent.GetParent<Unit>()})
+            Game.EventSystem.Publish(new EventType.CancelAttackFromFSM()
+                    {Unit = stackFsmComponent.GetParent<Unit>(), ResetAttackTarget = false})
                 .Coroutine();
         }
 
         public override void OnRemoved(StackFsmComponent stackFsmComponent)
         {
+            Game.EventSystem.Publish(new EventType.CancelAttackFromFSM()
+                    {Unit = stackFsmComponent.GetParent<Unit>(), ResetAttackTarget = true})
+                .Coroutine();
         }
     }
 }

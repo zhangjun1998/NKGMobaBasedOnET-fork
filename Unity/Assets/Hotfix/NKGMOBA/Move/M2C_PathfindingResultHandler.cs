@@ -11,7 +11,7 @@ namespace ET
 
             float speed = unit.GetComponent<NumericComponent>()[NumericType.Speed] / 100f;
 
-            using (var list = MonoListComponent<Vector3>.Create())
+            using (var list = ListComponent<Vector3>.Create())
             {
                 for (int i = 0; i < message.Xs.Count; ++i)
                 {

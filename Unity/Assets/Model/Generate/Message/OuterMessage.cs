@@ -943,6 +943,22 @@ namespace ET
 
 	}
 
+//请求攻击
+	[Message(OuterOpcode.M2C_CancelCommonAttack)]
+	[ProtoContract]
+	public partial class M2C_CancelCommonAttack: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(93)]
+		public long ActorId { get; set; }
+
+		[ProtoMember(1)]
+		public long TargetUnitId { get; set; }
+
+	}
+
 //服务器返回攻击指令，开始播放动画
 	[Message(OuterOpcode.M2C_CommonAttack)]
 	[ProtoContract]
