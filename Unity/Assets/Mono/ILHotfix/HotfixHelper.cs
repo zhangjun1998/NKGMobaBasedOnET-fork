@@ -19,18 +19,37 @@ namespace ET
         private static IStaticMethod _entryMethod;
 
         private static AppDomain _appDomain;
-        private static Assembly _assembly;
+        private static Assembly _ModelAssembly;
+        private static Assembly _ModelViewassembly;
+        private static Assembly _Hotfixassembly;
+        private static Assembly _HotfixViewassembly;
 
         /// <summary>
         /// 这里开始正式进入游戏逻辑
         /// </summary>
-        public static void GoToHotfix(byte[] dllByte, byte[] pdbByte)
+        public static void GoToHotfix()
         {
+            byte[] hotfixdllByte = XAssetLoader.LoadAsset<TextAsset>(XAssetPathUtilities.GetHotfixDllPath("Hotfix"))
+                .bytes;
+            byte[] hotfixpdbByte = XAssetLoader.LoadAsset<TextAsset>(XAssetPathUtilities.GetHotfixPdbPath("Hotfix"))
+                .bytes;
+            byte[] hotfixViewdllByte = XAssetLoader.LoadAsset<TextAsset>(XAssetPathUtilities.GetHotfixDllPath("HotfixView"))
+                .bytes;
+            byte[] hotfixViewpdbByte = XAssetLoader.LoadAsset<TextAsset>(XAssetPathUtilities.GetHotfixPdbPath("HotfixView"))
+                .bytes;
+            byte[] ModeldllByte = XAssetLoader.LoadAsset<TextAsset>(XAssetPathUtilities.GetHotfixDllPath("Model"))
+                .bytes;
+            byte[] ModelpdbByte = XAssetLoader.LoadAsset<TextAsset>(XAssetPathUtilities.GetHotfixPdbPath("Model"))
+                .bytes;
+            byte[] ModelViewdllByte = XAssetLoader.LoadAsset<TextAsset>(XAssetPathUtilities.GetHotfixDllPath("ModelView"))
+                .bytes;
+            byte[] ModelViewpdbByte = XAssetLoader.LoadAsset<TextAsset>(XAssetPathUtilities.GetHotfixPdbPath("ModelView"))
+                .bytes;
             if (GlobalDefine.ILRuntimeMode)
             {
                 _appDomain = new ILRuntime.Runtime.Enviorment.AppDomain();
-                s_hotfixDllStream = new MemoryStream(dllByte);
-                s_hotfixPdbStream = new MemoryStream(pdbByte);
+                s_hotfixDllStream = new MemoryStream(hotfixdllByte);
+                s_hotfixPdbStream = new MemoryStream(hotfixpdbByte);
                 _appDomain.LoadAssembly(s_hotfixDllStream, s_hotfixPdbStream,
                     new ILRuntime.Mono.Cecil.Pdb.PdbReaderProvider());
 
@@ -40,8 +59,11 @@ namespace ET
             }
             else
             {
-                _assembly = Assembly.Load(dllByte, pdbByte);
-                _entryMethod = new MonoStaticMethod(_assembly, "ET.InitEntry", "RegFunction");
+                _ModelAssembly = Assembly.Load(ModeldllByte, ModelpdbByte);
+                _ModelViewassembly = Assembly.Load(ModelViewdllByte, ModelViewpdbByte);
+                _Hotfixassembly = Assembly.Load(hotfixdllByte, hotfixpdbByte);
+                _HotfixViewassembly = Assembly.Load(hotfixViewdllByte, hotfixViewpdbByte);
+                _entryMethod = new MonoStaticMethod(_ModelViewassembly, "ET.InitEntry", "RegFunction");
             }
 
             _entryMethod.Run();
@@ -49,17 +71,20 @@ namespace ET
 
         public static Type[] GetAssemblyTypes()
         {
-            Type[] types;
+            List<Type> types = new List<Type>();
             if (GlobalDefine.ILRuntimeMode)
             {
-                types = _appDomain.LoadedTypes.Values.Select(t => t.ReflectionType).ToArray();
+                types = _appDomain.LoadedTypes.Values.Select(t => t.ReflectionType).ToList();
             }
             else
             {
-                types = _assembly.GetTypes();
+                types.AddRange(_ModelAssembly.GetTypes());
+                types.AddRange(_ModelViewassembly.GetTypes());
+                types.AddRange(_Hotfixassembly.GetTypes());
+                types.AddRange(_HotfixViewassembly.GetTypes());
             }
 
-            return types;
+            return types.ToArray();
         }
 
         public static List<Type> GetIlrAttributeTypes(List<Type> types)

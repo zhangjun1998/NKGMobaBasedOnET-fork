@@ -38,8 +38,12 @@ namespace ET
                     Game.EventSystem.EventSystemInit();
                 }
                 ProtobufHelper.Init();
-                
-                MongoHelper.Init();
+#if UNITY_EDITOR
+
+#else
+                                MongoHelper.Init();
+#endif
+
                 GlobalDefine.Options = new Options();
 
                 Game.EventSystem.Publish(new EventType.AppStart()).Coroutine();

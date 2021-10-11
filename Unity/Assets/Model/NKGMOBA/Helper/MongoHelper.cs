@@ -21,7 +21,6 @@ namespace ET
     /// </summary>
     public static class MongoHelper
     {
-
         /// <summary>
         /// 注册所有供反序列化的子类
         /// </summary>
@@ -39,7 +38,7 @@ namespace ET
                 {
                     parenTypes.Add(type);
                 }
-        
+
                 BsonDeserializerRegisterAttribute[] bsonDeserializerRegisterAttributes1 =
                     type.GetCustomAttributes(typeof(BsonDeserializerRegisterAttribute), true) as
                         BsonDeserializerRegisterAttribute[];
@@ -48,7 +47,7 @@ namespace ET
                     childrenTypes.Add(type);
                 }
             }
-        
+
             foreach (Type type in childrenTypes)
             {
                 foreach (var parentType in parenTypes)
@@ -61,19 +60,25 @@ namespace ET
             }
         }
 
+#if SERVER
+#else
+        [InitializeOnLoadMethod]
+#endif
+
         public static void Init()
         {
             // 自动注册IgnoreExtraElements
             ConventionPack conventionPack = new ConventionPack {new IgnoreExtraElementsConvention(true)};
             ConventionRegistry.Register("IgnoreExtraElements", conventionPack, type => true);
 #if SERVER
-            BsonSerializer.RegisterSerializer(typeof(System.Numerics.Vector2), new StructBsonSerialize<System.Numerics.Vector2>());
+            BsonSerializer.RegisterSerializer(typeof(System.Numerics.Vector2),
+                new StructBsonSerialize<System.Numerics.Vector2>());
             BsonSerializer.RegisterSerializer(typeof(Vector2), new StructBsonSerialize<Vector2>());
             BsonSerializer.RegisterSerializer(typeof(Vector3), new StructBsonSerialize<Vector3>());
             BsonSerializer.RegisterSerializer(typeof(Vector4), new StructBsonSerialize<Vector4>());
             BsonSerializer.RegisterSerializer(typeof(Quaternion), new StructBsonSerialize<Quaternion>());
-            BsonSerializer.RegisterSerializer(typeof (VTD_Id), new StructBsonSerialize<VTD_Id>());
-            BsonSerializer.RegisterSerializer(typeof (VTD_EventId), new StructBsonSerialize<VTD_EventId>());
+            BsonSerializer.RegisterSerializer(typeof(VTD_Id), new StructBsonSerialize<VTD_Id>());
+            BsonSerializer.RegisterSerializer(typeof(VTD_EventId), new StructBsonSerialize<VTD_EventId>());
 #elif ROBOT
 			BsonSerializer.RegisterSerializer(typeof(Quaternion), new StructBsonSerialize<Quaternion>());
             BsonSerializer.RegisterSerializer(typeof(Vector3), new StructBsonSerialize<Vector3>());
@@ -99,7 +104,23 @@ namespace ET
 
             #region 注意，此部分的函数为Runtime模式专属，因为使用了 Game.EventSystem.GetTypes()
 
+#if UNITY_EDITOR
+
+            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            var types = new List<Type>();
+            foreach (var assembly in assemblies)
+            {
+                if (assembly.FullName.Contains("Unity.Model") || assembly.FullName.Contains("Unity.ModelView") ||
+                    assembly.FullName.Contains("Unity.Hotfix") || assembly.FullName.Contains("Unity.HotfixView"))
+                {
+                    types.AddRange(assembly.GetTypes());
+                }
+            }
+
+#else
             var types = Game.EventSystem.GetTypes();
+#endif
+
 
             foreach (Type type in types)
             {
@@ -116,7 +137,7 @@ namespace ET
                 BsonClassMap.LookupClassMap(type);
             }
 
-            RegisterAllSubClassForDeserialize(Game.EventSystem.GetTypes());
+            RegisterAllSubClassForDeserialize(types);
 
             #endregion
         }

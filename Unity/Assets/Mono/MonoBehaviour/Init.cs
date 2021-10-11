@@ -69,12 +69,7 @@ namespace ET
 
                 await m_XAssetUpdater.StartUpdate();
 
-                byte[] dllByte = XAssetLoader.LoadAsset<TextAsset>(XAssetPathUtilities.GetHotfixDllPath("Hotfix"))
-                    .bytes;
-                byte[] pdbByte = XAssetLoader.LoadAsset<TextAsset>(XAssetPathUtilities.GetHotfixPdbPath("Hotfix"))
-                    .bytes;
-
-                HotfixHelper.GoToHotfix(dllByte, pdbByte);
+                HotfixHelper.GoToHotfix();
 
                 GlobalLifeCycle.StartAction?.Invoke();
                 
