@@ -36,16 +36,32 @@ namespace ET
         public static void Proto2CS()
         {
             msgOpcode.Clear();
-            Proto2CS("ET", "../../../Proto/InnerMessage.proto", serverMessagePath, "InnerOpcode", 10000);
-            GenerateOpcode("ET", "InnerOpcode", serverMessagePath);
+            Proto2CS("ET", "../../../Proto/InnerMessage_Gate.proto", serverMessagePath, "InnerOpcode_Gate", 10000);
+            GenerateOpcode("ET", "InnerOpcode_Gate", serverMessagePath);
+            Proto2CS("ET", "../../../Proto/InnerMessage_Realm.proto", serverMessagePath, "InnerOpcode_Realm", 12500);
+            GenerateOpcode("ET", "InnerOpcode_Realm", serverMessagePath);
+            Proto2CS("ET", "../../../Proto/InnerMessage_Lobby.proto", serverMessagePath, "InnerOpcode_Lobby", 15000);
+            GenerateOpcode("ET", "InnerOpcode_Lobby", serverMessagePath);
+            Proto2CS("ET", "../../../Proto/InnerMessage_Map.proto", serverMessagePath, "InnerOpcode_Map", 17500);
+            GenerateOpcode("ET", "InnerOpcode_Map", serverMessagePath);
             
-            Proto2CS("ET", "../../../Proto/OuterMessage.proto", serverMessagePath, "OuterOpcode", 20000);
-            GenerateOpcode("ET", "OuterOpcode", serverMessagePath);
-            
-            Proto2CS("ET", "../../../Proto/OuterMessage.proto", clientMessagePath, "OuterOpcode", 20000);
-            GenerateOpcode("ET", "OuterOpcode", clientMessagePath);
-            
-            
+            Proto2CS("ET", "../../../Proto/OuterMessage_Gate.proto", serverMessagePath, "OuterOpcode_Gate", 20000);
+            GenerateOpcode("ET", "OuterOpcode_Gate", serverMessagePath);
+            Proto2CS("ET", "../../../Proto/OuterMessage_Realm.proto", serverMessagePath, "OuterOpcode_Realm", 30000);
+            GenerateOpcode("ET", "OuterOpcode_Realm", serverMessagePath);
+            Proto2CS("ET", "../../../Proto/OuterMessage_Lobby.proto", serverMessagePath, "OuterOpcode_Lobby", 40000);
+            GenerateOpcode("ET", "OuterOpcode_Lobby", serverMessagePath);
+            Proto2CS("ET", "../../../Proto/OuterMessage_Map.proto", serverMessagePath, "OuterOpcode_Map", 50000);
+            GenerateOpcode("ET", "OuterOpcode_Map", serverMessagePath);
+
+            Proto2CS("ET", "../../../Proto/OuterMessage_Gate.proto", clientMessagePath, "OuterOpcode_Gate", 20000);
+            GenerateOpcode("ET", "OuterOpcode_Gate", clientMessagePath);
+            Proto2CS("ET", "../../../Proto/OuterMessage_Realm.proto", clientMessagePath, "OuterOpcode_Realm", 30000);
+            GenerateOpcode("ET", "OuterOpcode_Realm", clientMessagePath);
+            Proto2CS("ET", "../../../Proto/OuterMessage_Lobby.proto", clientMessagePath, "OuterOpcode_Lobby", 40000);
+            GenerateOpcode("ET", "OuterOpcode_Lobby", clientMessagePath);
+            Proto2CS("ET", "../../../Proto/OuterMessage_Map.proto", clientMessagePath, "OuterOpcode_Map", 50000);
+            GenerateOpcode("ET", "OuterOpcode_Map", clientMessagePath);
         }
 
         public static void Proto2CS(string ns, string protoName, string outputPath, string opcodeClassName, int startOpcode)

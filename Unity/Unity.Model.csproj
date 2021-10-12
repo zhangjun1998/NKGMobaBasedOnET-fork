@@ -175,7 +175,6 @@
      <Compile Include="Assets\Model\Core\Object\IdGenerater.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\Box2DSharp\CollisionRelations\B2S_CollisionInstance.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\SyncContext.cs" />
-     <Compile Include="Assets\Model\Generate\Message\OuterOpcode.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\UnitAttributeData\UnitAttributesDataComponent.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\NodeDatas\NodeType.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Helper\PositionHelper.cs" />
@@ -215,7 +214,6 @@
      <Compile Include="Assets\Model\Generate\Config\StartZoneConfig.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Unit\Unit.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\NodeDatas\Task\NP_WaitNodeData.cs" />
-     <Compile Include="Assets\Model\Generate\Message\OuterMessage.cs" />
      <Compile Include="Assets\Model\Module\Message\MessageSerializeHelper.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\UpdateModule\GameTime.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Component\NP_RuntimeTree.cs" />
@@ -320,6 +318,14 @@
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Decorator\Failer.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\BuffData\ReplaceAttackBuffData.cs" />
      <Compile Include="Assets\Model\Module\Message\ResponseTypeAttribute.cs" />
+     <Compile Include="Assets\Model\Generate\Message\OuterOpcode_Lobby.cs" />
+     <Compile Include="Assets\Model\Generate\Message\OuterOpcode_Map.cs" />
+     <Compile Include="Assets\Model\Generate\Message\OuterMessage_Realm.cs" />
+     <Compile Include="Assets\Model\Generate\Message\OuterOpcode_Realm.cs" />
+     <Compile Include="Assets\Model\Generate\Message\OuterMessage_Gate.cs" />
+     <Compile Include="Assets\Model\Generate\Message\OuterMessage_Lobby.cs" />
+     <Compile Include="Assets\Model\Generate\Message\OuterOpcode_Gate.cs" />
+     <Compile Include="Assets\Model\Generate\Message\OuterMessage_Map.cs" />
      <None Include="Assets\Model\csc.rsp" />
      <None Include="Assets\Model\Unity.Model.asmdef" />
  <Reference Include="UnityEngine">

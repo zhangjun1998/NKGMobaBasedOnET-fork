@@ -23,16 +23,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f1715052-b88e-4a65-9b40-1aa413711389" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Server/Model/Generate/Message/InnerMessage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Model/Generate/Message/InnerMessage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Model/Generate/Message/OuterMessage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Model/Generate/Message/OuterMessage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Model/Module/Message/ResponseTypeAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Model/Module/Message/ResponseTypeAttribute.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tools/ExcelExporter/Template.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Tools/ExcelExporter/Template.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Proto/InnerMessage.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Proto/OuterMessage.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Model/Generate/Message/InnerMessage.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Model/Generate/Message/InnerOpcode.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Model/Generate/Message/OuterMessage.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Model/Generate/Message/OuterOpcode.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Tools/Proto2CS/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Tools/Proto2CS/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Unity/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unity/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Model/Generate/Message/OuterMessage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/Generate/Message/OuterMessage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Model/Module/Message/OpcodeTypeComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/Module/Message/OpcodeTypeComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Model/Module/Message/ResponseTypeAttribute.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Model/Module/Message/ResponseTypeAttribute.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/Generate/Message/OuterMessage.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/Generate/Message/OuterMessage.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/Generate/Message/OuterOpcode.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/Generate/Message/OuterOpcode.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/Module/Message/OpcodeHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/Module/Message/OpcodeHelper.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.dll.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.dll.bytes" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.pdb.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.pdb.bytes" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Res/Code/HotfixView.dll.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/HotfixView.dll.bytes" afterDir="false" />
@@ -173,6 +176,7 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@10.6.0/Runtime/Documentation.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Data/Nodes/UV/FlipbookNode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@10.6.0/Runtime/XR/XRSystem.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Data/Nodes/UV/ParallaxOcclusionMappingNode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5f37459ef1304442ba19ee268c49d074568778/ad/afee946d/File.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/af218701fe324032b521ddd91f13662b13b600/b6/ad6c03e1/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/af218701fe324032b521ddd91f13662b13b600/9c/aca6ee42/Application.cs" root0="SKIP_HIGHLIGHTING" />

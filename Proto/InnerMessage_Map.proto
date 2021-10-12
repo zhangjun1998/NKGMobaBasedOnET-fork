@@ -35,38 +35,6 @@ message A2M_Reload // IActorResponse
   string Message = 92;
 }
 
-//ResponseType G2G_LockResponse
-message G2G_LockRequest // IActorRequest
-{
-  int32 RpcId = 90;
-  int64 ActorId = 93;
-  int64 Id = 1;
-  string Address = 2;
-}
-
-message G2G_LockResponse // IActorResponse
-{
-  int32 RpcId = 90;
-  int32 Error = 91;
-  string Message = 92;
-}
-
-//ResponseType G2G_LockReleaseResponse
-message G2G_LockReleaseRequest // IActorRequest
-{
-  int32 RpcId = 90;
-  int64 ActorId = 93;
-  int64 Id = 1;
-  string Address = 2;
-}
-
-message G2G_LockReleaseResponse // IActorResponse
-{
-  int32 RpcId = 90;
-  int32 Error = 91;
-  string Message = 92;
-}
-
 //ResponseType ObjectAddResponse
 message ObjectAddRequest // IActorRequest
 {
@@ -145,52 +113,6 @@ message ObjectGetResponse // IActorResponse
   int64 InstanceId = 1;
 }
 
-//ResponseType G2R_GetLoginKey
-message R2G_GetLoginKey // IActorRequest
-{
-  int32 RpcId = 90;
-  int64 ActorId = 93;
-  string Account = 1;
-}
-
-message G2R_GetLoginKey // IActorResponse
-{
-  int32 RpcId = 90;
-  int32 Error = 91;
-  string Message = 92;
-
-  int64 Key = 1;
-  int64 GateId = 2;
-}
-
-//ResponseType L2G_GetRoomId
-message G2L_GetRoomId // IActorRequest
-{
-  int32 RpcId = 90;
-  int64 ActorId = 93;
-}
-
-message L2G_GetRoomId // IActorResponse
-{
-  int32 RpcId = 90;
-  int32 Error = 91;
-  string Message = 92;
-
-  int64 RoomId = 1;
-}
-
-//ResponseType M2L_CreateHeroUnit
-message L2M_CreateHeroUnit // IActorRequest
-{
-  int32 RpcId = 90;
-  int64 ActorId = 93;
-  int64 PlayerId = 1;
-  int64 GateSessionId = 2;
-  int64 Roomid = 3;
-
-  PlayerBattleInfo PlayerBattleInfo = 4;
-}
-
 message M2L_CreateHeroUnit // IActorResponse
 {
   int32 RpcId = 90;
@@ -201,20 +123,6 @@ message M2L_CreateHeroUnit // IActorResponse
   int64 UnitId = 1;
   // 所有的unit
   repeated UnitInfo Units = 2;
-}
-
-message G2M_SessionDisconnect // IActorLocationMessage
-{
-  int32 RpcId = 90;
-  int64 ActorId = 94;
-}
-
-//ResponseType M2L_PreparedToEnterBattle
-message L2M_PreparedToEnterBattle // IActorRequest
-{
-  int32 RpcId = 90;
-  int64 ActorId = 93;
-  int64 Roomid = 2;
 }
 
 message M2L_PreparedToEnterBattle // IActorResponse

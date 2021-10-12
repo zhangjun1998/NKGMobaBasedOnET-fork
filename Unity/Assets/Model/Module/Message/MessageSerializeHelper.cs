@@ -6,9 +6,9 @@ namespace ET
 {
     public static class MessageSerializeHelper
     {
-        public const ushort PbMaxOpcode = 40000;
+        public const ushort PbMaxOpcode = 55000;
         
-        public const ushort JsonMinOpcode = 51000;
+        public const ushort JsonMinOpcode = 61000;
         
         public static object DeserializeFrom(ushort opcode, Type type, MemoryStream memoryStream)
         {

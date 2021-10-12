@@ -32,43 +32,6 @@ message Actor_TransferResponse // IActorLocationResponse
   string Message = 92;
 }
 
-//ResponseType G2C_EnterMap
-message C2G_EnterMap // IRequest
-{
-  int32 RpcId = 90;
-}
-
-message G2C_EnterMap // IResponse
-{
-  int32 RpcId = 90;
-  int32 Error = 91;
-  string Message = 92;
-  // 自己的unit id
-  int64 UnitId = 1;
-  // 所有的unit
-  repeated UnitInfo Units = 2;
-}
-
-//ResponseType G2C_Ping
-message C2G_Ping // IRequest
-{
-  int32 RpcId = 90;
-}
-
-message G2C_Ping // IResponse
-{
-  int32 RpcId = 90;
-  int32 Error = 91;
-  string Message = 92;
-
-  int64 Time = 1;
-}
-
-
-message G2C_Test // IMessage
-{
-}
-
 //ResponseType M2C_Reload
 message C2M_Reload // IRequest
 {
@@ -82,80 +45,6 @@ message M2C_Reload // IResponse
   int32 RpcId = 90;
   int32 Error = 91;
   string Message = 92;
-}
-
-//ResponseType R2C_Login
-message C2R_Login // IRequest
-{
-  int32 RpcId = 90;
-  string  Account = 1;  // 帐号
-  string  Password = 2;  // 密码
-}
-
-message R2C_Login // IResponse
-{
-  int32 RpcId = 90;
-  int32 Error = 91;
-  string Message = 92;
-  string GateAddress = 1;
-  int64 Key = 2;
-  int64 GateId = 3;
-}
-
-//ResponseType R2C_Registe
-message C2R_Registe // IRequest
-{
-  int32 RpcId = 90;
-  string  Account = 1;  // 帐号
-  string  Password = 2;  // 密码
-}
-
-message R2C_Registe // IResponse
-{
-  int32 RpcId = 90;
-  int32 Error = 91;
-  string Message = 92;
-}
-
-//ResponseType G2C_LoginGate
-message C2G_LoginGate // IRequest
-{
-  int32 RpcId = 90;
-  int64 Key = 1;  // 帐号
-  int64 GateId = 2;
-}
-
-message G2C_LoginGate // IResponse
-{
-  int32 RpcId = 90;
-  int32 Error = 91;
-  string Message = 92;
-  int64 PlayerId = 1;
-  string LobbyAddress = 93;
-}
-
-
-//ResponseType L2C_LoginLobby
-message C2L_LoginLobby // IRequest
-{
-  int32 RpcId = 90;
-  int64 PlayerId = 1;  // 帐号
-}
-
-message L2C_LoginLobby // IResponse
-{
-  int32 RpcId = 90;
-  int32 Error = 91;
-  string Message = 92;
-  repeated int64 RoomHolderPlayerList = 5;
-  repeated int64 RoomIdList = 1;
-  repeated string RoomNameList = 2;
-  repeated int32 RoomPlayerNum = 3;
-}
-
-message G2C_TestHotfixMessage // IMessage
-{
-  string Info = 1;
 }
 
 //ResponseType M2C_TestRobotCase
@@ -174,106 +63,6 @@ message M2C_TestRobotCase // IActorLocationResponse
   int32 N = 1;
 }
 
-
-///////////////////////////////// 房间相关  START ///////////////////////////////////
-
-//ResponseType L2C_CreateNewRoomLobby
-message C2L_CreateNewRoomLobby // IRequest
-{
-  int32 RpcId = 90;
-  int64 PlayerId = 1;  // 帐号
-}
-
-message L2C_CreateNewRoomLobby // IResponse
-{
-  int32 RpcId = 90;
-  int32 Error = 91;
-  string Message = 92;
-  int32 RoomId = 1;
-  int32 mode = 2;
-  int32 camp = 3; //阵营，房间位置
-}
-
-//ResponseType L2C_JoinRoomLobby
-message C2L_JoinRoomLobby // IRequest
-{
-  int32 RpcId = 90;
-  int64 PlayerId = 1;  // 帐号
-  int64 RoomId = 2; //加入的房间Id
-}
-
-message L2C_JoinRoomLobby // IResponse
-{
-  int32 RpcId = 90;
-  int32 Error = 91;
-  string Message = 92;
-  int64 RoomId = 1; //加入的房间Id
-  int32 camp = 2; //阵营，房间位置
-  int64 RoomHolderId = 3;
-  string RoomName = 4;
-  repeated PlayerInfoRoom playerInfoRoom = 5;
-}
-
-message PlayerInfoRoom
-{
-  string Account = 1;
-  int64 UnitId = 2;
-  int64 SessionId = 3;
-  int64 RoomId = 4;
-  int32 camp = 5;
-  int64 playerid = 6;
-}
-
-message L2C_PlayerTriggerRoom // IActorMessage
-{
-  int32 RpcId = 90;
-  int64 ActorId = 93;
-  PlayerInfoRoom playerInfoRoom = 1;
-  bool JoinOrLeave = 2;
-}
-
-//ResponseType L2C_LeaveRoomLobby
-message C2L_LeaveRoomLobby // IRequest
-{
-  int32 RpcId = 90;
-  int64 PlayerId = 1;  // 帐号
-}
-
-message L2C_LeaveRoomLobby // IResponse
-{
-  int32 RpcId = 90;
-  int32 Error = 91;
-  string Message = 92;
-  int32 camp = 1; //阵营，房间位置
-  int64 newRoomHolder = 2; //更换房主的时候选的新房主
-  int64 RoomId = 4; // 离开的RoomId
-  int64 PlayerId = 5;
-  bool isDestory = 3;
-}
-
-message PlayerBattleInfo
-{
-  int64 PlayerId = 1;
-  int32 HeroConfig = 2;
-  repeated int32 SpriteConfigs = 3;
-}
-
-//ResponseType L2C_StartGameLobby
-message C2L_StartGameLobby // IRequest
-{
-  int32 RpcId = 90;
-  int64 PlayerId = 1;  // 帐号
-  repeated PlayerBattleInfo PlayerBattleInfos = 2;
-}
-
-message L2C_StartGameLobby // IResponse
-{
-  int32 RpcId = 90;
-  int32 Error = 91;
-  string Message = 92;
-  repeated int64 list = 1;
-}
-
 message M2C_EndBattleSettle // IActorMessage
 {
   repeated PlayerBattlePoint settleAccount = 1;
@@ -283,34 +72,6 @@ message M2C_KillEvent // IActorMessage
 {
   PlayerBattlePoint  killer = 1;
   PlayerBattlePoint  deadPlayer = 2;
-}
-
-message PlayerBattlePoint
-{
-  int64 PlayerId = 1;
-  int32 Point = 2;
-  int32 SingleMatchCount = 3;
-  string Account = 4;
-  int64 UnitId = 5;
-}
-
-
-///////////////////////////////// 房间相关  END ///////////////////////////////////
-
-//////////////////////////////// 战斗相关 START ///////////////////////////////////////
-
-message L2C_PrepareToEnterBattle  // IMessage
-{
-}
-
-message C2L_PreparedToEnterBattle // IMessage
-{
-  int64 PlayerId = 1;
-}
-
-message L2C_AllowToEnterMap // IMessage
-{
-
 }
 
 message UnitInfo
