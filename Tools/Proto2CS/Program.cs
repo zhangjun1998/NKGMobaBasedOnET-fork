@@ -83,11 +83,7 @@ namespace ET
                 {
                     string responseType = line.Split(" ")[1].TrimEnd('\r', '\n');
                     
-                    sb.AppendLine($"\t#if SERVER");
                     sb.AppendLine($"\t[ResponseType(typeof({responseType}))]");
-                    sb.AppendLine($"\t#else");
-                    sb.AppendLine($"\t[ResponseType(\"" + responseType + "\")]");
-                    sb.AppendLine($"\t#endif");
                     continue;
                 }
 

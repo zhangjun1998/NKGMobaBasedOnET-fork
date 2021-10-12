@@ -25,9 +25,7 @@ namespace ET
             Instance = this;
         }
 		
-		#if SERVER
 		[ProtoAfterDeserialization]
-        #endif
         public void AfterDeserialization()
         {
             foreach (StartProcessConfig config in list)
@@ -83,9 +81,7 @@ namespace ET
 		public string AppName { get; set; }
 
 
-#if SERVER
 		[ProtoAfterDeserialization]
-#endif
         public void AfterDeserialization()
         {
             this.EndInit();

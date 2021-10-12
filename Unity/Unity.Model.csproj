@@ -187,7 +187,6 @@
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Root.cs" />
      <Compile Include="Assets\Model\Generate\Config\AIConfig.cs" />
      <Compile Include="Assets\Model\Module\Message\MessagePool.cs" />
-     <Compile Include="Assets\Model\Module\Message\ResponseTypeAttribute.cs" />
      <Compile Include="Assets\Model\Module\Config\IConfig.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\DataModifiers\ConstantModifier.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\Component\UserInputComponent.cs" />
@@ -320,6 +319,7 @@
      <Compile Include="Assets\Model\Core\Object\ObjectPool.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Decorator\Failer.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\BuffData\ReplaceAttackBuffData.cs" />
+     <Compile Include="Assets\Model\Module\Message\ResponseTypeAttribute.cs" />
      <None Include="Assets\Model\csc.rsp" />
      <None Include="Assets\Model\Unity.Model.asmdef" />
  <Reference Include="UnityEngine">

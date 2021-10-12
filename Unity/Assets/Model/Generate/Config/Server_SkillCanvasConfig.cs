@@ -25,9 +25,7 @@ namespace ET
             Instance = this;
         }
 		
-		#if SERVER
 		[ProtoAfterDeserialization]
-        #endif
         public void AfterDeserialization()
         {
             foreach (Server_SkillCanvasConfig config in list)
@@ -81,9 +79,7 @@ namespace ET
 		public long BelongToSkillId { get; set; }
 
 
-#if SERVER
 		[ProtoAfterDeserialization]
-#endif
         public void AfterDeserialization()
         {
             this.EndInit();

@@ -25,9 +25,7 @@ namespace ET
             Instance = this;
         }
 		
-		#if SERVER
 		[ProtoAfterDeserialization]
-        #endif
         public void AfterDeserialization()
         {
             foreach (UnitAttributesDataConfig config in list)
@@ -79,9 +77,7 @@ namespace ET
 		public long UnitAttributesDataSupportorId { get; set; }
 
 
-#if SERVER
 		[ProtoAfterDeserialization]
-#endif
         public void AfterDeserialization()
         {
             this.EndInit();

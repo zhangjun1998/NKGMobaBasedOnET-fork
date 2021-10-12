@@ -25,9 +25,7 @@ namespace ET
             Instance = this;
         }
 		
-		#if SERVER
 		[ProtoAfterDeserialization]
-        #endif
         public void AfterDeserialization()
         {
             foreach (AIConfig config in list)
@@ -85,9 +83,7 @@ namespace ET
 		public int[] NodeParams { get; set; }
 
 
-#if SERVER
 		[ProtoAfterDeserialization]
-#endif
         public void AfterDeserialization()
         {
             this.EndInit();

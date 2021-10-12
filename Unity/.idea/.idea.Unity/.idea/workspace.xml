@@ -23,15 +23,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f1715052-b88e-4a65-9b40-1aa413711389" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../Server/Model/Generate/Message/InnerMessage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Model/Generate/Message/InnerMessage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Model/Generate/Message/OuterMessage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Model/Generate/Message/OuterMessage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Model/Module/Message/ResponseTypeAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Model/Module/Message/ResponseTypeAttribute.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Tools/ExcelExporter/Template.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Tools/ExcelExporter/Template.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Tools/Proto2CS/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Tools/Proto2CS/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Unity/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unity/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Editor/ExcelExport/ExcelExport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/ExcelExport/ExcelExport.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Editor/ILRuntimeEditor/ILRuntimeCLRBinding.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/ILRuntimeEditor/ILRuntimeCLRBinding.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Editor/ILRuntimeEditor/ILRuntimeCrossBinding.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/ILRuntimeEditor/ILRuntimeCrossBinding.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Editor/Proto2CS/Proto2CS.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/Proto2CS/Proto2CS.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Editor/RecastNavDataExporter/NavMeshExporter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/RecastNavDataExporter/NavMeshExporter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/B2S_MapColliderExport/B2S_MapDataExportEditorWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/B2S_MapColliderExport/B2S_MapDataExportEditorWindow.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Box2DSharpVisual/Editor/B2S_ColliderEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Box2DSharpVisual/Editor/B2S_ColliderEditor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/MonKey Commander/Editor/Settings/MonKey Settings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/MonKey Commander/Editor/Settings/MonKey Settings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/Generate/Message/OuterMessage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/Generate/Message/OuterMessage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/Module/Message/OpcodeTypeComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/Module/Message/OpcodeTypeComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/Module/Message/ResponseTypeAttribute.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/Module/Message/ResponseTypeAttribute.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.dll.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.dll.bytes" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.pdb.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.pdb.bytes" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Res/Code/HotfixView.dll.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/HotfixView.dll.bytes" afterDir="false" />
@@ -40,6 +41,7 @@
       <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Model.pdb.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Model.pdb.bytes" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Res/Code/ModelView.dll.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/ModelView.dll.bytes" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Res/Code/ModelView.pdb.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/ModelView.pdb.bytes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Unity.Model.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Unity.Model.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,6 +81,7 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.1.0/Unity.Mathematics/double4x4.gen.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/Canvas/CanvasSizeCorrectInAwakeAndStart.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.1.0/Unity.Mathematics/math_unity_conversion.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Data/Nodes/Mesh Deformation/LinearBlendSkinningNode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.pixel-perfect@2.1.0/Editor/PixelPerfectCameraEditor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/31d305faaf064ceea3e8553b56953c7d22248/26/79377870/Vector2.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_LineInfo.cs" root0="SKIP_HIGHLIGHTING" />
@@ -182,6 +185,8 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@10.6.0/Editor/LookDev/ComparisonGizmoController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Data/Graphs/Texture2DArrayShaderProperty.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.rider@2.0.7/Rider/Editor/EditorPluginInterop.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@10.6.0/Editor/2D/Renderer2DDataEditor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Data/Nodes/Input/Lighting/AmbientNode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/af218701fe324032b521ddd91f13662b13b600/4d/6be4bab2/Gizmos.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Editor/UI/ButtonEditor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/TMPro_FontPlugin.cs" root0="SKIP_HIGHLIGHTING" />
@@ -203,6 +208,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d0e4b8c1204147f3935b6e9c8b8565ad75fe00/f0/1c0c3109/MaterialProperty.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Signals/SignalEventDrawer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@10.6.0/Editor/ShaderGraph/UniversalStructs.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.test-framework@1.1.27/UnityEngine.TestRunner/NUnitExtensions/Runner/RestoreTestContextAfterDomainReload.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Signals/TreeView/SignalReceiverTreeView.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Data/Nodes/Math/Range/OneMinusNode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.rider@2.0.7/Rider/Editor/ProjectGeneration/ProjectGeneration.cs" root0="SKIP_HIGHLIGHTING" />
@@ -361,7 +367,7 @@
       <workItem from="1633658996395" duration="3786000" />
       <workItem from="1633752729492" duration="17610000" />
       <workItem from="1633784649700" duration="2199000" />
-      <workItem from="1634037533214" duration="615000" />
+      <workItem from="1634037533214" duration="1305000" />
     </task>
     <servers />
   </component>

@@ -6,11 +6,7 @@ namespace ET
 /// <summary>
 /// 传送unit
 /// </summary>
-	#if SERVER
 	[ResponseType(typeof(M2M_TrasferUnitResponse))]
-	#else
-	[ResponseType("M2M_TrasferUnitResponse")]
-	#endif
 	[Message(InnerOpcode.M2M_TrasferUnitRequest)]
 	[ProtoContract]
 	public partial class M2M_TrasferUnitRequest: Object, IActorRequest
@@ -44,11 +40,7 @@ namespace ET
 
 	}
 
-	#if SERVER
 	[ResponseType(typeof(A2M_Reload))]
-	#else
-	[ResponseType("A2M_Reload")]
-	#endif
 	[Message(InnerOpcode.M2A_Reload)]
 	[ProtoContract]
 	public partial class M2A_Reload: Object, IActorRequest
@@ -76,11 +68,7 @@ namespace ET
 
 	}
 
-	#if SERVER
 	[ResponseType(typeof(G2G_LockResponse))]
-	#else
-	[ResponseType("G2G_LockResponse")]
-	#endif
 	[Message(InnerOpcode.G2G_LockRequest)]
 	[ProtoContract]
 	public partial class G2G_LockRequest: Object, IActorRequest
@@ -114,11 +102,7 @@ namespace ET
 
 	}
 
-	#if SERVER
 	[ResponseType(typeof(G2G_LockReleaseResponse))]
-	#else
-	[ResponseType("G2G_LockReleaseResponse")]
-	#endif
 	[Message(InnerOpcode.G2G_LockReleaseRequest)]
 	[ProtoContract]
 	public partial class G2G_LockReleaseRequest: Object, IActorRequest
@@ -152,11 +136,7 @@ namespace ET
 
 	}
 
-	#if SERVER
 	[ResponseType(typeof(ObjectAddResponse))]
-	#else
-	[ResponseType("ObjectAddResponse")]
-	#endif
 	[Message(InnerOpcode.ObjectAddRequest)]
 	[ProtoContract]
 	public partial class ObjectAddRequest: Object, IActorRequest
@@ -190,11 +170,7 @@ namespace ET
 
 	}
 
-	#if SERVER
 	[ResponseType(typeof(ObjectLockResponse))]
-	#else
-	[ResponseType("ObjectLockResponse")]
-	#endif
 	[Message(InnerOpcode.ObjectLockRequest)]
 	[ProtoContract]
 	public partial class ObjectLockRequest: Object, IActorRequest
@@ -231,11 +207,7 @@ namespace ET
 
 	}
 
-	#if SERVER
 	[ResponseType(typeof(ObjectUnLockResponse))]
-	#else
-	[ResponseType("ObjectUnLockResponse")]
-	#endif
 	[Message(InnerOpcode.ObjectUnLockRequest)]
 	[ProtoContract]
 	public partial class ObjectUnLockRequest: Object, IActorRequest
@@ -272,11 +244,7 @@ namespace ET
 
 	}
 
-	#if SERVER
 	[ResponseType(typeof(ObjectRemoveResponse))]
-	#else
-	[ResponseType("ObjectRemoveResponse")]
-	#endif
 	[Message(InnerOpcode.ObjectRemoveRequest)]
 	[ProtoContract]
 	public partial class ObjectRemoveRequest: Object, IActorRequest
@@ -307,11 +275,7 @@ namespace ET
 
 	}
 
-	#if SERVER
 	[ResponseType(typeof(ObjectGetResponse))]
-	#else
-	[ResponseType("ObjectGetResponse")]
-	#endif
 	[Message(InnerOpcode.ObjectGetRequest)]
 	[ProtoContract]
 	public partial class ObjectGetRequest: Object, IActorRequest
@@ -345,11 +309,7 @@ namespace ET
 
 	}
 
-	#if SERVER
 	[ResponseType(typeof(G2R_GetLoginKey))]
-	#else
-	[ResponseType("G2R_GetLoginKey")]
-	#endif
 	[Message(InnerOpcode.R2G_GetLoginKey)]
 	[ProtoContract]
 	public partial class R2G_GetLoginKey: Object, IActorRequest
@@ -386,11 +346,7 @@ namespace ET
 
 	}
 
-	#if SERVER
 	[ResponseType(typeof(L2G_GetRoomId))]
-	#else
-	[ResponseType("L2G_GetRoomId")]
-	#endif
 	[Message(InnerOpcode.G2L_GetRoomId)]
 	[ProtoContract]
 	public partial class G2L_GetRoomId: Object, IActorRequest
@@ -421,11 +377,7 @@ namespace ET
 
 	}
 
-	#if SERVER
 	[ResponseType(typeof(M2L_CreateHeroUnit))]
-	#else
-	[ResponseType("M2L_CreateHeroUnit")]
-	#endif
 	[Message(InnerOpcode.L2M_CreateHeroUnit)]
 	[ProtoContract]
 	public partial class L2M_CreateHeroUnit: Object, IActorRequest
@@ -487,11 +439,7 @@ namespace ET
 
 	}
 
-	#if SERVER
 	[ResponseType(typeof(M2L_PreparedToEnterBattle))]
-	#else
-	[ResponseType("M2L_PreparedToEnterBattle")]
-	#endif
 	[Message(InnerOpcode.L2M_PreparedToEnterBattle)]
 	[ProtoContract]
 	public partial class L2M_PreparedToEnterBattle: Object, IActorRequest

@@ -1,17 +1,13 @@
-#if !SERVER
-using System;
-
+﻿using System;
 namespace ET
 {
     public class ResponseTypeAttribute: BaseAttribute
     {
-        public string Type { get; }
+        public Type Type { get; }
 
-        public ResponseTypeAttribute(string type)
+        public ResponseTypeAttribute(Type type)
         {
             this.Type = type;
         }
     }
 }
-#endif
-

@@ -80,12 +80,7 @@ namespace ET
                     }
 
                     ResponseTypeAttribute responseTypeAttribute = attrs[0] as ResponseTypeAttribute;
-
-#if SERVER
                     this.requestResponse.Add(type,responseTypeAttribute.Type);
-#else          
-                    this.requestResponse.Add(type,Type.GetType(responseTypeAttribute.Type));
-#endif
                 }
             }
         }

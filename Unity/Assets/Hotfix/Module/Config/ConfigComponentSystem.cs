@@ -65,11 +65,7 @@ namespace ET
 		{
 			byte[] oneConfigBytes = configBytes[configType.Name];
 			object category = ProtobufHelper.FromBytes(configType, oneConfigBytes, 0, oneConfigBytes.Length);
-
-#if !SERVER
-			MethodInfo methodInfo = category.GetType().GetMethod("AfterDeserialization");
-			methodInfo?.Invoke(category,null);
-#endif
+			
 			lock (self)
 			{
 				self.AllConfig[configType] = category;	

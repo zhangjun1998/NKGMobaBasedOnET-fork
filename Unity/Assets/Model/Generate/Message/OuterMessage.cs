@@ -3,11 +3,7 @@ using ProtoBuf;
 using System.Collections.Generic;
 namespace ET
 {
-	#if SERVER
 	[ResponseType(typeof(M2C_TestResponse))]
-	#else
-	[ResponseType("M2C_TestResponse")]
-	#endif
 	[Message(OuterOpcode.C2M_TestRequest)]
 	[ProtoContract]
 	public partial class C2M_TestRequest: Object, IActorLocationRequest
@@ -41,11 +37,7 @@ namespace ET
 
 	}
 
-	#if SERVER
 	[ResponseType(typeof(Actor_TransferResponse))]
-	#else
-	[ResponseType("Actor_TransferResponse")]
-	#endif
 	[Message(OuterOpcode.Actor_TransferRequest)]
 	[ProtoContract]
 	public partial class Actor_TransferRequest: Object, IActorLocationRequest
@@ -76,11 +68,7 @@ namespace ET
 
 	}
 
-	#if SERVER
 	[ResponseType(typeof(G2C_EnterMap))]
-	#else
-	[ResponseType("G2C_EnterMap")]
-	#endif
 	[Message(OuterOpcode.C2G_EnterMap)]
 	[ProtoContract]
 	public partial class C2G_EnterMap: Object, IRequest
@@ -115,11 +103,7 @@ namespace ET
 
 	}
 
-	#if SERVER
 	[ResponseType(typeof(G2C_Ping))]
-	#else
-	[ResponseType("G2C_Ping")]
-	#endif
 	[Message(OuterOpcode.C2G_Ping)]
 	[ProtoContract]
 	public partial class C2G_Ping: Object, IRequest
@@ -153,11 +137,7 @@ namespace ET
 	{
 	}
 
-	#if SERVER
 	[ResponseType(typeof(M2C_Reload))]
-	#else
-	[ResponseType("M2C_Reload")]
-	#endif
 	[Message(OuterOpcode.C2M_Reload)]
 	[ProtoContract]
 	public partial class C2M_Reload: Object, IRequest
@@ -188,11 +168,7 @@ namespace ET
 
 	}
 
-	#if SERVER
 	[ResponseType(typeof(R2C_Login))]
-	#else
-	[ResponseType("R2C_Login")]
-	#endif
 	[Message(OuterOpcode.C2R_Login)]
 	[ProtoContract]
 	public partial class C2R_Login: Object, IRequest
@@ -232,11 +208,7 @@ namespace ET
 
 	}
 
-	#if SERVER
 	[ResponseType(typeof(R2C_Registe))]
-	#else
-	[ResponseType("R2C_Registe")]
-	#endif
 	[Message(OuterOpcode.C2R_Registe)]
 	[ProtoContract]
 	public partial class C2R_Registe: Object, IRequest
@@ -267,11 +239,7 @@ namespace ET
 
 	}
 
-	#if SERVER
 	[ResponseType(typeof(G2C_LoginGate))]
-	#else
-	[ResponseType("G2C_LoginGate")]
-	#endif
 	[Message(OuterOpcode.C2G_LoginGate)]
 	[ProtoContract]
 	public partial class C2G_LoginGate: Object, IRequest
@@ -308,11 +276,7 @@ namespace ET
 
 	}
 
-	#if SERVER
 	[ResponseType(typeof(L2C_LoginLobby))]
-	#else
-	[ResponseType("L2C_LoginLobby")]
-	#endif
 	[Message(OuterOpcode.C2L_LoginLobby)]
 	[ProtoContract]
 	public partial class C2L_LoginLobby: Object, IRequest
@@ -361,11 +325,7 @@ namespace ET
 
 	}
 
-	#if SERVER
 	[ResponseType(typeof(M2C_TestRobotCase))]
-	#else
-	[ResponseType("M2C_TestRobotCase")]
-	#endif
 	[Message(OuterOpcode.C2M_TestRobotCase)]
 	[ProtoContract]
 	public partial class C2M_TestRobotCase: Object, IActorLocationRequest
@@ -400,11 +360,7 @@ namespace ET
 	}
 
 ///////////////////////////////// 房间相关  START ///////////////////////////////////
-	#if SERVER
 	[ResponseType(typeof(L2C_CreateNewRoomLobby))]
-	#else
-	[ResponseType("L2C_CreateNewRoomLobby")]
-	#endif
 	[Message(OuterOpcode.C2L_CreateNewRoomLobby)]
 	[ProtoContract]
 	public partial class C2L_CreateNewRoomLobby: Object, IRequest
@@ -441,11 +397,7 @@ namespace ET
 
 	}
 
-	#if SERVER
 	[ResponseType(typeof(L2C_JoinRoomLobby))]
-	#else
-	[ResponseType("L2C_JoinRoomLobby")]
-	#endif
 	[Message(OuterOpcode.C2L_JoinRoomLobby)]
 	[ProtoContract]
 	public partial class C2L_JoinRoomLobby: Object, IRequest
@@ -533,11 +485,7 @@ namespace ET
 
 	}
 
-	#if SERVER
 	[ResponseType(typeof(L2C_LeaveRoomLobby))]
-	#else
-	[ResponseType("L2C_LeaveRoomLobby")]
-	#endif
 	[Message(OuterOpcode.C2L_LeaveRoomLobby)]
 	[ProtoContract]
 	public partial class C2L_LeaveRoomLobby: Object, IRequest
@@ -595,11 +543,7 @@ namespace ET
 
 	}
 
-	#if SERVER
 	[ResponseType(typeof(L2C_StartGameLobby))]
-	#else
-	[ResponseType("L2C_StartGameLobby")]
-	#endif
 	[Message(OuterOpcode.C2L_StartGameLobby)]
 	[ProtoContract]
 	public partial class C2L_StartGameLobby: Object, IRequest
