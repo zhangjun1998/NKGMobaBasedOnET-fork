@@ -4,13 +4,14 @@
 // Data: 2021年9月1日 21:27:41
 //------------------------------------------------------------
 
+using MonKey;
 using UnityEditor;
 
 namespace ET
 {
     public class ExcelExport
     {
-        [MenuItem("Tools/Excel配置表导出")]
+        [Command("ETEditor_DoExcelExport", "Excel配置表导出", Category = "ETEditor")]
         public static void DoExcelExport()
         {
             ProcessHelper.Run("ExcelExporter.exe", "", "../Tools/ExcelExporter/Bin/");

@@ -22,33 +22,33 @@ using UnityEngine;
 
 namespace ET
 {
-    public class B2S_ColliderEditor: OdinEditorWindow
+    public class B2S_ColliderEditor : OdinEditorWindow
     {
         [Required("需要一个画线驱动者，请场景中创建一个空物体，命名为Box2DDebuggerHandler，并挂载B2S_DebuggerHandler.cs脚本")]
         [LabelText("画线管理者")]
         [TabGroup("Special", "主持人")]
         public B2S_DebuggerHandler MB2SDebuggerHandler;
 
-        [TabGroup("Test/矩形", "编辑数据")]
-        [HideLabel]
+        [TabGroup("Test/矩形", "编辑数据")] [HideLabel]
         public B2S_BoxColliderVisualHelper MB2SBoxColliderVisualHelper;
 
-        [TabGroup("Test/圆形", "编辑数据")]
-        [HideLabel]
+        [TabGroup("Test/圆形", "编辑数据")] [HideLabel]
         public B2S_CircleColliderVisualHelper MB2SCircleColliderVisualHelper;
 
-        [TabGroup("Test/多边形", "编辑数据")]
-        [HideLabel]
+        [TabGroup("Test/多边形", "编辑数据")] [HideLabel]
         public B2S_PolygonColliderVisualHelper MB2SPolygonColliderVisualHelper;
 
         [TabGroup("Test/矩形/☆导出数据(Debug用)", "名称与ID映射")]
-        public ColliderNameAndIdInflectSupporter BoxColliderNameAndIdInflectSupporter = new ColliderNameAndIdInflectSupporter();
+        public ColliderNameAndIdInflectSupporter BoxColliderNameAndIdInflectSupporter =
+            new ColliderNameAndIdInflectSupporter();
 
         [TabGroup("Test/圆形/☆导出数据(Debug用)", "名称与ID映射")]
-        public ColliderNameAndIdInflectSupporter CircleColliderNameAndIdInflectSupporter = new ColliderNameAndIdInflectSupporter();
+        public ColliderNameAndIdInflectSupporter CircleColliderNameAndIdInflectSupporter =
+            new ColliderNameAndIdInflectSupporter();
 
         [TabGroup("Test/多边形/☆导出数据(Debug用)", "名称与ID映射")]
-        public ColliderNameAndIdInflectSupporter PolygonColliderNameAndIdInflectSupporter = new ColliderNameAndIdInflectSupporter();
+        public ColliderNameAndIdInflectSupporter PolygonColliderNameAndIdInflectSupporter =
+            new ColliderNameAndIdInflectSupporter();
 
         [TabGroup("Test/矩形/☆导出数据(Debug用)", "碰撞数据")]
         public ColliderDataSupporter BoxColliderDataSupporter = new ColliderDataSupporter();
@@ -59,8 +59,7 @@ namespace ET
         [TabGroup("Test/多边形/☆导出数据(Debug用)", "碰撞数据")]
         public ColliderDataSupporter PolygonColliderDataSupporter = new ColliderDataSupporter();
 
-        [TabGroup("Test", "使用视频教程地址")]
-        public string Teach = "https://www.bilibili.com/video/av61062760";
+        [TabGroup("Test", "使用视频教程地址")] public string Teach = "https://www.bilibili.com/video/av61062760";
 
         /// <summary>
         /// 名称ID保存地址
@@ -77,9 +76,10 @@ namespace ET
             "BoxColliderNameAndIdInflect", "CircleColliderNameAndIdInflect", "PolygonColliderNameAndIdInflect"
         };
 
-        private List<string> colliderDataName = new List<string>() { "BoxColliderData", "CircleColliderData", "PolygonColliderData" };
+        private List<string> colliderDataName = new List<string>()
+            {"BoxColliderData", "CircleColliderData", "PolygonColliderData"};
 
-        [Command("ETEditor_B2S_ColliderEditor","Box2D可视化编辑器")]
+        [Command("ETEditor_B2S_ColliderEditor", "Box2D可视化编辑器", Category = "ETEditor")]
         private static void OpenWindow()
         {
             var window = GetWindow<B2S_ColliderEditor>();
@@ -94,11 +94,14 @@ namespace ET
             this.MB2SDebuggerHandler = GameObject.Find("Box2DDebuggerHandler").GetComponent<B2S_DebuggerHandler>();
 
             this.MB2SBoxColliderVisualHelper =
-                    new B2S_BoxColliderVisualHelper(this.BoxColliderNameAndIdInflectSupporter, this.BoxColliderDataSupporter);
+                new B2S_BoxColliderVisualHelper(this.BoxColliderNameAndIdInflectSupporter,
+                    this.BoxColliderDataSupporter);
             this.MB2SCircleColliderVisualHelper =
-                    new B2S_CircleColliderVisualHelper(this.CircleColliderNameAndIdInflectSupporter, this.CircleColliderDataSupporter);
+                new B2S_CircleColliderVisualHelper(this.CircleColliderNameAndIdInflectSupporter,
+                    this.CircleColliderDataSupporter);
             this.MB2SPolygonColliderVisualHelper =
-                    new B2S_PolygonColliderVisualHelper(this.PolygonColliderNameAndIdInflectSupporter, this.PolygonColliderDataSupporter);
+                new B2S_PolygonColliderVisualHelper(this.PolygonColliderNameAndIdInflectSupporter,
+                    this.PolygonColliderDataSupporter);
 
             this.MB2SBoxColliderVisualHelper.InitColliderBaseInfo();
             this.MB2SCircleColliderVisualHelper.InitColliderBaseInfo();
@@ -127,27 +130,33 @@ namespace ET
         {
             if (File.Exists($"{this.ColliderNameAndIdInflectSavePath}/{this.colliderNameAndIdInflectName[0]}.bytes"))
             {
-                byte[] mfile0 = File.ReadAllBytes($"{this.ColliderNameAndIdInflectSavePath}/{this.colliderNameAndIdInflectName[0]}.bytes");
+                byte[] mfile0 =
+                    File.ReadAllBytes(
+                        $"{this.ColliderNameAndIdInflectSavePath}/{this.colliderNameAndIdInflectName[0]}.bytes");
                 //这里不进行长度判断会报错，正在试图访问一个已经关闭的流，咱也不懂，咱也不敢问
                 if (mfile0.Length > 0)
                     this.BoxColliderNameAndIdInflectSupporter =
-                            BsonSerializer.Deserialize<ColliderNameAndIdInflectSupporter>(mfile0);
+                        BsonSerializer.Deserialize<ColliderNameAndIdInflectSupporter>(mfile0);
             }
 
             if (File.Exists($"{this.ColliderNameAndIdInflectSavePath}/{this.colliderNameAndIdInflectName[1]}.bytes"))
             {
-                byte[] mfile1 = File.ReadAllBytes($"{this.ColliderNameAndIdInflectSavePath}/{this.colliderNameAndIdInflectName[1]}.bytes");
+                byte[] mfile1 =
+                    File.ReadAllBytes(
+                        $"{this.ColliderNameAndIdInflectSavePath}/{this.colliderNameAndIdInflectName[1]}.bytes");
                 if (mfile1.Length > 0)
                     this.CircleColliderNameAndIdInflectSupporter =
-                            BsonSerializer.Deserialize<ColliderNameAndIdInflectSupporter>(mfile1);
+                        BsonSerializer.Deserialize<ColliderNameAndIdInflectSupporter>(mfile1);
             }
 
             if (File.Exists($"{this.ColliderNameAndIdInflectSavePath}/{this.colliderNameAndIdInflectName[2]}.bytes"))
             {
-                byte[] mfile2 = File.ReadAllBytes($"{this.ColliderNameAndIdInflectSavePath}/{this.colliderNameAndIdInflectName[2]}.bytes");
+                byte[] mfile2 =
+                    File.ReadAllBytes(
+                        $"{this.ColliderNameAndIdInflectSavePath}/{this.colliderNameAndIdInflectName[2]}.bytes");
                 if (mfile2.Length > 0)
                     this.PolygonColliderNameAndIdInflectSupporter =
-                            BsonSerializer.Deserialize<ColliderNameAndIdInflectSupporter>(mfile2);
+                        BsonSerializer.Deserialize<ColliderNameAndIdInflectSupporter>(mfile2);
             }
         }
 
@@ -156,10 +165,10 @@ namespace ET
         /// </summary>
         private void ReadcolliderData()
         {
-            Type[] types = typeof (ColliderDataSupporter).Assembly.GetTypes();
+            Type[] types = typeof(ColliderDataSupporter).Assembly.GetTypes();
             foreach (Type type in types)
             {
-                if (!type.IsSubclassOf(typeof (B2S_ColliderDataStructureBase)))
+                if (!type.IsSubclassOf(typeof(B2S_ColliderDataStructureBase)))
                 {
                     continue;
                 }
@@ -173,7 +182,7 @@ namespace ET
                 //这里不进行长度判断会报错，正在试图访问一个已经关闭的流，咱也不懂，咱也不敢问
                 if (mfile0.Length > 0)
                     this.BoxColliderDataSupporter =
-                            BsonSerializer.Deserialize<ColliderDataSupporter>(mfile0);
+                        BsonSerializer.Deserialize<ColliderDataSupporter>(mfile0);
             }
 
             if (File.Exists($"{this.ColliderDataSavePath}/{this.colliderDataName[1]}.bytes"))
@@ -181,7 +190,7 @@ namespace ET
                 byte[] mfile1 = File.ReadAllBytes($"{this.ColliderDataSavePath}/{this.colliderDataName[1]}.bytes");
                 if (mfile1.Length > 0)
                     this.CircleColliderDataSupporter =
-                            BsonSerializer.Deserialize<ColliderDataSupporter>(mfile1);
+                        BsonSerializer.Deserialize<ColliderDataSupporter>(mfile1);
             }
 
             if (File.Exists($"{this.ColliderDataSavePath}/{this.colliderDataName[2]}.bytes"))
@@ -190,7 +199,7 @@ namespace ET
                 if (mfile2.Length > 0)
                 {
                     this.PolygonColliderDataSupporter =
-                            BsonSerializer.Deserialize<ColliderDataSupporter>(mfile2);
+                        BsonSerializer.Deserialize<ColliderDataSupporter>(mfile2);
                 }
             }
         }

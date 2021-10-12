@@ -4,14 +4,15 @@
 // Data: 2021年9月1日 21:53:23
 //------------------------------------------------------------
 
+using MonKey;
 using UnityEditor;
 
 namespace ET
 {
     public class Proto2CS
     {
-        [MenuItem("Tools/PB协议导出")]
-        public static void DoExcelExport()
+        [Command("ETEditor_Proto2CS", "PB协议导出", Category = "ETEditor")]
+        public static void DoProto2CS()
         {
             ProcessHelper.Run("Proto2CS.exe", "", "../Tools/Proto2CS/Bin/");
         }

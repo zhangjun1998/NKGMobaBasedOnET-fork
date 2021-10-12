@@ -24,14 +24,22 @@
   <component name="ChangeListManager">
     <list default="true" id="f1715052-b88e-4a65-9b40-1aa413711389" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Unity/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unity/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Editor/BuildEditor/BuildAssemblieEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/BuildEditor/BuildAssemblieEditor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Model/NKGMOBA/Helper/MongoHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/NKGMOBA/Helper/MongoHelper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ModelView/NKGMOBA/InitEntry.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ModelView/NKGMOBA/InitEntry.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Mono/ILHotfix/HotfixHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mono/ILHotfix/HotfixHelper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Mono/MonoBehaviour/Init.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mono/MonoBehaviour/Init.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Editor/ExcelExport/ExcelExport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/ExcelExport/ExcelExport.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Editor/ILRuntimeEditor/ILRuntimeCLRBinding.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/ILRuntimeEditor/ILRuntimeCLRBinding.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Editor/ILRuntimeEditor/ILRuntimeCrossBinding.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/ILRuntimeEditor/ILRuntimeCrossBinding.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Editor/Proto2CS/Proto2CS.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/Proto2CS/Proto2CS.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Editor/RecastNavDataExporter/NavMeshExporter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/RecastNavDataExporter/NavMeshExporter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/B2S_MapColliderExport/B2S_MapDataExportEditorWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/B2S_MapColliderExport/B2S_MapDataExportEditorWindow.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Box2DSharpVisual/Editor/B2S_ColliderEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Box2DSharpVisual/Editor/B2S_ColliderEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/MonKey Commander/Editor/Settings/MonKey Settings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/MonKey Commander/Editor/Settings/MonKey Settings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.dll.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.dll.bytes" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.pdb.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.pdb.bytes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity.Hotfix.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Unity.Hotfix.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/HotfixView.dll.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/HotfixView.dll.bytes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/HotfixView.pdb.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/HotfixView.pdb.bytes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Model.dll.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Model.dll.bytes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Model.pdb.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Model.pdb.bytes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/ModelView.dll.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/ModelView.dll.bytes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/ModelView.pdb.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/ModelView.pdb.bytes" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -353,6 +361,7 @@
       <workItem from="1633658996395" duration="3786000" />
       <workItem from="1633752729492" duration="17610000" />
       <workItem from="1633784649700" duration="2199000" />
+      <workItem from="1634037533214" duration="615000" />
     </task>
     <servers />
   </component>

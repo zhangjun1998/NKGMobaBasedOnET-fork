@@ -2,6 +2,7 @@
 using System.IO;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
+using MonKey;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
@@ -21,7 +22,7 @@ namespace ET
 
         private B2S_MapColliderDrawer m_B2S_MapColliderDrawer;
 
-        [MenuItem("Tools/地图碰撞数据导出")]
+        [Command("ETEditor_Box2DMapDataExport","地图碰撞数据导出",Category = "ETEditor")]
         public static void OpenBox2DMapDataExportWindow()
         {
             var window = GetWindow<B2S_MapDataExportEditorWindow>();
