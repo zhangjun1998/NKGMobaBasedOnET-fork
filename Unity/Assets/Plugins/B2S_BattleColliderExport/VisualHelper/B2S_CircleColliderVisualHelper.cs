@@ -4,6 +4,9 @@
 // Data: 2019年7月10日 21:01:36
 //------------------------------------------------------------
 
+#if UNITY_EDITOR
+
+
 using System.IO;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
@@ -16,28 +19,21 @@ namespace ET
     /// <summary>
     /// 圆形可视化辅助
     /// </summary>
-    public class B2S_CircleColliderVisualHelper: B2S_ColliderVisualHelperBase
+    public class B2S_CircleColliderVisualHelper : B2S_ColliderVisualHelperBase
     {
-        [DisableInEditorMode]
-        [LabelText("映射文件名称")]
+        [DisableInEditorMode] [LabelText("映射文件名称")]
         public string NameAndIdInflectFileName = "CircleColliderNameAndIdInflect";
 
-        [DisableInEditorMode]
-        [LabelText("碰撞数据文件名称")]
+        [DisableInEditorMode] [LabelText("碰撞数据文件名称")]
         public string ColliderDataFileName = "CircleColliderData";
 
-        [InlineEditor]
-        [Required("需要至少一个Unity2D圆形碰撞器")]
-        [HideLabel]
-        [BsonIgnore]
+        [InlineEditor][DisableInEditorMode] [Required("需要至少一个Unity2D圆形碰撞器")] [HideLabel] [BsonIgnore]
         public CircleCollider2D mCollider2D;
 
         [LabelText("圆形碰撞体数据")]
         public B2S_CircleColliderDataStructure MB2S_CircleColliderDataStructure = new B2S_CircleColliderDataStructure();
 
-        [BsonIgnore]
-        [LabelText("圆线段数")]
-        public int Segments;
+        [BsonIgnore] [LabelText("圆线段数")] public int Segments = 66;
 
         public override void InitColliderBaseInfo()
         {
@@ -47,9 +43,11 @@ namespace ET
         [Button("重新绘制圆形碰撞体", 25), GUIColor(0.2f, 0.9f, 1.0f)]
         public override void InitPointInfo()
         {
-            matrix4X4 = Matrix4x4.TRS(theObjectWillBeEdited.transform.position, theObjectWillBeEdited.transform.rotation,
-                theObjectWillBeEdited.transform.parent.localScale);
-            this.MB2S_CircleColliderDataStructure.radius = this.mCollider2D.radius * this.theObjectWillBeEdited.transform.parent.localScale.x;
+            matrix4X4 = Matrix4x4.TRS(theObjectWillBeEdited.transform.position,
+                theObjectWillBeEdited.transform.rotation,
+                theObjectWillBeEdited.transform.localScale);
+            this.MB2S_CircleColliderDataStructure.radius =
+                this.mCollider2D.radius * this.theObjectWillBeEdited.transform.localScale.x;
             MB2S_CircleColliderDataStructure.finalOffset.X = this.mCollider2D.offset.x;
             MB2S_CircleColliderDataStructure.finalOffset.Y = this.mCollider2D.offset.y;
             this.canDraw = true;
@@ -57,32 +55,32 @@ namespace ET
 
         public override void DrawCollider()
         {
-            Vector3 tempVector3 = Vector3.forward * mCollider2D.radius;
-
-            var originFrom = new Vector2(tempVector3.x + mCollider2D.offset.x,
-                tempVector3.y + mCollider2D.offset.y);
-            Vector3 finalFrom = matrix4X4.MultiplyPoint(new Vector3(originFrom.x, 0, originFrom.y));
+            // 圆上一点相对于正前方的圆心偏移
+            Vector3 oriOffset = Vector3.right * mCollider2D.radius;
+            Vector3 tempVector3 = matrix4X4.MultiplyPoint(new Vector3(oriOffset.x + mCollider2D.offset.x,
+                oriOffset.y + mCollider2D.offset.y, 0));
+            Vector3 originFrom = tempVector3;
 
             var step = Mathf.RoundToInt(360 / Segments);
             for (int i = 0; i <= 360; i += step)
             {
-                tempVector3 = new Vector3(mCollider2D.radius * Mathf.Sin(i * Mathf.Deg2Rad),
-                    mCollider2D.radius * Mathf.Cos(i * Mathf.Deg2Rad));
+                originFrom = tempVector3;
+                tempVector3 = new Vector3(mCollider2D.radius * Mathf.Cos(i * Mathf.Deg2Rad),
+                    mCollider2D.radius * Mathf.Sin(i * Mathf.Deg2Rad), 0);
 
-                var originTo = new Vector2(tempVector3.x + mCollider2D.offset.x,
-                    tempVector3.y + mCollider2D.offset.y);
                 var finalTo =
-                        matrix4X4.MultiplyPoint(new Vector3(originTo.x, 0, originTo.y));
+                    matrix4X4.MultiplyPoint(new Vector3(tempVector3.x, tempVector3.y, 0));
 
-                Gizmos.DrawLine(finalFrom, finalTo);
-                finalFrom = finalTo;
+                Gizmos.DrawLine(originFrom, finalTo);
+                tempVector3 = finalTo;
             }
         }
 
         [Button("保存所有圆形碰撞体名称与ID映射信息", 25), GUIColor(0.2f, 0.9f, 1.0f)]
         public override void SavecolliderNameAndIdInflect()
         {
-            if (!this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.ContainsKey(this.theObjectWillBeEdited.name))
+            if (!this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.ContainsKey(
+                this.theObjectWillBeEdited.name))
             {
                 MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.Add(this.theObjectWillBeEdited.name,
                     this.MB2S_CircleColliderDataStructure.id);
@@ -90,10 +88,11 @@ namespace ET
             else
             {
                 MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic[this.theObjectWillBeEdited.name] =
-                        this.MB2S_CircleColliderDataStructure.id;
+                    this.MB2S_CircleColliderDataStructure.id;
             }
 
-            using (FileStream file = File.Create($"{this.NameAndIdInflectSavePath}/{this.NameAndIdInflectFileName}.bytes"))
+            using (FileStream file =
+                File.Create($"{this.NameAndIdInflectSavePath}/{this.NameAndIdInflectFileName}.bytes"))
             {
                 BsonSerializer.Serialize(new BsonBinaryWriter(file), this.MColliderNameAndIdInflectSupporter);
             }
@@ -106,7 +105,8 @@ namespace ET
             {
                 if (!this.MColliderDataSupporter.colliderDataDic.ContainsKey(this.MB2S_CircleColliderDataStructure.id))
                 {
-                    B2S_CircleColliderDataStructure b2SCircleColliderDataStructure = new B2S_CircleColliderDataStructure();
+                    B2S_CircleColliderDataStructure b2SCircleColliderDataStructure =
+                        new B2S_CircleColliderDataStructure();
                     b2SCircleColliderDataStructure.id = MB2S_CircleColliderDataStructure.id;
                     b2SCircleColliderDataStructure.finalOffset.X = MB2S_CircleColliderDataStructure.finalOffset.X;
                     b2SCircleColliderDataStructure.finalOffset.Y = MB2S_CircleColliderDataStructure.finalOffset.Y;
@@ -119,7 +119,7 @@ namespace ET
                 else
                 {
                     this.MColliderDataSupporter.colliderDataDic[this.MB2S_CircleColliderDataStructure.id] =
-                            this.MB2S_CircleColliderDataStructure;
+                        this.MB2S_CircleColliderDataStructure;
                 }
             }
 
@@ -135,7 +135,8 @@ namespace ET
             this.MColliderDataSupporter.colliderDataDic.Clear();
             this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.Clear();
 
-            using (FileStream file = File.Create($"{this.NameAndIdInflectSavePath}/{this.NameAndIdInflectFileName}.bytes"))
+            using (FileStream file =
+                File.Create($"{this.NameAndIdInflectSavePath}/{this.NameAndIdInflectFileName}.bytes"))
             {
                 BsonSerializer.Serialize(new BsonBinaryWriter(file), this.MColliderNameAndIdInflectSupporter);
             }
@@ -156,12 +157,15 @@ namespace ET
                     this.MColliderDataSupporter.colliderDataDic.Remove(this.MB2S_CircleColliderDataStructure.id);
                 }
 
-                if (this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.ContainsKey(this.theObjectWillBeEdited.name))
+                if (this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.ContainsKey(
+                    this.theObjectWillBeEdited.name))
                 {
-                    this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.Remove(this.theObjectWillBeEdited.name);
+                    this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.Remove(
+                        this.theObjectWillBeEdited.name);
                 }
 
-                using (FileStream file = File.Create($"{this.NameAndIdInflectSavePath}/{this.NameAndIdInflectFileName}.bytes"))
+                using (FileStream file =
+                    File.Create($"{this.NameAndIdInflectSavePath}/{this.NameAndIdInflectFileName}.bytes"))
                 {
                     BsonSerializer.Serialize(new BsonBinaryWriter(file), this.MColliderNameAndIdInflectSupporter);
                 }
@@ -191,7 +195,8 @@ namespace ET
 
             if (this.MB2S_CircleColliderDataStructure.id == 0)
             {
-                if (this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.TryGetValue(this.theObjectWillBeEdited.name,
+                if (this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.TryGetValue(
+                    this.theObjectWillBeEdited.name,
                     out this.MB2S_CircleColliderDataStructure.id))
                 {
                     Debug.Log($"自动设置圆形碰撞体ID成功，ID为{MB2S_CircleColliderDataStructure.id}");
@@ -200,7 +205,8 @@ namespace ET
                 if (this.MColliderDataSupporter.colliderDataDic.ContainsKey(this.MB2S_CircleColliderDataStructure.id))
                 {
                     this.MB2S_CircleColliderDataStructure =
-                            (B2S_CircleColliderDataStructure) this.MColliderDataSupporter.colliderDataDic[this.MB2S_CircleColliderDataStructure.id];
+                        (B2S_CircleColliderDataStructure) this.MColliderDataSupporter.colliderDataDic[
+                            this.MB2S_CircleColliderDataStructure.id];
                 }
             }
 
@@ -225,8 +231,11 @@ namespace ET
         }
 
         public B2S_CircleColliderVisualHelper(ColliderNameAndIdInflectSupporter colliderNameAndIdInflectSupporter,
-        ColliderDataSupporter colliderDataSupporter): base(colliderNameAndIdInflectSupporter, colliderDataSupporter)
+            ColliderDataSupporter colliderDataSupporter) : base(colliderNameAndIdInflectSupporter,
+            colliderDataSupporter)
         {
         }
     }
 }
+
+#endif

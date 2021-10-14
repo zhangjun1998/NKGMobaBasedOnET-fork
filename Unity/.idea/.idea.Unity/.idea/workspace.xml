@@ -23,28 +23,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f1715052-b88e-4a65-9b40-1aa413711389" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Proto/InnerMessage.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Proto/OuterMessage.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Model/Generate/Message/InnerMessage.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Model/Generate/Message/InnerOpcode.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Model/Generate/Message/OuterMessage.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Model/Generate/Message/OuterOpcode.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tools/Proto2CS/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Tools/Proto2CS/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Config/ColliderDatas/CircleColliderData.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/../Config/ColliderDatas/CircleColliderData.bytes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Config/ColliderDatas/PolygonColliderData.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/../Config/ColliderDatas/PolygonColliderData.bytes" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Unity/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unity/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Model/Generate/Message/OuterMessage.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Model/Generate/Message/OuterMessage.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Model/Generate/Message/OuterOpcode.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Model/Generate/Message/OuterOpcode.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Model/Module/Message/OpcodeHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/Module/Message/OpcodeHelper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.dll.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.dll.bytes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.pdb.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.pdb.bytes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/HotfixView.dll.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/HotfixView.dll.bytes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/HotfixView.pdb.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/HotfixView.pdb.bytes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Model.dll.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Model.dll.bytes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Model.pdb.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Model.pdb.bytes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/ModelView.dll.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/ModelView.dll.bytes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/ModelView.pdb.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/ModelView.pdb.bytes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assembly-CSharp-Editor-firstpass.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp-Editor-firstpass.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assembly-CSharp-firstpass.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp-firstpass.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Box2DSharpVisual.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Box2DSharpVisual/Core.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/B2S_BattleColliderExport/Core.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Box2DSharpVisual/Core/Separator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/B2S_BattleColliderExport/Core/Separator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Box2DSharpVisual/Core/Separator.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/B2S_BattleColliderExport/Core/Separator.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Box2DSharpVisual/Editor.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Box2DSharpVisual/Editor/B2S_ColliderEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/B2S_BattleColliderExport/B2S_ColliderEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Box2DSharpVisual/Editor/B2S_ColliderEditor.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/B2S_BattleColliderExport/B2S_ColliderEditor.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Box2DSharpVisual/Editor/VisualHelper.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/B2S_BattleColliderExport/VisualHelper.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Box2DSharpVisual/Editor/VisualHelper/B2S_BoxColliderVisualHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/B2S_BattleColliderExport/VisualHelper/B2S_BoxColliderVisualHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Box2DSharpVisual/Editor/VisualHelper/B2S_BoxColliderVisualHelper.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/B2S_BattleColliderExport/VisualHelper/B2S_BoxColliderVisualHelper.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Box2DSharpVisual/Editor/VisualHelper/B2S_CircleColliderVisualHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/B2S_BattleColliderExport/VisualHelper/B2S_CircleColliderVisualHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Box2DSharpVisual/Editor/VisualHelper/B2S_CircleColliderVisualHelper.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/B2S_BattleColliderExport/VisualHelper/B2S_CircleColliderVisualHelper.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Box2DSharpVisual/Editor/VisualHelper/B2S_ColliderVisualHelperBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/B2S_BattleColliderExport/VisualHelper/B2S_ColliderVisualHelperBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Box2DSharpVisual/Editor/VisualHelper/B2S_ColliderVisualHelperBase.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/B2S_BattleColliderExport/VisualHelper/B2S_ColliderVisualHelperBase.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Box2DSharpVisual/Editor/VisualHelper/B2S_DebuggerHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/B2S_BattleColliderExport/VisualHelper/B2S_DebuggerHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Box2DSharpVisual/Editor/VisualHelper/B2S_DebuggerHandler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/B2S_BattleColliderExport/VisualHelper/B2S_DebuggerHandler.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Box2DSharpVisual/Editor/VisualHelper/B2S_PolygonColliderVisualHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/B2S_BattleColliderExport/VisualHelper/B2S_PolygonColliderVisualHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Box2DSharpVisual/Editor/VisualHelper/B2S_PolygonColliderVisualHelper.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/B2S_BattleColliderExport/VisualHelper/B2S_PolygonColliderVisualHelper.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/MonKey Commander/Editor/Settings/MonKey Settings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/MonKey Commander/Editor/Settings/MonKey Settings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Unity.Model.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Unity.Model.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Unity.ThirdParty.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Unity.ThirdParty.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -372,6 +377,7 @@
       <workItem from="1633752729492" duration="17610000" />
       <workItem from="1633784649700" duration="2199000" />
       <workItem from="1634037533214" duration="1305000" />
+      <workItem from="1634208567242" duration="5421000" />
     </task>
     <servers />
   </component>

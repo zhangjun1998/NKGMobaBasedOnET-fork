@@ -4,6 +4,9 @@
 // Data: 2019年7月10日 21:01:06
 //------------------------------------------------------------
 
+#if UNITY_EDITOR
+
+
 using System.Collections.Generic;
 using System.IO;
 using MongoDB.Bson;
@@ -29,6 +32,7 @@ namespace ET
         public string ColliderDataFileName = "BoxColliderData";
 
         [InlineEditor]
+        [DisableInEditorMode]
         [Required("需要至少一个Unity2D矩形碰撞器")]
         [BsonIgnore]
         public BoxCollider2D mCollider2D;
@@ -49,8 +53,8 @@ namespace ET
             BoxCollider2D tempBox2D = this.mCollider2D;
             this.MB2S_BoxColliderDataStructure.hx = tempBox2D.bounds.size.x / 2;
             this.MB2S_BoxColliderDataStructure.hy = tempBox2D.bounds.size.y / 2;
-            var conversion = new Vector3(this.theObjectWillBeEdited.transform.parent.localScale.x,
-                this.theObjectWillBeEdited.transform.parent.localScale.y, this.theObjectWillBeEdited.transform.parent.localScale.z);
+            var conversion = new Vector3(this.theObjectWillBeEdited.transform.localScale.x,
+                this.theObjectWillBeEdited.transform.localScale.y, this.theObjectWillBeEdited.transform.localScale.z);
             MB2S_BoxColliderDataStructure.finalOffset.X = this.mCollider2D.offset.x;
             MB2S_BoxColliderDataStructure.finalOffset.Y = this.mCollider2D.offset.y;
             this.points.Clear();
@@ -65,7 +69,7 @@ namespace ET
                 -tempBox2D.bounds.size.y / 2 / conversion.y + tempBox2D.offset.y));
 
             matrix4X4 = Matrix4x4.TRS(theObjectWillBeEdited.transform.position, theObjectWillBeEdited.transform.rotation,
-                theObjectWillBeEdited.transform.parent.localScale);
+                theObjectWillBeEdited.transform.localScale);
 
             this.canDraw = true;
         }
@@ -239,3 +243,5 @@ namespace ET
         }
     }
 }
+
+#endif

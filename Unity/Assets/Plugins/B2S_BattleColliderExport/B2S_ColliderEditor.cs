@@ -4,6 +4,9 @@
 // Data: 2019年7月11日 18:22:46
 //------------------------------------------------------------
 
+#if UNITY_EDITOR
+
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,7 +27,6 @@ namespace ET
 {
     public class B2S_ColliderEditor : OdinEditorWindow
     {
-        [Required("需要一个画线驱动者，请场景中创建一个空物体，命名为Box2DDebuggerHandler，并挂载B2S_DebuggerHandler.cs脚本")]
         [LabelText("画线管理者")]
         [TabGroup("Special", "主持人")]
         public B2S_DebuggerHandler MB2SDebuggerHandler;
@@ -64,7 +66,7 @@ namespace ET
         /// <summary>
         /// 名称ID保存地址
         /// </summary>
-        private string ColliderNameAndIdInflectSavePath = "Assets/Res/EditorExtensionInfoSave/";
+        private string ColliderNameAndIdInflectSavePath = "Assets/Plugins/B2S_BattleColliderExport/Saves";
 
         /// <summary>
         /// 名称ID保存地址
@@ -79,7 +81,7 @@ namespace ET
         private List<string> colliderDataName = new List<string>()
             {"BoxColliderData", "CircleColliderData", "PolygonColliderData"};
 
-        [Command("ETEditor_B2S_ColliderEditor", "Box2D可视化编辑器", Category = "ETEditor")]
+        [Command("ETEditor_B2S_BattleColliderExport", "战斗Box2D碰撞数据可视化编辑器", Category = "ETEditor")]
         private static void OpenWindow()
         {
             var window = GetWindow<B2S_ColliderEditor>();
@@ -91,7 +93,7 @@ namespace ET
         {
             this.ReadcolliderNameAndIdInflect();
             this.ReadcolliderData();
-            this.MB2SDebuggerHandler = GameObject.Find("Box2DDebuggerHandler").GetComponent<B2S_DebuggerHandler>();
+            this.MB2SDebuggerHandler = new GameObject("Box2DDebuggerHandler").AddComponent<B2S_DebuggerHandler>();
 
             this.MB2SBoxColliderVisualHelper =
                 new B2S_BoxColliderVisualHelper(this.BoxColliderNameAndIdInflectSupporter,
@@ -117,6 +119,10 @@ namespace ET
         {
             EditorApplication.update -= this.MB2SDebuggerHandler.OnUpdate;
             MB2SDebuggerHandler.CleanCollider();
+            if (MB2SDebuggerHandler != null)
+            {
+                UnityEngine.Object.DestroyImmediate(MB2SDebuggerHandler.gameObject);
+            }
             this.MB2SDebuggerHandler = null;
             this.MB2SBoxColliderVisualHelper = null;
             this.MB2SCircleColliderVisualHelper = null;
@@ -207,6 +213,10 @@ namespace ET
         [Button("导出所有碰撞数据", 30), GUIColor(0.5f, 0.5f, 1.0f)]
         public void ExportAllColliderData()
         {
+            
         }
     }
 }
+
+
+#endif

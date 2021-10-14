@@ -4,6 +4,9 @@
 // Data: 2019年7月10日 20:58:09
 //------------------------------------------------------------
 
+#if UNITY_EDITOR
+
+
 using System;
 using System.Collections.Generic;
 using MongoDB.Bson.Serialization.Attributes;
@@ -14,7 +17,7 @@ namespace ET
 {
     public abstract class B2S_ColliderVisualHelperBase
     {
-        [InfoBox("将想要编辑的游戏对象的含有碰撞体的一阶子物体拖放到此处")]
+        [InfoBox("将想要编辑的游戏对象拖放到此处")]
         [HideLabel]
         [BsonIgnore]
         public GameObject theObjectWillBeEdited;
@@ -41,7 +44,7 @@ namespace ET
 
         [DisableInEditorMode]
         [LabelText("映射文件保存路径")]
-        public string NameAndIdInflectSavePath = "Assets/Res/EditorExtensionInfoSave/";
+        public string NameAndIdInflectSavePath = "Assets/Plugins/B2S_BattleColliderExport/Saves/";
 
         [DisableInEditorMode]
         [LabelText("碰撞数据文件保存路径")]
@@ -104,3 +107,4 @@ namespace ET
         public abstract void DeleteAllcolliderData();
     }
 }
+#endif

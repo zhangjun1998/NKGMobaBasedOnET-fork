@@ -4,6 +4,9 @@
 // Data: 2019年7月11日 19:13:17
 //------------------------------------------------------------
 
+#if UNITY_EDITOR
+
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,3 +40,5 @@ namespace ET
         }
     }
 }
+
+#endif

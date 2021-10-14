@@ -3,6 +3,7 @@
 // Mail: 1778139321@qq.com
 // Data: 2019年7月10日 21:02:18
 //------------------------------------------------------------
+#if UNITY_EDITOR
 
 using System.Collections.Generic;
 using System.IO;
@@ -36,6 +37,7 @@ namespace ET
         [InlineEditor]
         [Required("需要至少一个Unity2D多边形碰撞器")]
         [HideLabel]
+        [DisableInEditorMode]
         public PolygonCollider2D mCollider2D;
 
         public B2S_PolygonColliderDataStructure MB2S_PolygonColliderDataStructure = new B2S_PolygonColliderDataStructure();
@@ -51,7 +53,7 @@ namespace ET
             CheckPolygon();
 
             matrix4X4 = Matrix4x4.TRS(theObjectWillBeEdited.transform.position, theObjectWillBeEdited.transform.rotation,
-                theObjectWillBeEdited.transform.parent.localScale);
+                theObjectWillBeEdited.transform.localScale);
 
             MB2S_PolygonColliderDataStructure.pointCount = mCollider2D.GetTotalPointCount();
             MB2S_PolygonColliderDataStructure.finalOffset.X = this.mCollider2D.offset.x;
@@ -278,3 +280,5 @@ namespace ET
         }
     }
 }
+
+#endif
