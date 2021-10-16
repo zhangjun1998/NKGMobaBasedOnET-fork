@@ -58,25 +58,6 @@ namespace ET
             public Dictionary<string, string> ReplacedAnimData;
         }
 
-        public struct NP_PlayAnimInitEvent
-        {
-            public Unit Target;
-            public List<PlayAnimInfo> NodeDataForPlayAnims;
-        }
-
-        public struct NP_PlayAnimDoEvent
-        {
-            public Action AnimEnd;
-            public Unit Target;
-            public string StateTypes;
-            public float FadeDuration;
-        }
-
-        public struct NP_PlayAnimEndEvent
-        {
-            public Unit Target;
-        }
-
         public struct NumericApplyChangeValue
         {
             public long UnitId;

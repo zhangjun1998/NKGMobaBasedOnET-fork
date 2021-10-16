@@ -36,7 +36,7 @@ namespace ET
                     self.CachedUnit = self.MouseTargetSelectorComponent.TargetUnit;
                     GameObject selfUnitGo = self.CachedUnit.GetComponent<GameObjectComponent>().GameObject;
                     selfUnitGo.Get<GameObject>("Materials").GetComponent<Renderer>().GetPropertyBlock(OutLineComponent.MaterialPropertyBlock);
-                    OutLineComponent.MaterialPropertyBlock.SetInt("OutLineWidth", 5);
+                    OutLineComponent.MaterialPropertyBlock.SetFloat("OutLineWidth", 0.07f);
                     if (roleCastComponent.GetRoleCastToTarget(self.PlayerUnit) == RoleCast.Friendly)
                     {
                         OutLineComponent.MaterialPropertyBlock.SetColor("OutLineColor", Color.blue);
