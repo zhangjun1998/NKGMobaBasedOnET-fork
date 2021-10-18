@@ -9,7 +9,8 @@ namespace ET
         {
             //此处填写Awake逻辑
             self.MouseTargetSelectorComponent = self.DomainScene().GetComponent<MouseTargetSelectorComponent>();
-            self.PlayerUnit = self.DomainScene().GetComponent<UnitComponent>().MyUnit;
+            self.PlayerUnit = self.DomainScene().GetComponent<RoomManagerComponent>().GetOrCreateBattleRoom()
+                .GetComponent<UnitComponent>().MyUnit;
         }
     }
 
@@ -37,6 +38,7 @@ namespace ET
                     GameObject selfUnitGo = self.CachedUnit.GetComponent<GameObjectComponent>().GameObject;
                     selfUnitGo.Get<GameObject>("Materials").GetComponent<Renderer>().GetPropertyBlock(OutLineComponent.MaterialPropertyBlock);
                     OutLineComponent.MaterialPropertyBlock.SetFloat("OutLineWidth", 0.07f);
+
                     if (roleCastComponent.GetRoleCastToTarget(self.PlayerUnit) == RoleCast.Friendly)
                     {
                         OutLineComponent.MaterialPropertyBlock.SetColor("OutLineColor", Color.blue);
@@ -46,7 +48,8 @@ namespace ET
                         OutLineComponent.MaterialPropertyBlock.SetColor("OutLineColor", Color.red);
                     }
 
-                    selfUnitGo.Get<GameObject>("Materials").GetComponent<Renderer>().SetPropertyBlock(OutLineComponent.MaterialPropertyBlock);
+                    selfUnitGo.Get<GameObject>("Materials").GetComponent<Renderer>()
+                        .SetPropertyBlock(OutLineComponent.MaterialPropertyBlock);
                 }
             }
             else
@@ -76,9 +79,11 @@ namespace ET
             if (targetUnit != null)
             {
                 UnityEngine.GameObject selfUnitGo = targetUnit.GetComponent<GameObjectComponent>().GameObject;
-                selfUnitGo.Get<GameObject>("Materials").GetComponent<Renderer>().GetPropertyBlock(OutLineComponent.MaterialPropertyBlock);
+                selfUnitGo.Get<GameObject>("Materials").GetComponent<Renderer>()
+                    .GetPropertyBlock(OutLineComponent.MaterialPropertyBlock);
                 OutLineComponent.MaterialPropertyBlock.SetInt("OutLineWidth", 0);
-                selfUnitGo.Get<GameObject>("Materials").GetComponent<Renderer>().SetPropertyBlock(OutLineComponent.MaterialPropertyBlock);
+                selfUnitGo.Get<GameObject>("Materials").GetComponent<Renderer>()
+                    .SetPropertyBlock(OutLineComponent.MaterialPropertyBlock);
             }
         }
     }

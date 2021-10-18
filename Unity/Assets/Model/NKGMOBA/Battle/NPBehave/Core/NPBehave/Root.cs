@@ -1,5 +1,4 @@
-﻿
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace NPBehave
 {
@@ -12,41 +11,29 @@ namespace NPBehave
         //private Node inProgressNode;
 
         public Blackboard blackboard;
+
         public override Blackboard Blackboard
         {
-            get
-            {
-                return blackboard;
-            }
+            get { return blackboard; }
         }
 
 
         public Clock clock;
+
         public override Clock Clock
         {
-            get
-            {
-                return clock;
-            }
+            get { return clock; }
         }
 
-        public Root(Node mainNode) : base("Root", mainNode)
+        public Root(Node mainNode, Clock clock) : base("Root", mainNode)
         {
             this.mainNode = mainNode;
             m_MainNodeStartActionCache = this.mainNode.Start;
-            this.clock = SyncContext.Instance.GetClock();
+            this.clock = clock;
             this.blackboard = new Blackboard(this.clock);
             this.SetRoot(this);
         }
-        public Root(Blackboard blackboard, Node mainNode) : base("Root", mainNode)
-        {
-            this.blackboard = blackboard;
-            this.mainNode = mainNode;
-            m_MainNodeStartActionCache = this.mainNode.Start;
-            this.clock = SyncContext.Instance.GetClock();
-            this.SetRoot(this);
-        }
-
+        
         public Root(Blackboard blackboard, Clock clock, Node mainNode) : base("Root", mainNode)
         {
             this.blackboard = blackboard;
@@ -80,7 +67,7 @@ namespace NPBehave
                 this.clock.RemoveTimer(this.m_MainNodeStartActionCache);
             }
         }
-        
+
         override protected void DoChildStopped(Node node, bool success)
         {
             if (!IsStopRequested)

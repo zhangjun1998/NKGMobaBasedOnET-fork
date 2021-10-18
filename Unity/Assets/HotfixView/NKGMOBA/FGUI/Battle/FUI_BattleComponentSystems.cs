@@ -16,10 +16,12 @@ namespace ET
         {
             self.FuiUIPanelBattle = fuiUIPanelBattle;
             Scene scene = self.DomainScene();
+            UnitComponent unitComponent = scene.GetComponent<RoomManagerComponent>().GetOrCreateBattleRoom()
+                .GetComponent<UnitComponent>();
 
             self.m_CDComponent = scene.GetComponent<CDComponent>();
 
-            long playerUnitId = scene.GetComponent<UnitComponent>().MyUnit.Id;
+            long playerUnitId = unitComponent.MyUnit.Id;
             self.m_QCDInfo = self.m_CDComponent.AddCDData(playerUnitId, "Q", 0, info =>
             {
                 if (info.Result)
@@ -68,8 +70,8 @@ namespace ET
                 self.FuiUIPanelBattle.m_SkillE_Bar.self.value = 100 * (info.RemainCDLength / info.Interval);
                 self.FuiUIPanelBattle.m_SkillE_Bar.Visible = true;
             });
-            
-            Unit unit = self.DomainScene().GetComponent<UnitComponent>().MyUnit;
+
+            Unit unit = unitComponent.MyUnit;
             UnitAttributesDataComponent unitAttributesDataComponent = unit.GetComponent<UnitAttributesDataComponent>();
 
             HeroAttributesNodeData heroAttributesNodeData =
@@ -185,7 +187,8 @@ namespace ET
     {
         public override void Update(FUI_BattleComponent self)
         {
-            Unit unit = self.DomainScene().GetComponent<UnitComponent>().MyUnit;
+            Unit unit = self.DomainScene().GetComponent<RoomManagerComponent>().GetOrCreateBattleRoom()
+                .GetComponent<UnitComponent>().MyUnit;
             long playerUnitId = unit.Id;
             //此处填写Update逻辑
             if (!self.m_CDComponent.GetCDResult(playerUnitId, "Q"))

@@ -8,7 +8,7 @@ namespace ET
         {
             await a.ZoneScene.GetComponent<FUIPackageManagerComponent>().AddPackageAsync(FUIPackage.HeadBar);
 
-            UnitComponent unitComponent = a.ZoneScene.GetComponent<UnitComponent>();
+            UnitComponent unitComponent = a.ZoneScene.GetComponent<RoomManagerComponent>().BattleRoom.GetComponent<UnitComponent>();
             foreach (var heroUnit in unitComponent.GetAll())
             {
                 FUI_HeadBar headBar = FUI_HeadBar.CreateInstance(a.ZoneScene);

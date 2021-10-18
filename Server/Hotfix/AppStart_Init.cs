@@ -38,9 +38,6 @@ namespace ET
             Game.Scene.AddComponent<AIDispatcherComponent>();
             Game.Scene.AddComponent<B2S_CollisionDispatcherComponent>();
 
-            //TODO 修改为每个房间专属
-            Game.Scene.AddComponent<NP_SyncComponent>();
-
             // 添加数据库组件，可以查询数据
             StartZoneConfig startZoneConfig = StartZoneConfigCategory.Instance.Get(GlobalDefine.Options.Process);
             Game.Scene.AddComponent<DBComponent, string, string>(startZoneConfig.DBConnection, startZoneConfig.DBName);

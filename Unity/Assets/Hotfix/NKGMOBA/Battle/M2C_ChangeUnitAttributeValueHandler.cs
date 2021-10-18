@@ -10,7 +10,7 @@ namespace ET
     {
         protected override async ETVoid Run(Session session, M2C_ChangeUnitAttribute message)
         {
-            Unit unit = session.DomainScene().GetComponent<UnitComponent>().Get(message.UnitId);
+            Unit unit = session.DomainScene().GetComponent<RoomManagerComponent>().GetOrCreateBattleRoom().GetComponent<UnitComponent>().Get(message.UnitId);
             Game.EventSystem.Publish(new EventType.ChangeUnitAttribute()
             {
                 Unit = unit,

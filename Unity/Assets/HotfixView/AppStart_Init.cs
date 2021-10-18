@@ -30,9 +30,6 @@ namespace ET
 
             Game.Scene.AddComponent<UserInputComponent>();
 
-            //TODO 修改为每个房间专属
-            Game.Scene.AddComponent<NP_SyncComponent>();
-
             Scene zoneScene = await SceneFactory.CreateZoneScene(1, "Game", Game.Scene);
 
             //显示登陆界面

@@ -17,7 +17,7 @@ namespace ET
 
                 if (l2CLeaveRoomLobby.isDestory)
                 {
-                    zoneScene.GetComponent<RoomManagerComponent>().RemoveRoom(l2CLeaveRoomLobby.RoomId);
+                    zoneScene.GetComponent<RoomManagerComponent>().RemoveLobbyRoom(l2CLeaveRoomLobby.RoomId);
                 }
 
                 playerComponent.BelongToRoom = null;

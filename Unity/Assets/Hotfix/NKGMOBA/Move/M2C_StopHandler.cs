@@ -7,7 +7,7 @@ namespace ET
 	{
 		protected override async ETVoid Run(Session session, M2C_Stop message)
 		{
-			Unit unit = session.Domain.GetComponent<UnitComponent>().Get(message.Id);
+			Unit unit = session.DomainScene().GetComponent<RoomManagerComponent>().GetOrCreateBattleRoom().GetComponent<UnitComponent>().Get(message.Id);
 			
 			if (unit == null)
 			{

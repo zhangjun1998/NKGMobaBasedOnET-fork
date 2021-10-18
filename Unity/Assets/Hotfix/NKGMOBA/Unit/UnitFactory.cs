@@ -4,18 +4,21 @@ namespace ET
 {
     public static class UnitFactory
     {
-        public static Unit CreateUnit(Entity domain, long id, int configId)
+        public static Unit CreateUnit(Room room, long id, int configId)
         {
-            UnitComponent unitComponent = domain.GetComponent<UnitComponent>();
+            UnitComponent unitComponent = room.GetComponent<UnitComponent>();
+            
             Unit unit = Entity.CreateWithId<Unit, int>(unitComponent, id, configId);
+            unit.BelongToRoom = room;
+            
             unitComponent.Add(unit);
 
             return unit;
         }
 
-        public static Unit CreateHero(Entity domain, UnitInfo unitInfo)
+        public static Unit CreateHero(Room room, UnitInfo unitInfo)
         {
-            Unit unit = CreateUnit(domain, unitInfo.UnitId, unitInfo.ConfigId);
+            Unit unit = CreateUnit(room, unitInfo.UnitId, unitInfo.ConfigId);
             unit.Position = new Vector3(unitInfo.X, unitInfo.Y, unitInfo.Z);
 
             unit.AddComponent<DataModifierComponent>();
@@ -39,9 +42,9 @@ namespace ET
             return unit;
         }
         
-        public static Unit CreateHeroSpiling(Entity domain, UnitInfo unitInfo)
+        public static Unit CreateHeroSpiling(Room room, UnitInfo unitInfo)
         {
-            Unit unit = CreateUnit(domain, unitInfo.UnitId, unitInfo.ConfigId);
+            Unit unit = CreateUnit(room, unitInfo.UnitId, unitInfo.ConfigId);
             unit.Position = new Vector3(unitInfo.X, unitInfo.Y, unitInfo.Z);
 
             unit.AddComponent<DataModifierComponent>();

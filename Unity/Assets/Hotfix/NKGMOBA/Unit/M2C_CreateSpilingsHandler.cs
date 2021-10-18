@@ -4,7 +4,7 @@
     {
         protected override async ETVoid Run(Session session, M2C_CreateSpilings message)
         {
-            UnitFactory.CreateHeroSpiling(session.DomainScene(), message.Unit);
+            UnitFactory.CreateHeroSpiling(session.DomainScene().GetComponent<RoomManagerComponent>().GetOrCreateBattleRoom(), message.Unit);
 
             await ETTask.CompletedTask;
         }

@@ -34,7 +34,7 @@ namespace ET
                     .ToString();
                 long uiIdLong = long.Parse(uiIdString);
 
-                Room room = roomManagerComponent.GetRoom(uiIdLong);
+                Room room = roomManagerComponent.GetLobbyRoom(uiIdLong);
                 if (room == null)
                 {
                     // 注意这里只需要这样移除一次即可，这里移除后会主动将m_List_RoomList中的元素也移除
@@ -51,7 +51,7 @@ namespace ET
             }
 
             // 再尝试从RoomManager数据新增房间
-            foreach (var room in roomManagerComponent.Rooms)
+            foreach (var room in roomManagerComponent.LobbyRooms)
             {
                 if (handledRoom.Contains(room.Key))
                 {

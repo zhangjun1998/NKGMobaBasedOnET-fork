@@ -30,7 +30,7 @@
             FUIManagerComponent fuiManagerComponent = scene.GetComponent<FUIManagerComponent>();
             RoomManagerComponent roomManagerComponent = self.DomainScene().GetComponent<RoomManagerComponent>();
 
-            roomManagerComponent.RemoveAllRooms();
+            roomManagerComponent.RemoveAllLobbyRooms();
 
             fuiManagerComponent.Remove(FUI_RoomComponent.FUIRoomName);
             fuiManagerComponent.Remove(FUI_RoomComponent.FUIRoomListName);

@@ -7,6 +7,7 @@
             Room room = Entity.CreateWithId<Room>(self, id, true);
 
             room.AddComponent<UnitComponent>();
+            room.AddComponent<NP_SyncComponent>();
             room.AddComponent<RecastPathComponent>();
             room.AddComponent<CDComponent>();
 

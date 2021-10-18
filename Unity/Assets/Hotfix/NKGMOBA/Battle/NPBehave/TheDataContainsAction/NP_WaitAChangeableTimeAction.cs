@@ -33,10 +33,10 @@ namespace ET
 
         public Action.Result WaitTime(bool hasDown)
         {
-            this.lastElapsedTime = SyncContext.Instance.GetClock().ElapsedTime;
+            this.lastElapsedTime = this.BelongtoRuntimeTree.GetClock().ElapsedTime;
             tempBlackboard.Set(this.TheTimeToWait.BBKey,
                 tempBlackboard.Get<float>(this.TheTimeToWait.BBKey) -
-                (float) (SyncContext.Instance.GetClock().ElapsedTime - lastElapsedTime));
+                (float) (this.BelongtoRuntimeTree.GetClock().ElapsedTime - lastElapsedTime));
             if (tempBlackboard.Get<float>(this.TheTimeToWait.BBKey) <= 0)
             {
                 lastElapsedTime = -1;

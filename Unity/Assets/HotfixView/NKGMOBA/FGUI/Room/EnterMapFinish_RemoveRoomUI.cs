@@ -12,7 +12,7 @@ namespace ET
 
 			FUI_RoomComponent fuiRoomComponent = fuiManagerComponent.GetFUIComponent<FUI_RoomComponent>(FUI_RoomComponent.FUIRoomName);
 			
-			scene.GetComponent<RoomManagerComponent>().RemoveAllRooms();
+			scene.GetComponent<RoomManagerComponent>().RemoveAllLobbyRooms();
 			
 			FUI_RoomUtilities.RefreshRoomListBaseOnRoomData(fuiRoomComponent);
 			

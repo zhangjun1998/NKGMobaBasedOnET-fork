@@ -9,12 +9,15 @@ using NPBehave;
 
 namespace ET
 {
-    public class M2C_BuffInfoHandler: AMHandler<M2C_BuffInfo>
+    public class M2C_BuffInfoHandler : AMHandler<M2C_BuffInfo>
     {
         protected override async ETVoid Run(Session session, M2C_BuffInfo message)
         {
-            Unit unit = session.DomainScene().GetComponent<UnitComponent>().Get(message.UnitId);
-            List<NP_RuntimeTree> skillContents = unit.GetComponent<SkillCanvasManagerComponent>().GetSkillCanvas(message.SkillId);
+            Unit unit = session.DomainScene().GetComponent<RoomManagerComponent>().GetOrCreateBattleRoom().GetComponent<UnitComponent>()
+                .Get(message.UnitId);
+            
+            List<NP_RuntimeTree> skillContents =
+                unit.GetComponent<SkillCanvasManagerComponent>().GetSkillCanvas(message.SkillId);
             if (skillContents == null)
             {
                 return;

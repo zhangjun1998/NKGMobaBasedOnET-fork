@@ -8,11 +8,13 @@ using NPBehave;
 
 namespace ET
 {
-    public class NP_RuntimeTreeAwakeSystem : AwakeSystem<NP_RuntimeTree, NP_DataSupportor, Unit>
+    public class NP_RuntimeTreeAwakeSystem : AwakeSystem<NP_RuntimeTree, NP_DataSupportor, NP_SyncComponent, Unit>
     {
-        public override void Awake(NP_RuntimeTree self, NP_DataSupportor m_BelongNP_DataSupportor, Unit belongToUnit)
+        public override void Awake(NP_RuntimeTree self, NP_DataSupportor belongNP_DataSupportor,NP_SyncComponent npSyncComponent, Unit belongToUnit)
         {
-            self.Awake(m_BelongNP_DataSupportor, belongToUnit);
+            self.BelongToUnit = belongToUnit;
+            self.BelongNP_DataSupportor = belongNP_DataSupportor;
+            self.NpSyncComponent = npSyncComponent;
         }
     }
 
@@ -41,12 +43,13 @@ namespace ET
         /// </summary>
         public Unit BelongToUnit;
 
-        public void Awake(NP_DataSupportor m_BelongNP_DataSupportor, Unit belongToUnit)
-        {
-            BelongToUnit = belongToUnit;
-            this.BelongNP_DataSupportor = m_BelongNP_DataSupportor;
-        }
+        public NP_SyncComponent NpSyncComponent;
 
+        public Clock GetClock()
+        {
+            return NpSyncComponent.SyncContext.GetClock();
+        }
+        
         /// <summary>
         /// 设置根结点
         /// </summary>
@@ -78,7 +81,7 @@ namespace ET
         /// </summary>
         public async ETVoid Finish()
         {
-            //因为编辑器模式下会因为Game.Scene的销毁而报错，但是NOBehave又只能在下一帧销毁，所以就这样写了
+            //因为编辑器模式下会因为Game.Scene的销毁而报错，但是NPBehave又只能在下一帧销毁，所以就这样写了
 #if UNITY_EDITOR
             await ETTask.CompletedTask;
 #else

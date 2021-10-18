@@ -17,7 +17,7 @@ namespace ET.Hotfix.Demo.Room
                         {PlayerId = playerComponent.PlayerId, RoomId = roomId});
 
                 playerComponent.BelongToRoom = fuiComponent.DomainScene()
-                    .GetComponent<RoomManagerComponent>().GetRoom(roomId);
+                    .GetComponent<RoomManagerComponent>().GetLobbyRoom(roomId);
 
                 playerComponent.BelongToRoom.PlayerCount = 1 + kL2CJoinRoomLobby.playerInfoRoom.Count;
                 

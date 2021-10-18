@@ -11,20 +11,10 @@ namespace NPBehave
 {
     public class SyncContext
     {
-        private static SyncContext _instance;
-
         /// <summary>
         /// 计时器
         /// </summary>
         private static float s_Timer = 0;
-
-        public static SyncContext Instance
-        {
-            get
-            {
-                return _instance ?? (_instance = new SyncContext());
-            }
-        }
 
         private Dictionary<string, Blackboard> blackboards = new Dictionary<string, Blackboard>();
 
@@ -32,17 +22,17 @@ namespace NPBehave
 
         public Clock GetClock()
         {
-            return Instance.clock;
+            return clock;
         }
 
-        public static Blackboard GetSharedBlackboard(string key)
+        public Blackboard GetSharedBlackboard(string key)
         {
-            if (!Instance.blackboards.ContainsKey(key))
+            if (!blackboards.ContainsKey(key))
             {
-                Instance.blackboards.Add(key, new Blackboard(Instance.clock));
+                blackboards.Add(key, new Blackboard(clock));
             }
 
-            return Instance.blackboards[key];
+            return blackboards[key];
         }
 
         public void Update()

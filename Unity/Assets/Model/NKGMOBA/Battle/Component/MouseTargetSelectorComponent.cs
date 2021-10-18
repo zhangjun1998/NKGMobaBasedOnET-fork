@@ -105,7 +105,7 @@ namespace ET
                 m_MainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo, 1000,
                 m_TargetLayerInfo))
             {
-                UnitComponent unitComponent = this.DomainScene().GetComponent<UnitComponent>();
+                UnitComponent unitComponent = this.DomainScene().GetComponent<RoomManagerComponent>().BattleRoom.GetComponent<UnitComponent>();
                 this.TargetHitPoint = hitInfo.point;
                 this.TargetGameObject = hitInfo.transform.gameObject;
 

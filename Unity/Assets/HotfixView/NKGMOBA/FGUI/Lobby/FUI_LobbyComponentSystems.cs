@@ -25,10 +25,10 @@ namespace ET
             
             Log.Debug("登陆Lobby成功!, 拉取服务器房间列表");
 
-            scene.GetComponent<RoomManagerComponent>().RemoveAllRooms();
+            scene.GetComponent<RoomManagerComponent>().RemoveAllLobbyRooms();
             for (int i = 0; i < l2cLoginLobby.RoomIdList.Count; i++)
             {
-                Room room = scene.GetComponent<RoomManagerComponent>().CreateRoom(l2cLoginLobby.RoomIdList[i]);
+                Room room = scene.GetComponent<RoomManagerComponent>().CreateLobbyRoom(l2cLoginLobby.RoomIdList[i]);
                 room.RoomName = l2cLoginLobby.RoomNameList[i];
                 room.PlayerCount = l2cLoginLobby.RoomPlayerNum[i];
                 room.RoomHolderPlayerId = l2cLoginLobby.RoomIdList[i];

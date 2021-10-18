@@ -18,7 +18,7 @@ namespace ET
                     .Call(new C2L_CreateNewRoomLobby()
                         {PlayerId = playerComponent.PlayerId});
 
-                Room room = zoneScene.GetComponent<RoomManagerComponent>().CreateRoom(l2CCreateNewRoomLobby.RoomId);
+                Room room = zoneScene.GetComponent<RoomManagerComponent>().CreateLobbyRoom(l2CCreateNewRoomLobby.RoomId);
                 
                 room.RoomHolderPlayerId = playerComponent.PlayerId;
                 room.RoomName = l2CCreateNewRoomLobby.Message;

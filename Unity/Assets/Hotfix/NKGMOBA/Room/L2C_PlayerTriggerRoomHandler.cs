@@ -7,7 +7,7 @@ namespace ET
         protected override async ETVoid Run(Session session, L2C_PlayerTriggerRoom message)
         {
             Room room = session.DomainScene().GetComponent<RoomManagerComponent>()
-                .GetRoom(message.playerInfoRoom.RoomId);
+                .GetLobbyRoom(message.playerInfoRoom.RoomId);
             // 其他玩家操作房间 true为加入房间，false为离开房间，
             if (message.JoinOrLeave)
             {

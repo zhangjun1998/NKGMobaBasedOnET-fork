@@ -12,7 +12,7 @@ namespace ET
     {
         protected override async ETVoid Run(Session session, M2C_SyncNPBehaveBoolData message)
         {
-            Unit unit = session.DomainScene().GetComponent<UnitComponent>().Get(message.UnitId);
+            Unit unit = session.DomainScene().GetComponent<RoomManagerComponent>().GetOrCreateBattleRoom().GetComponent<UnitComponent>().Get(message.UnitId);
             foreach (var skillCanvaList in unit.GetComponent<SkillCanvasManagerComponent>().GetAllSkillCanvas())
             {
                 foreach (var skillNpRuntimeTree in skillCanvaList.Value)

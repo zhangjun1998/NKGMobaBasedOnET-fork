@@ -9,7 +9,6 @@ namespace ET
             zoneScene.AddComponent<ZoneSceneFlagComponent>();
             zoneScene.AddComponent<NetKcpComponent>();
             zoneScene.AddComponent<RoomManagerComponent>();
-            zoneScene.AddComponent<UnitComponent>();
             zoneScene.AddComponent<NP_TreeDataRepositoryComponent>();
             zoneScene.AddComponent<UnitAttributesDataRepositoryComponent>();
             zoneScene.AddComponent<MouseTargetSelectorComponent>();

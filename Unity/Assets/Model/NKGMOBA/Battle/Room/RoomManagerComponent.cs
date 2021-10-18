@@ -13,27 +13,44 @@ namespace ET
     {
         public override void Destroy(RoomManagerComponent self)
         {
-            self.Rooms.Clear();
+            self.LobbyRooms.Clear();
+            
+            self.BattleRoom.Dispose();
         }
     }
 
     public class RoomManagerComponent : Entity
     {
-        public Dictionary<long, Room> Rooms = new Dictionary<long, Room>();
+        public Dictionary<long, Room> LobbyRooms = new Dictionary<long, Room>();
+        
+        /// <summary>
+        /// 战斗房间
+        /// </summary>
+        public Room BattleRoom;
 
-        public Room CreateRoom(long id)
+        public Room CreateLobbyRoom(long id)
         {
             Room room = Entity.CreateWithId<Room>(this, id);
-            
-            room.AddComponent<UnitComponent>();
-            
-            Rooms.Add(room.Id, room);
+            LobbyRooms.Add(room.Id, room);
             return room;
         }
-
-        public Room GetRoom(long id)
+        
+        public Room GetOrCreateBattleRoom()
         {
-            if (Rooms.TryGetValue(id, out var room))
+            if (BattleRoom == null)
+            {
+                BattleRoom = Entity.Create<Room>(this);
+
+                BattleRoom.AddComponent<UnitComponent>();
+                BattleRoom.AddComponent<NP_SyncComponent>();
+            }
+
+            return BattleRoom;
+        }
+
+        public Room GetLobbyRoom(long id)
+        {
+            if (LobbyRooms.TryGetValue(id, out var room))
             {
                 return room;
             }
@@ -43,15 +60,15 @@ namespace ET
                 return null;
             }
         }
-        
+
         /// <summary>
         /// 根据PlayerId获取其作为房主的房间
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Room GetRoomByPlayerId(long playerId)
+        public Room GetLobbyRoomByPlayerId(long playerId)
         {
-            foreach (var room in Rooms)
+            foreach (var room in LobbyRooms)
             {
                 if (room.Value.RoomHolderPlayerId == playerId)
                 {
@@ -63,22 +80,23 @@ namespace ET
             return null;
         }
 
-        public void RemoveRoom(long id)
+        public void RemoveLobbyRoom(long id)
         {
-            if (Rooms.TryGetValue(id, out var room))
+            if (LobbyRooms.TryGetValue(id, out var room))
             {
                 room.Dispose();
-                Rooms.Remove(id);
+                LobbyRooms.Remove(id);
             }
         }
 
-        public void RemoveAllRooms()
+        public void RemoveAllLobbyRooms()
         {
-            foreach (var room in Rooms)
+            foreach (var room in LobbyRooms)
             {
                 room.Value.Dispose();
             }
-            Rooms.Clear();
+
+            LobbyRooms.Clear();
         }
     }
 }
