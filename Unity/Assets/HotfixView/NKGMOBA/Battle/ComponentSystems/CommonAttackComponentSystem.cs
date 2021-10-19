@@ -1,4 +1,5 @@
-﻿using ET.EventType;
+﻿using Animancer;
+using ET.EventType;
 
 namespace ET
 {
@@ -75,7 +76,7 @@ namespace ET
 
             float animationSpeed = animationAttackPoint / attackPre;
             //播放动画，如果动画播放完成还不能进行下一次普攻，则播放空闲动画
-            self.m_AnimationComponent.PlayAnimAndReturnIdelFromStart(StateTypes.CommonAttack, speed: animationSpeed);
+            self.m_AnimationComponent.PlayAnimAndReturnIdelFromStart(StateTypes.CommonAttack, speed: animationSpeed, fadeMode: FadeMode.FromStart);
 
             Game.Scene.GetComponent<SoundComponent>().PlayClip("Darius/Sound_Darius_NormalAttack", 0.4f).Coroutine();
 
