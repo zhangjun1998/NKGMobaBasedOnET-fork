@@ -44,19 +44,19 @@ namespace ET
         }
         
        
-        public static FUI_HeadBar CreateInstance(Entity domain)
+        public static FUI_HeadBar CreateInstance(Entity parent)
         {			
-            return Entity.Create<FUI_HeadBar, GObject>(domain, CreateGObject());
+            return parent.AddChild<FUI_HeadBar, GObject>(CreateGObject());
         }
         
        
-        public static ETTask<FUI_HeadBar> CreateInstanceAsync(Entity domain)
+        public static ETTask<FUI_HeadBar> CreateInstanceAsync(Entity parent)
         {
             ETTask<FUI_HeadBar> tcs = ETTask<FUI_HeadBar>.Create(true);
     
             CreateGObjectAsync((go) =>
             {
-                tcs.SetResult(Entity.Create<FUI_HeadBar, GObject>(domain, go));
+                tcs.SetResult(parent.AddChild<FUI_HeadBar, GObject>(go));
             });
     
             return tcs;
@@ -69,9 +69,9 @@ namespace ET
         /// <param name="domain"></param>
         /// <param name="go"></param>
         /// <returns></returns>
-        public static FUI_HeadBar Create(Entity domain, GObject go)
+        public static FUI_HeadBar Create(Entity parent, GObject go)
         {
-            return Entity.Create<FUI_HeadBar, GObject>(domain, go);
+            return parent.AddChild<FUI_HeadBar, GObject>(go);
         }
             
        
@@ -119,8 +119,8 @@ namespace ET
     			m_Tex_Level = (GTextField)com.GetChildAt(1);
     			m_Tex_PlayerName = (GTextField)com.GetChildAt(2);
     			m_n15 = (GImage)com.GetChildAt(3);
-    			m_Bar_HP = FUI_Bar_HP.Create(domain, com.GetChildAt(4));
-    			m_Bar_MP = FUI_Bar_MP.Create(domain, com.GetChildAt(5));
+    			m_Bar_HP = FUI_Bar_HP.Create(this, com.GetChildAt(4));
+    			m_Bar_MP = FUI_Bar_MP.Create(this, com.GetChildAt(5));
     			m_Img_Gap = (GImage)com.GetChildAt(6);
     		}
     	}

@@ -14,8 +14,7 @@
             FUIManagerComponent fuiManagerComponent = scene.GetComponent<FUIManagerComponent>();
             
             FUI_LoginComponent fuiLoginComponent =
-                Entity.Create<FUI_LoginComponent, FUI_Login>(fuiManagerComponent, fuiLogin,
-                    true);
+                fuiManagerComponent.AddChild<FUI_LoginComponent, FUI_Login>(fuiLogin);
             scene.GetComponent<FUIManagerComponent>().Add(FUIPackage.Login, fuiLogin, fuiLoginComponent);
 
             await ETTask.CompletedTask;

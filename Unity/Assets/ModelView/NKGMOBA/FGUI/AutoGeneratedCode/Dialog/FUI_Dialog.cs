@@ -45,19 +45,19 @@ namespace ET
         }
         
        
-        public static FUI_Dialog CreateInstance(Entity domain)
+        public static FUI_Dialog CreateInstance(Entity parent)
         {			
-            return Entity.Create<FUI_Dialog, GObject>(domain, CreateGObject());
+            return parent.AddChild<FUI_Dialog, GObject>(CreateGObject());
         }
         
        
-        public static ETTask<FUI_Dialog> CreateInstanceAsync(Entity domain)
+        public static ETTask<FUI_Dialog> CreateInstanceAsync(Entity parent)
         {
             ETTask<FUI_Dialog> tcs = ETTask<FUI_Dialog>.Create(true);
     
             CreateGObjectAsync((go) =>
             {
-                tcs.SetResult(Entity.Create<FUI_Dialog, GObject>(domain, go));
+                tcs.SetResult(parent.AddChild<FUI_Dialog, GObject>(go));
             });
     
             return tcs;
@@ -70,9 +70,9 @@ namespace ET
         /// <param name="domain"></param>
         /// <param name="go"></param>
         /// <returns></returns>
-        public static FUI_Dialog Create(Entity domain, GObject go)
+        public static FUI_Dialog Create(Entity parent, GObject go)
         {
-            return Entity.Create<FUI_Dialog, GObject>(domain, go);
+            return parent.AddChild<FUI_Dialog, GObject>(go);
         }
             
        
@@ -119,10 +119,10 @@ namespace ET
     			m_n0 = (GImage)com.GetChildAt(0);
     			m_Tittle = (GTextField)com.GetChildAt(1);
     			m_Conten = (GTextField)com.GetChildAt(2);
-    			m_tow_cancel = FUI_tow_cancel.Create(domain, com.GetChildAt(3));
-    			m_tow_confirm = FUI_one_confirm.Create(domain, com.GetChildAt(4));
+    			m_tow_cancel = FUI_tow_cancel.Create(this, com.GetChildAt(3));
+    			m_tow_confirm = FUI_one_confirm.Create(this, com.GetChildAt(4));
     			m_towmode = (GGroup)com.GetChildAt(5);
-    			m_one_confirm = FUI_one_confirm.Create(domain, com.GetChildAt(6));
+    			m_one_confirm = FUI_one_confirm.Create(this, com.GetChildAt(6));
     			m_onemode = (GGroup)com.GetChildAt(7);
     		}
     	}

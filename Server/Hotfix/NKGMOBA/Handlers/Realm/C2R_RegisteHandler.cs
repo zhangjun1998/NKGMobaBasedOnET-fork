@@ -20,13 +20,12 @@ namespace ET
 
             //新建账号
             AccountInfo newAccount =
-                Entity.CreateWithId<AccountInfo>(session.DomainScene(), IdGenerater.Instance.GenerateId());
+                session.DomainScene().AddChildWithId<AccountInfo>(IdGenerater.Instance.GenerateId());
             newAccount.Account = request.Account;
             newAccount.Password = request.Password;
 
             //新建用户信息
-            PlayerInfo newUser = Entity.Create<PlayerInfo>(session.DomainScene(), true);
-            Entity.Create<PlayerInfo>(session.DomainScene(), true);
+            PlayerInfo newUser = session.DomainScene().AddChild<PlayerInfo>();
             newUser.Name = $"玩家{request.Account}";
             newUser.Level = 1;
 

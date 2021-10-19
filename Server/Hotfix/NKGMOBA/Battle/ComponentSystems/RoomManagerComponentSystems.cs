@@ -4,7 +4,7 @@
     {
         public static Room CreateBattleRoom(this RoomManagerComponent self, long id)
         {
-            Room room = Entity.CreateWithId<Room>(self, id, true);
+            Room room = self.AddChildWithId<Room>(id);
 
             room.AddComponent<UnitComponent>();
             room.AddComponent<NP_SyncComponent>();
@@ -22,7 +22,7 @@
 
         public static Room CreateLobbyRoom(this RoomManagerComponent self, long id, int startGameNum)
         {
-            Room room = Entity.CreateWithId<Room>(self, id, true);
+            Room room = self.AddChildWithId<Room>(id);
             room.startGameNum = startGameNum;
             room.enterNum = 0;
             room.ContainsPlayers.Clear();

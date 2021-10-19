@@ -52,19 +52,19 @@ namespace ET
         }
         
        
-        public static FUI_Login CreateInstance(Entity domain)
+        public static FUI_Login CreateInstance(Entity parent)
         {			
-            return Entity.Create<FUI_Login, GObject>(domain, CreateGObject());
+            return parent.AddChild<FUI_Login, GObject>(CreateGObject());
         }
         
        
-        public static ETTask<FUI_Login> CreateInstanceAsync(Entity domain)
+        public static ETTask<FUI_Login> CreateInstanceAsync(Entity parent)
         {
             ETTask<FUI_Login> tcs = ETTask<FUI_Login>.Create(true);
     
             CreateGObjectAsync((go) =>
             {
-                tcs.SetResult(Entity.Create<FUI_Login, GObject>(domain, go));
+                tcs.SetResult(parent.AddChild<FUI_Login, GObject>(go));
             });
     
             return tcs;
@@ -77,9 +77,9 @@ namespace ET
         /// <param name="domain"></param>
         /// <param name="go"></param>
         /// <returns></returns>
-        public static FUI_Login Create(Entity domain, GObject go)
+        public static FUI_Login Create(Entity parent, GObject go)
         {
-            return Entity.Create<FUI_Login, GObject>(domain, go);
+            return parent.AddChild<FUI_Login, GObject>(go);
         }
             
        
@@ -127,13 +127,13 @@ namespace ET
     			m_n0 = (GImage)com.GetChildAt(0);
     			m_n9 = (GImage)com.GetChildAt(1);
     			m_n10 = (GTextField)com.GetChildAt(2);
-    			m_Btn_Login = FUI_Btn_Login.Create(domain, com.GetChildAt(3));
-    			m_Btn_Registe = FUI_Btn_Registe.Create(domain, com.GetChildAt(4));
+    			m_Btn_Login = FUI_Btn_Login.Create(this, com.GetChildAt(3));
+    			m_Btn_Registe = FUI_Btn_Registe.Create(this, com.GetChildAt(4));
     			m_accountInput = (GImage)com.GetChildAt(5);
     			m_passwordInput = (GImage)com.GetChildAt(6);
     			m_accountText = (GTextInput)com.GetChildAt(7);
     			m_Tex_LoginInfo = (GTextField)com.GetChildAt(8);
-    			m_ToTestSceneBtn = FUI_Btn_ToTestScene.Create(domain, com.GetChildAt(9));
+    			m_ToTestSceneBtn = FUI_Btn_ToTestScene.Create(this, com.GetChildAt(9));
     			m_passwordText = (GTextInput)com.GetChildAt(10);
     			m_Gro_LoginInfo = (GGroup)com.GetChildAt(11);
     			m_Tween_LoginPanelFlyIn = com.GetTransitionAt(0);

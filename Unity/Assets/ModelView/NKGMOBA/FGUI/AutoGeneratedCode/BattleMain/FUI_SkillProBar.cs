@@ -38,19 +38,19 @@ namespace ET
         }
         
        
-        public static FUI_SkillProBar CreateInstance(Entity domain)
+        public static FUI_SkillProBar CreateInstance(Entity parent)
         {			
-            return Entity.Create<FUI_SkillProBar, GObject>(domain, CreateGObject());
+            return parent.AddChild<FUI_SkillProBar, GObject>(CreateGObject());
         }
         
        
-        public static ETTask<FUI_SkillProBar> CreateInstanceAsync(Entity domain)
+        public static ETTask<FUI_SkillProBar> CreateInstanceAsync(Entity parent)
         {
             ETTask<FUI_SkillProBar> tcs = ETTask<FUI_SkillProBar>.Create(true);
     
             CreateGObjectAsync((go) =>
             {
-                tcs.SetResult(Entity.Create<FUI_SkillProBar, GObject>(domain, go));
+                tcs.SetResult(parent.AddChild<FUI_SkillProBar, GObject>(go));
             });
     
             return tcs;
@@ -63,9 +63,9 @@ namespace ET
         /// <param name="domain"></param>
         /// <param name="go"></param>
         /// <returns></returns>
-        public static FUI_SkillProBar Create(Entity domain, GObject go)
+        public static FUI_SkillProBar Create(Entity parent, GObject go)
         {
-            return Entity.Create<FUI_SkillProBar, GObject>(domain, go);
+            return parent.AddChild<FUI_SkillProBar, GObject>(go);
         }
             
        

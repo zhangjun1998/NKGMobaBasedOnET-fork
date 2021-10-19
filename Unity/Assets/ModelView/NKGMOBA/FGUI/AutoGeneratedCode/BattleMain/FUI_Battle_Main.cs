@@ -143,19 +143,19 @@ namespace ET
         }
         
        
-        public static FUI_Battle_Main CreateInstance(Entity domain)
+        public static FUI_Battle_Main CreateInstance(Entity parent)
         {			
-            return Entity.Create<FUI_Battle_Main, GObject>(domain, CreateGObject());
+            return parent.AddChild<FUI_Battle_Main, GObject>(CreateGObject());
         }
         
        
-        public static ETTask<FUI_Battle_Main> CreateInstanceAsync(Entity domain)
+        public static ETTask<FUI_Battle_Main> CreateInstanceAsync(Entity parent)
         {
             ETTask<FUI_Battle_Main> tcs = ETTask<FUI_Battle_Main>.Create(true);
     
             CreateGObjectAsync((go) =>
             {
-                tcs.SetResult(Entity.Create<FUI_Battle_Main, GObject>(domain, go));
+                tcs.SetResult(parent.AddChild<FUI_Battle_Main, GObject>(go));
             });
     
             return tcs;
@@ -168,9 +168,9 @@ namespace ET
         /// <param name="domain"></param>
         /// <param name="go"></param>
         /// <returns></returns>
-        public static FUI_Battle_Main Create(Entity domain, GObject go)
+        public static FUI_Battle_Main Create(Entity parent, GObject go)
         {
-            return Entity.Create<FUI_Battle_Main, GObject>(domain, go);
+            return parent.AddChild<FUI_Battle_Main, GObject>(go);
         }
             
        
@@ -215,41 +215,41 @@ namespace ET
             {	
                 
     			m_SkillAndStateBackGround = (GImage)com.GetChildAt(0);
-    			m_RedProBar = FUI_HpProcessBar.Create(domain, com.GetChildAt(1));
+    			m_RedProBar = FUI_HpProcessBar.Create(this, com.GetChildAt(1));
     			m_RedText = (GTextField)com.GetChildAt(2);
-    			m_BlueProBar = FUI_OtherBar.Create(domain, com.GetChildAt(3));
+    			m_BlueProBar = FUI_OtherBar.Create(this, com.GetChildAt(3));
     			m_BlueText = (GTextField)com.GetChildAt(4);
     			m_SkillTalent_Loader = (GLoader)com.GetChildAt(5);
-    			m_SkillTalent_Bar = FUI_SkillSmallProBar.Create(domain, com.GetChildAt(6));
+    			m_SkillTalent_Bar = FUI_SkillSmallProBar.Create(this, com.GetChildAt(6));
     			m_SkillTalent_CDInfo = (GTextField)com.GetChildAt(7);
     			m_SkillTalent = (GGroup)com.GetChildAt(8);
     			m_SkillQ_Loader = (GLoader)com.GetChildAt(9);
-    			m_SkillQ_Bar = FUI_SkillProBar.Create(domain, com.GetChildAt(10));
+    			m_SkillQ_Bar = FUI_SkillProBar.Create(this, com.GetChildAt(10));
     			m_SkillQ_CDInfo = (GTextField)com.GetChildAt(11);
     			m_SkillQ_Text = (GTextField)com.GetChildAt(12);
     			m_SkillQ = (GGroup)com.GetChildAt(13);
     			m_SkillW_Loader = (GLoader)com.GetChildAt(14);
-    			m_SkillW_Bar = FUI_SkillProBar.Create(domain, com.GetChildAt(15));
+    			m_SkillW_Bar = FUI_SkillProBar.Create(this, com.GetChildAt(15));
     			m_SkillW_CDInfo = (GTextField)com.GetChildAt(16);
     			m_SkillW_Text = (GTextField)com.GetChildAt(17);
     			m_SkillW = (GGroup)com.GetChildAt(18);
     			m_SkillE_Loader = (GLoader)com.GetChildAt(19);
-    			m_SkillE_Bar = FUI_SkillProBar.Create(domain, com.GetChildAt(20));
+    			m_SkillE_Bar = FUI_SkillProBar.Create(this, com.GetChildAt(20));
     			m_SkillE_CDInfo = (GTextField)com.GetChildAt(21);
     			m_SkillE_Text = (GTextField)com.GetChildAt(22);
     			m_SkillE = (GGroup)com.GetChildAt(23);
     			m_SkillR_Loader = (GLoader)com.GetChildAt(24);
-    			m_SkillR_Bar = FUI_SkillProBar.Create(domain, com.GetChildAt(25));
+    			m_SkillR_Bar = FUI_SkillProBar.Create(this, com.GetChildAt(25));
     			m_SkillR_CDInfo = (GTextField)com.GetChildAt(26);
     			m_SkillR_Text = (GTextField)com.GetChildAt(27);
     			m_SkillR = (GGroup)com.GetChildAt(28);
     			m_SkillD_Loader = (GLoader)com.GetChildAt(29);
-    			m_SkillD_Bar = FUI_SkillSmallProBar.Create(domain, com.GetChildAt(30));
+    			m_SkillD_Bar = FUI_SkillSmallProBar.Create(this, com.GetChildAt(30));
     			m_SkillD_CDInfo = (GTextField)com.GetChildAt(31);
     			m_SkillD_Text = (GTextField)com.GetChildAt(32);
     			m_SkillD = (GGroup)com.GetChildAt(33);
     			m_SkillF_Loader = (GLoader)com.GetChildAt(34);
-    			m_SkillF_Bar = FUI_SkillSmallProBar.Create(domain, com.GetChildAt(35));
+    			m_SkillF_Bar = FUI_SkillSmallProBar.Create(this, com.GetChildAt(35));
     			m_SkillF_CDInfo = (GTextField)com.GetChildAt(36);
     			m_SkillF_Text = (GTextField)com.GetChildAt(37);
     			m_SkillF = (GGroup)com.GetChildAt(38);
@@ -282,7 +282,7 @@ namespace ET
     			m_DetailData = (GGroup)com.GetChildAt(65);
     			m_HeroAvatarLoader = (GLoader)com.GetChildAt(66);
     			m_AvatarBack = (GImage)com.GetChildAt(67);
-    			m_ExpBar = FUI_ProgressBar1.Create(domain, com.GetChildAt(68));
+    			m_ExpBar = FUI_ProgressBar1.Create(this, com.GetChildAt(68));
     			m_HeroLevel = (GTextField)com.GetChildAt(69);
     			m_Avatar = (GGroup)com.GetChildAt(70);
     			m_UIBack = (GImage)com.GetChildAt(71);
@@ -296,7 +296,7 @@ namespace ET
     			m_t4 = (GTextField)com.GetChildAt(79);
     			m_tB = (GTextField)com.GetChildAt(80);
     			m_BasicSkills = (GGroup)com.GetChildAt(81);
-    			m_n58 = FUI_GoldenToShopBtn.Create(domain, com.GetChildAt(82));
+    			m_n58 = FUI_GoldenToShopBtn.Create(this, com.GetChildAt(82));
     			m_GoldenCount = (GTextField)com.GetChildAt(83);
     			m_Golden = (GGroup)com.GetChildAt(84);
     			m_ShopAndBack = (GGroup)com.GetChildAt(85);
@@ -307,16 +307,16 @@ namespace ET
     			m_SmallMapFrame = (GImage)com.GetChildAt(90);
     			m_SmallMap = (GGroup)com.GetChildAt(91);
     			m_GM_BackGround = (GImage)com.GetChildAt(92);
-    			m_Btn_NoMPCost = FUI_Btn_GMItem.Create(domain, com.GetChildAt(93));
+    			m_Btn_NoMPCost = FUI_Btn_GMItem.Create(this, com.GetChildAt(93));
     			m_n198 = (GTextField)com.GetChildAt(94);
-    			m_Btn_NoHPCost = FUI_Btn_GMItem.Create(domain, com.GetChildAt(95));
+    			m_Btn_NoHPCost = FUI_Btn_GMItem.Create(this, com.GetChildAt(95));
     			m_n200 = (GTextField)com.GetChildAt(96);
-    			m_Btn_NoCDCost = FUI_Btn_GMItem.Create(domain, com.GetChildAt(97));
+    			m_Btn_NoCDCost = FUI_Btn_GMItem.Create(this, com.GetChildAt(97));
     			m_n201 = (GTextField)com.GetChildAt(98);
-    			m_Btn_CreateSpiling = FUI_Btn_GMItem.Create(domain, com.GetChildAt(99));
+    			m_Btn_CreateSpiling = FUI_Btn_GMItem.Create(this, com.GetChildAt(99));
     			m_n202 = (GTextField)com.GetChildAt(100);
-    			m_Btn_GMController_Enable = FUI_Btn_GMController_Disable.Create(domain, com.GetChildAt(101));
-    			m_Btn_GMController_Disable = FUI_Btn_GMController_Disable.Create(domain, com.GetChildAt(102));
+    			m_Btn_GMController_Enable = FUI_Btn_GMController_Disable.Create(this, com.GetChildAt(101));
+    			m_Btn_GMController_Disable = FUI_Btn_GMController_Disable.Create(this, com.GetChildAt(102));
     			m_GM = (GGroup)com.GetChildAt(103);
     			m_Par_GMControllerDis = com.GetTransitionAt(0);
     			m_Part_GMControllerEnable = com.GetTransitionAt(1);

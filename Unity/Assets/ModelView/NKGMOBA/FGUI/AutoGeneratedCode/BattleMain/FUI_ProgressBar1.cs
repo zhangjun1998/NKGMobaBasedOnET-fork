@@ -39,19 +39,19 @@ namespace ET
         }
         
        
-        public static FUI_ProgressBar1 CreateInstance(Entity domain)
+        public static FUI_ProgressBar1 CreateInstance(Entity parent)
         {			
-            return Entity.Create<FUI_ProgressBar1, GObject>(domain, CreateGObject());
+            return parent.AddChild<FUI_ProgressBar1, GObject>(CreateGObject());
         }
         
        
-        public static ETTask<FUI_ProgressBar1> CreateInstanceAsync(Entity domain)
+        public static ETTask<FUI_ProgressBar1> CreateInstanceAsync(Entity parent)
         {
             ETTask<FUI_ProgressBar1> tcs = ETTask<FUI_ProgressBar1>.Create(true);
     
             CreateGObjectAsync((go) =>
             {
-                tcs.SetResult(Entity.Create<FUI_ProgressBar1, GObject>(domain, go));
+                tcs.SetResult(parent.AddChild<FUI_ProgressBar1, GObject>(go));
             });
     
             return tcs;
@@ -64,9 +64,9 @@ namespace ET
         /// <param name="domain"></param>
         /// <param name="go"></param>
         /// <returns></returns>
-        public static FUI_ProgressBar1 Create(Entity domain, GObject go)
+        public static FUI_ProgressBar1 Create(Entity parent, GObject go)
         {
-            return Entity.Create<FUI_ProgressBar1, GObject>(domain, go);
+            return parent.AddChild<FUI_ProgressBar1, GObject>(go);
         }
             
        

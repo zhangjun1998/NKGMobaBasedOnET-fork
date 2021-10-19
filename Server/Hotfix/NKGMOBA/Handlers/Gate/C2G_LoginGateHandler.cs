@@ -22,10 +22,10 @@ namespace ET
 			// long lobbyInstanceId=StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), "Lobby").InstanceId;
 			// Log.Debug("test-------------------"+mapInstanceId.ToString());
 			// Log.Debug("test-------------------"+lobbyInstanceId.ToString());
-			
-			Player player = Entity.Create<Player, string>(scene, account);
-			
-			Game.Scene.GetComponent<PlayerComponent>().Add(player);
+
+			PlayerComponent playerComponent = Game.Scene.GetComponent<PlayerComponent>();
+			Player player = playerComponent.AddChild<Player, string>(account);
+			playerComponent.Add(player);
 			
 			session.AddComponent<SessionPlayerComponent>().Player = player;
 			player.GateSessionId = session.InstanceId;

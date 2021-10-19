@@ -40,19 +40,19 @@ namespace ET
         }
         
        
-        public static FUI_FlyFont CreateInstance(Entity domain)
+        public static FUI_FlyFont CreateInstance(Entity parent)
         {			
-            return Entity.Create<FUI_FlyFont, GObject>(domain, CreateGObject());
+            return parent.AddChild<FUI_FlyFont, GObject>(CreateGObject());
         }
         
        
-        public static ETTask<FUI_FlyFont> CreateInstanceAsync(Entity domain)
+        public static ETTask<FUI_FlyFont> CreateInstanceAsync(Entity parent)
         {
             ETTask<FUI_FlyFont> tcs = ETTask<FUI_FlyFont>.Create(true);
     
             CreateGObjectAsync((go) =>
             {
-                tcs.SetResult(Entity.Create<FUI_FlyFont, GObject>(domain, go));
+                tcs.SetResult(parent.AddChild<FUI_FlyFont, GObject>(go));
             });
     
             return tcs;
@@ -65,9 +65,9 @@ namespace ET
         /// <param name="domain"></param>
         /// <param name="go"></param>
         /// <returns></returns>
-        public static FUI_FlyFont Create(Entity domain, GObject go)
+        public static FUI_FlyFont Create(Entity parent, GObject go)
         {
-            return Entity.Create<FUI_FlyFont, GObject>(domain, go);
+            return parent.AddChild<FUI_FlyFont, GObject>(go);
         }
             
        

@@ -11,9 +11,7 @@
             fuiLobby.self.MakeFullScreen();
             
             FUIManagerComponent fuiManagerComponent = scene.GetComponent<FUIManagerComponent>();
-            FUI_LobbyComponent fuiLobbyComponent =
-                Entity.Create<FUI_LobbyComponent, FUI_Lobby>(fuiManagerComponent, fuiLobby,
-                    true);
+            FUI_LobbyComponent fuiLobbyComponent = fuiManagerComponent.AddChild<FUI_LobbyComponent, FUI_Lobby>(fuiLobby);
             
             scene.GetComponent<FUIManagerComponent>().Add(FUIPackage.Lobby, fuiLobby, fuiLobbyComponent);
 

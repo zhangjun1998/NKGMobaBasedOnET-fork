@@ -41,19 +41,19 @@ namespace ET
         }
         
        
-        public static FUI_tow_cancel CreateInstance(Entity domain)
+        public static FUI_tow_cancel CreateInstance(Entity parent)
         {			
-            return Entity.Create<FUI_tow_cancel, GObject>(domain, CreateGObject());
+            return parent.AddChild<FUI_tow_cancel, GObject>(CreateGObject());
         }
         
        
-        public static ETTask<FUI_tow_cancel> CreateInstanceAsync(Entity domain)
+        public static ETTask<FUI_tow_cancel> CreateInstanceAsync(Entity parent)
         {
             ETTask<FUI_tow_cancel> tcs = ETTask<FUI_tow_cancel>.Create(true);
     
             CreateGObjectAsync((go) =>
             {
-                tcs.SetResult(Entity.Create<FUI_tow_cancel, GObject>(domain, go));
+                tcs.SetResult(parent.AddChild<FUI_tow_cancel, GObject>(go));
             });
     
             return tcs;
@@ -66,9 +66,9 @@ namespace ET
         /// <param name="domain"></param>
         /// <param name="go"></param>
         /// <returns></returns>
-        public static FUI_tow_cancel Create(Entity domain, GObject go)
+        public static FUI_tow_cancel Create(Entity parent, GObject go)
         {
-            return Entity.Create<FUI_tow_cancel, GObject>(domain, go);
+            return parent.AddChild<FUI_tow_cancel, GObject>(go);
         }
             
        

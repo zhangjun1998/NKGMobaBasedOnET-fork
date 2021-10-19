@@ -41,19 +41,19 @@ namespace ET
         }
         
        
-        public static FUI_Btn_Login CreateInstance(Entity domain)
+        public static FUI_Btn_Login CreateInstance(Entity parent)
         {			
-            return Entity.Create<FUI_Btn_Login, GObject>(domain, CreateGObject());
+            return parent.AddChild<FUI_Btn_Login, GObject>(CreateGObject());
         }
         
        
-        public static ETTask<FUI_Btn_Login> CreateInstanceAsync(Entity domain)
+        public static ETTask<FUI_Btn_Login> CreateInstanceAsync(Entity parent)
         {
             ETTask<FUI_Btn_Login> tcs = ETTask<FUI_Btn_Login>.Create(true);
     
             CreateGObjectAsync((go) =>
             {
-                tcs.SetResult(Entity.Create<FUI_Btn_Login, GObject>(domain, go));
+                tcs.SetResult(parent.AddChild<FUI_Btn_Login, GObject>(go));
             });
     
             return tcs;
@@ -66,9 +66,9 @@ namespace ET
         /// <param name="domain"></param>
         /// <param name="go"></param>
         /// <returns></returns>
-        public static FUI_Btn_Login Create(Entity domain, GObject go)
+        public static FUI_Btn_Login Create(Entity parent, GObject go)
         {
-            return Entity.Create<FUI_Btn_Login, GObject>(domain, go);
+            return parent.AddChild<FUI_Btn_Login, GObject>(go);
         }
             
        

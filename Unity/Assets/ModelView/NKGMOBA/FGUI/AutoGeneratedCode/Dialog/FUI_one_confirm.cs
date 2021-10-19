@@ -41,19 +41,19 @@ namespace ET
         }
         
        
-        public static FUI_one_confirm CreateInstance(Entity domain)
+        public static FUI_one_confirm CreateInstance(Entity parent)
         {			
-            return Entity.Create<FUI_one_confirm, GObject>(domain, CreateGObject());
+            return parent.AddChild<FUI_one_confirm, GObject>(CreateGObject());
         }
         
        
-        public static ETTask<FUI_one_confirm> CreateInstanceAsync(Entity domain)
+        public static ETTask<FUI_one_confirm> CreateInstanceAsync(Entity parent)
         {
             ETTask<FUI_one_confirm> tcs = ETTask<FUI_one_confirm>.Create(true);
     
             CreateGObjectAsync((go) =>
             {
-                tcs.SetResult(Entity.Create<FUI_one_confirm, GObject>(domain, go));
+                tcs.SetResult(parent.AddChild<FUI_one_confirm, GObject>(go));
             });
     
             return tcs;
@@ -66,9 +66,9 @@ namespace ET
         /// <param name="domain"></param>
         /// <param name="go"></param>
         /// <returns></returns>
-        public static FUI_one_confirm Create(Entity domain, GObject go)
+        public static FUI_one_confirm Create(Entity parent, GObject go)
         {
-            return Entity.Create<FUI_one_confirm, GObject>(domain, go);
+            return parent.AddChild<FUI_one_confirm, GObject>(go);
         }
             
        

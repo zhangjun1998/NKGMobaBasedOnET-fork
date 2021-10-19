@@ -13,7 +13,7 @@ namespace ET
         /// <returns></returns>
         public static Unit CreateUnit(Room room)
         {
-            Unit unit = Entity.Create<Unit, Room>(room, room, true);
+            Unit unit = room.AddChild<Unit, Room>(room);
             return unit;
         }
 
@@ -28,7 +28,7 @@ namespace ET
         /// <returns></returns>
         public static Unit CreateUnit(Room room, int configId, Vector3 pos, Quaternion rotation)
         {
-            Unit unit = Entity.Create<Unit, Room, int>(room, room, configId, true);
+            Unit unit = room.AddChild<Unit, Room, int>(room, configId);
 
             unit.Position = pos;
             unit.Rotation = rotation;
@@ -112,7 +112,7 @@ namespace ET
             return unit;
         }
 
-                /// <summary>
+        /// <summary>
         /// 根据配置表创建Unit
         /// </summary>
         /// <param name="room"></param>
@@ -120,7 +120,8 @@ namespace ET
         /// <param name="pos"></param>
         /// <param name="rotation"></param>
         /// <returns></returns>
-        public static Unit CreateHeroSpilingUnit(Room room, int configId, RoleCamp roleCamp, Vector3 pos, Quaternion rotation)
+        public static Unit CreateHeroSpilingUnit(Room room, int configId, RoleCamp roleCamp, Vector3 pos,
+            Quaternion rotation)
         {
             Unit unit = CreateUnit(room, configId, pos, rotation);
 
@@ -160,7 +161,6 @@ namespace ET
             return unit;
         }
 
-        
         #endregion
 
         #region 创建碰撞体

@@ -39,19 +39,19 @@ namespace ET
         }
         
        
-        public static FUI_GoldenToShopBtn CreateInstance(Entity domain)
+        public static FUI_GoldenToShopBtn CreateInstance(Entity parent)
         {			
-            return Entity.Create<FUI_GoldenToShopBtn, GObject>(domain, CreateGObject());
+            return parent.AddChild<FUI_GoldenToShopBtn, GObject>(CreateGObject());
         }
         
        
-        public static ETTask<FUI_GoldenToShopBtn> CreateInstanceAsync(Entity domain)
+        public static ETTask<FUI_GoldenToShopBtn> CreateInstanceAsync(Entity parent)
         {
             ETTask<FUI_GoldenToShopBtn> tcs = ETTask<FUI_GoldenToShopBtn>.Create(true);
     
             CreateGObjectAsync((go) =>
             {
-                tcs.SetResult(Entity.Create<FUI_GoldenToShopBtn, GObject>(domain, go));
+                tcs.SetResult(parent.AddChild<FUI_GoldenToShopBtn, GObject>(go));
             });
     
             return tcs;
@@ -64,9 +64,9 @@ namespace ET
         /// <param name="domain"></param>
         /// <param name="go"></param>
         /// <returns></returns>
-        public static FUI_GoldenToShopBtn Create(Entity domain, GObject go)
+        public static FUI_GoldenToShopBtn Create(Entity parent, GObject go)
         {
-            return Entity.Create<FUI_GoldenToShopBtn, GObject>(domain, go);
+            return parent.AddChild<FUI_GoldenToShopBtn, GObject>(go);
         }
             
        

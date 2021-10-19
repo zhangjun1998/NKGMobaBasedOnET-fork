@@ -44,8 +44,8 @@ namespace ET
             NP_RuntimeTreeManager npRuntimeTreeManager = unit.GetComponent<NP_RuntimeTreeManager>();
 
             NP_RuntimeTree tempTree =
-                Entity.Create<NP_RuntimeTree, NP_DataSupportor, NP_SyncComponent, Unit>(npRuntimeTreeManager,
-                    npDataSupportor, unit.BelongToRoom.GetComponent<NP_SyncComponent>(), unit);
+                npRuntimeTreeManager.AddChild<NP_RuntimeTree, NP_DataSupportor, NP_SyncComponent, Unit>(npDataSupportor,
+                    unit.BelongToRoom.GetComponent<NP_SyncComponent>(), unit);
 
             long rootId = npDataSupportor.NpDataSupportorBase.NPBehaveTreeDataId;
 

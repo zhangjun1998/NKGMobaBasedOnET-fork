@@ -8,7 +8,7 @@ namespace ET
         {
             UnitComponent unitComponent = room.GetComponent<UnitComponent>();
             
-            Unit unit = Entity.CreateWithId<Unit, int>(unitComponent, id, configId);
+            Unit unit = unitComponent.AddChildWithId<Unit, int>(id, configId);
             unit.BelongToRoom = room;
             
             unitComponent.Add(unit);

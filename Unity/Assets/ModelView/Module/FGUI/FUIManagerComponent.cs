@@ -10,7 +10,7 @@ namespace ET
     {
         public override void Awake(FUIManagerComponent self)
         {
-            self.Root = Entity.Create<FUI, GObject>(self.Domain, GRoot.inst);
+            self.Root = self.Domain.AddChild<FUI, GObject>(GRoot.inst);
         }
     }
 

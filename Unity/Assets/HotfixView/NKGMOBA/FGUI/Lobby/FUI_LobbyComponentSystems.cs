@@ -45,8 +45,7 @@ namespace ET
             fuiRoom.self.MakeFullScreen();
 
             FUI_RoomComponent fuiRoomComponent =
-                Entity.Create<FUI_RoomComponent, FUI_RoomList, FUI_Room>(fuiManagerComponent, fuiRoomList, fuiRoom,
-                    true);
+                fuiManagerComponent.AddChild<FUI_RoomComponent, FUI_RoomList, FUI_Room>(fuiRoomList, fuiRoom);
 
             fuiManagerComponent.Add(FUI_RoomComponent.FUIRoomListName, fuiRoomList, fuiRoomComponent);
             fuiManagerComponent.Add(FUI_RoomComponent.FUIRoomName, fuiRoom, fuiRoomComponent);

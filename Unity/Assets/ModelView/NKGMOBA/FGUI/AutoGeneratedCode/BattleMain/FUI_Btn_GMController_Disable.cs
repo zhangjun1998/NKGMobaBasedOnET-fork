@@ -41,19 +41,19 @@ namespace ET
         }
         
        
-        public static FUI_Btn_GMController_Disable CreateInstance(Entity domain)
+        public static FUI_Btn_GMController_Disable CreateInstance(Entity parent)
         {			
-            return Entity.Create<FUI_Btn_GMController_Disable, GObject>(domain, CreateGObject());
+            return parent.AddChild<FUI_Btn_GMController_Disable, GObject>(CreateGObject());
         }
         
        
-        public static ETTask<FUI_Btn_GMController_Disable> CreateInstanceAsync(Entity domain)
+        public static ETTask<FUI_Btn_GMController_Disable> CreateInstanceAsync(Entity parent)
         {
             ETTask<FUI_Btn_GMController_Disable> tcs = ETTask<FUI_Btn_GMController_Disable>.Create(true);
     
             CreateGObjectAsync((go) =>
             {
-                tcs.SetResult(Entity.Create<FUI_Btn_GMController_Disable, GObject>(domain, go));
+                tcs.SetResult(parent.AddChild<FUI_Btn_GMController_Disable, GObject>(go));
             });
     
             return tcs;
@@ -66,9 +66,9 @@ namespace ET
         /// <param name="domain"></param>
         /// <param name="go"></param>
         /// <returns></returns>
-        public static FUI_Btn_GMController_Disable Create(Entity domain, GObject go)
+        public static FUI_Btn_GMController_Disable Create(Entity parent, GObject go)
         {
-            return Entity.Create<FUI_Btn_GMController_Disable, GObject>(domain, go);
+            return parent.AddChild<FUI_Btn_GMController_Disable, GObject>(go);
         }
             
        

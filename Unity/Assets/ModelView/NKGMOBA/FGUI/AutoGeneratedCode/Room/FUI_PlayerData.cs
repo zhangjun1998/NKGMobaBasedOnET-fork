@@ -44,19 +44,19 @@ namespace ET
         }
         
        
-        public static FUI_PlayerData CreateInstance(Entity domain)
+        public static FUI_PlayerData CreateInstance(Entity parent)
         {			
-            return Entity.Create<FUI_PlayerData, GObject>(domain, CreateGObject());
+            return parent.AddChild<FUI_PlayerData, GObject>(CreateGObject());
         }
         
        
-        public static ETTask<FUI_PlayerData> CreateInstanceAsync(Entity domain)
+        public static ETTask<FUI_PlayerData> CreateInstanceAsync(Entity parent)
         {
             ETTask<FUI_PlayerData> tcs = ETTask<FUI_PlayerData>.Create(true);
     
             CreateGObjectAsync((go) =>
             {
-                tcs.SetResult(Entity.Create<FUI_PlayerData, GObject>(domain, go));
+                tcs.SetResult(parent.AddChild<FUI_PlayerData, GObject>(go));
             });
     
             return tcs;
@@ -69,9 +69,9 @@ namespace ET
         /// <param name="domain"></param>
         /// <param name="go"></param>
         /// <returns></returns>
-        public static FUI_PlayerData Create(Entity domain, GObject go)
+        public static FUI_PlayerData Create(Entity parent, GObject go)
         {
-            return Entity.Create<FUI_PlayerData, GObject>(domain, go);
+            return parent.AddChild<FUI_PlayerData, GObject>(go);
         }
             
        
@@ -120,7 +120,7 @@ namespace ET
     			m_RoomPlayerLevel = (GTextField)com.GetChildAt(0);
     			m_RoomPlayerName = (GTextField)com.GetChildAt(1);
     			m_n3 = (GLoader)com.GetChildAt(2);
-    			m_KickButton = FUI_KickPlayer.Create(domain, com.GetChildAt(3));
+    			m_KickButton = FUI_KickPlayer.Create(this, com.GetChildAt(3));
     			m_PlayerId = (GTextField)com.GetChildAt(4);
     		}
     	}

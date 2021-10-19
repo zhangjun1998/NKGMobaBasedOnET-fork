@@ -45,19 +45,19 @@ namespace ET
         }
         
        
-        public static FUI_Room CreateInstance(Entity domain)
+        public static FUI_Room CreateInstance(Entity parent)
         {			
-            return Entity.Create<FUI_Room, GObject>(domain, CreateGObject());
+            return parent.AddChild<FUI_Room, GObject>(CreateGObject());
         }
         
        
-        public static ETTask<FUI_Room> CreateInstanceAsync(Entity domain)
+        public static ETTask<FUI_Room> CreateInstanceAsync(Entity parent)
         {
             ETTask<FUI_Room> tcs = ETTask<FUI_Room>.Create(true);
     
             CreateGObjectAsync((go) =>
             {
-                tcs.SetResult(Entity.Create<FUI_Room, GObject>(domain, go));
+                tcs.SetResult(parent.AddChild<FUI_Room, GObject>(go));
             });
     
             return tcs;
@@ -70,9 +70,9 @@ namespace ET
         /// <param name="domain"></param>
         /// <param name="go"></param>
         /// <returns></returns>
-        public static FUI_Room Create(Entity domain, GObject go)
+        public static FUI_Room Create(Entity parent, GObject go)
         {
-            return Entity.Create<FUI_Room, GObject>(domain, go);
+            return parent.AddChild<FUI_Room, GObject>(go);
         }
             
        
@@ -120,10 +120,10 @@ namespace ET
     			m_n2 = (GImage)com.GetChildAt(0);
     			m_n4 = (GGraph)com.GetChildAt(1);
     			m_RoomName = (GTextField)com.GetChildAt(2);
-    			m_Btn_QuitRoom = FUI_Btn_QuitRoom.Create(domain, com.GetChildAt(3));
+    			m_Btn_QuitRoom = FUI_Btn_QuitRoom.Create(this, com.GetChildAt(3));
     			m_Team1 = (GList)com.GetChildAt(4);
     			m_Team2 = (GList)com.GetChildAt(5);
-    			m_Btn_StartGame = FUI_Btn_StartGame.Create(domain, com.GetChildAt(6));
+    			m_Btn_StartGame = FUI_Btn_StartGame.Create(this, com.GetChildAt(6));
     		}
     	}
            

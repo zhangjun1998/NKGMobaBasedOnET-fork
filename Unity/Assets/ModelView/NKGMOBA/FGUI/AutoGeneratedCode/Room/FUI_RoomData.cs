@@ -42,19 +42,19 @@ namespace ET
         }
         
        
-        public static FUI_RoomData CreateInstance(Entity domain)
+        public static FUI_RoomData CreateInstance(Entity parent)
         {			
-            return Entity.Create<FUI_RoomData, GObject>(domain, CreateGObject());
+            return parent.AddChild<FUI_RoomData, GObject>(CreateGObject());
         }
         
        
-        public static ETTask<FUI_RoomData> CreateInstanceAsync(Entity domain)
+        public static ETTask<FUI_RoomData> CreateInstanceAsync(Entity parent)
         {
             ETTask<FUI_RoomData> tcs = ETTask<FUI_RoomData>.Create(true);
     
             CreateGObjectAsync((go) =>
             {
-                tcs.SetResult(Entity.Create<FUI_RoomData, GObject>(domain, go));
+                tcs.SetResult(parent.AddChild<FUI_RoomData, GObject>(go));
             });
     
             return tcs;
@@ -67,9 +67,9 @@ namespace ET
         /// <param name="domain"></param>
         /// <param name="go"></param>
         /// <returns></returns>
-        public static FUI_RoomData Create(Entity domain, GObject go)
+        public static FUI_RoomData Create(Entity parent, GObject go)
         {
-            return Entity.Create<FUI_RoomData, GObject>(domain, go);
+            return parent.AddChild<FUI_RoomData, GObject>(go);
         }
             
        
@@ -116,7 +116,7 @@ namespace ET
     			m_RoomName = (GTextField)com.GetChildAt(0);
     			m_n8 = (GTextField)com.GetChildAt(1);
     			m_PlayerNum = (GTextField)com.GetChildAt(2);
-    			m_JoinButton = FUI_Join.Create(domain, com.GetChildAt(3));
+    			m_JoinButton = FUI_Join.Create(this, com.GetChildAt(3));
     			m_RoomId = (GTextField)com.GetChildAt(4);
     		}
     	}

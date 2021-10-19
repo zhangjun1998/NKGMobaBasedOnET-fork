@@ -89,19 +89,19 @@ namespace ET
         }
         
        
-        public static FUI_Lobby CreateInstance(Entity domain)
+        public static FUI_Lobby CreateInstance(Entity parent)
         {			
-            return Entity.Create<FUI_Lobby, GObject>(domain, CreateGObject());
+            return parent.AddChild<FUI_Lobby, GObject>(CreateGObject());
         }
         
        
-        public static ETTask<FUI_Lobby> CreateInstanceAsync(Entity domain)
+        public static ETTask<FUI_Lobby> CreateInstanceAsync(Entity parent)
         {
             ETTask<FUI_Lobby> tcs = ETTask<FUI_Lobby>.Create(true);
     
             CreateGObjectAsync((go) =>
             {
-                tcs.SetResult(Entity.Create<FUI_Lobby, GObject>(domain, go));
+                tcs.SetResult(parent.AddChild<FUI_Lobby, GObject>(go));
             });
     
             return tcs;
@@ -114,9 +114,9 @@ namespace ET
         /// <param name="domain"></param>
         /// <param name="go"></param>
         /// <returns></returns>
-        public static FUI_Lobby Create(Entity domain, GObject go)
+        public static FUI_Lobby Create(Entity parent, GObject go)
         {
-            return Entity.Create<FUI_Lobby, GObject>(domain, go);
+            return parent.AddChild<FUI_Lobby, GObject>(go);
         }
             
        
@@ -162,15 +162,15 @@ namespace ET
                 
     			m_n1 = (GImage)com.GetChildAt(0);
     			m_n2 = (GImage)com.GetChildAt(1);
-    			m_shop = FUI_BottomBtn.Create(domain, com.GetChildAt(2));
-    			m_team = FUI_BottomBtn.Create(domain, com.GetChildAt(3));
-    			m_backpacket = FUI_BottomBtn.Create(domain, com.GetChildAt(4));
-    			m_achievemen = FUI_BottomBtn.Create(domain, com.GetChildAt(5));
-    			m_hero = FUI_BottomBtn.Create(domain, com.GetChildAt(6));
-    			m_prebattle = FUI_BottomBtn.Create(domain, com.GetChildAt(7));
-    			m_friend = FUI_BottomBtn.Create(domain, com.GetChildAt(8));
-    			m_watch = FUI_BottomBtn.Create(domain, com.GetChildAt(9));
-    			m_activity = FUI_ActityHead.Create(domain, com.GetChildAt(10));
+    			m_shop = FUI_BottomBtn.Create(this, com.GetChildAt(2));
+    			m_team = FUI_BottomBtn.Create(this, com.GetChildAt(3));
+    			m_backpacket = FUI_BottomBtn.Create(this, com.GetChildAt(4));
+    			m_achievemen = FUI_BottomBtn.Create(this, com.GetChildAt(5));
+    			m_hero = FUI_BottomBtn.Create(this, com.GetChildAt(6));
+    			m_prebattle = FUI_BottomBtn.Create(this, com.GetChildAt(7));
+    			m_friend = FUI_BottomBtn.Create(this, com.GetChildAt(8));
+    			m_watch = FUI_BottomBtn.Create(this, com.GetChildAt(9));
+    			m_activity = FUI_ActityHead.Create(this, com.GetChildAt(10));
     			m_Bottom = (GGroup)com.GetChildAt(11);
     			m_n23 = (GImage)com.GetChildAt(12);
     			m_n37 = (GImage)com.GetChildAt(13);
@@ -194,17 +194,17 @@ namespace ET
     			m_n48 = (GImage)com.GetChildAt(31);
     			m_n51 = (GImage)com.GetChildAt(32);
     			m_n61 = (GTextField)com.GetChildAt(33);
-    			m_Btn_PVP = FUI_BattleBtn.Create(domain, com.GetChildAt(34));
+    			m_Btn_PVP = FUI_BattleBtn.Create(this, com.GetChildAt(34));
     			m_nomalpvp = (GGroup)com.GetChildAt(35);
     			m_n49 = (GImage)com.GetChildAt(36);
     			m_n53 = (GImage)com.GetChildAt(37);
     			m_n62 = (GTextField)com.GetChildAt(38);
-    			m_Btn_PVE = FUI_BattleBtn.Create(domain, com.GetChildAt(39));
+    			m_Btn_PVE = FUI_BattleBtn.Create(this, com.GetChildAt(39));
     			m_pve = (GGroup)com.GetChildAt(40);
     			m_n50 = (GImage)com.GetChildAt(41);
     			m_n63 = (GTextField)com.GetChildAt(42);
     			m_n52 = (GImage)com.GetChildAt(43);
-    			m_Btn_RoomMode = FUI_BattleBtn.Create(domain, com.GetChildAt(44));
+    			m_Btn_RoomMode = FUI_BattleBtn.Create(this, com.GetChildAt(44));
     			m_seriviouspvp = (GGroup)com.GetChildAt(45);
     			m_Right = (GGroup)com.GetChildAt(46);
     			m_UserAvatar = (GImage)com.GetChildAt(47);

@@ -30,7 +30,7 @@ namespace ET
 
         public Room CreateLobbyRoom(long id)
         {
-            Room room = Entity.CreateWithId<Room>(this, id);
+            Room room = this.AddChildWithId<Room>(id);
             LobbyRooms.Add(room.Id, room);
             return room;
         }
@@ -39,7 +39,7 @@ namespace ET
         {
             if (BattleRoom == null)
             {
-                BattleRoom = Entity.Create<Room>(this);
+                BattleRoom = this.AddChild<Room>();
 
                 BattleRoom.AddComponent<UnitComponent>();
                 BattleRoom.AddComponent<NP_SyncComponent>();

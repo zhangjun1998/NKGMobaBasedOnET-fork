@@ -113,20 +113,20 @@ function HotfixCodeGenHandler.Do(handler, codeGenConfig)
         ]])
 
         writer:writeln([[   
-        public static %s CreateInstance(Entity domain)
+        public static %s CreateInstance(Entity parent)
         {			
-            return Entity.Create<%s, GObject>(domain, CreateGObject());
+            return parent.AddChild<%s, GObject>(CreateGObject());
         }
         ]], className, className)
 
         writer:writeln([[   
-        public static ETTask<%s> CreateInstanceAsync(Entity domain)
+        public static ETTask<%s> CreateInstanceAsync(Entity parent)
         {
             ETTask<%s> tcs = ETTask<%s>.Create(true);
     
             CreateGObjectAsync((go) =>
             {
-                tcs.SetResult(Entity.Create<%s, GObject>(domain, go));
+                tcs.SetResult(parent.AddChild<%s, GObject>(go));
             });
     
             return tcs;
@@ -140,9 +140,9 @@ function HotfixCodeGenHandler.Do(handler, codeGenConfig)
         /// <param name="domain"></param>
         /// <param name="go"></param>
         /// <returns></returns>
-        public static %s Create(Entity domain, GObject go)
+        public static %s Create(Entity parent, GObject go)
         {
-            return Entity.Create<%s, GObject>(domain, go);
+            return parent.AddChild<%s, GObject>(go);
         }
             ]], className, className)
 
@@ -202,11 +202,11 @@ function HotfixCodeGenHandler.Do(handler, codeGenConfig)
                     if customComponentFlagsArray[j]
                     then
                         --- 组装自定义组件前缀
-                        writer:writeln('\t\t\t%s = %s.Create(domain, com.GetChild("%s"));', memberVarName, classNamePrefix .. memberInfo.type, memberInfo.name)
+                        writer:writeln('\t\t\t%s = %s.Create(this, com.GetChild("%s"));', memberVarName, classNamePrefix .. memberInfo.type, memberInfo.name)
                     elseif crossPackageFlagsArray[j]
                     then
                         --- 组装自定义组件前缀
-                        writer:writeln('\t\t\t%s = %s.Create(domain, com.GetChild("%s"));', memberVarName, classNamePrefix .. memberInfo.res.name, memberInfo.name)
+                        writer:writeln('\t\t\t%s = %s.Create(this, com.GetChild("%s"));', memberVarName, classNamePrefix .. memberInfo.res.name, memberInfo.name)
                     else
                         writer:writeln('\t\t\t%s = (%s)com.GetChild("%s");', memberVarName, memberInfo.type, memberInfo.name)
                     end
@@ -215,11 +215,11 @@ function HotfixCodeGenHandler.Do(handler, codeGenConfig)
                     if customComponentFlagsArray[j]
                     then
                         --- 组装自定义组件前缀
-                        writer:writeln('\t\t\t%s = %s.Create(domain, com.GetChildAt(%s));', memberVarName, classNamePrefix .. memberInfo.type, memberInfo.index)
+                        writer:writeln('\t\t\t%s = %s.Create(this, com.GetChildAt(%s));', memberVarName, classNamePrefix .. memberInfo.type, memberInfo.index)
                     elseif crossPackageFlagsArray[j]
                     then
                         --- 组装自定义组件前缀
-                        writer:writeln('\t\t\t%s = %s.Create(domain, com.GetChildAt(%s));', memberVarName, classNamePrefix .. memberInfo.res.name, memberInfo.index)
+                        writer:writeln('\t\t\t%s = %s.Create(this, com.GetChildAt(%s));', memberVarName, classNamePrefix .. memberInfo.res.name, memberInfo.index)
                     else
                         writer:writeln('\t\t\t%s = (%s)com.GetChildAt(%s);', memberVarName, memberInfo.type, memberInfo.index)
                     end
