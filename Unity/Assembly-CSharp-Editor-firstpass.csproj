@@ -56,6 +56,49 @@
      <Compile Include="Assets\Plugins\MonKey Commander\Editor\Menu Items\MonkeyMenuItems.cs" />
      <Compile Include="Assets\Plugins\MonKey Commander\Editor\Settings\MonKeySettings.cs" />
      <Compile Include="Assets\Plugins\MonKey Commander\Editor\Init\GettingStartedPanel.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\RequiredDrawer.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\ShowIfDrawer.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\LeftToggleDrawer.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Other\HierarchyIcons.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\ShaderPropertyPopupDrawer.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\AnimatableParameterDrawer.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Other\DefinesManager.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Windows\PreferencesWindow.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Editor\AnimateBlendShapeInspector.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Inspectors\CutsceneTrackInspector.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Inspectors\CutsceneInspector.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\EnableIfDrawer.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\TransformRefPositionRotationDrawer.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Other\Commands.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\DynamicCameraControllerDrawer.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\SortingLayerPropertyDrawer.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\ReadOnlyDrawer.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Editor\FollowPathInspector.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Windows\QuickPopup.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Windows\ShotPicker.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Editor\CameraShotInspector.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Editor\AnimatorTrackInspector.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Cameras\Editor\ShotCameraInspector.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Cameras\Editor\DirectorCameraInspector.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Other\AssetProcessor.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Editor\CameraTrackInspector.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\ActorGroupPopupDrawer.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Characters\Editor\CharacterInspector.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Inspectors\CutsceneGroupInspector.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Paths\Editor\BezierPathEditor.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\MinDrawer.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Windows\RenderWindow.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\ExampleTextDrawer.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Inspectors\ActionClipInspector.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\PlaybackProtectedDrawer.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Windows\CutsceneEditor.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Editor\SendMessageInspector.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\TransformRefPositionDrawer.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\CallbackDrawer.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Editor\AnimatePropertiesInspector.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Editor\CharacterExpressionInspector.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Editor\SetBehavioursActiveStateInspector.cs" />
+     <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Editor\Drawers\HelpBoxDrawer.cs" />
  <Reference Include="UnityEngine">
  <HintPath>F:/Study/Unity/2020.3.17f1c1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
@@ -841,6 +884,10 @@
     <ProjectReference Include="XAsset.Runtime.csproj">
       <Project>{fb79c1d2-40c3-f61e-3d5c-f52409c3a8b0}</Project>
       <Name>XAsset.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="NKGSlate_Runtime.csproj">
+      <Project>{267ff9c2-66b4-f5db-a609-bb60288c6c82}</Project>
+      <Name>NKGSlate_Runtime</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
