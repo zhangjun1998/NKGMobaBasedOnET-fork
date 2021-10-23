@@ -35,7 +35,9 @@ namespace ET
 		 public const ushort M2C_SyncCDData = 50031;
 		 public const ushort C2M_CreateSpiling = 50032;
 		 public const ushort M2C_CreateSpilings = 50033;
-		 public const ushort M2C_SyncUnitAttribute = 50034;
-		 public const ushort M2C_ChangeUnitAttribute = 50035;
+		 public const ushort C2M_FrameCmd = 50034;
+		 public const ushort M2C_FrameCmd = 50035;
+		 public const ushort M2C_SyncUnitAttribute = 50036;
+		 public const ushort M2C_ChangeUnitAttribute = 50037;
 	}
 }

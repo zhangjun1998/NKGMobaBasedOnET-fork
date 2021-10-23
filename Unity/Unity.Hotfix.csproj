@@ -57,6 +57,7 @@
      <Compile Include="Assets\Hotfix\Module\MessageOuter\OuterMessageDispatcher.cs" />
      <Compile Include="Assets\Hotfix\Module\Message\NetThreadComponentSystem.cs" />
      <Compile Include="Assets\Hotfix\Module\Numeric\NumericWatcher_MaxHP_ShowUI.cs" />
+     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\LockStepStateFrameSyncComponentSystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\SkillSystem\BuffSystem\RefreshTargetBuffTimeBuffSystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\ComponentSystems\UnitAttributesDataComponentSystems.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\SkillSystem\BuffSystem\Core\ABuffSystemBase.cs" />

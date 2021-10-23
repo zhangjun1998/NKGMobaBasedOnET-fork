@@ -97,6 +97,9 @@ namespace ET
 		[ProtoMember(1)]
 		public int TimePoint { get; set; }
 
+		[ProtoMember(2)]
+		public uint ServerFrame { get; set; }
+
 	}
 
 	[ResponseType(typeof(M2C_Reload))]
@@ -609,6 +612,42 @@ namespace ET
 
 		[ProtoMember(2)]
 		public UnitInfo Unit { get; set; }
+
+	}
+
+	[Message(OuterOpcode_Map.C2M_FrameCmd)]
+	[ProtoContract]
+	public partial class C2M_FrameCmd: Object, IActorLocationMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(93)]
+		public long ActorId { get; set; }
+
+		[ProtoMember(91)]
+		public uint Frame { get; set; }
+
+		[ProtoMember(92)]
+		public Object CmdContent { get; set; }
+
+	}
+
+	[Message(OuterOpcode_Map.M2C_FrameCmd)]
+	[ProtoContract]
+	public partial class M2C_FrameCmd: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(93)]
+		public long ActorId { get; set; }
+
+		[ProtoMember(91)]
+		public uint Frame { get; set; }
+
+		[ProtoMember(92)]
+		public Object CmdContent { get; set; }
 
 	}
 

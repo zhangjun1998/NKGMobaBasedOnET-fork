@@ -50,14 +50,29 @@ namespace ET
                     }
 
                     long clientNow_C2MSend = TimeHelper.ClientNow();
-                    self.C2GPingValue = clientNow_C2MSend - clientNow_C2GSend - (long)(Time.deltaTime * 1000);
+
+                    self.C2GPingValue = clientNow_C2MSend - clientNow_C2GSend - (long) (Time.deltaTime * 1000);
 
                     M2C_Ping responseFromMap = await session.Call(self.C2M_Ping) as M2C_Ping;
 
-                    self.C2MPingValue = TimeHelper.ClientNow() - clientNow_C2MSend - (long)(Time.deltaTime * 1000);
+                    self.C2MPingValue = TimeHelper.ClientNow() - clientNow_C2MSend - (long) (Time.deltaTime * 1000);
 
+                    if (self.LastC2MPingValue == self.C2MPingValue)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        self.LastC2MPingValue = self.C2MPingValue;
+                    }
+
+                    //TODO 这里是只有C2M的ping发生变化才发送通知
                     Game.EventSystem.Publish(new EventType.PingChange()
-                            {C2GPing = self.C2GPingValue <= 0 ? 0 : self.C2GPingValue, C2MPing = self.C2MPingValue <= 0 ? 0 : self.C2MPingValue, ZoneScene = self.DomainScene()})
+                        {
+                            C2GPing = self.C2GPingValue <= 0 ? 0 : self.C2GPingValue,
+                            C2MPing = self.C2MPingValue <= 0 ? 0 : self.C2MPingValue,
+                            ServerFrame = responseFromMap.ServerFrame, ZoneScene = self.DomainScene()
+                        })
                         .Coroutine();
 
                     Game.TimeInfo.ServerMinusClientTime = responseFromGate.Time +

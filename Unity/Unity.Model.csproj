@@ -54,6 +54,9 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Data\ILSF_Cmd.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Data\LSF_CmdType.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Data\LSF_MoveCmd.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\Others\ValueTypeDecideByCanvasData\VTD_EventId.cs" />
      <Compile Include="Assets\Model\Core\Entity\EntitySceneFactory.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Composite\RandomSelector.cs" />
@@ -325,6 +328,7 @@
      <Compile Include="Assets\Model\Core\Object\ObjectPool.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Decorator\Failer.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\BuffData\ReplaceAttackBuffData.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\LockStepStateFrameSyncComponent.cs" />
      <None Include="Assets\Model\csc.rsp" />
      <None Include="Assets\Model\Unity.Model.asmdef" />
  <Reference Include="UnityEngine">

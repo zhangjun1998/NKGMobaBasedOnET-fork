@@ -45,6 +45,7 @@ message M2C_Ping // IActorLocationResponse
   string Message = 92;
   int32 Error = 91;
   int32 TimePoint = 1;
+  uint32 ServerFrame = 2;
 }
 
 //ResponseType M2C_Reload
@@ -295,6 +296,25 @@ message M2C_CreateSpilings // IActorMessage
   int64 ActorId = 93;
   int64 RoomId = 95;
   UnitInfo Unit = 2;
+}
+
+message C2M_FrameCmd // IActorLocationMessage
+{
+  int32 RpcId = 90;
+  int64 ActorId = 93;
+
+  uint32 Frame = 91;
+  Object CmdContent = 92;
+}
+
+
+message M2C_FrameCmd // IActorMessage
+{
+  int32 RpcId = 90;
+  int64 ActorId = 93;
+
+  uint32 Frame = 91;
+  Object CmdContent = 92;
 }
 
 message M2C_SyncUnitAttribute // IActorMessage
