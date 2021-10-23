@@ -46,8 +46,8 @@ namespace ET
                 GlobalDefine.ILRuntimeMode = this.ILRuntimeMode;
                 GlobalDefine.DevelopMode = this.DevelopMode;
                 GlobalDefine.SetLoginAddress(LoginAddress);
-
-                // 限制帧率，尽量避免手机发烫
+                
+                // 吸住
                 QualitySettings.vSyncCount = 0;
                 Application.targetFrameRate = 60;
 

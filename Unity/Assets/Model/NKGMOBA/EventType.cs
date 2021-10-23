@@ -22,7 +22,8 @@ namespace ET
         public struct PingChange
         {
             public Scene ZoneScene;
-            public long Ping;
+            public long C2GPing;
+            public long C2MPing;
         }
 
         public struct AfterCreateZoneScene
@@ -61,11 +62,16 @@ namespace ET
             public Scene Scene;
         }
 
-        public struct EnterMapFinish
+        public struct PrepareEnterMap
         {
             public Scene ZoneScene;
         }
-
+        
+        public struct FinishEnterMap
+        {
+            public Scene ZoneScene;
+        }
+        
         public struct AfterHeroCreate_CreateGo
         {
             public int HeroConfigId;

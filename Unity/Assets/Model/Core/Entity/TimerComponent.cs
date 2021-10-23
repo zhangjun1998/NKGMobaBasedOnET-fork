@@ -259,7 +259,7 @@ namespace ET
         public long NewFrameTimer(Action action)
         {
 #if SERVER
-			return NewRepeatedTimerInner((long)(GlobalDefine.FixedUpdateTargetDTTime * 1000), action);
+			return NewRepeatedTimerInner(GlobalDefine.FixedUpdateTargetDTTime_Long, action);
 #else
             return NewRepeatedTimerInner(1, action);
 #endif

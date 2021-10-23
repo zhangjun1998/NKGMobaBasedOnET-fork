@@ -9,8 +9,9 @@
             PlayerComponent playerComponent = Game.Scene.GetComponent<PlayerComponent>();
             playerComponent.BelongToRoom = null;
             playerComponent.HasCompletedLoadCount = 0;
-            
-            Game.EventSystem.Publish(new EventType.EnterMapFinish() {ZoneScene = session.DomainScene()}).Coroutine();
+
+            await Game.EventSystem.Publish(new EventType.PrepareEnterMap() {ZoneScene = session.DomainScene()});
+            Game.EventSystem.Publish(new EventType.FinishEnterMap() {ZoneScene = session.DomainScene()}).Coroutine();
 
             await ETTask.CompletedTask;
         }

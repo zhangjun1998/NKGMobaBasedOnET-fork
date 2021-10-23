@@ -37,11 +37,11 @@ namespace NPBehave
 
         public void Update()
         {
-            s_Timer += GlobalDefine.FixedUpdateTargetDTTime;
-            if (s_Timer >= GlobalDefine.FixedUpdateTargetDTTime)
+            s_Timer += GlobalDefine.FixedUpdateTargetDTTime_Float;
+            if (s_Timer >= GlobalDefine.FixedUpdateTargetDTTime_Float)
             {
                 //默认30hz运行
-                clock.Update(GlobalDefine.FixedUpdateTargetDTTime);
+                clock.Update(GlobalDefine.FixedUpdateTargetDTTime_Float);
                 s_Timer = 0;
             }
         }

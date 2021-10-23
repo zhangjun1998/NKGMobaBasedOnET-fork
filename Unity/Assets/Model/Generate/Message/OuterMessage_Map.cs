@@ -68,6 +68,37 @@ namespace ET
 
 	}
 
+	[ResponseType(typeof(M2C_Ping))]
+	[Message(OuterOpcode_Map.C2M_Ping)]
+	[ProtoContract]
+	public partial class C2M_Ping: Object, IActorLocationRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(93)]
+		public long ActorId { get; set; }
+
+	}
+
+	[Message(OuterOpcode_Map.M2C_Ping)]
+	[ProtoContract]
+	public partial class M2C_Ping: Object, IActorLocationResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(1)]
+		public int TimePoint { get; set; }
+
+	}
+
 	[ResponseType(typeof(M2C_Reload))]
 	[Message(OuterOpcode_Map.C2M_Reload)]
 	[ProtoContract]

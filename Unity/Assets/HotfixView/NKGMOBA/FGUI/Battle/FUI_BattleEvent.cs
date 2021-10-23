@@ -1,4 +1,6 @@
-﻿namespace ET
+﻿using ET.EventType;
+
+namespace ET
 {
     [NumericWatcher(NumericType.Hp)]
     public class Map_ChangeHP : INumericWatcher
@@ -103,6 +105,21 @@
                 .GetFUIComponent<FUI_BattleComponent>(FUIPackage.BattleMain).FuiUIPanelBattle;
 
             fuiBattleMain.m_ExtraAttackInfo.text = ((int) value).ToString();
+        }
+    }
+    
+    public class C2M_PingInfoRefresh : AEvent<EventType.PingChange>
+    {
+        protected override async ETTask Run(PingChange a)
+        {
+            Scene scene = a.ZoneScene;
+            FUI_Battle_Main fuiBattleMain = scene.GetComponent<FUIManagerComponent>()
+                .GetFUIComponent<FUI_BattleComponent>(FUIPackage.BattleMain).FuiUIPanelBattle;
+
+            fuiBattleMain.m_Text_C2GPinginfo.text = a.C2GPing.ToString();
+            fuiBattleMain.m_Text_C2MPinginfo.text = a.C2MPing.ToString();
+            
+            await ETTask.CompletedTask;
         }
     }
 }

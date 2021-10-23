@@ -32,6 +32,21 @@ message Actor_TransferResponse // IActorLocationResponse
   string Message = 92;
 }
 
+//ResponseType M2C_Ping
+message C2M_Ping // IActorLocationRequest
+{
+  int32 RpcId = 90;
+  int64 ActorId = 93;
+}
+
+message M2C_Ping // IActorLocationResponse
+{
+  int32 RpcId = 90;
+  string Message = 92;
+  int32 Error = 91;
+  int32 TimePoint = 1;
+}
+
 //ResponseType M2C_Reload
 message C2M_Reload // IRequest
 {

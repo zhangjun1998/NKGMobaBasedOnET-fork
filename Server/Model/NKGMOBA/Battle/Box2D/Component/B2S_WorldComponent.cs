@@ -55,7 +55,7 @@ namespace ET
                 m_World.DestroyBody(body);
             }
             BodyToDestroy.Clear();
-            this.m_World.Step(GlobalDefine.FixedUpdateTargetDTTime, VelocityIteration, PositionIteration);
+            this.m_World.Step(GlobalDefine.FixedUpdateTargetDTTime_Float, VelocityIteration, PositionIteration);
         }
 
         public World GetWorld()

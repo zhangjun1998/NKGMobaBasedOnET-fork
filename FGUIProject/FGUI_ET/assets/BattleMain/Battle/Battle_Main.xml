@@ -155,6 +155,19 @@
     <group id="n182_u6tf" name="GM" xy="0,117" size="135,332" advanced="true">
       <relation target="" sidePair="left-left,middle-middle"/>
     </group>
+    <text id="n209_nbqq" name="Text_C2GPingDes" xy="1183,0" size="68,28" group="n211_nbqq" font="Microsoft YaHei" fontSize="11" color="#ffffff" align="center" vAlign="middle" autoSize="none" strokeColor="#000000" text="GatePing：">
+      <relation target="" sidePair="right-right,top-top"/>
+    </text>
+    <text id="n210_nbqq" name="Text_C2GPinginfo" xy="1231,0" size="49,28" group="n211_nbqq" font="Microsoft YaHei" fontSize="11" color="#ffffff" align="center" vAlign="middle" autoSize="none" strokeColor="#000000" text="999">
+      <relation target="" sidePair="right-right,top-top"/>
+    </text>
+    <text id="n212_nbqq" name="Text_C2GPingDes" xy="1183,29" size="68,28" group="n211_nbqq" font="Microsoft YaHei" fontSize="11" color="#ffffff" align="center" vAlign="middle" autoSize="none" strokeColor="#000000" text="MapPing：">
+      <relation target="" sidePair="right-right,top-top"/>
+    </text>
+    <text id="n213_nbqq" name="Text_C2MPinginfo" xy="1231,29" size="49,28" group="n211_nbqq" font="Microsoft YaHei" fontSize="11" color="#ffffff" align="center" vAlign="middle" autoSize="none" strokeColor="#000000" text="999">
+      <relation target="" sidePair="right-right,top-top"/>
+    </text>
+    <group id="n211_nbqq" name="Right_Top" xy="1183,0" size="97,57" advanced="true"/>
   </displayList>
   <transition name="Par_GMControllerDis">
     <item time="0" type="XY" target="n182_u6tf" tween="true" startValue="0,117" endValue="-88,117" duration="6"/>
