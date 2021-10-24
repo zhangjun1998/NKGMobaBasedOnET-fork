@@ -12,12 +12,16 @@ namespace ET
         [ProtoMember(2)]
         public uint LockStepStateFrameSyncDataType;
 
-        public abstract ALSF_Cmd Init(uint frame);
+        [ProtoMember(3)]
+        public long UnitId;
+
+        public abstract ALSF_Cmd Init(long unitId);
         
         public virtual void Clear()
         {
             Frame = 0;
             LockStepStateFrameSyncDataType = 0;
+            UnitId = 0;
         }
     }
 }

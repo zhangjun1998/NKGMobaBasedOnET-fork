@@ -26,6 +26,8 @@ namespace ET
         {
             if (self.m_UserInputComponent.RightMouseDown)
             {
+                // 状态帧系统测试代码
+
                 if (Stage.isTouchOnUI) //点在了UI上
                 {
                     //Log.Info("点在UI上");

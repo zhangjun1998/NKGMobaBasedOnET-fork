@@ -47,8 +47,10 @@ namespace ET
                 BattleRoom = this.AddChild<Room>();
 
                 BattleRoom.AddComponent<UnitComponent>();
-                BattleRoom.AddComponent<LockStepStateFrameSyncComponent>();
+                BattleRoom.AddComponent<LSF_Component>();
                 BattleRoom.AddComponent<NP_SyncComponent>();
+                BattleRoom.AddComponent<MouseTargetSelectorComponent>();
+                BattleRoom.AddComponent<MapClickCompoent>();
             }
 
             return BattleRoom;

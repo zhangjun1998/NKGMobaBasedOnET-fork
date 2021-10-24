@@ -90,7 +90,7 @@ namespace NPBehave
         /// </summary>
         public void CancelWithoutReturnResult()
         {
-            // Assert.AreEqual(this.currentState, State.ACTIVE, "can only stop active nodes, tried to stop " + this.Name + "! PATH: " + GetPath());
+            //Assert.AreEqual(this.currentState, State.ACTIVE, "can only stop active nodes, tried to stop " + this.Name + "! PATH: " + GetPath());
             Debug.Assert(this.currentState == State.ACTIVE, "can only stop active nodes, tried to stop");
             this.currentState = State.STOP_REQUESTED;
             DoCancel();

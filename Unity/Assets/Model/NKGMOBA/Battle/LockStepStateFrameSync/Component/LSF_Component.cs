@@ -2,14 +2,14 @@
 
 namespace ET
 {
-    public class LockStepStateFrameSyncComponent : Entity
+    public class LSF_Component : Entity
     {
         /// <summary>
         /// 整局游戏的Cmd记录，用于断线重连
         /// </summary>
-        public Dictionary<uint, Queue<Object>> WholeCmds = new Dictionary<uint, Queue<Object>>(8192);
+        public Dictionary<uint, Queue<ALSF_Cmd>> WholeCmds = new Dictionary<uint, Queue<ALSF_Cmd>>(8192);
         
-        public Dictionary<uint, Queue<Object>> FrameCmdsToHandle = new Dictionary<uint, Queue<Object>>(64);
+        public Dictionary<uint, Queue<ALSF_Cmd>> FrameCmdsToHandle = new Dictionary<uint, Queue<ALSF_Cmd>>(64);
 
         /// <summary>
         /// 用于帧同步的FixedUpdate，需要注意的是，这个FixedUpdate与框架层的是不搭嘎的
@@ -35,7 +35,7 @@ namespace ET
         /// <summary>
         /// 玩家输入缓冲区，因为会有回滚操作，需要重新预测到当前帧，保存范围为上一次服务器确认的帧到当前帧
         /// </summary>
-        public Dictionary<uint, Queue<Object>> FrameCmdsBuffer = new Dictionary<uint, Queue<Object>>(64);
+        public Dictionary<uint, Queue<ALSF_Cmd>> FrameCmdsBuffer = new Dictionary<uint, Queue<ALSF_Cmd>>(64);
         
         /// <summary>
         /// 服务端当前帧，用于判断客户端当前超前帧数是否合法，Ping协议和正常的帧同步协议都会有这个信息，直接赋值过来即可

@@ -3,18 +3,18 @@
 namespace ET
 {
     [ProtoContract]
-    public class LSF_PathFindCmd: ALSF_Cmd
+    public class LSF_PathFindCmd : ALSF_Cmd
     {
-        private const uint c_LSF_CmdType = LSF_CmdType.PathFind;
-        
+        public const uint CmdType = LSF_CmdType.PathFind;
+
         [ProtoMember(1)] public float PosX;
         [ProtoMember(2)] public float PosY;
         [ProtoMember(3)] public float PosZ;
 
-        public override ALSF_Cmd Init(uint frame)
+        public override ALSF_Cmd Init(long unitId)
         {
-            this.Frame = frame;
-            this.LockStepStateFrameSyncDataType = c_LSF_CmdType;
+            this.LockStepStateFrameSyncDataType = CmdType;
+            this.UnitId = unitId;
 
             return this;
         }

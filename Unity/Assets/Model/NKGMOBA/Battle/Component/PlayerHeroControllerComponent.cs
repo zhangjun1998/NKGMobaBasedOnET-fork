@@ -8,57 +8,11 @@ using System;
 
 namespace ET
 {
-    [ObjectSystem]
-    public class PlayerHeroControllerAwakeSystem : AwakeSystem<PlayerHeroControllerComponent>
-    {
-        public override void Awake(PlayerHeroControllerComponent self)
-        {
-            self.Awake();
-        }
-    }
-
-    [ObjectSystem]
-    public class PlayerHeroControllerUpdateSystem : UpdateSystem<PlayerHeroControllerComponent>
-    {
-        public override void Update(PlayerHeroControllerComponent self)
-        {
-            self.Update();
-        }
-    }
-
     /// <summary>
     /// 玩家自己操控英雄组件
     /// </summary>
     public class PlayerHeroControllerComponent : Entity
     {
-        private UserInputComponent userInputComponent;
-
-        public void Awake()
-        {
-            this.userInputComponent = Game.Scene.GetComponent<UserInputComponent>();
-        }
-
-        public void Update()
-        {
-            if (this.userInputComponent.QDown)
-            {
-                Game.Scene.GetComponent<PlayerComponent>().GateSession.Send(new C2M_UserInputSkillCmd() {VK = "Q"});
-            }
-
-            if (this.userInputComponent.WDown)
-            {
-                Game.Scene.GetComponent<PlayerComponent>().GateSession.Send(new C2M_UserInputSkillCmd() {VK = "W"});
-            }
-
-            if (this.userInputComponent.EDown)
-            {
-                Game.Scene.GetComponent<PlayerComponent>().GateSession.Send(new C2M_UserInputSkillCmd() {VK = "E"});
-            }
-
-            if (this.userInputComponent.RDown)
-            {
-                Game.Scene.GetComponent<PlayerComponent>().GateSession.Send(new C2M_UserInputSkillCmd() {VK = "R"});
-            }
-        }
+        public UserInputComponent UserInputComponent;
     }
 }

@@ -38,6 +38,8 @@ namespace ET
             Game.Scene.AddComponent<AIDispatcherComponent>();
             Game.Scene.AddComponent<B2S_CollisionDispatcherComponent>();
 
+            Game.Scene.AddComponent<LSF_CmdHandlerComponent>();
+
             // 添加数据库组件，可以查询数据
             StartZoneConfig startZoneConfig = StartZoneConfigCategory.Instance.Get(GlobalDefine.Options.Process);
             Game.Scene.AddComponent<DBComponent, string, string>(startZoneConfig.DBConnection, startZoneConfig.DBName);

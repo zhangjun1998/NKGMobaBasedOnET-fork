@@ -622,9 +622,6 @@ namespace ET
 		[ProtoMember(93)]
 		public long ActorId { get; set; }
 
-		[ProtoMember(91)]
-		public uint Frame { get; set; }
-
 		[ProtoMember(92)]
 		public ALSF_Cmd CmdContent { get; set; }
 
@@ -639,9 +636,6 @@ namespace ET
 
 		[ProtoMember(93)]
 		public long ActorId { get; set; }
-
-		[ProtoMember(91)]
-		public uint Frame { get; set; }
 
 		[ProtoMember(92)]
 		public ALSF_Cmd CmdContent { get; set; }

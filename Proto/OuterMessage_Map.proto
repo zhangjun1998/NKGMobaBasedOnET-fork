@@ -301,9 +301,8 @@ message C2M_FrameCmd // IActorLocationMessage
 {
   int32 RpcId = 90;
   int64 ActorId = 93;
-
-  uint32 Frame = 91;
-  ILSF_Cmd CmdContent = 92;
+  
+  ALSF_Cmd CmdContent = 92;
 }
 
 
@@ -311,9 +310,8 @@ message M2C_FrameCmd // IActorMessage
 {
   int32 RpcId = 90;
   int64 ActorId = 93;
-
-  uint32 Frame = 91;
-  ILSF_Cmd CmdContent = 92;
+  
+  ALSF_Cmd CmdContent = 92;
 }
 
 message M2C_SyncUnitAttribute // IActorMessage

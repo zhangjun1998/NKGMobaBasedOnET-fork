@@ -8,9 +8,11 @@ namespace ET
         public override void Awake(OutLineComponent self)
         {
             //此处填写Awake逻辑
-            self.MouseTargetSelectorComponent = self.DomainScene().GetComponent<MouseTargetSelectorComponent>();
             self.PlayerUnit = self.DomainScene().GetComponent<RoomManagerComponent>().GetBattleRoom()
                 .GetComponent<UnitComponent>().MyUnit;
+
+            self.MouseTargetSelectorComponent =
+                self.PlayerUnit.BelongToRoom.GetComponent<MouseTargetSelectorComponent>();
         }
     }
 
@@ -36,7 +38,8 @@ namespace ET
                     self.ResetUnitOutLineInfo(self.CachedUnit);
                     self.CachedUnit = self.MouseTargetSelectorComponent.TargetUnit;
                     GameObject selfUnitGo = self.CachedUnit.GetComponent<GameObjectComponent>().GameObject;
-                    selfUnitGo.Get<GameObject>("Materials").GetComponent<Renderer>().GetPropertyBlock(OutLineComponent.MaterialPropertyBlock);
+                    selfUnitGo.Get<GameObject>("Materials").GetComponent<Renderer>()
+                        .GetPropertyBlock(OutLineComponent.MaterialPropertyBlock);
                     OutLineComponent.MaterialPropertyBlock.SetFloat("OutLineWidth", 0.07f);
 
                     if (roleCastComponent.GetRoleCastToTarget(self.PlayerUnit) == RoleCast.Friendly)

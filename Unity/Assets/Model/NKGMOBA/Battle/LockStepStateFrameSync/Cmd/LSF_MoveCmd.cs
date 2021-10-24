@@ -6,7 +6,7 @@ namespace ET
     [ProtoContract]
     public class LSF_MoveCmd : ALSF_Cmd
     {
-        private const uint c_LSF_CmdType = LSF_CmdType.Move;
+        public const uint CmdType = LSF_CmdType.Move;
 
         [ProtoMember(2)] public float PosX;
         [ProtoMember(3)] public float PosY;
@@ -20,10 +20,10 @@ namespace ET
         [ProtoMember(9)] public float Speed;
         [ProtoMember(10)] public bool IsStopped;
         
-        public override ALSF_Cmd Init(uint frame)
+        public override ALSF_Cmd Init(long unitId)
         {
-            this.Frame = frame;
-            this.LockStepStateFrameSyncDataType = c_LSF_CmdType;
+            this.LockStepStateFrameSyncDataType = CmdType;
+            this.UnitId = unitId;
 
             return this;
         }

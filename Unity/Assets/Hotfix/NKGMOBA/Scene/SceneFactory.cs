@@ -11,8 +11,7 @@ namespace ET
             zoneScene.AddComponent<RoomManagerComponent>();
             zoneScene.AddComponent<NP_TreeDataRepositoryComponent>();
             zoneScene.AddComponent<UnitAttributesDataRepositoryComponent>();
-            zoneScene.AddComponent<MouseTargetSelectorComponent>();
-            zoneScene.AddComponent<MapClickCompoent>();
+
             zoneScene.AddComponent<CDComponent>();
             
             // UI层的初始化

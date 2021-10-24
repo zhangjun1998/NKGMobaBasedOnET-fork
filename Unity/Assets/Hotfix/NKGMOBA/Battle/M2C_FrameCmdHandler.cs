@@ -4,11 +4,11 @@
     {
         protected override async ETVoid Run(Session session, M2C_FrameCmd message)
         {
-            LockStepStateFrameSyncComponent lockStepStateFrameSyncComponent = session.DomainScene()
-                .GetComponent<RoomManagerComponent>().BattleRoom.GetComponent<LockStepStateFrameSyncComponent>();
+            LSF_Component lsfComponent = session.DomainScene()
+                .GetComponent<RoomManagerComponent>().BattleRoom.GetComponent<LSF_Component>();
             
-            lockStepStateFrameSyncComponent.AddMessageToHandle(message);
-            lockStepStateFrameSyncComponent.CaculateServerCurrentFrameByCmdFrameAndHalfRTT(message.Frame);
+            lsfComponent.AddCmdToHandle(message.CmdContent);
+            lsfComponent.CaculateServerCurrentFrameByCmdFrameAndHalfRTT(message.CmdContent.Frame);
 
             await ETTask.CompletedTask;
         }

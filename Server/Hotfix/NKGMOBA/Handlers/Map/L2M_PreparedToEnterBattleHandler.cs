@@ -20,6 +20,8 @@ namespace ET
                 //UnitFactory.CompleteHeroComponent(hero);
             }
 
+            room.GetComponent<LSF_Component>().StartFrameSync();
+
             reply();
 
             await ETTask.CompletedTask;

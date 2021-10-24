@@ -4,17 +4,19 @@ using ET.EventType;
 
 namespace ET
 {
-    public class LockStepStateFrameSyncComponentAwakeSystem : AwakeSystem<LockStepStateFrameSyncComponent>
+    public class LockStepStateFrameSyncComponentAwakeSystem : AwakeSystem<LSF_Component>
     {
-        public override void Awake(LockStepStateFrameSyncComponent self)
+        public override void Awake(LSF_Component self)
         {
-
+#if !SERVER
+            self.CurrentFrame = LSF_Component.AheadOfFrameMax;
+#endif
         }
     }
 
-    public class LockStepStateFrameSyncComponentUpdateSystem : UpdateSystem<LockStepStateFrameSyncComponent>
+    public class LockStepStateFrameSyncComponentUpdateSystem : UpdateSystem<LSF_Component>
     {
-        public override void Update(LockStepStateFrameSyncComponent self)
+        public override void Update(LSF_Component self)
         {
             if (!self.StartSync)
             {
@@ -25,7 +27,7 @@ namespace ET
             self.CurrentAheadOfFrame = self.CurrentFrame - self.ServerCurrentFrame;
 
             Log.Info(
-                $"-------------------CurrentAheadOfFrame: {self.CurrentAheadOfFrame} TargetAheadOfFrame: {self.TargetAheadOfFrame}");
+                $"-------------------CurrentAheadOfFrame: {self.CurrentAheadOfFrame} TargetAheadOfFrame: {self.TargetAheadOfFrame} ServerCurrentFrame: {self.ServerCurrentFrame}");
 
             if (self.CurrentAheadOfFrame != self.TargetAheadOfFrame)
             {
@@ -51,9 +53,9 @@ namespace ET
         }
     }
 
-    public class LockStepStateFrameSyncComponentDestroySystem : DestroySystem<LockStepStateFrameSyncComponent>
+    public class LockStepStateFrameSyncComponentDestroySystem : DestroySystem<LSF_Component>
     {
-        public override void Destroy(LockStepStateFrameSyncComponent self)
+        public override void Destroy(LSF_Component self)
         {
             self.FixedUpdate.UpdateCallback = null;
             self.FixedUpdate = null;
