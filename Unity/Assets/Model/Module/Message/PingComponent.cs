@@ -7,9 +7,6 @@ namespace ET
 
         public C2M_Ping C2M_Ping = new C2M_Ping();
 
-        public long LastC2GPingValue;
-        public long LastC2MPingValue;
-        
         public long C2GPingValue; //Gate延迟值
         public long C2MPingValue; //Map延迟值
     }

@@ -78,6 +78,10 @@
       <Link>NKGMOBA\Battle\SkillSystem\BuffData\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>
 
+    <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\**\*.cs">
+      <Link>NKGMOBA\Battle\LockStepStateFrameSync\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Compile>
+
     <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Battle\SkillSystem\Others\**\*.cs">
       <Link>NKGMOBA\Battle\SkillSystem\Others\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>

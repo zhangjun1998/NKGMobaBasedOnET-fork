@@ -31,6 +31,11 @@ namespace ET
             Game.Scene.AddComponent<UserInputComponent>();
 
             Scene zoneScene = await SceneFactory.CreateZoneScene(1, "Game", Game.Scene);
+            
+            LSF_PathFindCmd p = ReferencePool.Acquire<LSF_PathFindCmd>().Init(1) as LSF_PathFindCmd;
+            var arr1 = ProtobufHelper.ToBytes(p);
+            var s1 = ProtobufHelper.FromBytes<LSF_PathFindCmd>(arr1, 0, arr1.Length);
+            var s2 = ProtobufHelper.FromBytes<ALSF_Cmd>(arr1, 0, arr1.Length);
 
             //显示登陆界面
             await Game.EventSystem.Publish(new EventType.AppStartInitFinish() {ZoneScene = zoneScene});

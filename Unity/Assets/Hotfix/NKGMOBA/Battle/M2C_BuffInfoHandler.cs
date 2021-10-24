@@ -13,7 +13,7 @@ namespace ET
     {
         protected override async ETVoid Run(Session session, M2C_BuffInfo message)
         {
-            Unit unit = session.DomainScene().GetComponent<RoomManagerComponent>().GetOrCreateBattleRoom().GetComponent<UnitComponent>()
+            Unit unit = session.DomainScene().GetComponent<RoomManagerComponent>().GetBattleRoom().GetComponent<UnitComponent>()
                 .Get(message.UnitId);
             
             List<NP_RuntimeTree> skillContents =

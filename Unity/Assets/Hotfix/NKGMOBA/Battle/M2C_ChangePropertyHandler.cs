@@ -4,7 +4,7 @@
     {
         protected override async ETVoid Run(Session session, M2C_ChangeProperty message)
         {
-            UnitComponent unitComponent = session.DomainScene().GetComponent<RoomManagerComponent>().GetOrCreateBattleRoom().GetComponent<UnitComponent>();
+            UnitComponent unitComponent = session.DomainScene().GetComponent<RoomManagerComponent>().GetBattleRoom().GetComponent<UnitComponent>();
             
             Unit unit = unitComponent.Get(message.UnitId);
 

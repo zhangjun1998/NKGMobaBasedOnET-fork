@@ -50,8 +50,6 @@ namespace ET
 
                 File.Copy(dllOriPath, dllDesPath, true);
                 File.Copy(pdbOriPath, pdbDesPath, true);
-                AssetDatabase.ImportAsset(dllDesPath);
-                AssetDatabase.ImportAsset(pdbDesPath);
             }
 
             AssetDatabase.Refresh();

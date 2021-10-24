@@ -57,6 +57,10 @@
       <Link>NKGMOBA\Battle\ComponentSystems\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>
 
+    <Compile Include="..\..\Unity\Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\**\*.cs">
+      <Link>NKGMOBA\Battle\LockStepStateFrameSync\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Compile>
+
     <Compile Include="..\..\Unity\Assets\Hotfix\NKGMOBA\Battle\NPbehave\**\*.cs">
       <Link>NKGMOBA\Battle\NPbehave\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>

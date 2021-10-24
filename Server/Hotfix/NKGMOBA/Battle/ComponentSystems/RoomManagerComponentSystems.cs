@@ -7,6 +7,7 @@
             Room room = self.AddChildWithId<Room>(id);
 
             room.AddComponent<UnitComponent>();
+            room.AddComponent<LockStepStateFrameSyncComponent>();
             room.AddComponent<NP_SyncComponent>();
             room.AddComponent<RecastPathComponent>();
             room.AddComponent<CDComponent>();

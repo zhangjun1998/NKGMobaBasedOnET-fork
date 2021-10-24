@@ -8,7 +8,7 @@ namespace ET
         public void Run(NumericComponent numericComponent, NumericType numericType, float value)
         {
             Scene scene = numericComponent.DomainScene();
-            UnitComponent unitComponent = scene.GetComponent<RoomManagerComponent>().GetOrCreateBattleRoom()
+            UnitComponent unitComponent = scene.GetComponent<RoomManagerComponent>().GetBattleRoom()
                 .GetComponent<UnitComponent>();
             if (numericComponent.GetParent<Unit>().Id != unitComponent.MyUnit.Id) return;
             FUI_Battle_Main fuiBattleMain = scene.GetComponent<FUIManagerComponent>()
@@ -27,7 +27,7 @@ namespace ET
         public void Run(NumericComponent numericComponent, NumericType numericType, float value)
         {
             Scene scene = numericComponent.DomainScene();
-            UnitComponent unitComponent = scene.GetComponent<RoomManagerComponent>().GetOrCreateBattleRoom()
+            UnitComponent unitComponent = scene.GetComponent<RoomManagerComponent>().GetBattleRoom()
                 .GetComponent<UnitComponent>();
             if (numericComponent.GetParent<Unit>().Id != unitComponent.MyUnit.Id) return;
             FUI_Battle_Main fuiBattleMain = scene.GetComponent<FUIManagerComponent>()
@@ -45,7 +45,7 @@ namespace ET
         public void Run(NumericComponent numericComponent, NumericType numericType, float value)
         {
             Scene scene = numericComponent.DomainScene();
-            UnitComponent unitComponent = scene.GetComponent<RoomManagerComponent>().GetOrCreateBattleRoom()
+            UnitComponent unitComponent = scene.GetComponent<RoomManagerComponent>().GetBattleRoom()
                 .GetComponent<UnitComponent>();
             if (numericComponent.GetParent<Unit>().Id != unitComponent.MyUnit.Id) return;
             FUI_Battle_Main fuiBattleMain = scene.GetComponent<FUIManagerComponent>()
@@ -63,7 +63,7 @@ namespace ET
         public void Run(NumericComponent numericComponent, NumericType numericType, float value)
         {
             Scene scene = numericComponent.DomainScene();
-            UnitComponent unitComponent = scene.GetComponent<RoomManagerComponent>().GetOrCreateBattleRoom()
+            UnitComponent unitComponent = scene.GetComponent<RoomManagerComponent>().GetBattleRoom()
                 .GetComponent<UnitComponent>();
             if (numericComponent.GetParent<Unit>().Id != unitComponent.MyUnit.Id) return;
             FUI_Battle_Main fuiBattleMain = scene.GetComponent<FUIManagerComponent>()
@@ -82,7 +82,7 @@ namespace ET
         public void Run(NumericComponent numericComponent, NumericType numericType, float value)
         {
             Scene scene = numericComponent.DomainScene();
-            UnitComponent unitComponent = scene.GetComponent<RoomManagerComponent>().GetOrCreateBattleRoom()
+            UnitComponent unitComponent = scene.GetComponent<RoomManagerComponent>().GetBattleRoom()
                 .GetComponent<UnitComponent>();
             if (numericComponent.GetParent<Unit>().Id != unitComponent.MyUnit.Id) return;
             FUI_Battle_Main fuiBattleMain = scene.GetComponent<FUIManagerComponent>()
@@ -98,7 +98,7 @@ namespace ET
         public void Run(NumericComponent numericComponent, NumericType numericType, float value)
         {
             Scene scene = numericComponent.DomainScene();
-            UnitComponent unitComponent = scene.GetComponent<RoomManagerComponent>().GetOrCreateBattleRoom()
+            UnitComponent unitComponent = scene.GetComponent<RoomManagerComponent>().GetBattleRoom()
                 .GetComponent<UnitComponent>();
             if (numericComponent.GetParent<Unit>().Id != unitComponent.MyUnit.Id) return;
             FUI_Battle_Main fuiBattleMain = scene.GetComponent<FUIManagerComponent>()

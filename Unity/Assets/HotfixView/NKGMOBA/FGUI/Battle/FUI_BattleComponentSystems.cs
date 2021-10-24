@@ -16,7 +16,7 @@ namespace ET
         {
             self.FuiUIPanelBattle = fuiUIPanelBattle;
             Scene scene = self.DomainScene();
-            UnitComponent unitComponent = scene.GetComponent<RoomManagerComponent>().GetOrCreateBattleRoom()
+            UnitComponent unitComponent = scene.GetComponent<RoomManagerComponent>().GetBattleRoom()
                 .GetComponent<UnitComponent>();
 
             self.m_CDComponent = scene.GetComponent<CDComponent>();
@@ -187,7 +187,7 @@ namespace ET
     {
         public override void Update(FUI_BattleComponent self)
         {
-            Unit unit = self.DomainScene().GetComponent<RoomManagerComponent>().GetOrCreateBattleRoom()
+            Unit unit = self.DomainScene().GetComponent<RoomManagerComponent>().GetBattleRoom()
                 .GetComponent<UnitComponent>().MyUnit;
             long playerUnitId = unit.Id;
             //此处填写Update逻辑

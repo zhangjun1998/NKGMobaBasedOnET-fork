@@ -57,7 +57,6 @@
      <Compile Include="Assets\Hotfix\Module\MessageOuter\OuterMessageDispatcher.cs" />
      <Compile Include="Assets\Hotfix\Module\Message\NetThreadComponentSystem.cs" />
      <Compile Include="Assets\Hotfix\Module\Numeric\NumericWatcher_MaxHP_ShowUI.cs" />
-     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\LockStepStateFrameSyncComponentSystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\SkillSystem\BuffSystem\RefreshTargetBuffTimeBuffSystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\ComponentSystems\UnitAttributesDataComponentSystems.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\SkillSystem\BuffSystem\Core\ABuffSystemBase.cs" />
@@ -71,6 +70,7 @@
      <Compile Include="Assets\Hotfix\NKGMOBA\Room\L2C_PlayerTriggerRoomHandler.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Unit\M2C_CreateHeroUnitsHandler.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\NP_RuntimeTreeFactory.cs" />
+     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\LockStepStateFrameSyncComponentUtilities.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\SkillSystem\BuffSystem\ReplaceAttackBuffSystem.cs" />
      <Compile Include="Assets\Hotfix\Module\Config\ConfigComponentSystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Room\LeaveRoomHelper.cs" />
@@ -82,6 +82,7 @@
      <Compile Include="Assets\Hotfix\NKGMOBA\Room\StartGameHelper.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\SkillSystem\BuffSystem\VTDUtilities.cs" />
      <Compile Include="Assets\Hotfix\Module\Numeric\NumericWatcher_Speed.cs" />
+     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\LockStepStateFrameSyncComponentEvents.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\SkillSystem\BuffSystem\ChangeMaterialBuffSystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Move\MoveComponentSystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\NP_CheckUnitKilledBySpecialMethodAction.cs" />
@@ -102,6 +103,7 @@
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\SkillSystem\BuffSystem\Core\BuffSystemExtension.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\NP_CheckSkillCanBeCastAction.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\NP_SendCDInfoToClientAction.cs" />
+     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\LockStepStateFrameSyncComponentSystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Unit\UnitSystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\SkillSystem\BuffSystem\SustainDamageBuffSystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\NP_DestroySelfAndRelativeCollidersAction.cs" />
@@ -157,6 +159,7 @@
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\M2C_CommonAttackHandler.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\BBValue\NP_ChangeTargetSkillBBValueAction.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\NP_TriggerAttackCDAction.cs" />
+     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\M2C_FrameCmdHandler.cs" />
      <None Include="Assets\Hotfix\Unity.Hotfix.asmdef" />
      <None Include="Assets\Hotfix\csc.rsp" />
  <Reference Include="UnityEngine">

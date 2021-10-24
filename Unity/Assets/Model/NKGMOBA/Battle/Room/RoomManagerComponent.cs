@@ -35,6 +35,11 @@ namespace ET
             return room;
         }
         
+        public Room GetBattleRoom()
+        {
+            return BattleRoom;
+        }
+
         public Room GetOrCreateBattleRoom()
         {
             if (BattleRoom == null)
@@ -48,7 +53,7 @@ namespace ET
 
             return BattleRoom;
         }
-
+        
         public Room GetLobbyRoom(long id)
         {
             if (LobbyRooms.TryGetValue(id, out var room))

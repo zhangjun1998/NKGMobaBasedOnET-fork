@@ -24,7 +24,6 @@ namespace ET
             public Scene ZoneScene;
             public long C2GPing;
             public long C2MPing;
-            public uint ServerFrame;
         }
 
         public struct AfterCreateZoneScene

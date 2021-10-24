@@ -57,21 +57,12 @@ namespace ET
 
                     self.C2MPingValue = TimeHelper.ClientNow() - clientNow_C2MSend - (long) (Time.deltaTime * 1000);
 
-                    if (self.LastC2MPingValue == self.C2MPingValue)
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        self.LastC2MPingValue = self.C2MPingValue;
-                    }
-
                     //TODO 这里是只有C2M的ping发生变化才发送通知
                     Game.EventSystem.Publish(new EventType.PingChange()
                         {
                             C2GPing = self.C2GPingValue <= 0 ? 0 : self.C2GPingValue,
                             C2MPing = self.C2MPingValue <= 0 ? 0 : self.C2MPingValue,
-                            ServerFrame = responseFromMap.ServerFrame, ZoneScene = self.DomainScene()
+                            ZoneScene = self.DomainScene()
                         })
                         .Coroutine();
 

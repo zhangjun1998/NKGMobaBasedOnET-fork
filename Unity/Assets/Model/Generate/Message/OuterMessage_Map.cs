@@ -97,9 +97,6 @@ namespace ET
 		[ProtoMember(1)]
 		public int TimePoint { get; set; }
 
-		[ProtoMember(2)]
-		public uint ServerFrame { get; set; }
-
 	}
 
 	[ResponseType(typeof(M2C_Reload))]
@@ -629,7 +626,7 @@ namespace ET
 		public uint Frame { get; set; }
 
 		[ProtoMember(92)]
-		public Object CmdContent { get; set; }
+		public ALSF_Cmd CmdContent { get; set; }
 
 	}
 
@@ -647,7 +644,7 @@ namespace ET
 		public uint Frame { get; set; }
 
 		[ProtoMember(92)]
-		public Object CmdContent { get; set; }
+		public ALSF_Cmd CmdContent { get; set; }
 
 	}
 

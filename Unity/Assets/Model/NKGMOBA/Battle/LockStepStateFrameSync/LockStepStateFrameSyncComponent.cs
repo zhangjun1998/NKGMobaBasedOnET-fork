@@ -43,9 +43,9 @@ namespace ET
         public uint ServerCurrentFrame;
         
         /// <summary>
-        /// 暂定客户端最多只能超前服务端5帧
+        /// 暂定客户端最多只能超前服务端10帧
         /// </summary>
-        public const uint AheadOfFrameMax = 5;
+        public const uint AheadOfFrameMax = 10;
         
         /// <summary>
         /// 当前是否处于变速阶段
@@ -61,6 +61,12 @@ namespace ET
         /// 客户端应当超前服务端的帧数
         /// </summary>
         public uint TargetAheadOfFrame;
+
+        /// <summary>
+        /// 从客户端到服务端通信所要花费的时间（ms）
+        /// 半个RTT（不包括服务端的缓存帧时长）
+        /// </summary>
+        public long HalfRTT;
 #endif
     }
 }

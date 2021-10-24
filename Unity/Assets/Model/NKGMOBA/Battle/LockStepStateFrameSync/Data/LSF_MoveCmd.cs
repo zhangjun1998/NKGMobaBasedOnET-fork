@@ -1,31 +1,43 @@
-﻿using UnityEngine;
+﻿using ProtoBuf;
+using UnityEngine;
 
 namespace ET
 {
-    public class LSF_MoveCmd: ILSF_Cmd
+    [ProtoContract]
+    public class LSF_MoveCmd : ALSF_Cmd
     {
-        private static uint s_LSF_CmdType = LSF_CmdType.Move;
+        private const uint c_LSF_CmdType = LSF_CmdType.Move;
 
-        public uint GetCmdFrame => Frame;
+        [ProtoMember(2)] public float PosX;
+        [ProtoMember(3)] public float PosY;
+        [ProtoMember(4)] public float PosZ;
 
-        public uint GetLockStepStateFrameSyncDataType => s_LSF_CmdType;
+        [ProtoMember(5)] public float RotA;
+        [ProtoMember(6)] public float RotB;
+        [ProtoMember(7)] public float RotC;
+        [ProtoMember(8)] public float RotW;
+
+        [ProtoMember(9)] public float Speed;
+        [ProtoMember(10)] public bool IsStopped;
         
-        public ILSF_Cmd ParseFromMessage(Object message)
+        public override ALSF_Cmd Init(uint frame)
         {
-            throw new System.NotImplementedException();
+            this.Frame = frame;
+            this.LockStepStateFrameSyncDataType = c_LSF_CmdType;
+
+            return this;
         }
 
-        public uint Frame;
-        
-        public Vector3 Pos;
-        public Quaternion Rot;
-        public float Speed;
-        public bool IsStopped;
-
-        public void Clear()
+        public override void Clear()
         {
-            Pos = Vector3.zero;
-            Rot = Quaternion.identity;
+            base.Clear();
+            PosX = 0;
+            PosY = 0;
+            PosZ = 0;
+            RotA = 0;
+            RotB = 0;
+            RotC = 0;
+            RotW = 0;
             Speed = 0;
             IsStopped = false;
             Frame = 0;

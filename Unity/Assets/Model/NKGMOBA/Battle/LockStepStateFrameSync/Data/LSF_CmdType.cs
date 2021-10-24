@@ -4,6 +4,7 @@
     {
         //----------移动模块，0~100
         public const uint Move = 0;
+        public const uint PathFind = 1;
         
         //----------行为树模块，101 - 10000
         public const uint ChangeBlackBoardValue = 101;

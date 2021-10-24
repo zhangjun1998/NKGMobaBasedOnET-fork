@@ -20,7 +20,7 @@
             scene.GetComponent<FUIManagerComponent>().Add(FUIPackage.BattleMain, fuiUIPanelBattle, fuiBattleComponent);
 
             Game.Scene.GetComponent<CameraComponent>().SetTargetUnit(scene.GetComponent<RoomManagerComponent>()
-                .GetOrCreateBattleRoom().GetComponent<UnitComponent>().MyUnit);
+                .GetBattleRoom().GetComponent<UnitComponent>().MyUnit);
 
             await scene.GetComponent<FUIPackageManagerComponent>().AddPackageAsync(FUIPackage.FlyFont);
         }

@@ -9,7 +9,7 @@ namespace ET
         {
             //此处填写Awake逻辑
             self.MouseTargetSelectorComponent = self.DomainScene().GetComponent<MouseTargetSelectorComponent>();
-            self.PlayerUnit = self.DomainScene().GetComponent<RoomManagerComponent>().GetOrCreateBattleRoom()
+            self.PlayerUnit = self.DomainScene().GetComponent<RoomManagerComponent>().GetBattleRoom()
                 .GetComponent<UnitComponent>().MyUnit;
         }
     }
