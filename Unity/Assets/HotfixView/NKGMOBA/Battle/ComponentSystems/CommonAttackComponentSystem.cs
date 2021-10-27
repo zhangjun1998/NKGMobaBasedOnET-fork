@@ -10,7 +10,7 @@ namespace ET
             //此处填写Awake逻辑
             self.m_AnimationComponent = self.GetParent<Unit>().GetComponent<AnimationComponent>();
             self.m_StackFsmComponent = self.GetParent<Unit>().GetComponent<StackFsmComponent>();
-            self.m_MouseTargetSelectorComponent = self.DomainScene().GetComponent<MouseTargetSelectorComponent>();
+            self.m_MouseTargetSelectorComponent = self.GetParent<Unit>().BelongToRoom.GetComponent<MouseTargetSelectorComponent>();
             self.m_UserInputComponent = Game.Scene.GetComponent<UserInputComponent>();
         }
     }

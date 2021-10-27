@@ -16,7 +16,7 @@ namespace ET
         {
             self.m_UserInputComponent = Game.Scene.GetComponent<UserInputComponent>();
 
-            self.m_MouseTargetSelectorComponent = self.DomainScene().GetComponent<MouseTargetSelectorComponent>();
+            self.m_MouseTargetSelectorComponent = self.GetParent<Room>().GetComponent<MouseTargetSelectorComponent>();
         }
     }
 

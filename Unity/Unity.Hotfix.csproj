@@ -75,6 +75,7 @@
      <Compile Include="Assets\Hotfix\Module\Config\ConfigComponentSystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Room\LeaveRoomHelper.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\M2C_SyncNPBehaveBoolDataHandler.cs" />
+     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\LSF_CmdHandlerComponentUtilities.cs" />
      <Compile Include="Assets\Hotfix\Module\Message\NetKcpComponentSystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\SkillSystem\BuffSystem\ReplaceAnimBuffSystem.cs" />
      <Compile Include="Assets\Hotfix\Module\Numeric\NumericWatcher_Hp_ShowUI.cs" />
@@ -87,11 +88,13 @@
      <Compile Include="Assets\Hotfix\NKGMOBA\Move\MoveComponentSystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\NP_CheckUnitKilledBySpecialMethodAction.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\NP_SetCDInfoAction.cs" />
+     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\Handler\LSF_MoveCmdHandler.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\SkillSystem\BuffSystem\Core\BuffTimerAndOverlayHelper.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\L2C_AllowToEnterMapHandler.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\SkillSystem\BuffSystem\Core\BuffManagerComponent.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Move\M2C_PathfindingResultHandler.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\BBValue\NP_CheckBBValueAction.cs" />
+     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\ComponentSystems\PlayerHeroControllerSystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Move\StopMoveFromFSM.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Unit\UnitFactory.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Unit\M2C_CreateSpilingsHandler.cs" />
@@ -111,6 +114,7 @@
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\NP_MacroAction.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Player\PlayerComponentDestroySystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\M2C_EndBattleSettleHandler.cs" />
+     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\Handler\LSF_PathFindCmdHandler.cs" />
      <Compile Include="Assets\Hotfix\Module\Message\SessionAcceptTimeoutComponentSystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\SkillSystem\BuffSystem\TreatmentBuffSystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\SkillSystem\BuffSystem\Core\BuffFactory.cs" />
@@ -137,9 +141,11 @@
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\SkillSystem\BuffSystem\ListenBuffCallBackBuffSystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\SkillSystem\BuffSystem\Core\BuffState.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Scene\SceneFactory.cs" />
+     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\LSF_MessageHandlerComponentSystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\NP_CreateColliderDataAction.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Room\L2C_PrepareToEnterBattleHandler.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Unit\UnitComponent.cs" />
+     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\LSF_CmdHandlerComponentSystem.cs" />
      <Compile Include="Assets\Hotfix\Module\Numeric\NumericWatcher_AttackValue.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\SkillSystem\BuffSystem\Core\BattleEventSystem.cs" />
      <Compile Include="Assets\Hotfix\Module\Message\MessageDispatcherComponentSystem.cs" />
@@ -160,12 +166,6 @@
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\BBValue\NP_ChangeTargetSkillBBValueAction.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\NP_TriggerAttackCDAction.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\M2C_FrameCmdHandler.cs" />
-     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\LSF_MessageHandlerComponentSystem.cs" />
-     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\LSF_CmdHandlerComponentUtilities.cs" />
-     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\Handler\LSF_PathFindCmdHandler.cs" />
-     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\LSF_CmdHandlerComponentSystem.cs" />
-     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\Handler\LSF_MoveCmdHandler.cs" />
-     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\ComponentSystems\PlayerHeroControllerSystem.cs" />
      <None Include="Assets\Hotfix\Unity.Hotfix.asmdef" />
      <None Include="Assets\Hotfix\csc.rsp" />
  <Reference Include="UnityEngine">

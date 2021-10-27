@@ -57,6 +57,7 @@
      <Compile Include="Assets\Editor\FGUI\StageCameraEditor.cs" />
      <Compile Include="Assets\Editor\OtherUilityTools\WebFileHelper.cs" />
      <Compile Include="Assets\Editor\OtherUilityTools\CreateMatFromFileOrFolder.cs" />
+     <Compile Include="Assets\Editor\LSF_NetInfo\LSF_NetInfoWindow.cs" />
      <Compile Include="Assets\Editor\Helper\ProcessHelper.cs" />
      <Compile Include="Assets\Editor\FGUI\UIConfigEditor.cs" />
      <Compile Include="Assets\Editor\OtherUilityTools\DDSProcedure.cs" />

@@ -26,12 +26,12 @@ namespace ET
 #if !SERVER
             self.CurrentAheadOfFrame = self.CurrentFrame - self.ServerCurrentFrame;
 
-            Log.Info(
-                $"-------------------CurrentAheadOfFrame: {self.CurrentAheadOfFrame} TargetAheadOfFrame: {self.TargetAheadOfFrame} ServerCurrentFrame: {self.ServerCurrentFrame}");
+            // Log.Info(
+            //     $"-------------------CurrentAheadOfFrame: {self.CurrentAheadOfFrame} TargetAheadOfFrame: {self.TargetAheadOfFrame} ServerCurrentFrame: {self.ServerCurrentFrame}");
 
             if (self.CurrentAheadOfFrame != self.TargetAheadOfFrame)
             {
-                Log.Info("------------------进入变速状态");
+                //Log.Info("------------------进入变速状态");
                 self.HasInSpeedChangeState = true;
                 self.FixedUpdate.TargetElapsedTime = TimeSpan.FromTicks(TimeSpan.TicksPerSecond /
                                                                         (GlobalDefine.FixedUpdateTargetFPS +
@@ -41,7 +41,7 @@ namespace ET
             }
             else if (self.HasInSpeedChangeState)
             {
-                Log.Info("------------------已经对齐");
+                //Log.Info("------------------已经对齐");
                 self.HasInSpeedChangeState = false;
                 self.FixedUpdate.TargetElapsedTime =
                     TimeSpan.FromTicks(TimeSpan.TicksPerSecond / (GlobalDefine.FixedUpdateTargetFPS));
