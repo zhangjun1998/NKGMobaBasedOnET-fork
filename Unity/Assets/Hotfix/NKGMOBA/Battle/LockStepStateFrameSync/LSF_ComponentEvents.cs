@@ -6,9 +6,8 @@ using ET.EventType;
 namespace ET
 {
 #if SERVER
-
 #else
-        /// <summary>
+    /// <summary>
     /// 根据Ping值的改变来改变Tick频率
     /// </summary>
     public class RTTChanged_ChangeFixedUpdateFPS : AEvent<EventType.PingChange>
@@ -21,8 +20,8 @@ namespace ET
             lsfComponent.HalfRTT = a.C2MPing;
 
             // 从游戏设计的角度来看，就算理应超前的帧数不满一帧也要按照一帧去算，因为玩家的指令肯定是越早到达服务器越好
-            uint targetAheadOfFrame =
-                (uint) Math.Ceiling(a.C2MPing / 2.0f / GlobalDefine.FixedUpdateTargetDTTime_Long) +
+            int targetAheadOfFrame =
+                (int) Math.Ceiling(a.C2MPing / 2.0f / GlobalDefine.FixedUpdateTargetDTTime_Long) +
                 lsfComponent.BufferFrame;
 
             lsfComponent.TargetAheadOfFrame =

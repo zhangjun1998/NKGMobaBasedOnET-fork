@@ -15,8 +15,10 @@ namespace ET
         {
             self.CurrentFrame++;
             Log.Info($"------------帧同步Tick Time Point： {TimeHelper.ClientNow()} Frame : {self.CurrentFrame}");
-#if !SERVER
-
+#if SERVER
+            // 测试代码
+           self.GetParent<Room>().GetComponent<LSF_Component>().SendMessage(ReferencePool.Acquire<LSF_PathFindCmd>().Init(0));
+#else
             // 测试代码
             Unit unit = self.GetParent<Room>().GetComponent<UnitComponent>().MyUnit;
             unit.BelongToRoom.GetComponent<LSF_Component>().SendMessage(ReferencePool.Acquire<LSF_PathFindCmd>().Init(unit.Id));
@@ -27,7 +29,7 @@ namespace ET
                 foreach (var cmd in currentFrameCmdToHandle)
                 {
                     //TODO 处理客户端/服务端cmd
-                    Log.Info("------------处理第{self.CurrentFrame}帧指令");
+                    Log.Info($"------------处理第{self.CurrentFrame}帧指令");
                     LSF_CmdHandlerComponent.Instance.Handle(self.GetParent<Room>(), cmd);
                 }
             }

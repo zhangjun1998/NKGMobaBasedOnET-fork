@@ -72,8 +72,6 @@ namespace ET
 
                     Game.TimeInfo.ServerMinusClientTime = responseFromGate.Time +
                         (clientNow_C2MSend - clientNow_C2GSend) / 2 - clientNow_C2MSend;
-
-                    await TimerComponent.Instance.WaitAsync(2000);
                 }
                 catch (RpcException e)
                 {
@@ -85,6 +83,8 @@ namespace ET
                 {
                     Log.Error($"ping error: \n{e}");
                 }
+                
+                await TimerComponent.Instance.WaitAsync(1000);
             }
         }
     }

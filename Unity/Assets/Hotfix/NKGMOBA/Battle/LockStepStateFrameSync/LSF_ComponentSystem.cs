@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ET.EventType;
+using NPBehave_Core;
 
 namespace ET
 {
@@ -8,9 +9,6 @@ namespace ET
     {
         public override void Awake(LSF_Component self)
         {
-#if !SERVER
-            self.CurrentFrame = LSF_Component.AheadOfFrameMax;
-#endif
         }
     }
 
@@ -24,7 +22,18 @@ namespace ET
             }
 
 #if !SERVER
-            self.CurrentAheadOfFrame = self.CurrentFrame - self.ServerCurrentFrame;
+
+
+            if (self.CurrentFrame > self.ServerCurrentFrame)
+            {
+                self.CurrentAheadOfFrame = (int) Math.Min(self.CurrentFrame - self.ServerCurrentFrame,
+                    LSF_Component.AheadOfFrameMax);
+            }
+            else
+            {
+                self.CurrentAheadOfFrame = -(int) Math.Min(self.ServerCurrentFrame - self.CurrentFrame,
+                    LSF_Component.AheadOfFrameMax);
+            }
 
             // Log.Info(
             //     $"-------------------CurrentAheadOfFrame: {self.CurrentAheadOfFrame} TargetAheadOfFrame: {self.TargetAheadOfFrame} ServerCurrentFrame: {self.ServerCurrentFrame}");

@@ -21,32 +21,44 @@ namespace ET
 {
     public class LSF_NetInfoWindow : OdinEditorWindow
     {
-        [LabelText("C2GPing值")] public float C2GPing;
+        [BoxGroup("客户端网络状态")] [LabelText("C2GPing值（ms）")]
+        public float C2GPing;
 
-        [LabelText("C2MPing值")] public float C2MPing;
+        [BoxGroup("客户端网络状态")] [LabelText("C2MPing值（ms）")]
+        public float C2MPing;
 
-        [LabelText("客户端当前FixedUpdate间隔")] public long ClientFixedUpdateInternal;
+        [BoxGroup("客户端网络状态")] [LabelText("客户端当前FixedUpdate间隔（ms）")]
+        public long ClientFixedUpdateInternal;
 
-        [LabelText("客户端当前FixedUpdate帧数")] public float ClientFixedUpdateFrame;
+        [BoxGroup("客户端网络状态")] [LabelText("客户端当前FixedUpdate帧数（uint）")]
+        public float ClientFixedUpdateFrame;
 
-        [LabelText("客户端当前帧")]
+        [BoxGroup("客户端网络状态")] [LabelText("客户端应当超前服务器的帧数（uint）")]
+        public int ShouldAdvancedFrame;
+
+        [BoxGroup("客户端网络状态")] [LabelText("客户端当前超前服务器的帧数（uint）")]
+        public int CurrentAdvancedFrame;
+
+        [BoxGroup("网络同步状态")]
+        [LabelText("客户端当前帧（uint）")]
         [ProgressBar(nameof(GetCompareMinFrame), nameof(GetCompareMaxFrame), Segmented = true, Height = 30,
             DrawValueLabel = true)]
         public uint ClientCurrentFrame;
 
-        [LabelText("服务端当前帧")]
+        [BoxGroup("网络同步状态")]
+        [LabelText("服务端当前帧（uint）")]
         [ProgressBar(nameof(GetCompareMinFrame), nameof(GetCompareMaxFrame), Segmented = true, Height = 30,
             DrawValueLabel = true)]
         public uint ServerCurrentFrame;
 
         private uint GetCompareMinFrame()
         {
-            return (uint) Mathf.Clamp(ServerCurrentFrame - 100, 0.0f, Single.NaN);
+            return (uint) Mathf.Clamp(ServerCurrentFrame - 50, 0.0f, Single.NaN);
         }
 
         private uint GetCompareMaxFrame()
         {
-            return ServerCurrentFrame + 100;
+            return ServerCurrentFrame + 50;
         }
 
         [Command("ETEditor_LSF_NetInfoWindow", "监测状态帧同步网络情况", Category = "ETEditor")]
@@ -72,6 +84,8 @@ namespace ET
             {
                 if (lsfComponent.FixedUpdate != null)
                 {
+                    this.ShouldAdvancedFrame = lsfComponent.TargetAheadOfFrame;
+                    this.CurrentAdvancedFrame = lsfComponent.CurrentAheadOfFrame;
                     this.ClientFixedUpdateFrame = 1000.0f / lsfComponent.FixedUpdate.TargetElapsedTime.Milliseconds;
                     this.ClientFixedUpdateInternal = lsfComponent.FixedUpdate.TargetElapsedTime.Milliseconds;
                     this.ClientCurrentFrame = lsfComponent.CurrentFrame;

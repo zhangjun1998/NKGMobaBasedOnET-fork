@@ -29,7 +29,7 @@ namespace ET
         /// <summary>
         /// 服务器缓冲帧时长，按帧为单位，这里锁定为1帧，也就是33ms
         /// </summary>
-        public uint BufferFrame = 1;
+        public int BufferFrame = 1;
 
 #if !SERVER
         /// <summary>
@@ -45,7 +45,7 @@ namespace ET
         /// <summary>
         /// 暂定客户端最多只能超前服务端10帧
         /// </summary>
-        public const uint AheadOfFrameMax = 10;
+        public const int AheadOfFrameMax = 10;
         
         /// <summary>
         /// 当前是否处于变速阶段
@@ -55,12 +55,12 @@ namespace ET
         /// <summary>
         /// 当前客户端超前服务端的帧数
         /// </summary>
-        public uint CurrentAheadOfFrame;
+        public int CurrentAheadOfFrame;
         
         /// <summary>
         /// 客户端应当超前服务端的帧数
         /// </summary>
-        public uint TargetAheadOfFrame;
+        public int TargetAheadOfFrame;
 
         /// <summary>
         /// 从客户端到服务端通信所要花费的时间（ms）

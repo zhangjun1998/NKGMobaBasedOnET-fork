@@ -4,7 +4,7 @@
     {
         protected override async ETVoid Run(Unit unit, LSF_MoveCmd cmd)
         {
-            Log.Info($"---------收到移动指令：{cmd.Frame}");
+            //Log.Info($"---------收到移动指令：{cmd.Frame}");
             
             await ETTask.CompletedTask;
         }
