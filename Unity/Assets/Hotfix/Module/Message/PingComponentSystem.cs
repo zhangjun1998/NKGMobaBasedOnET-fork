@@ -55,17 +55,18 @@ namespace ET
                         (uint) Mathf.Clamp(clientNow_C2MSend - clientNow_C2GSend - (long) (Time.deltaTime * 1000), 0.0f,
                             999.0f);
 
-                    M2C_Ping responseFromMap = await session.Call(self.C2M_Ping) as M2C_Ping;
-
-                    self.C2MPingValue =
-                        (uint) Mathf.Clamp(TimeHelper.ClientNow() - clientNow_C2MSend - (long) (Time.deltaTime * 1000),
-                            0f, 999.0f);
+                    //TODO 这里使用C2GPing作为C2MPing了，因为本地弱网模拟软件有点问题，会导致C2M无限大
+                    // M2C_Ping responseFromMap = await session.Call(self.C2M_Ping) as M2C_Ping;
+                    //
+                    // self.C2MPingValue =
+                    //     (uint) (TimeHelper.ClientNow() - clientNow_C2MSend - (long) (Time.deltaTime * 1000));
 
                     //TODO 这里是只有C2M的ping发生变化才发送通知
                     Game.EventSystem.Publish(new EventType.PingChange()
                         {
+                            //TODO 这里使用C2GPing作为C2MPing了，因为本地弱网模拟软件有点问题，会导致C2M无限大
                             C2GPing = self.C2GPingValue,
-                            C2MPing = self.C2MPingValue,
+                            C2MPing = self.C2GPingValue,
                             ZoneScene = self.DomainScene()
                         })
                         .Coroutine();
