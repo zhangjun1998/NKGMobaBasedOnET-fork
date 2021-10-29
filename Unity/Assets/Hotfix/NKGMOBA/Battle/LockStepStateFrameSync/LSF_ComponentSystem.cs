@@ -37,7 +37,7 @@ namespace ET
                     //TODO 开始断线重连
                     Log.Error("长时间未收到服务端回包，开始断线重连");
                     
-                    int count = self.CurrentAheadOfFrame;
+                    int count = self.TargetAheadOfFrame;
                     self.CurrentFrame = self.ServerCurrentFrame;
                     while (count-- > 0)
                     {
@@ -55,7 +55,7 @@ namespace ET
                     //TODO 开始断线重连
                     Log.Error("突然收到服务器回包，发现自己远落后于服务端，开始断线重连");
                     self.CurrentFrame = self.ServerCurrentFrame;
-                    int count = -self.CurrentAheadOfFrame;
+                    int count = self.TargetAheadOfFrame;
                     while (count-- > 0)
                     {
                         self.LSF_Tick();
