@@ -38,9 +38,14 @@ namespace ET
         public Dictionary<uint, Queue<ALSF_Cmd>> FrameCmdsBuffer = new Dictionary<uint, Queue<ALSF_Cmd>>(64);
         
         /// <summary>
-        /// 服务端当前帧，用于判断客户端当前超前帧数是否合法，Ping协议和正常的帧同步协议都会有这个信息，直接赋值过来即可
+        /// 服务端当前帧，用于判断客户端当前超前帧数是否合法，Ping协议和正常的帧同步协议都会有这个信息，根据回包信息和RTT信息计算后获得
         /// </summary>
         public uint ServerCurrentFrame;
+        
+        /// <summary>
+        /// 当前抵达的帧数，当从服务器收到回包时需要从服务器回包的那一帧一直模拟到当前已经抵达的帧，所以需要记录下来
+        /// </summary>
+        public uint CurrentArrivedFrame;
         
         /// <summary>
         /// 暂定客户端最多只能超前服务端10帧
@@ -72,6 +77,11 @@ namespace ET
         /// 半个RTT（不包括服务端的缓存帧时长）
         /// </summary>
         public long HalfRTT;
+
+        /// <summary>
+        /// 当客户端长时间没有接收到服务器回包时就停止模拟（断线重连），直到接收到之后再开始模拟，所以需要一个标识位
+        /// </summary>
+        public bool ShouldTickInternal = true;
 #endif
     }
 }

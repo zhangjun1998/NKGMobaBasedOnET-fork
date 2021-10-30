@@ -7,9 +7,8 @@
             LSF_Component lsfComponent = session.DomainScene()
                 .GetComponent<RoomManagerComponent>().BattleRoom.GetComponent<LSF_Component>();
             
+            lsfComponent.RefreshClientNetInfoByCmdFrameAndHalfRTT(message.CmdContent.Frame);
             lsfComponent.AddCmdToHandle(message.CmdContent);
-            lsfComponent.CaculateServerCurrentFrameByCmdFrameAndHalfRTT(message.CmdContent.Frame);
-
             await ETTask.CompletedTask;
         }
     }
