@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ET.EventType;
+using UnityEngine;
 
 
 namespace ET
@@ -14,7 +15,7 @@ namespace ET
         public static void LSF_Tick(this LSF_Component self)
         {
             Log.Info($"------------帧同步Tick Time Point： {TimeHelper.ClientNow()} Frame : {self.CurrentFrame}");
-            
+
 #if !SERVER
             if (!self.ShouldTickInternal)
             {
@@ -31,7 +32,7 @@ namespace ET
                 }
             }
 #endif
-            
+
 #if SERVER
             // 测试代码
             self.GetParent<Room>().GetComponent<LSF_Component>()
@@ -54,7 +55,7 @@ namespace ET
             }
 
             //TODO Tick Unit及其相关模块
-            
+
             self.CurrentFrame++;
         }
 
@@ -127,11 +128,31 @@ namespace ET
             uint messageFrame)
         {
             self.CurrentArrivedFrame = self.CurrentFrame;
-            self.CurrentFrame = messageFrame;
-            self.ServerCurrentFrame = messageFrame + (uint) (self.HalfRTT / GlobalDefine.FixedUpdateTargetDTTime_Long);
+
+            //TODO 进行模拟，然后对比结果，如果不一致则进行追帧，如果一致则不做处理，继续预测
+            if (!self.SimulateSpecialFrame(messageFrame))
+            {
+                self.CurrentFrame = messageFrame;
+            }
+
+            self.ServerCurrentFrame = messageFrame +
+                                      (uint) ((self.HalfRTT +
+                                               (long) (Time.deltaTime * 1000)) /
+                                              GlobalDefine.FixedUpdateTargetDTTime_Long);
+
+            //将这一帧用户输入指令从本地缓冲区移除，因为服务端已经发送这一帧的指令下来了，缓冲区里的这一帧已经没用了
             self.FrameCmdsBuffer.Remove(messageFrame);
         }
 
+        /// <summary>
+        /// 对特定帧的数据输入指令进行模拟，并得出结果
+        /// </summary>
+        /// <param name="frame"></param>
+        /// <returns></returns>
+        public static bool SimulateSpecialFrame(this LSF_Component self, uint frame)
+        {
+            return true;
+        }
 
         /// <summary>
         /// 客户端处理异常的网络状况
@@ -165,25 +186,16 @@ namespace ET
                     return;
                 }
             }
-            else // 当前客户端帧数小于服务端帧数，三种情况，1，刚开局，2，玩家退游戏重连，3.玩家收到服务器回包，重置了自己的currentFrame，进行追帧
+            else // 当前客户端帧数小于服务端帧数，三种情况，1.刚开局，2.玩家退游戏重连，3.玩家收到服务器回包，并且模拟之后发现结果并不一致，重置自己的currentFrame，进行追帧
             {
                 self.CurrentAheadOfFrame = -(int) (self.ServerCurrentFrame - self.CurrentFrame);
-                
-                //TODO 进行模拟结果对比，如果不一致则进行追帧，如果一致则不做处理，继续预测
-                if (true) //TODO 这里先默认每次都不一致
+
+                Log.Error("收到服务器回包后发现模拟的结果与服务器不一致，即需要强行回滚，则回滚，然后开始追帧");
+                int count = self.TargetAheadOfFrame;
+                while (count-- > 0)
                 {
-                    Log.Error("收到服务器回包后发现自己落后于服务端，并且模拟的结果与服务器不一致，即需要强行回滚，则回滚，然后开始追帧");
-                    self.CurrentFrame = self.ServerCurrentFrame;
-                    int count = self.TargetAheadOfFrame;
-                    while (count-- > 0)
-                    {
-                        self.LSF_Tick();
-                    }
+                    self.LSF_Tick();
                 }
-                // else //如果一致的话就恢复当前帧数继续跑
-                // {
-                //     self.CurrentFrame = self.CurrentArrivedFrame;
-                // }
             }
 
             // Log.Info(
