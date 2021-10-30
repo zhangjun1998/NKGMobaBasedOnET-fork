@@ -51,12 +51,7 @@ namespace ET
         /// 暂定客户端最多只能超前服务端10帧
         /// </summary>
         public const int AheadOfFrameMax = 10;
-        
-        /// <summary>
-        /// 暂定客户端最多只能落后服务端100帧，超过这个时间则进行重连
-        /// </summary>
-        public const int BehindOfFrameMax = 10;
-        
+
         /// <summary>
         /// 当前是否处于变速阶段
         /// </summary>

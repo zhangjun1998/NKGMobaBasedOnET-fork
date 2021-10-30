@@ -13,14 +13,25 @@ namespace ET
         /// <param name="self"></param>
         public static void LSF_Tick(this LSF_Component self)
         {
+            Log.Info($"------------帧同步Tick Time Point： {TimeHelper.ClientNow()} Frame : {self.CurrentFrame}");
+            
 #if !SERVER
             if (!self.ShouldTickInternal)
             {
                 return;
             }
+
+            if (self.FrameCmdsBuffer.TryGetValue(self.CurrentFrame, out var inputCmdQueue))
+            {
+                foreach (var cmd in inputCmdQueue)
+                {
+                    //处理用户输入缓冲区中的指令，用于预测
+                    Log.Info($"------------处理用户输入缓冲区第{self.CurrentFrame}帧指令");
+                    LSF_CmdHandlerComponent.Instance.Handle(self.GetParent<Room>(), cmd);
+                }
+            }
 #endif
             
-            Log.Info($"------------帧同步Tick Time Point： {TimeHelper.ClientNow()} Frame : {self.CurrentFrame}");
 #if SERVER
             // 测试代码
             self.GetParent<Room>().GetComponent<LSF_Component>()
@@ -110,7 +121,7 @@ namespace ET
 
 #if !SERVER
         /// <summary>
-        /// 根据消息包中服务端帧数 + 半个RTT来计算出服务端当前帧数并且对一些字段进行赋值
+        /// 根据消息包中服务端帧数 + 半个RTT来计算出服务端当前帧数并且对一些字段和数据进行处理
         /// </summary>
         public static void RefreshClientNetInfoByCmdFrameAndHalfRTT(this LSF_Component self,
             uint messageFrame)
@@ -118,6 +129,7 @@ namespace ET
             self.CurrentArrivedFrame = self.CurrentFrame;
             self.CurrentFrame = messageFrame;
             self.ServerCurrentFrame = messageFrame + (uint) (self.HalfRTT / GlobalDefine.FixedUpdateTargetDTTime_Long);
+            self.FrameCmdsBuffer.Remove(messageFrame);
         }
 
 
