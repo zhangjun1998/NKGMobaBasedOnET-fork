@@ -17,12 +17,10 @@ namespace ET
             LSF_Component lsfComponent = Game.Scene.GetComponent<PlayerComponent>()
                 .BelongToRoom.GetComponent<LSF_Component>();
 
-            lsfComponent.HalfRTT = a.C2MPing;
-
-            // 从游戏设计的角度来看，就算理应超前的帧数不满一帧也要按照一帧去算，因为玩家的指令肯定是越早到达服务器越好
+            lsfComponent.HalfRTT = a.C2MPing % 2 == 0 ? a.C2MPing / 2 : a.C2MPing / 2 + 1;
+            
             int targetAheadOfFrame =
-                (int) Math.Ceiling(a.C2MPing / 2.0f / GlobalDefine.FixedUpdateTargetDTTime_Long) +
-                lsfComponent.BufferFrame;
+                TimeAndFrameConverter.Frame_Long2Frame(lsfComponent.HalfRTT) + lsfComponent.BufferFrame;
 
             lsfComponent.TargetAheadOfFrame =
                 targetAheadOfFrame > LSF_Component.AheadOfFrameMax

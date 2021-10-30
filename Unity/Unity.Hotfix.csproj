@@ -166,6 +166,7 @@
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\BBValue\NP_ChangeTargetSkillBBValueAction.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\NP_TriggerAttackCDAction.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\M2C_FrameCmdHandler.cs" />
+     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\Helper\TimeAndFrameConverter.cs" />
      <None Include="Assets\Hotfix\Unity.Hotfix.asmdef" />
      <None Include="Assets\Hotfix\csc.rsp" />
  <Reference Include="UnityEngine">

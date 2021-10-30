@@ -136,9 +136,8 @@ namespace ET
             }
 
             self.ServerCurrentFrame = messageFrame +
-                                      (uint) ((self.HalfRTT +
-                                               (long) (Time.deltaTime * 1000)) /
-                                              GlobalDefine.FixedUpdateTargetDTTime_Long);
+                                      (uint) TimeAndFrameConverter.Frame_Float2FrameWithHalfRTT(Time.deltaTime,
+                                          self.HalfRTT);
 
             //将这一帧用户输入指令从本地缓冲区移除，因为服务端已经发送这一帧的指令下来了，缓冲区里的这一帧已经没用了
             self.FrameCmdsBuffer.Remove(messageFrame);
