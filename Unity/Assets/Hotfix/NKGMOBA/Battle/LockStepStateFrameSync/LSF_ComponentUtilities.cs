@@ -95,6 +95,18 @@ namespace ET
             M2C_FrameCmd m2CFrameCmd = new M2C_FrameCmd() {CmdContent = cmdToSend};
 
             MessageHelper.BroadcastToRoom(self.GetParent<Room>(), m2CFrameCmd);
+            
+            //将指令放入整局游戏的缓冲区，用于录像和观战系统
+            if (self.WholeCmds.TryGetValue(self.CurrentFrame, out var queue))
+            {
+                queue.Enqueue(m2CFrameCmd.CmdContent);
+            }
+            else
+            {
+                Queue<ALSF_Cmd> newQueue = new Queue<ALSF_Cmd>();
+                newQueue.Enqueue(cmdToSend);
+                self.WholeCmds[self.CurrentFrame] = newQueue;
+            }
 #else
             C2M_FrameCmd c2MFrameCmd = new C2M_FrameCmd() {CmdContent = cmdToSend};
 
