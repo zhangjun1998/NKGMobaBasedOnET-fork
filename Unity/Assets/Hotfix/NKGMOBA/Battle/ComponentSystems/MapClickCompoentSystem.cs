@@ -19,7 +19,7 @@ namespace ET
             self.m_MouseTargetSelectorComponent = self.GetParent<Room>().GetComponent<MouseTargetSelectorComponent>();
         }
     }
-
+    
     public class MapClickComponentUpdate : UpdateSystem<MapClickCompoent>
     {
         public override void Update(MapClickCompoent self)
@@ -48,14 +48,17 @@ namespace ET
     {
         public static void MapPathFinder(this MapClickCompoent self, Vector3 ClickPoint)
         {
-            Game.Scene.GetComponent<PlayerComponent>().GateSession.Send(new C2M_PathfindingResult()
-            {
-                X = ClickPoint.x,
-                Y = ClickPoint.y,
-                Z = ClickPoint.z
-            });
+            Room room = self.GetParent<Room>();
+            UnitComponent unitComponent = room.GetComponent<UnitComponent>();
+            LSF_PathFindCmd pathFindCmd =
+                ReferencePool.Acquire<LSF_PathFindCmd>().Init(unitComponent.MyUnit.Id) as LSF_PathFindCmd;
+
+            pathFindCmd.PosX = ClickPoint.x;
+            pathFindCmd.PosY = ClickPoint.y;
+            pathFindCmd.PosZ = ClickPoint.z;
+
+            room.GetComponent<LSF_Component>().SendMessage(pathFindCmd);
         }
     }
 }
 #endif
-

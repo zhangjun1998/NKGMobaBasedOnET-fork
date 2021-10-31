@@ -1,7 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Box2DSharp.Dynamics;
 using ET.EventType;
 using UnityEngine;
+
+#if !SERVER
+using UnityEngine.Profiling;
+#endif
+
 
 
 namespace ET
@@ -14,7 +20,7 @@ namespace ET
         /// <param name="self"></param>
         public static void LSF_Tick(this LSF_Component self)
         {
-            Log.Info($"------------帧同步Tick Time Point： {TimeHelper.ClientNow()} Frame : {self.CurrentFrame}");
+            //Log.Info($"------------帧同步Tick Time Point： {TimeHelper.ClientNow()} Frame : {self.CurrentFrame}");
 
 #if !SERVER
             if (!self.ShouldTickInternal)
@@ -27,21 +33,21 @@ namespace ET
                 foreach (var cmd in inputCmdQueue)
                 {
                     //处理用户输入缓冲区中的指令，用于预测
-                    Log.Info($"------------处理用户输入缓冲区第{self.CurrentFrame}帧指令");
-                    LSF_CmdHandlerComponent.Instance.Handle(self.GetParent<Room>(), cmd);
+                    //Log.Info($"------------处理用户输入缓冲区第{self.CurrentFrame}帧指令");
+                    LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), cmd);
                 }
             }
 #endif
 
 #if SERVER
-            // 测试代码
-            self.GetParent<Room>().GetComponent<LSF_Component>()
-                .SendMessage(ReferencePool.Acquire<LSF_MoveCmd>().Init(0));
+            //测试代码
+            // self.GetParent<Room>().GetComponent<LSF_Component>()
+            //     .SendMessage(ReferencePool.Acquire<LSF_MoveCmd>().Init(0));
 #else
-            // 测试代码
-            Unit unit = self.GetParent<Room>().GetComponent<UnitComponent>().MyUnit;
-            unit.BelongToRoom.GetComponent<LSF_Component>()
-                .SendMessage(ReferencePool.Acquire<LSF_PathFindCmd>().Init(unit.Id));
+            // // 测试代码
+            // Unit unit = self.GetParent<Room>().GetComponent<UnitComponent>().MyUnit;
+            // unit.BelongToRoom.GetComponent<LSF_Component>()
+            //     .SendMessage(ReferencePool.Acquire<LSF_PathFindCmd>().Init(unit.Id));
 #endif
 
             if (self.FrameCmdsToHandle.TryGetValue(self.CurrentFrame, out var currentFrameCmdToHandle))
@@ -49,12 +55,13 @@ namespace ET
                 foreach (var cmd in currentFrameCmdToHandle)
                 {
                     //TODO 处理客户端/服务端cmd
-                    Log.Info($"------------处理第{self.CurrentFrame}帧指令");
-                    LSF_CmdHandlerComponent.Instance.Handle(self.GetParent<Room>(), cmd);
+                    //Log.Info($"------------处理第{self.CurrentFrame}帧指令");
+                    LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), cmd);
                 }
             }
 
-            //TODO Tick Unit及其相关模块
+            // LSFTick Room，tick room的相关组件, 然后由Room去Tick其子组件，即此处是战斗的Tick起点
+            self.GetParent<Room>().GetComponent<LSF_TickComponent>()?.Tick();
 
             self.CurrentFrame++;
         }
@@ -201,7 +208,7 @@ namespace ET
             {
                 self.CurrentAheadOfFrame = -(int) (self.ServerCurrentFrame - self.CurrentFrame);
 
-                Log.Error("收到服务器回包后发现模拟的结果与服务器不一致，即需要强行回滚，则回滚，然后开始追帧");
+                //Log.Error("收到服务器回包后发现模拟的结果与服务器不一致，即需要强行回滚，则回滚，然后开始追帧");
                 int count = self.TargetAheadOfFrame;
                 while (count-- > 0)
                 {

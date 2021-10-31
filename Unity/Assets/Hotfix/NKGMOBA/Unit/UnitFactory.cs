@@ -35,6 +35,7 @@ namespace ET
             unit.AddComponent<NP_RuntimeTreeManager>();
             //Log.Info("行为树创建完成");
             unit.AddComponent<ObjectWait>();
+            unit.AddComponent<LSF_TickComponent>();
 
 
             Game.EventSystem.Publish(new EventType.AfterHeroCreate_CreateGo()

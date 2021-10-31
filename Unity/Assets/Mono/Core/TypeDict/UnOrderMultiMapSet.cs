@@ -19,6 +19,7 @@ namespace ET
                 {
                     set = new HashSet<K>();
                 }
+
                 return set;
             }
         }

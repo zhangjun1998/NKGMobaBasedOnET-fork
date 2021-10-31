@@ -1,6 +1,5 @@
 ﻿namespace ET
 {
-    [LSF_MessageHandler]
     public abstract class ALockStepStateFrameSyncMessageHandler<T> : ILockStepStateFrameSyncMessageHandler
         where T : ALSF_Cmd
     {
@@ -30,7 +29,5 @@
         }
 
         protected abstract ETVoid Run(Unit unit, T cmd);
-
-        public abstract uint GetLSF_CmdType();
     }
 }

@@ -51,6 +51,7 @@ namespace ET
                 BattleRoom.AddComponent<NP_SyncComponent>();
                 BattleRoom.AddComponent<MouseTargetSelectorComponent>();
                 BattleRoom.AddComponent<MapClickCompoent>();
+                BattleRoom.AddComponent<LSF_TickComponent>();
             }
 
             return BattleRoom;

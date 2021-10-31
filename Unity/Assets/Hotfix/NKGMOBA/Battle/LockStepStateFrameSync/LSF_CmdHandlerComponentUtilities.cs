@@ -5,7 +5,7 @@ namespace ET
 {
     public static class LSF_CmdHandlerComponentUtilities
     {
-        public static void Load(this LSF_CmdHandlerComponent self)
+        public static void Load(this LSF_CmdDispatcherComponent self)
         {
             self.Handlers.Clear();
             HashSet<Type> types = Game.EventSystem.GetTypes(typeof(LSF_MessageHandlerAttribute));
@@ -21,18 +21,20 @@ namespace ET
                     continue;
                 }
 
-                uint lsfCmdType = IlockStepStateFrameSyncMessageHandler.GetLSF_CmdType();
-                if (lsfCmdType == 0)
+                LSF_MessageHandlerAttribute lsfMessageHandlerAttribute =
+                    Game.EventSystem.GetAttribute<LSF_MessageHandlerAttribute>(type);
+                
+                if (lsfMessageHandlerAttribute.LSF_CmdHandlerType == 0)
                 {
                     Log.Error($"帧同步CmdType为0: {type.Name}");
                     continue;
                 }
 
-                self.RegisterHandler(lsfCmdType, IlockStepStateFrameSyncMessageHandler);
+                self.RegisterHandler(lsfMessageHandlerAttribute.LSF_CmdHandlerType, IlockStepStateFrameSyncMessageHandler);
             }
         }
 
-        public static void RegisterHandler(this LSF_CmdHandlerComponent self, uint lsfCmdType,
+        public static void RegisterHandler(this LSF_CmdDispatcherComponent self, uint lsfCmdType,
             ILockStepStateFrameSyncMessageHandler handler)
         {
             if (!self.Handlers.ContainsKey(lsfCmdType))
@@ -43,7 +45,7 @@ namespace ET
             self.Handlers[lsfCmdType].Add(handler);
         }
 
-        public static void Handle(this LSF_CmdHandlerComponent self, Room room,
+        public static void Handle(this LSF_CmdDispatcherComponent self, Room room,
             ALSF_Cmd lAlsfCmd)
         {
             List<ILockStepStateFrameSyncMessageHandler> actions;

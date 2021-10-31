@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using ET.EventType;
 using NPBehave_Core;
 
+#if !SERVER
+using UnityEngine.Profiling;
+
+#endif
+
 namespace ET
 {
     public class LockStepStateFrameSyncComponentAwakeSystem : AwakeSystem<LSF_Component>
@@ -20,12 +25,38 @@ namespace ET
             {
                 return;
             }
+            
+            
+#if !SERVER
+            Profiler.BeginSample("?????????");
+#endif          
+
 
             // 将FixedUpdate Tick放在此处，这样可以防止框架层FixedUpdate帧率小于帧同步FixedUpdate帧率而导致的一些问题
             self.FixedUpdate.Tick();
             
 #if !SERVER
             self.ClientHandleExceptionNet().Coroutine();
+#endif
+
+#if !SERVER
+            Profiler.EndSample();
+#endif
+        }
+    }
+    
+    public class LockStepStateFrameSyncComponentFixedUpdateSystem : FixedUpdateSystem<LSF_Component>
+    {
+        public override void FixedUpdate(LSF_Component self)
+        {
+            if (!self.StartSync)
+            {
+                return;
+            }
+
+#if !SERVER
+            // 本地也跑一个服务器模拟帧数
+            self.ServerCurrentFrame++;
 #endif
         }
     }

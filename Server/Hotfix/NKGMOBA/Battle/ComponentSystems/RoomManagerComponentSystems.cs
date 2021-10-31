@@ -17,6 +17,8 @@
             room.AddComponent<B2S_WorldColliderManagerComponent>();
             room.AddComponent<B2S_CollisionListenerComponent>();
 
+            room.AddComponent<LSF_TickComponent>();
+
             self.Rooms.Add(room.Id, room);
             return room;
         }

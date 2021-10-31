@@ -44,6 +44,11 @@ namespace ET
         {
             return self.idUnits.Values.ToArray();
         }
+        
+        public static void OnLSF_Tick(this UnitComponent self)
+        {
+            
+        }
     }
 
     public class UnitComponent : Entity
@@ -53,5 +58,9 @@ namespace ET
 #if !SERVER
         public Unit MyUnit;
 #endif
+        public void LSF_Tick()
+        {
+            this.OnLSF_Tick();
+        }
     }
 }
