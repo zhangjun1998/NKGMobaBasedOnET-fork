@@ -35,7 +35,7 @@ namespace ET
                 .B2S_ColliderConfigId;
 
             Unit colliderUnit = UnitFactory
-                .CreateSpecialColliderUnit(BelongToUnit.BelongToRoom, BelongToUnit, colliderDataConfigId,
+                .CreateSpecialColliderUnit(BelongToUnit, colliderDataConfigId,
                     CollisionsRelationSupportIdInExcel);
 
             //根据传过来的行为树Id来给这个碰撞Unit加上行为树

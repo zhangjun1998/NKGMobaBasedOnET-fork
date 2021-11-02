@@ -20,7 +20,7 @@ namespace ET
         public NPBehave.Action.Result WaitCDAction(bool hasDown)
         {
             Unit unit = BelongToUnit;
-            CDComponent cdComponent = unit.BelongToRoom.GetComponent<CDComponent>();
+            CDComponent cdComponent = unit.Domain.GetComponent<CDComponent>();
             
             if (!cdComponent.GetCDResult(BelongToUnit.Id, CDName.GetBlackBoardValue<string>(this.BelongtoRuntimeTree.GetBlackboard())))
             {

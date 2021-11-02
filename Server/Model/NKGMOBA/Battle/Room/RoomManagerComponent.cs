@@ -20,10 +20,11 @@ namespace ET
 
     public class RoomManagerComponent : Entity
     {
-        public Dictionary<long, Room> Rooms = new Dictionary<long, Room>();
+        public Dictionary<long, RoomInfoProto> Rooms = new Dictionary<long, RoomInfoProto>();
+
         public int RoomIdNum;
 
-        public Room GetRoom(long id)
+        public RoomInfoProto GetRoom(long id)
         {
             if (Rooms.TryGetValue(id, out var room))
             {

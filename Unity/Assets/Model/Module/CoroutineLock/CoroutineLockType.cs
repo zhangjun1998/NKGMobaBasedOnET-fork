@@ -7,6 +7,7 @@ namespace ET
         ActorLocationSender,       // ActorLocationSender中队列消息 
         Mailbox,                   // Mailbox中队列
         UnitId,                    // Map服务器上线下线时使用
+        Room,                    // 和room有关的操作
         DB,
         Resources,
 

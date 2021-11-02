@@ -39,7 +39,7 @@ namespace ET
             }
 
             m2CPathfindingResult.Speed = speed;
-            MessageHelper.BroadcastToRoom(unit.BelongToRoom, m2CPathfindingResult);
+            MessageHelper.BroadcastToRoom(unit, m2CPathfindingResult);
 
             bool ret = await unit.GetComponent<MoveComponent>()
                 .MoveToAsync(path, speed, 100, targetRange, cancellationToken);
@@ -59,7 +59,7 @@ namespace ET
 
         public static void SendStop(this Unit unit, int error)
         {
-            MessageHelper.BroadcastToRoom(unit.BelongToRoom, new M2C_Stop()
+            MessageHelper.BroadcastToRoom(unit, new M2C_Stop()
             {
                 Error = error,
                 Id = unit.Id,

@@ -9,5 +9,7 @@ namespace ET
 		 public const ushort G2R_GetLoginKey = 10005;
 		 public const ushort G2L_GetRoomId = 10006;
 		 public const ushort G2M_SessionDisconnect = 10007;
+		 public const ushort G2L_JoinRoomLobby = 10008;
+		 public const ushort BroadcastActorSyncMessage = 10009;
 	}
 }

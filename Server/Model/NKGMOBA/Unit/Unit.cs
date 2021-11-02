@@ -25,10 +25,10 @@ namespace ET
         /// </summary>
         public Player BelongToPlayer;
 
-        /// <summary>
-        /// 归属的房间
-        /// </summary>
-        public Room BelongToRoom;
+        ///// <summary>
+        ///// 归属的房间
+        ///// </summary>
+        //public Room BelongToRoom;
 
         /// <summary>
         /// 是否需要同步到客户端

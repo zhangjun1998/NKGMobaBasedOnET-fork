@@ -19,10 +19,10 @@ namespace ET
         public void SendCDInfoToClient()
         {
 #if SERVER
-            CDInfo cdInfo = this.BelongToUnit.BelongToRoom.GetComponent<CDComponent>()
+            CDInfo cdInfo = this.BelongToUnit.Domain.GetComponent<CDComponent>()
                 .GetCDData(this.BelongToUnit.Id,
                     this.CDName.GetBlackBoardValue<string>(this.BelongtoRuntimeTree.GetBlackboard()));
-            MessageHelper.BroadcastToRoom(this.BelongToUnit.BelongToRoom, new M2C_SyncCDData()
+            MessageHelper.BroadcastToRoom(this.BelongToUnit, new M2C_SyncCDData()
             {
                 UnitId = this.BelongToUnit.Id, CDName = cdInfo.Name, CDLength = cdInfo.Interval,
                 RemainCDLength = cdInfo.RemainCDLength

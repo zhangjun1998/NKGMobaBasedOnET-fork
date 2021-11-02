@@ -19,7 +19,7 @@ namespace ET
 
         public void DestroySelfAndRelativeCollider()
         {
-            UnitComponent unitComponent = BelongToUnit.BelongToRoom
+            UnitComponent unitComponent = BelongToUnit.Domain
                 .GetComponent<UnitComponent>();
             unitComponent.Remove(this.BelongtoRuntimeTree.BelongToUnit.Id);
         }

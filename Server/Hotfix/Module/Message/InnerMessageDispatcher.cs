@@ -16,7 +16,30 @@ namespace ET
                 Type type = null;
                 object message = null;
 #if SERVER   
-
+                if (OpcodeTypeComponent.Instance.IsBroadcastMessage(opcode))
+                {
+                    memoryStream.Seek(Packet.OpcodeIndex, SeekOrigin.Begin);
+                    if (BroadcastMsgOnGateComponent.Instance.ActoridToSessionIds.TryGetValue(actorId, out var sessionlist))
+                    {
+                        foreach (long sessionid in sessionlist)
+                        {
+                            Entity entity = Game.EventSystem.Get(sessionid);
+                            if (entity==null)
+                            {
+                                continue;
+                            }
+                            if (entity is Session gateSession)
+                            {
+                                gateSession.Send(0, memoryStream);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Log.Warning($"ActoridToSessionIds not found:{actorId}");
+                    }
+                    return;
+                }
                 // 内网收到外网消息，有可能是gateUnit消息，还有可能是gate广播消息
                 if (OpcodeTypeComponent.Instance.IsOutrActorMessage(opcode))
                 {

@@ -89,7 +89,12 @@ namespace ET
         {
             return this.outrActorMessage.Contains(opcode);
         }
-
+        public bool IsBroadcastMessage(ushort opcode)
+        {
+            //测试用
+            //return OuterOpcode_Map.M2C_CommonAttack == opcode;
+            return false;
+        }
         public ushort GetOpcode(Type type)
         {
             return this.typeOpcodes[type];

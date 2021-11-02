@@ -25,9 +25,9 @@ namespace ET
             this.TheUnitBelongto.GetComponent<UnitAttributesDataComponent>().NumericComponent
                 .ApplyChange(NumericType.Hp, finalTreatValue);
             //抛出治疗事件，需要监听治疗的Buff需要监听此事件
-            this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystem>()
+            this.GetBuffTarget().Domain.GetComponent<BattleEventSystem>()
                 .Run($"ExcuteTreate{this.TheUnitFrom.Id}", finalTreatValue);
-            this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystem>()
+            this.GetBuffTarget().Domain.GetComponent<BattleEventSystem>()
                 .Run($"TakeTreate{this.GetBuffTarget()}", finalTreatValue);
         }
 #else

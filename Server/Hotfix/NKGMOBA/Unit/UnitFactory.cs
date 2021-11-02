@@ -11,9 +11,10 @@ namespace ET
         /// </summary>
         /// <param name="room"></param>
         /// <returns></returns>
-        public static Unit CreateUnit(Room room)
+        public static Unit CreateUnit(Entity entity)
         {
-            Unit unit = room.AddChild<Unit, Room>(room);
+            var unitComponent = entity.Domain.GetComponent<UnitComponent>();
+            Unit unit = unitComponent.AddChild<Unit>();
             return unit;
         }
 
@@ -26,9 +27,9 @@ namespace ET
         /// <param name="pos"></param>
         /// <param name="rotation"></param>
         /// <returns></returns>
-        public static Unit CreateUnit(Room room, int configId, Vector3 pos, Quaternion rotation)
+        public static Unit CreateUnit(UnitComponent unitComponent, int configId, Vector3 pos, Quaternion rotation)
         {
-            Unit unit = room.AddChild<Unit, Room, int>(room, configId);
+            Unit unit = unitComponent.AddChild<Unit, int>(configId);
 
             unit.Position = pos;
             unit.Rotation = rotation;
@@ -48,9 +49,9 @@ namespace ET
         /// <param name="pos"></param>
         /// <param name="rotation"></param>
         /// <returns></returns>
-        public static Unit CreateHeroUnit(Room room, int configId, RoleCamp roleCamp, Vector3 pos, Quaternion rotation)
+        public static Unit CreateHeroUnit(UnitComponent unitComponent, int configId, RoleCamp roleCamp, Vector3 pos, Quaternion rotation)
         {
-            Unit unit = CreateUnit(room, configId, pos, rotation);
+            Unit unit = CreateUnit(unitComponent, configId, pos, rotation);
 
             // 由于玩家操控的英雄是同步的关键，所以只需要为其添加MailBoxComponent来让Actor机制可以索引到
             unit.AddComponent<MailBoxComponent>();
@@ -120,10 +121,10 @@ namespace ET
         /// <param name="pos"></param>
         /// <param name="rotation"></param>
         /// <returns></returns>
-        public static Unit CreateHeroSpilingUnit(Room room, int configId, RoleCamp roleCamp, Vector3 pos,
+        public static Unit CreateHeroSpilingUnit(UnitComponent unitComponent, int configId, RoleCamp roleCamp, Vector3 pos,
             Quaternion rotation)
         {
-            Unit unit = CreateUnit(room, configId, pos, rotation);
+            Unit unit = CreateUnit(unitComponent, configId, pos, rotation);
 
             unit.AddComponent<B2S_RoleCastComponent, RoleCamp, RoleTag>(roleCamp, RoleTag.Hero);
 
@@ -181,11 +182,11 @@ namespace ET
         /// <param name="colliderDataConfigId">碰撞体数据表Id</param>
         /// <param name="collisionRelationDataConfigId">碰撞关系数据表Id</param>
         /// <returns></returns>
-        public static Unit CreateSpecialColliderUnit(Room room, Unit belongToUnit, int colliderDataConfigId,
+        public static Unit CreateSpecialColliderUnit(Unit belongToUnit, int colliderDataConfigId,
             int collisionRelationDataConfigId)
         {
             //为碰撞体新建一个Unit
-            Unit b2sColliderEntity = CreateUnit(room);
+            Unit b2sColliderEntity = CreateUnit(belongToUnit.Domain);
             b2sColliderEntity.Position = belongToUnit.Position;
 
             b2sColliderEntity.AddComponent<B2S_RoleCastComponent, RoleCamp, RoleTag>(

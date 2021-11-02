@@ -3,74 +3,91 @@ using System.Collections.Generic;
 
 namespace ET
 {
+    [ActorMessageHandler]
+    //Gate发给RoomScene
+    public class G2L_JoinRoomHandler : AMActorRpcHandler<Scene, G2L_JoinRoomLobby, L2C_JoinRoomLobby>
+    {
+        protected override async ETTask Run(Scene scene, G2L_JoinRoomLobby request, L2C_JoinRoomLobby response,
+            Action reply)
+        {
+            Room room = scene.GetComponent<Room>();
+            if (room == null)
+            {
+                response.Error = ErrorCode.ERR_RoomNotExist;
+                reply();
+                return;
+            }
+            if (scene.GetComponent<PlayerComponent>().Get(request.Player.Id) != null)
+            {
+                //已经加入过了
+                response.Error = ErrorCode.ERR_RoomNotExist;
+                reply();
+                return;
+            }
+            if (!RoomHelper.IsRoomUnLock(scene))
+            {
+                response.Error = ErrorCode.ERR_RoomIsLock;
+                reply();
+                return;
+            }
+            if (room.RoomConfig.RoomPlayerNum <= scene.GetComponent<PlayerComponent>().Count)
+            {
+                response.Error = ErrorCode.ERR_RoomIsFull;
+                reply();
+                return;
+            }
+            L2C_PlayerTriggerRoom playerTrigger = new L2C_PlayerTriggerRoom();
+            playerTrigger.playerInfoRoom = new PlayerInfoRoom
+            {
+                Name = request.Player.Name,
+                camp = request.Player.camp,
+                playerid = request.Player.Id
+            };
+            playerTrigger.JoinOrLeave = true;
+            MessageHelper.BroadcastToRoom(scene, playerTrigger);
+            //通知完之后再加入玩家.免得通知到自己
+            RoomHelper.JoinRoom(scene, request.Player, request.IsRoomHolder);
+            response.RoomInfo = response.RoomInfo;
+            foreach (var player in scene.GetComponent<PlayerComponent>().GetAll())
+            {
+                response.playerInfoRoom.Add(new PlayerInfoRoom() { camp = player.camp, Name = player.Name, playerid = player.Id });
+            }
+            response.RoomInfo = RoomHelper.GetRoomInfoProto(scene);
+            reply();
+            RoomHelper.UpdateRoomToRoomManager(scene);
+            await ETTask.CompletedTask;
+        }
+    }
     //玩家加入房间
     public class C2L_JoinRoomHandler : AMRpcHandler<C2L_JoinRoomLobby, L2C_JoinRoomLobby>
     {
         protected override async ETTask Run(Session session, C2L_JoinRoomLobby request, L2C_JoinRoomLobby response,
             Action reply)
         {
-            Scene scene = session.DomainScene();
-            Room room = scene.GetComponent<RoomManagerComponent>().GetRoom(request.RoomId);
-
-            //房间不为空向房间里添加玩家
-            if (room != null && room.ContainsPlayers.Count < 6)
+            if (session.GetComponent<RoomStateOnGateComponent>() != null)
             {
-                Player Jplayer = Game.Scene.GetComponent<PlayerComponent>().Get(request.PlayerId);
-                Jplayer.RoomId = request.RoomId;
-
-                for (int i = 1; i <= 6; i++)
-                {
-                    if (!room.PlayersCamp.TryGetValue(i, out long playerid))
-                    {
-                        Jplayer.camp = i;
-                        room.PlayersCamp.Add(i,Jplayer.Id);
-                        break;
-                    }
-                }
-                // 加入房间把自己广播给周围的人
-                L2C_PlayerTriggerRoom joinRoom = new L2C_PlayerTriggerRoom();
-                joinRoom.playerInfoRoom = new PlayerInfoRoom();
-                joinRoom.playerInfoRoom.Account = Jplayer.Account;
-                joinRoom.playerInfoRoom.UnitId = Jplayer.UnitId;
-                joinRoom.playerInfoRoom.SessionId = Jplayer.GateSessionId;
-                joinRoom.playerInfoRoom.RoomId = Jplayer.RoomId;
-                joinRoom.playerInfoRoom.camp = Jplayer.camp;
-                joinRoom.playerInfoRoom.playerid = Jplayer.Id;
-                joinRoom.JoinOrLeave = true;
-
-                foreach (KeyValuePair<long, Player> kvp in room.ContainsPlayers)
-                {
-                    PlayerInfoRoom pInfo = new PlayerInfoRoom();
-                    Player Tplayer = room.ContainsPlayers[kvp.Key];
-                    pInfo.Account = Tplayer.Account;
-                    pInfo.UnitId = Tplayer.UnitId;
-                    pInfo.SessionId = Tplayer.GateSessionId;
-                    pInfo.RoomId = Tplayer.RoomId;
-                    pInfo.playerid = Tplayer.Id;
-                    pInfo.camp = Tplayer.camp;
-                    response.playerInfoRoom.Add(pInfo);
-                    room.ContainsPlayers[kvp.Key].GateSession.Send(joinRoom);
-                }
-                
-                room.ContainsPlayers.Add(request.PlayerId, Jplayer);
-                
-                response.Message = "房间加入成功！";
-                response.camp = Jplayer.camp;
-                response.RoomId = request.RoomId;
-                response.RoomHolderId = room.RoomHolder.Id;
-                response.RoomName = room.RoomName;
-                
+                response.Error = ErrorCode.ERR_AlreadyInRoom;
+                reply();
+                return;
             }
-            else
+            var player = session.GetComponent<SessionPlayerComponent>().Player;
+            using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.Room, player.Id))
             {
-                response.Error = ErrorCode.ERR_RoomNotExist;
-            }
+                var resp = (L2C_JoinRoomLobby)await MessageHelper.CallActor(request.RoomId, new G2L_JoinRoomLobby() { Player = player, IsRoomHolder = false });
+                if (resp.Error != 0)
+                {
+                    response.Error = resp.Error;
+                    reply();
+                    return;
+                }
+                response.RoomInfo = resp.RoomInfo;
+                response.playerInfoRoom = resp.playerInfoRoom;
+                session.AddComponent<RoomStateOnGateComponent, long, long>(resp.RoomPlayerActorId, resp.RoomInfo.RoomId);
 
-            reply();
-            await ETTask.CompletedTask;
+                reply();
+            }
         }
     }
-
 
     //点击创建房间逻辑
     public class C2L_CreateNewRoomLobbyHandler : AMRpcHandler<C2L_CreateNewRoomLobby, L2C_CreateNewRoomLobby>
@@ -79,130 +96,75 @@ namespace ET
             L2C_CreateNewRoomLobby response,
             Action reply)
         {
-            Scene scene = session.DomainScene();
-
-            int roomId = scene.GetComponent<RoomManagerComponent>().RoomIdNum + 1;
-            scene.GetComponent<RoomManagerComponent>().RoomIdNum += 1;
-            Room room = scene.GetComponent<RoomManagerComponent>().CreateLobbyRoom(roomId,6);//暂时指定开局人数为6，后续根据需求扩展
-            
-            //房间不为空向房间里添加玩家
-            if (room != null)
+            if (session.GetComponent<RoomStateOnGateComponent>() != null)
             {
-                Player Dplayer = Game.Scene.GetComponent<PlayerComponent>().Get(request.PlayerId);
-                room.RoomHolder = Dplayer;
-                Dplayer.RoomId = roomId;
-                Dplayer.camp = room.ContainsPlayers.Count + 1;
-
-                room.ContainsPlayers.Add(request.PlayerId, Dplayer);
-                room.RoomName = Dplayer.Account + " s room";
-                room.PlayersCamp.Add(Dplayer.camp, request.PlayerId);
-
-                response.Message = room.RoomName;
-                response.RoomId = roomId;
-                response.mode = 1; //暂时一种模式写死
-                response.camp = Dplayer.camp;
-                
-                TimerComponent.Instance.NewRepeatedTimer(2000,
-                    () =>
+                response.Error = ErrorCode.ERR_AlreadyInRoom;
+                reply();
+                return;
+            }
+            var player = session.GetComponent<SessionPlayerComponent>().Player;
+            var playerinfo = new PlayerInfoRoom() { camp = 1, Name = player.Name, playerid = player.Id };
+            using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.Room, player.Id))
+            {
+                var resp = (RM2G_CreateNewRoomLobby)await MessageHelper.CallActor(
+                    StartSceneConfigCategory.Instance.GetBySceneName(1, "RoomManager").InstanceId,
+                    new G2RM_CreateNewRoomLobby()
                     {
-                        Room troom=scene.GetComponent<RoomManagerComponent>().GetRoom(roomId);
-                        if (troom != null)
-                        {
-                            if (troom.RoomHolder != null)
-                            {
-                                if (troom.RoomHolder.LobbySession.IsDisposed)
-                                {
-                                    scene.GetComponent<RoomManagerComponent>().RemoveRoom(troom.Id);
-                                    room.Dispose();
-                                }
-                            }
-                        }
-
-
+                        RoomConfig = new RoomConfigProto() { RoomName = $"{player.Name}的房间", RoomPlayerNum = 10 },
                     });
+                if (resp.Error != 0)
+                {
+                    response.Error = resp.Error;
+                    reply();
+                    return;
+                }
+                var joinresp = (L2C_JoinRoomLobby)await MessageHelper.CallActor(resp.RoomInfo.RoomId, new G2L_JoinRoomLobby() { Player = player, IsRoomHolder = true });
+                if (joinresp.Error != 0)
+                {
+                    response.Error = joinresp.Error;
+                    reply();
+                    return;
+                }
+                session.AddComponent<RoomStateOnGateComponent, long,long>(joinresp.RoomPlayerActorId,resp.RoomInfo.RoomId);
+                response.RoomInfo = resp.RoomInfo;
+                response.playerInfoRoom.Add(playerinfo);
+                reply();
             }
-            else
-            {
-                response.Error = ErrorCode.ERR_RoomNotExist;
-            }
-
-            reply();
-            await ETTask.CompletedTask;
         }
     }
 
     //玩家离开房间逻辑
-    public class C2L_LeaveRoomLobbyHandler : AMRpcHandler<C2L_LeaveRoomLobby, L2C_LeaveRoomLobby>
+    public class C2L_LeaveRoomLobbyHandler : AMActorRpcHandler<Player, C2L_LeaveRoomLobby, L2C_LeaveRoomLobby>
     {
-        protected override async ETTask Run(Session session, C2L_LeaveRoomLobby request, L2C_LeaveRoomLobby response,
+        protected override async ETTask Run(Player player, C2L_LeaveRoomLobby request, L2C_LeaveRoomLobby response,
             Action reply)
         {
-            Scene scene = session.DomainScene();
-
-            Player Lplayer = Game.Scene.GetComponent<PlayerComponent>().Get(request.PlayerId);
-            
-            // 客户端将不会发送离开的房间Id,因为服务端有玩家所在房间信息，为了安全以服务端为准
-            Room room = scene.GetComponent<RoomManagerComponent>().GetRoom(Lplayer.RoomId);
-            
-            if (room != null)
+            Scene scene = player.DomainScene();
+            if (!RoomHelper.IsRoomUnLock(scene))
             {
-                room.ContainsPlayers.Remove(request.PlayerId);
-                room.PlayersCamp.Remove(Lplayer.camp);
-
-                if (room.ContainsPlayers.Count != 0)
-                {
-                    if (room.RoomHolder == Lplayer)
-                    {
-                        for (int i = 1; i <= 6; i++)
-                        {
-                            if (room.PlayersCamp.TryGetValue(i, out long newHolder))
-                            {
-                                room.RoomHolder = Game.Scene.GetComponent<PlayerComponent>().Get(newHolder);
-                                response.newRoomHolder = newHolder;
-                                break;
-                            }
-                        }
-                    }
-                    
-                    // 离开房间把自己广播给周围的人
-                    L2C_PlayerTriggerRoom leaveRoom = new L2C_PlayerTriggerRoom();
-                    leaveRoom.playerInfoRoom = new PlayerInfoRoom();
-                    leaveRoom.playerInfoRoom.Account = Lplayer.Account;
-                    leaveRoom.playerInfoRoom.UnitId = Lplayer.UnitId;
-                    leaveRoom.playerInfoRoom.SessionId = Lplayer.GateSessionId;
-                    leaveRoom.playerInfoRoom.RoomId = Lplayer.RoomId;
-                    leaveRoom.playerInfoRoom.camp = Lplayer.camp;
-                    leaveRoom.playerInfoRoom.playerid = Lplayer.Id;
-                    leaveRoom.JoinOrLeave = false;
-
-                    foreach (KeyValuePair<long, Player> kvp in room.ContainsPlayers)
-                    {
-                        room.ContainsPlayers[kvp.Key].GateSession.Send(leaveRoom);
-                    }
-                    
-                    response.Message = "player leave room!";
-                    response.camp = Lplayer.camp;
-                    response.isDestory = false;
-                    response.RoomId = Lplayer.RoomId;
-                }
-                else
-                {
-                    // 客户端将不会发送离开的房间Id,因为服务端有玩家所在房间信息，为了安全以服务端为准
-                    scene.GetComponent<RoomManagerComponent>().RemoveRoom(Lplayer.RoomId);
-                    // 返回离开的RoomId
-                    response.Message = "player leave room ,no player destory room";
-                    response.camp = Lplayer.camp;
-                    response.isDestory = true;
-                    response.RoomId = Lplayer.RoomId;
-                }
+                response.Error = ErrorCode.ERR_RoomIsLock;
+                reply();
+                return;
             }
-            else
-            {
-                response.Error = ErrorCode.ERR_RoomNotExist;
-            }
-
-            response.PlayerId = Lplayer.Id;
             reply();
+            //房主设置为0.说明房主退出了
+            if (scene.GetComponent<Room>().RoomHolderPlayerId == player.Id)
+            {
+                scene.GetComponent<Room>().RoomHolderPlayerId = 0;
+            }
+            // 离开房间把自己广播给周围的人
+            L2C_PlayerTriggerRoom leaveRoom = new L2C_PlayerTriggerRoom();
+            leaveRoom.playerInfoRoom = new PlayerInfoRoom
+            {
+                Name = player.Name,
+                camp = player.camp,
+                playerid = player.Id
+            };
+            leaveRoom.JoinOrLeave = false;
+            player.GetParent<PlayerComponent>().Remove(player.Id);
+            player.Dispose();
+            MessageHelper.BroadcastToRoom(scene, leaveRoom);
+            RoomHelper.UpdateRoomToRoomManager(scene);
             await ETTask.CompletedTask;
         }
     }

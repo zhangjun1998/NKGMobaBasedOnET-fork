@@ -3,7 +3,6 @@
 	public class PlayerComponent: Entity
 	{
 		public Session GateSession;
-		public Session LobbySession;
 		public Room BelongToRoom;
 
 		/// <summary>

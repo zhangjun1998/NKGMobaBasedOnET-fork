@@ -39,9 +39,14 @@ namespace ET
                 case SceneType.Location:
                     scene.AddComponent<LocationComponent>();
                     break;
-                case SceneType.Lobby:
-                    scene.AddComponent<NetKcpComponent, IPEndPoint>(startSceneConfig.OuterIPPort);
+                case SceneType.RoomManager:
                     scene.AddComponent<RoomManagerComponent>();
+                    scene.AddComponent<PlayerRoomStateManagerComponent>();
+                    break;
+                case SceneType.RoomAgent:
+                    break;
+                case SceneType.Room:
+                    Log.Error(" SceneType.Room 创建调用错误");
                     break;
             }
 

@@ -31,8 +31,8 @@ namespace ET
 
             Game.Scene.AddComponent<NetThreadComponent>();
 
-            // 管理所有玩家信息
-            Game.Scene.AddComponent<PlayerComponent>();
+            //// 管理所有玩家信息
+            //Game.Scene.AddComponent<PlayerComponent>();
 
             // 两个全局的函数处理封装组件
             Game.Scene.AddComponent<AIDispatcherComponent>();

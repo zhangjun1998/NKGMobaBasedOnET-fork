@@ -25,14 +25,14 @@ namespace ET
             newAccount.Password = request.Password;
 
             //新建用户信息
-            PlayerInfo newUser = session.DomainScene().AddChild<PlayerInfo>();
+            PlayerInfo newUser = newAccount.AddComponent<PlayerInfo>();
             newUser.Name = $"玩家{request.Account}";
             newUser.Level = 1;
 
             // 保存用户数据到数据库
             await DBComponent.Instance.Save(newAccount);
             await DBComponent.Instance.Save(newUser);
-
+            newAccount.Dispose();
             reply();
         }
     }

@@ -1,31 +1,31 @@
 ﻿
 
+using System.IO;
+
 namespace ET
 {
     public static class MessageHelper
     {
-        /// <summary>
-        /// 将消息广播给房间所有玩家
-        /// </summary>
-        /// <param name="unit"></param>
-        /// <param name="message"></param>
-        public static void BroadcastToRoom(Room room, IActorMessage message)
+        public static void BroadcastToRoom(Entity entity, IMessage message)
         {
-            var units = room.GetComponent<UnitComponent>().GetAll();
-
-            if (units == null) return;
-
-            foreach (Unit u in units)
+            var scene = entity.Domain;
+            var players = scene.GetComponent<PlayerComponent>().GetAll();
+            if (players == null) return;
+            (ushort opcode, MemoryStream stream) = MessageSerializeHelper.MessageToStream(0, message);
+            //根据opcode决定走特殊广播还是常规actor消息
+            if (OpcodeTypeComponent.Instance.IsBroadcastMessage(opcode))
             {
-                UnitGateComponent unitGateComponent = u.GetComponent<UnitGateComponent>();
-                if (unitGateComponent != null)
+                scene.GetComponent<BroadcastMsgComponent>().BroadcastToAll(stream);
+            }
+            else
+            {
+                foreach (Player player in players)
                 {
-                    SendActor(unitGateComponent.GateSessionActorId, message);
+                    ActorMessageSenderComponent.Instance.Send(player.GateSessionId, stream);
                 }
             }
         }
-        
-        
+
         /// <summary>
         /// 发送协议给ActorLocation
         /// </summary>
@@ -35,7 +35,7 @@ namespace ET
         {
             ActorLocationSenderComponent.Instance.Send(id, message);
         }
-        
+
         /// <summary>
         /// 发送协议给Actor
         /// </summary>
@@ -45,7 +45,7 @@ namespace ET
         {
             ActorMessageSenderComponent.Instance.Send(actorId, message);
         }
-        
+
         /// <summary>
         /// 发送RPC协议给Actor
         /// </summary>
@@ -56,7 +56,7 @@ namespace ET
         {
             return await ActorMessageSenderComponent.Instance.Call(actorId, message);
         }
-        
+
         /// <summary>
         /// 发送RPC协议给ActorLocation
         /// </summary>

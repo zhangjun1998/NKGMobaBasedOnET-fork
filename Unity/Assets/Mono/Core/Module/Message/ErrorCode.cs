@@ -79,7 +79,22 @@ namespace ET
         /// 开局失败
         /// </summary>
         public const int ERR_StartGameFail = 200005;
-
+        /// <summary>
+        /// 已经在房间中
+        /// </summary>
+        public const int ERR_AlreadyInRoom = 200006;
+        /// <summary>
+        /// 房间锁定中
+        /// </summary>
+        public const int ERR_RoomIsLock = 200007;
+        /// <summary>
+        /// 房间已满
+        /// </summary>
+        public const int ERR_RoomIsFull= 200008;
+        /// <summary>
+        /// 需要房主权限
+        /// </summary>
+        public const int ERR_RoomNeedHolder = 200009;
         public static bool IsRpcNeedThrowException(int error)
         {
             if (error == 0)

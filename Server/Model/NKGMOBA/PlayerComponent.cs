@@ -21,13 +21,11 @@ namespace ET
 	
 	public class PlayerComponent : Entity
 	{
-		public static PlayerComponent Instance { get; private set; }
 
 		private readonly Dictionary<long, Player> idPlayers = new Dictionary<long, Player>();
 
 		public void Awake()
 		{
-			Instance = this;
 		}
 		
 		public void Add(Player player)
@@ -72,8 +70,6 @@ namespace ET
 			{
 				player.Dispose();
 			}
-
-			Instance = null;
 		}
 	}
 }

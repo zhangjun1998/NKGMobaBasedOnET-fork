@@ -11,7 +11,7 @@
 
             foreach (var playerInfoRoom in a.PlayerInfoRooms)
             {
-                FUI_RoomUtilities.AddPlayerCard(fuiRoomComponent, playerInfoRoom.playerid, playerInfoRoom.Account,
+                FUI_RoomUtilities.AddPlayerCard(fuiRoomComponent, playerInfoRoom.playerid, playerInfoRoom.Name,
                     a.Camp);
             }
 

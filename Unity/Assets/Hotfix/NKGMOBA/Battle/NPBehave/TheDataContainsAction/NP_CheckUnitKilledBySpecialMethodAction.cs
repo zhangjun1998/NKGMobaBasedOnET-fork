@@ -22,7 +22,7 @@ namespace ET
         public bool CheckUnitKilledBySpecialMethodAction()
         {
 #if SERVER
-            Unit unit = BelongToUnit.BelongToRoom.GetComponent<UnitComponent>()
+            Unit unit = BelongToUnit.Domain.GetComponent<UnitComponent>()
                 .Get(this.TargetUnitId.GetBlackBoardValue<long>(this.BelongtoRuntimeTree.GetBlackboard()));
             // //伤害栈顶数据为指定数据且攻击者是自己即返回true，否则返回false
             // Stack<OperateData> operateDataStack = unit.GetComponent<OperatesComponent>().GetOperateDatas(OperatesComponent.OperateType.BeDamaged);

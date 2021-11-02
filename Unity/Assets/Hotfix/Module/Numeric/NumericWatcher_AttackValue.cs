@@ -10,7 +10,7 @@
 
             if (!(unit is null))
             {
-                MessageHelper.BroadcastToRoom(unit.BelongToRoom,
+                MessageHelper.BroadcastToRoom(unit,
                     new M2C_ChangeProperty() {UnitId = unit.Id, FinalValue = value, NumicType = (int) numericType});
             }
 #else

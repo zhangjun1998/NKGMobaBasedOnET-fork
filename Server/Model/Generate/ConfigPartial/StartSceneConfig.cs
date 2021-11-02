@@ -18,7 +18,7 @@ namespace ET
         public StartSceneConfig LocationConfig;
 
         public List<StartSceneConfig> Robots = new List<StartSceneConfig>();
-
+        public List<StartSceneConfig> RoomAgent = new List<StartSceneConfig>();
         public List<StartSceneConfig> GetByProcess(int process)
         {
             return this.ProcessScenes[process];
@@ -53,8 +53,8 @@ namespace ET
                     case SceneType.Robot:
                         this.Robots.Add(startSceneConfig);
                         break;
-                    case SceneType.Lobby:
-                        this.Lobbys.Add(startSceneConfig.Zone, startSceneConfig);
+                    case SceneType.RoomAgent:
+                        this.RoomAgent.Add(startSceneConfig);
                         break;
                 }
             }

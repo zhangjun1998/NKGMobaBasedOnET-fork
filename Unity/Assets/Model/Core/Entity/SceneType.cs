@@ -9,8 +9,12 @@
 		Http = 4,
 		Location = 5,
 		Map = 6,
-		Lobby = 7,
-
+		/// <summary>
+		/// 房间代理.用于生成真正的room
+		/// </summary>
+		RoomAgent = 7,
+		RoomManager = 8,
+		Room = 9,
 		// 客户端Model层
 		Client = 30,
 		Zone = 31,

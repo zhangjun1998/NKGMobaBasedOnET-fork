@@ -13,7 +13,7 @@ namespace ET
         protected override async ETTask Run(Unit unit, C2M_CommonAttack request)
         {
             unit.GetComponent<CommonAttackComponent>()
-                .SetAttackTarget(unit.BelongToRoom.GetComponent<UnitComponent>().Get(request.TargetUnitId));
+                .SetAttackTarget(unit.Domain.GetComponent<UnitComponent>().Get(request.TargetUnitId));
             await ETTask.CompletedTask;
         }
     }

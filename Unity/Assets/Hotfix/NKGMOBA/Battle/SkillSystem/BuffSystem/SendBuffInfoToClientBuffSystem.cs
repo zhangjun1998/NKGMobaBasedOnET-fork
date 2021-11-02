@@ -19,7 +19,7 @@ namespace ET
                             sendBuffInfoToClientBuffData.TargetBuffNodeId.Value] as
                         NormalBuffNodeData).BuffData.BuffId);
 
-            MessageHelper.BroadcastToRoom(this.GetBuffTarget().BelongToRoom,
+            MessageHelper.BroadcastToRoom(this.GetBuffTarget(),
                 new M2C_BuffInfo()
                 {
                     UnitId = this.BelongtoRuntimeTree.BelongToUnit.Id,

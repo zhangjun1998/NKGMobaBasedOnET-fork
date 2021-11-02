@@ -20,22 +20,18 @@ namespace ET
         {
             PlayerComponent playerComponent = Game.Scene.GetComponent<PlayerComponent>();
 
-            L2C_LoginLobby l2cLoginLobby = await Game.Scene.GetComponent<PlayerComponent>().LobbySession
-                .Call(new C2L_LoginLobby() {PlayerId = playerComponent.PlayerId}) as L2C_LoginLobby;
-            
-            Log.Debug("登陆Lobby成功!, 拉取服务器房间列表");
-
+            L2C_RoomListInLobby l2cLoginLobby = await Game.Scene.GetComponent<PlayerComponent>().GateSession
+                .Call(new C2L_RoomListInLobby() ) as L2C_RoomListInLobby;
             scene.GetComponent<RoomManagerComponent>().RemoveAllLobbyRooms();
-            for (int i = 0; i < l2cLoginLobby.RoomIdList.Count; i++)
+            for (int i = 0; i < l2cLoginLobby.RoomList.Count; i++)
             {
-                Room room = scene.GetComponent<RoomManagerComponent>().CreateLobbyRoom(l2cLoginLobby.RoomIdList[i]);
-                room.RoomName = l2cLoginLobby.RoomNameList[i];
-                room.PlayerCount = l2cLoginLobby.RoomPlayerNum[i];
-                room.RoomHolderPlayerId = l2cLoginLobby.RoomIdList[i];
+                Room room = scene.GetComponent<RoomManagerComponent>().CreateLobbyRoom(l2cLoginLobby.RoomList[i].RoomId);
+                room.RoomName = l2cLoginLobby.RoomList[i].RoomConfig.RoomName;
+                room.PlayerCount = l2cLoginLobby.RoomList[i].PlayerCount;
+                room.RoomHolderPlayerId = l2cLoginLobby.RoomList[i].RoomHolderPlayer;
             }
 
             await scene.GetComponent<FUIPackageManagerComponent>().AddPackageAsync(FUIPackage.Room);
-
             FUIManagerComponent fuiManagerComponent = scene.GetComponent<FUIManagerComponent>();
 
             FUI_RoomList fuiRoomList = await FUI_RoomList.CreateInstanceAsync(scene);

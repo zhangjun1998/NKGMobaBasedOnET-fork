@@ -21,7 +21,18 @@ namespace ET
 
 			return zoneGates[n];
 		}
-		
+		/// <summary>
+		/// 根据id分配一个确定网关服
+		/// </summary>
+		/// <param name="zone"></param>
+		/// <returns></returns>
+		public static StartSceneConfig GetGate(int zone,long id)
+		{
+			
+			List<StartSceneConfig> zoneGates = StartSceneConfigCategory.Instance.Gates[zone];
+			return zoneGates[(int)(IdStruct.GetTime(id) % zoneGates.Count)];
+		}
+
 		/// <summary>
 		/// 随机分配一个大厅服
 		/// </summary>

@@ -26,7 +26,7 @@ namespace ET
 
         public void AddBuffToSpecifiedUnit()
         {
-            UnitComponent unitComponent = BelongToUnit.BelongToRoom
+            UnitComponent unitComponent = BelongToUnit.Domain
                 .GetComponent<UnitComponent>();
 
             foreach (var targetUnitId in NPBalckBoardRelationData.GetBlackBoardValue<List<long>>(

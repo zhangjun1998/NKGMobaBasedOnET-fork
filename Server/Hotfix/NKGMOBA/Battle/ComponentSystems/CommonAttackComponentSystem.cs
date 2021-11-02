@@ -93,9 +93,11 @@ namespace ET
         private static async ETTask CommonAttack_Internal(this CommonAttackComponent self)
         {
             Unit unit = self.GetParent<Unit>();
-            MessageHelper.BroadcastToRoom(unit.BelongToRoom, new M2C_CommonAttack()
+            MessageHelper.BroadcastToRoom(self, new M2C_CommonAttack()
             {
-                AttackCasterId = unit.Id, TargetUnitId = self.CachedUnitForAttack.Id, CanAttack = true
+                AttackCasterId = unit.Id,
+                TargetUnitId = self.CachedUnitForAttack.Id,
+                CanAttack = true
             });
             UnitAttributesDataComponent heroDataComponent = unit.GetComponent<UnitAttributesDataComponent>();
             float attackPre = heroDataComponent.UnitAttributesNodeDataBase.OriAttackPre /
@@ -121,7 +123,7 @@ namespace ET
                 self.CachedUnitForAttack.GetComponent<UnitAttributesDataComponent>().NumericComponent
                     .ApplyChange(NumericType.Hp, -finalDamage);
 
-                BattleEventSystem battleEventSystem = unit.BelongToRoom.GetComponent<BattleEventSystem>();
+                BattleEventSystem battleEventSystem = unit.Domain.GetComponent<BattleEventSystem>();
 
                 //抛出伤害事件，需要监听伤害的buff（比如吸血buff）需要监听此事件
                 battleEventSystem.Run($"ExcuteDamage{unit.Id}", damageData);
@@ -202,7 +204,7 @@ namespace ET
                     .Set(self.CancelAttackReplaceBB.BBKey, true);
             }
 
-            MessageHelper.BroadcastToRoom(self.GetParent<Unit>().BelongToRoom,
+            MessageHelper.BroadcastToRoom(self,
                 new M2C_CancelCommonAttack() {TargetUnitId = self.GetParent<Unit>().Id});
         }
 
@@ -227,7 +229,7 @@ namespace ET
 
             CDComponent.Instance.ResetCD(self.GetParent<Unit>().Id, "CommonAttack");
 
-            MessageHelper.BroadcastToRoom(self.GetParent<Unit>().BelongToRoom,
+            MessageHelper.BroadcastToRoom(self,
                 new M2C_CancelCommonAttack() {TargetUnitId = self.GetParent<Unit>().Id});
         }
 

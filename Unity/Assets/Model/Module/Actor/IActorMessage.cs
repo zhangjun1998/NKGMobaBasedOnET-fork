@@ -12,4 +12,15 @@
     public interface IActorResponse: IResponse
     {
     }
+
+    public interface IRoomMessage : IActorMessage
+    {
+    }
+
+    public interface IRoomRequest : IActorRequest
+    {
+    }
+    public interface IRoomResponse : IActorResponse
+    {
+    }
 }

@@ -36,7 +36,7 @@ namespace ET
             {
                 foreach (var eventId in this.BuffData.EventIds)
                 {
-                    this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystem>().Run($"{eventId}{this.TheUnitFrom.Id}", this);
+                    this.GetBuffTarget().Domain.GetComponent<BattleEventSystem>().Run($"{eventId}{this.TheUnitFrom.Id}", this);
                     //Log.Info($"抛出了{this.MSkillBuffDataBase.theEventID}{this.theUnitFrom.Id}");
                 }
             }

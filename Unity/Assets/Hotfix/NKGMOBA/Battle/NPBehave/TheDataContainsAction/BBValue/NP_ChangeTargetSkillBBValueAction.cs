@@ -57,7 +57,7 @@ namespace ET
             else
             {
 #if SERVER
-                targetUnit = BelongToUnit.BelongToRoom.GetComponent<UnitComponent>()
+                targetUnit = BelongToUnit.Domain.GetComponent<UnitComponent>()
                     .Get(this.TargetUnitId.GetBlackBoardValue<long>(this.BelongtoRuntimeTree.GetBlackboard()));
 #endif
             }

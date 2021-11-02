@@ -5,6 +5,5 @@ package ET;
 message R2G_GetLoginKey // IActorRequest
 {
   int32 RpcId = 90;
-  int64 ActorId = 93;
-  string Account = 1;
+  long PlayerId = 1;
 }

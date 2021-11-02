@@ -35,7 +35,11 @@ namespace ET
             result >>= 18;
             this.Time = (uint) result;
         }
-
+        public static uint GetTime(long tagretId)
+        {
+            uint v = (uint)((tagretId >> 34));
+            return v;
+        }
         public override string ToString()
         {
             return $"process: {this.Process}, time: {this.Time}, value: {this.Value}";

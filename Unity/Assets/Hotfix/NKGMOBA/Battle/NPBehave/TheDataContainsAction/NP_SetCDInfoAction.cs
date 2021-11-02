@@ -26,7 +26,7 @@ namespace ET
         public void SetCDInfoAction()
         {
             Unit unit = BelongToUnit;
-            CDComponent cdComponent = unit.BelongToRoom.GetComponent<CDComponent>();
+            CDComponent cdComponent = unit.Domain.GetComponent<CDComponent>();
             SkillDesNodeData skillDesNodeData =
                 (SkillDesNodeData) this.BelongtoRuntimeTree.BelongNP_DataSupportor.BuffNodeDataDic[this.DataId.Value];
             long cd = skillDesNodeData.SkillCD[

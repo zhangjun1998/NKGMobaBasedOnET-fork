@@ -42,7 +42,7 @@ namespace ET
             {
                 foreach (var eventId in this.BuffData.EventIds)
                 {
-                    this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystem>().Run($"{eventId.Value}{this.TheUnitFrom.Id}", this);
+                    this.GetBuffTarget().Domain.GetComponent<BattleEventSystem>().Run($"{eventId.Value}{this.TheUnitFrom.Id}", this);
                 }
             }
 

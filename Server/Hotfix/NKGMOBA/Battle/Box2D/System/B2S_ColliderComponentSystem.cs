@@ -22,7 +22,7 @@ namespace ET
                     .Get(collisionRelationDataConfigId);
             string collisionHandlerName = serverB2SCollisionRelationConfig.B2S_ColliderHandlerName;
             
-            self.WorldComponent = self.GetParent<Unit>().BelongToRoom.GetComponent<B2S_WorldComponent>();
+            self.WorldComponent = self.Domain.GetComponent<B2S_WorldComponent>();
             self.BelongToUnit = belongToUnit;
             self.B2S_CollisionRelationConfigId = serverB2SCollisionRelationConfig.Id;
             self.B2S_ColliderDataConfigId = serverB2SCollisionRelationConfig.B2S_ColliderConfigId;
@@ -90,7 +90,7 @@ namespace ET
     {
         public override void Awake(B2S_ColliderComponent self, UnitFactory.CreateHeroColliderArgs args)
         {
-            self.WorldComponent = self.GetParent<Unit>().BelongToRoom.GetComponent<B2S_WorldComponent>();
+            self.WorldComponent = self.Domain.GetComponent<B2S_WorldComponent>();
             self.BelongToUnit = args.Unit;
             self.Sync = args.FollowUnit;
             self.CollisionHandlerName = args.CollisionHandler;

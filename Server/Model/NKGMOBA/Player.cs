@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
+using System.Runtime.Serialization;
 
 namespace ET
 {
@@ -12,28 +14,18 @@ namespace ET
 
 	public sealed class Player : Entity
 	{
-		public string Account { get; private set; }
+		public string Name { get;  set; }
 		
 		public long UnitId { get; set; }
-		
-		public long GateSessionId { get; set; }
-		
-		public Session GateSession { get; set; }
-		
-		public Session LobbySession { get; set; }
+        /// <summary>
+        /// 所归属的阵营
+        /// </summary>
+        public Int32 camp { get; set; }
+        public long GateSessionId { get; set; }
 
-		/// <summary>
-		/// 所归属的RoomId
-		/// </summary>
-		public long RoomId { get; set; }
-		/// <summary>
-		/// 所归属的阵营
-		/// </summary>
-		public Int32 camp { get; set; }
-
-		public void Awake(string account)
+        public void Awake(string account)
 		{
-			this.Account = account;
+			this.Name = account;
 		}
 	}
 }

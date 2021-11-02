@@ -34,9 +34,9 @@ namespace ET
                 this.TheUnitBelongto.GetComponent<UnitAttributesDataComponent>().NumericComponent
                     .ApplyChange(NumericType.Hp, -finalDamage);
                 //抛出伤害事件
-                this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystem>().Run($"ExcuteDamage{this.TheUnitFrom.Id}", damageData);
+                this.GetBuffTarget().Domain.GetComponent<BattleEventSystem>().Run($"ExcuteDamage{this.TheUnitFrom.Id}", damageData);
                 //抛出受伤事件
-                this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystem>().Run($"TakeDamage{this.GetBuffTarget().Id}", damageData);
+                this.GetBuffTarget().Domain.GetComponent<BattleEventSystem>().Run($"TakeDamage{this.GetBuffTarget().Id}", damageData);
             }
 
             //TODO 从当前战斗Entity获取BattleEventSystem来Run事件
@@ -44,7 +44,7 @@ namespace ET
             {
                 foreach (var eventId in this.BuffData.EventIds)
                 {
-                    this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystem>().Run($"{eventId}{this.TheUnitFrom.Id}", this);
+                    this.GetBuffTarget().Domain.GetComponent<BattleEventSystem>().Run($"{eventId}{this.TheUnitFrom.Id}", this);
                     //Log.Info($"抛出了{this.MSkillBuffDataBase.theEventID}{this.theUnitFrom.Id}");
                 }
             }

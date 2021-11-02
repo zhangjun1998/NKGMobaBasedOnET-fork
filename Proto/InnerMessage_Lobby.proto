@@ -29,3 +29,46 @@ message L2M_PreparedToEnterBattle // IActorRequest
   int64 ActorId = 93;
   int64 Roomid = 2;
 }
+//gate向RoomManager申请新的房间
+//ResponseType RM2G_CreateNewRoomLobby
+message G2RM_CreateNewRoomLobby // IActorRequest
+{
+  int32 RpcId = 90;
+  RoomConfigProto RoomConfig = 1;
+}
+message RM2G_CreateNewRoomLobby // IActorResponse
+{
+  int32 RpcId = 90;
+  int32 Error = 91;
+  string Message = 92;
+  RoomInfoProto RoomInfo = 1;
+}
+//房间管理场景向RoomAgent申请创建房间
+//ResponseType RA2RM_CreateNewRoomLobby
+message RM2RA_CreateNewRoomLobby // IActorRequest
+{
+  int32 RpcId = 90;
+  RoomConfigProto RoomConfig = 1;
+}
+message RA2RM_CreateNewRoomLobby // IActorResponse
+{
+  int32 RpcId = 90;
+  int32 Error = 91;
+  string Message = 92;
+  RoomInfoProto RoomInfo = 1;
+}
+//房间管理场景向RoomAgent通知关闭房间场景
+message RM2RA_RemoveRoom // IActorMessage
+{
+  int32 CloseCode = 1;
+}
+
+message RA2RM_UpdateRoomInfo  // IActorMessage
+{
+   RoomInfoProto RoomInfo = 1;
+}
+//房间关闭
+message Room2G_RoomClose // IActorMessage
+{
+  int32 CloseCode = 1;
+}

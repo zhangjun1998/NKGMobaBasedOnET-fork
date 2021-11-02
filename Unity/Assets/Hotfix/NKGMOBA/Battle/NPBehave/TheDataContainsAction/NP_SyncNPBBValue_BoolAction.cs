@@ -21,7 +21,7 @@ namespace ET
         public void SyncNPBBValue_BoolAction()
         {
 #if SERVER
-              MessageHelper.BroadcastToRoom(this.BelongToUnit.BelongToRoom,
+              MessageHelper.BroadcastToRoom(this.BelongToUnit,
                 new M2C_SyncNPBehaveBoolData() {UnitId = BelongToUnit.Id, BBKey = BBKey, Value = BBValue});
 #endif
         }

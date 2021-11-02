@@ -12,8 +12,7 @@ namespace ET
 
                 PlayerComponent playerComponent = Game.Scene.GetComponent<PlayerComponent>();
                 
-                await playerComponent.LobbySession.Call(new C2L_StartGameLobby()
-                        {PlayerId = playerComponent.PlayerId});
+                await playerComponent.LobbySession.Call(new C2L_StartGameLobby(){});
             }
             catch (Exception e)
             {
