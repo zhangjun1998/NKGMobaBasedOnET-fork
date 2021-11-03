@@ -50,14 +50,10 @@ namespace ET
         {
             Room room = self.GetParent<Room>();
             UnitComponent unitComponent = room.GetComponent<UnitComponent>();
-            LSF_PathFindCmd pathFindCmd =
-                ReferencePool.Acquire<LSF_PathFindCmd>().Init(unitComponent.MyUnit.Id) as LSF_PathFindCmd;
 
-            pathFindCmd.PosX = ClickPoint.x;
-            pathFindCmd.PosY = ClickPoint.y;
-            pathFindCmd.PosZ = ClickPoint.z;
-
-            room.GetComponent<LSF_Component>().SendMessage(pathFindCmd);
+            IdleState idleState = ReferencePool.Acquire<IdleState>();
+            idleState.SetData(StateTypes.Idle, "Idle", 1);
+            unitComponent.MyUnit.NavigateTodoSomething(ClickPoint, 0, idleState).Coroutine();
         }
     }
 }

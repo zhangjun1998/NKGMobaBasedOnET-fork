@@ -295,8 +295,7 @@ namespace ET
                 ReferencePool.Release(targetState);
                 return;
             }
-
-#if SERVER
+            
             if (await unit.FindPathMoveToAsync(target, targetRange))
             {
                 if (targetState != null)
@@ -307,7 +306,6 @@ namespace ET
                     }
                 }
             }
-#endif
             await ETTask.CompletedTask;
         }
 
