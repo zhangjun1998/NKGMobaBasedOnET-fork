@@ -31,6 +31,19 @@ namespace UnityEngine
             this.z = rkAxis.z * num2;
             this.w = num3;
         }
+        
+        /// <summary>
+        /// Construct a new MyQuaternion from vector and w components
+        /// </summary>
+        /// <param name="v">The vector part</param>
+        /// <param name="w">The w part</param>
+        public Quaternion(Vector3 v, float w)
+        {
+            this.x = v.x;
+            this.y = v.y;
+            this.z = v.z;
+            this.w = w;
+        }
 
         public Quaternion(Vector3 xaxis, Vector3 yaxis, Vector3 zaxis)
         {
@@ -553,39 +566,79 @@ namespace UnityEngine
                 (double) quaternion1.z * (double) quaternion2.z + (double) quaternion1.w * (double) quaternion2.w);
         }
 
-        public static Quaternion Slerp(Quaternion quaternion1, Quaternion quaternion2, float amount)
+        public static Quaternion Slerp(Quaternion a, Quaternion b, float t)
         {
-            float num1 = amount;
-            float num2 = (float) ((double) quaternion1.x * (double) quaternion2.x + (double) quaternion1.y * (double) quaternion2.y +
-                (double) quaternion1.z * (double) quaternion2.z + (double) quaternion1.w * (double) quaternion2.w);
-            bool flag = false;
-            if ((double) num2 < 0.0)
+            return Quaternion.Slerp(ref a, ref b, t);
+        }
+        
+        public Vector3 xyz
+        {
+            set
             {
-                flag = true;
-                num2 = -num2;
+                x = value.x;
+                y = value.y;
+                z = value.z;
+            }
+            get
+            {
+                return new Vector3(x, y, z);
+            }
+        }
+        
+        public static Quaternion Slerp(ref Quaternion a, ref Quaternion b, float t)
+        {
+            // if either input is zero, return the other.
+            if (a.LengthSquared() == 0.0f)
+            {
+                if (b.LengthSquared() == 0.0f)
+                {
+                    return identity;
+                }
+                return b;
+            }
+            else if (b.LengthSquared() == 0.0f)
+            {
+                return a;
             }
 
-            float num3;
-            float num4;
-            if ((double) num2 > 0.999998986721039)
+
+            float cosHalfAngle = a.w * b.w + Vector3.Dot(a.xyz, b.xyz);
+
+            if (cosHalfAngle >= 1.0f || cosHalfAngle <= -1.0f)
             {
-                num3 = 1f - num1;
-                num4 = flag? -num1 : num1;
+                // angle = 0.0f, so just return one input.
+                return a;
+            }
+            else if (cosHalfAngle < 0.0f)
+            {
+                b.xyz = -b.xyz;
+                b.w = -b.w;
+                cosHalfAngle = -cosHalfAngle;
+            }
+
+            float blendA;
+            float blendB;
+            if (cosHalfAngle < 0.99f)
+            {
+                // do proper slerp for big angles
+                float halfAngle = (float)System.Math.Acos(cosHalfAngle);
+                float sinHalfAngle = (float)System.Math.Sin(halfAngle);
+                float oneOverSinHalfAngle = 1.0f / sinHalfAngle;
+                blendA = (float)System.Math.Sin(halfAngle * (1.0f - t)) * oneOverSinHalfAngle;
+                blendB = (float)System.Math.Sin(halfAngle * t) * oneOverSinHalfAngle;
             }
             else
             {
-                float num5 = (float) Math.Acos((double) num2);
-                float num6 = (float) (1.0 / Math.Sin((double) num5));
-                num3 = (float) Math.Sin((1.0 - (double) num1) * (double) num5) * num6;
-                num4 = flag? (float) -Math.Sin((double) num1 * (double) num5) * num6 : (float) Math.Sin((double) num1 * (double) num5) * num6;
+                // do lerp if angle is really small.
+                blendA = 1.0f - t;
+                blendB = t;
             }
 
-            Quaternion quaternion;
-            quaternion.x = (float) ((double) num3 * (double) quaternion1.x + (double) num4 * (double) quaternion2.x);
-            quaternion.y = (float) ((double) num3 * (double) quaternion1.y + (double) num4 * (double) quaternion2.y);
-            quaternion.z = (float) ((double) num3 * (double) quaternion1.z + (double) num4 * (double) quaternion2.z);
-            quaternion.w = (float) ((double) num3 * (double) quaternion1.w + (double) num4 * (double) quaternion2.w);
-            return quaternion;
+            Quaternion result = new Quaternion(blendA * a.xyz + blendB * b.xyz, blendA * a.w + blendB * b.w);
+            if (result.LengthSquared() > 0.0f)
+                return Normalize(result);
+            else
+                return identity;
         }
 
         public static void Slerp(ref Quaternion quaternion1, ref Quaternion quaternion2, float amount, out Quaternion result)
