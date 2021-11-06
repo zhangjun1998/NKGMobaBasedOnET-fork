@@ -10,7 +10,7 @@ namespace ET
         {
             get
             {
-                return this.Targets[this.N - 1];
+                return this.Targets[this.NextPointIndex - 1];
             }
         }
 
@@ -18,11 +18,11 @@ namespace ET
         {
             get
             {
-                return this.Targets[this.N];
+                return this.Targets[this.NextPointIndex];
             }
         }
 
-        // 开启移动协程的时间
+        // 开启一次移动协程的时间点
         public long BeginTime;
 
         /// <summary>
@@ -30,19 +30,11 @@ namespace ET
         /// </summary>
         public float TargetRange = 0;
 
-        // 每个点的开始时间
+        // 每个点的开始移动的时间点
         public long StartTime { get; set; }
 
-        // 开启移动协程的Unit的位置
+        // 开启移动时的Unit的位置
         public Vector3 StartPos;
-
-        public Vector3 RealPos
-        {
-            get
-            {
-                return this.Targets[0];
-            }
-        }
 
         private long needTime;
 
@@ -58,8 +50,6 @@ namespace ET
             }
         }
 
-        public long MoveTimer;
-
         public float Speed; // m/s
 
         public Action<bool> Callback;
@@ -74,7 +64,10 @@ namespace ET
             }
         }
 
-        public int N;
+        /// <summary>
+        /// 下一个路径点的索引值
+        /// </summary>
+        public int NextPointIndex;
 
         public int TurnTime;
 
@@ -83,5 +76,9 @@ namespace ET
         public Quaternion From;
 
         public Quaternion To;
+
+        public bool ShouldMove = false;
+
+        public long MoveTimer;
     }
 }

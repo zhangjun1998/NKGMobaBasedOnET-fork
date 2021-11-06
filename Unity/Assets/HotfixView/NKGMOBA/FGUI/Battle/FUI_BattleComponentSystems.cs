@@ -178,8 +178,8 @@ namespace ET
             Vector2 fgui2Unity = new Vector2(global2Local.x, 200 - global2Local.y);
             Vector3 targetPos = new Vector3(-fgui2Unity.x / (200.0f / 100.0f), 0, -fgui2Unity.y / (200.0f / 100.0f));
 
-            Game.Scene.GetComponent<PlayerComponent>().GateSession.Send(new C2M_PathfindingResult()
-                {X = targetPos.x, Y = targetPos.y, Z = targetPos.z});
+            Unit unit = Game.Scene.GetComponent<PlayerComponent>().BelongToRoom.GetComponent<UnitComponent>().MyUnit;
+            unit.SendPathFindCmd(targetPos);
         }
     }
 

@@ -50,7 +50,7 @@ namespace ET
 				self.LoadOneInThread(configType, configBytes);
 			}
 
-			MonoListComponent<ETTask> tasks = MonoListComponent<ETTask>.Create();
+			ListComponent<ETTask> tasks = ListComponent<ETTask>.Create();
 			foreach (var item in types)
 			{
 				tasks.List.Add(Load(item, configBytes));//好像这么写还是同步加载

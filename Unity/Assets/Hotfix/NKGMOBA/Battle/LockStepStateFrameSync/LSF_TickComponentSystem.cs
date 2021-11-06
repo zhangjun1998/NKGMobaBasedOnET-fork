@@ -11,7 +11,7 @@ namespace ET
 
     public static class LSF_TickComponentUtilities
     {
-        public static void Tick(this LSF_TickComponent self)
+        public static void Tick(this LSF_TickComponent self, long deltaTime)
         {
             Entity entity = self.GetParent<Entity>();
 
@@ -31,7 +31,7 @@ namespace ET
                     // 因为有可能Tick过程中移除了Component，所以需要做一下判断
                     if (entity.Components.ContainsKey(type))
                     {
-                        LSF_TickDispatcherComponent.Instance.HandleLSF_Tick(componentToTick);
+                        LSF_TickDispatcherComponent.Instance.HandleLSF_Tick(componentToTick, deltaTime);
                     }
                 }
             }

@@ -249,27 +249,6 @@ namespace ET
 
 	}
 
-	[Message(OuterOpcode_Map.C2M_PathfindingResult)]
-	[ProtoContract]
-	public partial class C2M_PathfindingResult: Object, IActorLocationMessage
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
-		[ProtoMember(1)]
-		public float X { get; set; }
-
-		[ProtoMember(2)]
-		public float Y { get; set; }
-
-		[ProtoMember(3)]
-		public float Z { get; set; }
-
-	}
-
 	[Message(OuterOpcode_Map.C2M_Stop)]
 	[ProtoContract]
 	public partial class C2M_Stop: Object, IActorLocationMessage
@@ -279,39 +258,6 @@ namespace ET
 
 		[ProtoMember(93)]
 		public long ActorId { get; set; }
-
-	}
-
-	[Message(OuterOpcode_Map.M2C_PathfindingResult)]
-	[ProtoContract]
-	public partial class M2C_PathfindingResult: Object, IActorMessage
-	{
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
-		[ProtoMember(1)]
-		public long Id { get; set; }
-
-		[ProtoMember(2)]
-		public float X { get; set; }
-
-		[ProtoMember(3)]
-		public float Y { get; set; }
-
-		[ProtoMember(4)]
-		public float Z { get; set; }
-
-		[ProtoMember(6)]
-		public float Speed { get; set; }
-
-		[ProtoMember(7)]
-		public List<float> Xs = new List<float>();
-
-		[ProtoMember(8)]
-		public List<float> Ys = new List<float>();
-
-		[ProtoMember(9)]
-		public List<float> Zs = new List<float>();
 
 	}
 

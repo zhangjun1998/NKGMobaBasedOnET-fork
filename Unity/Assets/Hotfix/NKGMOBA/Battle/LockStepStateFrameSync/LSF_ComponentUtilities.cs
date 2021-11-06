@@ -9,7 +9,6 @@ using UnityEngine.Profiling;
 #endif
 
 
-
 namespace ET
 {
     public static class LSF_ComponentUtilities
@@ -28,15 +27,15 @@ namespace ET
                 return;
             }
 
-            if (self.FrameCmdsBuffer.TryGetValue(self.CurrentFrame, out var inputCmdQueue))
-            {
-                foreach (var cmd in inputCmdQueue)
-                {
-                    //处理用户输入缓冲区中的指令，用于预测
-                    //Log.Info($"------------处理用户输入缓冲区第{self.CurrentFrame}帧指令");
-                    LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), cmd);
-                }
-            }
+            // if (self.FrameCmdsBuffer.TryGetValue(self.CurrentFrame, out var inputCmdQueue))
+            // {
+            //     foreach (var cmd in inputCmdQueue)
+            //     {
+            //         //处理用户输入缓冲区中的指令，用于预测
+            //         //Log.Info($"------------处理用户输入缓冲区第{self.CurrentFrame}帧指令");
+            //         LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), cmd);
+            //     }
+            // }
 #endif
 
 #if SERVER
@@ -61,7 +60,8 @@ namespace ET
             }
 
             // LSFTick Room，tick room的相关组件, 然后由Room去Tick其子组件，即此处是战斗的Tick起点
-            self.GetParent<Room>().GetComponent<LSF_TickComponent>()?.Tick();
+            self.GetParent<Room>().GetComponent<LSF_TickComponent>()
+                ?.Tick(self.FixedUpdate.UpdateTime.Elapsed.Milliseconds);
 
             self.CurrentFrame++;
         }

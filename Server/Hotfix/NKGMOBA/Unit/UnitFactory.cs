@@ -109,6 +109,8 @@ namespace ET
                     Server_SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitESkillId).BelongToSkillId)
                 .Start();
 
+            unit.AddComponent<LSF_TickComponent>();
+
             return unit;
         }
 

@@ -27,22 +27,8 @@ namespace ET
                 return true;
             }
 
-            // // 广播寻路路径
-            // M2C_PathfindingResult m2CPathfindingResult = new M2C_PathfindingResult();
-            // m2CPathfindingResult.Id = unit.Id;
-            // for (int i = 0; i < list.List.Count; ++i)
-            // {
-            //     Vector3 vector3 = list.List[i];
-            //     m2CPathfindingResult.Xs.Add(vector3.x);
-            //     m2CPathfindingResult.Ys.Add(vector3.y);
-            //     m2CPathfindingResult.Zs.Add(vector3.z);
-            // }
-            //
-            // m2CPathfindingResult.Speed = speed;
-            // MessageHelper.BroadcastToRoom(unit.BelongToRoom, m2CPathfindingResult);
-
             bool ret = await unit.GetComponent<MoveComponent>()
-                .MoveToAsync(path, speed, 100, targetRange, cancellationToken);
+                .MoveToAsync(path, speed, 500, targetRange, cancellationToken);
             if (ret) // 如果返回false，说明被其它移动取消了，这时候不需要通知客户端stop
             {
                 unit.SendStop(0);
@@ -66,7 +52,7 @@ namespace ET
                 X = unit.Position.x,
                 Y = unit.Position.y,
                 Z = unit.Position.z,
-
+            
                 A = unit.Rotation.x,
                 B = unit.Rotation.y,
                 C = unit.Rotation.z,

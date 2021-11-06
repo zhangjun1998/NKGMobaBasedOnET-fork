@@ -2,6 +2,6 @@
 {
     public interface ILSF_TickHandler
     {
-        void LSF_Tick(Entity entity);
+        void LSF_Tick(Entity entity, long deltaTime);
     }
 }

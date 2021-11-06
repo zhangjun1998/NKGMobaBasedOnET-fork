@@ -25,15 +25,6 @@ namespace ET
                 return true;
             }
 
-            LSF_PathFindCmd pathFindCmd =
-                ReferencePool.Acquire<LSF_PathFindCmd>().Init(unit.Id) as LSF_PathFindCmd;
-
-            pathFindCmd.PosX = target.x;
-            pathFindCmd.PosY = target.y;
-            pathFindCmd.PosZ = target.z;
-
-            unit.BelongToRoom.GetComponent<LSF_Component>().SendMessage(pathFindCmd);
-
             bool ret = await unit.GetComponent<MoveComponent>()
                 .MoveToAsync(path, speed, 100, targetRange, cancellationToken);
 
@@ -45,5 +36,17 @@ namespace ET
             unit.GetComponent<MoveComponent>().Stop();
         }
 
+
+        public static void SendPathFindCmd(this Unit unit, Vector3 targetPoint)
+        {
+            LSF_PathFindCmd pathFindCmd =
+                ReferencePool.Acquire<LSF_PathFindCmd>().Init(unit.Id) as LSF_PathFindCmd;
+
+            pathFindCmd.PosX = targetPoint.x;
+            pathFindCmd.PosY = targetPoint.y;
+            pathFindCmd.PosZ = targetPoint.z;
+
+            unit.BelongToRoom.GetComponent<LSF_Component>().SendMessage(pathFindCmd);
+        }
     }
 }

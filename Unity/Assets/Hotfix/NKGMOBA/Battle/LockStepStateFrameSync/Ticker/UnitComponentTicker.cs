@@ -3,7 +3,7 @@
     [LSF_Tickable(EntityType = typeof(UnitComponent))]
     public class UnitComponentTicker : ALSF_TickHandler<UnitComponent>
     {
-        public override void OnLSF_Tick(UnitComponent entity)
+        public override void OnLSF_Tick(UnitComponent entity, long deltaTime)
         {
             using (ListComponent<Unit> unitsToTick = new ListComponent<Unit>())
             {
@@ -16,7 +16,7 @@
                 {
                     if (entity.idUnits.TryGetValue(unitToTick.Id, out var unit))
                     {
-                        LSF_TickDispatcherComponent.Instance.HandleLSF_Tick(unit);
+                        LSF_TickDispatcherComponent.Instance.HandleLSF_Tick(unit, deltaTime);
                     }
                 }
             }

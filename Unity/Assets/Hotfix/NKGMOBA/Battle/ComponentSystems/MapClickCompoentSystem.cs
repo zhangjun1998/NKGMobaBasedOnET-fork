@@ -51,6 +51,7 @@ namespace ET
             Room room = self.GetParent<Room>();
             UnitComponent unitComponent = room.GetComponent<UnitComponent>();
 
+            unitComponent.MyUnit.SendPathFindCmd(ClickPoint);
             IdleState idleState = ReferencePool.Acquire<IdleState>();
             idleState.SetData(StateTypes.Idle, "Idle", 1);
             unitComponent.MyUnit.NavigateTodoSomething(ClickPoint, 0, idleState).Coroutine();

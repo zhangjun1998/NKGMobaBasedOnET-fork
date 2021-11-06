@@ -59,10 +59,12 @@
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Composite\RandomSelector.cs" />
      <Compile Include="Assets\Model\Module\Message\MessageProxy.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Decorator\BlackboardMultipleConditions.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Ticker\ALSF_TickHandler.cs" />
      <Compile Include="Assets\Model\Core\Scene\ZoneSceneManagerComponent.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\Box2DSharp\DataStructure\B2S_PolygonColliderDataStructure.cs" />
      <Compile Include="Assets\Model\Core\ProtobufHelper.cs" />
      <Compile Include="Assets\Model\Module\Message\SessionIdleCheckerComponent.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Move\RecastPathProcessor.cs" />
      <Compile Include="Assets\Model\Module\Message\MessageDispatcherComponent.cs" />
      <Compile Include="Assets\Model\Module\ActorLocation\ActorResponse.cs" />
      <Compile Include="Assets\Model\Module\Message\OpcodeTypeComponent.cs" />
@@ -103,11 +105,13 @@
      <Compile Include="Assets\Model\Module\CoroutineLock\CoroutineLockQueue.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Cmd\ALSF_Cmd.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\BuffData\BuffEnums\SkillCostTypes.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Ticker\ILSF_TickHandler.cs" />
      <Compile Include="Assets\Model\Module\ActorLocation\IActorLocationMessage.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Cmd\LSF_CmdType.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\Fsm\States\IFSMState.cs" />
      <Compile Include="Assets\Model\Module\UnityWebRequest\UnityWebRequestRenewalAsync.cs" />
      <Compile Include="Assets\Model\Module\CoroutineLock\CoroutineLockType.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Component\LSF_TickDispatcherComponent.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Blackboard.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\BuffData\SendBuffInfoToClientBuffData.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\Others\SkillSystemEvent\ISkillSystemEvent.cs" />
@@ -148,6 +152,7 @@
      <Compile Include="Assets\Model\Module\Message\IMHandler.cs" />
      <Compile Include="Assets\Model\Core\Object\ISystemType.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\Box2DSharp\DataStructure\B2S_ColliderDataStructureBase.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Component\LSF_TickComponent.cs" />
      <Compile Include="Assets\Model\Module\Message\SessionAcceptTimeoutComponent.cs" />
      <Compile Include="Assets\Model\Module\Numeric\NumericComponent.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Decorator\TimeMax.cs" />
@@ -228,6 +233,7 @@
      <Compile Include="Assets\Model\Module\Message\MessageSerializeHelper.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\UpdateModule\GameTime.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Cmd\LSF_MoveCmd.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Move\RecastInterface.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Component\NP_RuntimeTree.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\NodeDatas\Decorator\NP_RepeaterNodeData.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Cmd\LSF_PathFindCmd.cs" />
@@ -287,6 +293,7 @@
      <Compile Include="Assets\Model\NKGMOBA\Battle\Room\Room.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\UnitAttributeData\UnitAttributesDataRepositoryComponent.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\Fsm\States\CommonAttackState.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Attribute\LSF_TickableAttribute.cs" />
      <Compile Include="Assets\Model\Generate\Message\OuterOpcode_Gate.cs" />
      <Compile Include="Assets\Model\Generate\Config\Client_SkillCanvasConfig.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\Fsm\States\CustomState.cs" />
@@ -319,6 +326,7 @@
      <Compile Include="Assets\Model\Core\Object\ISerializeToEntity.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\Box2DSharp\CollisionRelations\B2S_CollisionRelationSupport.cs" />
      <Compile Include="Assets\Model\Core\Object\EntityEventAttribute.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Move\RecastPathComponent.cs" />
      <Compile Include="Assets\Model\NKGMOBA\ReferencePool\ReferencePoolInfo.cs" />
      <Compile Include="Assets\Model\Core\Object\MultiMapComponent.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Clock.cs" />
@@ -334,11 +342,6 @@
      <Compile Include="Assets\Model\Core\Object\ObjectPool.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Decorator\Failer.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\BuffData\ReplaceAttackBuffData.cs" />
-     <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Component\LSF_TickComponent.cs" />
-     <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Attribute\LSF_TickableAttribute.cs" />
-     <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Ticker\ILSF_TickHandler.cs" />
-     <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Component\LSF_TickDispatcherComponent.cs" />
-     <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Ticker\ALSF_TickHandler.cs" />
      <None Include="Assets\Model\csc.rsp" />
      <None Include="Assets\Model\Unity.Model.asmdef" />
  <Reference Include="UnityEngine">

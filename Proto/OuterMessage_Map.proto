@@ -117,36 +117,10 @@ message M2C_UnitDestoryed // IActorMessage
   int64 DestoryedUnitId = 94;
 }
 
-message C2M_PathfindingResult // IActorLocationMessage
-{
-  int32 RpcId = 90;
-  int64 ActorId = 93;
-
-  float X = 1;
-  float Y = 2;
-  float Z = 3;
-}
-
 message C2M_Stop // IActorLocationMessage
 {
   int32 RpcId = 90;
   int64 ActorId = 93;
-}
-
-message M2C_PathfindingResult // IActorMessage
-{
-  int64 ActorId = 93;
-
-  int64 Id = 1;
-
-  float X = 2;
-  float Y = 3;
-  float Z = 4;
-  float Speed = 6;
-
-  repeated float Xs = 7;
-  repeated float Ys = 8;
-  repeated float Zs = 9;
 }
 
 message M2C_Stop // IActorMessage

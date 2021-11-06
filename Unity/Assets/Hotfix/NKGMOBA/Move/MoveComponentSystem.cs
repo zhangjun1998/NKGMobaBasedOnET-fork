@@ -27,7 +27,7 @@ namespace ET
             self.Callback = null;
             self.Targets.Clear();
             self.Speed = 0;
-            self.N = 0;
+            self.NextPointIndex = 0;
             self.TurnTime = 0;
         }
     }
@@ -57,7 +57,7 @@ namespace ET
                 self.MoveForward(true);
 
                 path.List.Add(unit.Position); // 第一个是Unit的pos
-                for (int i = self.N; i < self.Targets.Count; ++i)
+                for (int i = self.NextPointIndex; i < self.Targets.Count; ++i)
                 {
                     path.List.Add(self.Targets[i]);
                 }
@@ -154,7 +154,15 @@ namespace ET
                     if (self.TurnTime > 0)
                     {
                         amount = moveTime * 1f / self.TurnTime;
+                        
                         Quaternion q = Quaternion.Slerp(self.From, self.To, amount);
+                        Log.Info(amount.ToString());
+#if SERVER
+                        Log.Info(Quaternion.QuaternionToEuler(q).ToString());
+#else
+                        Log.Info(q.eulerAngles.ToString());
+#endif
+
                         unit.Rotation = q;
                     }
                 }
@@ -181,7 +189,7 @@ namespace ET
                 }
 
                 // 如果是最后一个点
-                if (self.N >= self.Targets.Count - 1)
+                if (self.NextPointIndex >= self.Targets.Count - 1)
                 {
                     unit.Position = self.NextTarget;
                     unit.Rotation = self.To;
@@ -224,7 +232,7 @@ namespace ET
         {
             Unit unit = self.GetParent<Unit>();
 
-            ++self.N;
+            ++self.NextPointIndex;
 
             // 时间计算用服务端的位置, 但是移动要用客户端的位置来插值
             Vector3 v = self.GetFaceV();
@@ -389,7 +397,7 @@ namespace ET
             TimerComponent.Instance.Remove(ref self.MoveTimer);
             self.Targets.Clear();
             self.Speed = 0;
-            self.N = 0;
+            self.NextPointIndex = 0;
             self.TurnTime = 0;
             self.IsTurnHorizontal = false;
 

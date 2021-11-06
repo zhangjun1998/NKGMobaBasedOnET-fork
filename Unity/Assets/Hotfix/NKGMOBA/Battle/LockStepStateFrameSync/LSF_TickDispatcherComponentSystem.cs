@@ -29,11 +29,11 @@ namespace ET
 
     public static class LSF_TickDispatcherUtilities
     {
-        public static void HandleLSF_Tick(this LSF_TickDispatcherComponent self, Entity entity)
+        public static void HandleLSF_Tick(this LSF_TickDispatcherComponent self, Entity entity, long deltaTime)
         {
             if (self.LSF_TickHandlers.TryGetValue(entity.GetType(), out var handler))
             {
-                handler.LSF_Tick(entity);
+                handler.LSF_Tick(entity, deltaTime);
             }
         }
     }
