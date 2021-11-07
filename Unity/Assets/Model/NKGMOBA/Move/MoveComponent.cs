@@ -56,6 +56,14 @@ namespace ET
 
         public List<Vector3> Targets = new List<Vector3>();
 
+#if !SERVER
+        /// <summary>
+        /// 维护一个历史运动轨迹，一旦发现模拟结果同服务器不一致就进行回滚
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<uint, LSF_MoveCmd> HistroyMoveStates = new Dictionary<uint, LSF_MoveCmd>();
+#endif
+        
         public Vector3 FinalTarget
         {
             get
@@ -76,8 +84,6 @@ namespace ET
         public Quaternion From;
 
         public Quaternion To;
-
-        public bool ShouldMove = false;
 
         public long MoveTimer;
     }

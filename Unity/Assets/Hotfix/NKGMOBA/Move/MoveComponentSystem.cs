@@ -154,15 +154,7 @@ namespace ET
                     if (self.TurnTime > 0)
                     {
                         amount = moveTime * 1f / self.TurnTime;
-                        
                         Quaternion q = Quaternion.Slerp(self.From, self.To, amount);
-                        Log.Info(amount.ToString());
-#if SERVER
-                        Log.Info(Quaternion.QuaternionToEuler(q).ToString());
-#else
-                        Log.Info(q.eulerAngles.ToString());
-#endif
-
                         unit.Rotation = q;
                     }
                 }

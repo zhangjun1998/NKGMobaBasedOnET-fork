@@ -7,28 +7,18 @@ namespace ET
     {
         protected override async ETVoid Run(Unit unit, LSF_MoveCmd cmd)
         {
-            // if (cmd.IsStopped)
-            // {
-            //     return;
-            // }
-
             Vector3 pos = new Vector3(cmd.PosX, cmd.PosY, cmd.PosZ);
             Quaternion rotation = new Quaternion(cmd.RotA, cmd.RotB, cmd.RotC, cmd.RotW);
             unit.Position = pos;
 
-#if !SERVER
-            //Log.Info($"Frame: {cmd.Frame} {rotation.eulerAngles}");
-#endif
-
-
             unit.Rotation = rotation;
 
-            // if (cmd.IsStopped)
-            // {
-            //     MoveComponent moveComponent = unit.GetComponent<MoveComponent>();
-            //     moveComponent.Stop();
-            //     Game.EventSystem.Publish(new EventType.MoveStop() { Unit = unit }).Coroutine();
-            // }
+            if (cmd.IsStopped)
+            {
+                MoveComponent moveComponent = unit.GetComponent<MoveComponent>();
+                moveComponent.Stop();
+                Game.EventSystem.Publish(new EventType.MoveStop() { Unit = unit }).Coroutine();
+            }
 
             await ETTask.CompletedTask;
         }

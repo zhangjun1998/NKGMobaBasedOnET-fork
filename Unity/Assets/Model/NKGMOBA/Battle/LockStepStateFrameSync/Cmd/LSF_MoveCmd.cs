@@ -28,6 +28,28 @@ namespace ET
             return this;
         }
 
+        public override bool CheckConsistency(ALSF_Cmd alsfCmd)
+        {
+            LSF_MoveCmd lsfMoveCmd = alsfCmd as LSF_MoveCmd;
+
+            if (Mathf.Abs(lsfMoveCmd.PosX - this.PosX) > 0.0001f)
+            {
+                return false;
+            }
+            
+            if (Mathf.Abs(lsfMoveCmd.PosY - this.PosY) > 0.0001f)
+            {
+                return false;
+            }
+            
+            if (Mathf.Abs(lsfMoveCmd.PosZ - this.PosZ) > 0.0001f)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public override void Clear()
         {
             base.Clear();

@@ -16,7 +16,7 @@ namespace ET
         /// <summary>
         /// 正式的帧同步Tick，所有的战斗逻辑都从这里出发
         /// </summary>
-        /// <param name="self"></param>
+        /// <param name="chaseFrame">是否处于追帧状态</param>
         public static void LSF_Tick(this LSF_Component self)
         {
             //Log.Info($"------------帧同步Tick Time Point： {TimeHelper.ClientNow()} Frame : {self.CurrentFrame}");
@@ -27,26 +27,15 @@ namespace ET
                 return;
             }
 
-            // if (self.FrameCmdsBuffer.TryGetValue(self.CurrentFrame, out var inputCmdQueue))
-            // {
-            //     foreach (var cmd in inputCmdQueue)
-            //     {
-            //         //处理用户输入缓冲区中的指令，用于预测
-            //         //Log.Info($"------------处理用户输入缓冲区第{self.CurrentFrame}帧指令");
-            //         LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), cmd);
-            //     }
-            // }
-#endif
-
-#if SERVER
-            //测试代码
-            // self.GetParent<Room>().GetComponent<LSF_Component>()
-            //     .SendMessage(ReferencePool.Acquire<LSF_MoveCmd>().Init(0));
-#else
-            // // 测试代码
-            // Unit unit = self.GetParent<Room>().GetComponent<UnitComponent>().MyUnit;
-            // unit.BelongToRoom.GetComponent<LSF_Component>()
-            //     .SendMessage(ReferencePool.Acquire<LSF_PathFindCmd>().Init(unit.Id));
+            if (self.FrameCmdsBuffer.TryGetValue(self.CurrentFrame, out var inputCmdQueue))
+            {
+                foreach (var cmd in inputCmdQueue)
+                {
+                    //处理用户输入缓冲区中的指令，用于预测
+                    //Log.Info($"------------处理用户输入缓冲区第{self.CurrentFrame}帧指令");
+                    LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), cmd);
+                }
+            }
 #endif
 
             if (self.FrameCmdsToHandle.TryGetValue(self.CurrentFrame, out var currentFrameCmdToHandle))
@@ -59,23 +48,33 @@ namespace ET
                 }
             }
 
+#if !SERVER
+            //执行预测逻辑
+            self.GetParent<Room>().GetComponent<LSF_TickComponent>()
+                ?.Predict(self.FixedUpdate.UpdateTime.Elapsed.Milliseconds);
+#endif
+
             // LSFTick Room，tick room的相关组件, 然后由Room去Tick其子组件，即此处是战斗的Tick起点
             self.GetParent<Room>().GetComponent<LSF_TickComponent>()
                 ?.Tick(self.FixedUpdate.UpdateTime.Elapsed.Milliseconds);
-
+            
             self.CurrentFrame++;
         }
 
         /// <summary>
-        /// 注意这里的帧数是自己当前帧，不论服务器还是客户端
-        /// 对于服务器来说，哪一帧收到客户端指令就会当成客户端在哪一帧的输入
-        /// 对于客户端来说，收到服务端指令会先将自己的当前帧设置为服务器回包的帧，然后进行追帧操作
+        /// 注意这里的帧数是消息中的帧数
+        /// 特殊的，对于服务器来说，哪一帧收到客户端指令就会当成客户端在哪一帧的输入(累加一个缓冲帧时长)
         /// </summary>
         /// <param name="self"></param>
         /// <param name="cmdToHandle"></param>
         public static void AddCmdToHandle(this LSF_Component self, ALSF_Cmd cmdToHandle)
         {
-            if (self.FrameCmdsToHandle.TryGetValue(self.CurrentFrame, out var queue))
+#if SERVER
+            uint correntFrame = self.CurrentFrame + 1;
+#else
+            uint correntFrame = cmdToHandle.Frame;
+#endif
+            if (self.FrameCmdsToHandle.TryGetValue(correntFrame, out var queue))
             {
                 queue.Enqueue(cmdToHandle);
             }
@@ -83,7 +82,8 @@ namespace ET
             {
                 Queue<ALSF_Cmd> newQueue = new Queue<ALSF_Cmd>();
                 newQueue.Enqueue(cmdToHandle);
-                self.FrameCmdsToHandle[self.CurrentFrame] = newQueue;
+
+                self.FrameCmdsToHandle[correntFrame] = newQueue;
             }
         }
 
@@ -102,7 +102,7 @@ namespace ET
             M2C_FrameCmd m2CFrameCmd = new M2C_FrameCmd() {CmdContent = cmdToSend};
 
             MessageHelper.BroadcastToRoom(self.GetParent<Room>(), m2CFrameCmd);
-            
+
             //将指令放入整局游戏的缓冲区，用于录像和观战系统
             if (self.WholeCmds.TryGetValue(self.CurrentFrame, out var queue))
             {
@@ -143,33 +143,38 @@ namespace ET
         /// <summary>
         /// 根据消息包中服务端帧数 + 半个RTT来计算出服务端当前帧数并且对一些字段和数据进行处理
         /// </summary>
-        public static void RefreshClientNetInfoByCmdFrameAndHalfRTT(this LSF_Component self,
-            uint messageFrame)
+        public static void RefreshClientNetInfoByCmdFrameAndHalfRTT(this LSF_Component self, uint messageFrame)
         {
-            self.CurrentArrivedFrame = self.CurrentFrame;
-
-            //TODO 进行模拟，然后对比结果，如果不一致则进行追帧，如果一致则不做处理，继续预测
-            if (!self.SimulateSpecialFrame(messageFrame))
-            {
-                self.CurrentFrame = messageFrame;
-            }
-
             self.ServerCurrentFrame = messageFrame +
                                       (uint) TimeAndFrameConverter.Frame_Float2FrameWithHalfRTT(Time.deltaTime,
                                           self.HalfRTT);
 
-            //将这一帧用户输入指令从本地缓冲区移除，因为服务端已经发送这一帧的指令下来了，缓冲区里的这一帧已经没用了
+            self.CurrentArrivedFrame = self.CurrentFrame;
+
+            // 将这一帧用户输入指令从本地缓冲区移除，因为服务端已经发送这一帧的指令下来了，缓冲区里的这一帧已经没用了
             self.FrameCmdsBuffer.Remove(messageFrame);
         }
-
+        
         /// <summary>
-        /// 对特定帧的数据输入指令进行模拟，并得出结果
+        /// 检测指定帧的数据一致性，并得出结果
         /// </summary>
         /// <param name="frame"></param>
         /// <returns></returns>
-        public static bool SimulateSpecialFrame(this LSF_Component self, uint frame)
+        public static bool CheckConsistencyCompareSpecialFrame(this LSF_Component self, uint frame, ALSF_Cmd alsfCmd)
         {
-            return true;
+            return self.GetParent<Room>().GetComponent<LSF_TickComponent>()
+                .CheckConsistency(frame, alsfCmd);
+        }
+
+        /// <summary>
+        /// 回滚
+        /// </summary>
+        /// <param name="frame"></param>
+        /// <returns></returns>
+        public static bool RollBack(this LSF_Component self, uint frame, ALSF_Cmd alsfCmd)
+        {
+            return self.GetParent<Room>().GetComponent<LSF_TickComponent>()
+                .RollBack(frame, alsfCmd);
         }
 
         /// <summary>
@@ -186,7 +191,7 @@ namespace ET
 
             // 当前客户端帧数大于服务端帧数，两种情况，
             // 1.正常情况，客户端为了保证自己的消息在合适的时间点抵达服务端需要领先于服务器
-            // 2.非正常情况，客户端由于网络延迟或者断开导致没有收到服务端的帧指令，导致ServerCurrentFrame长时间没有更新，会导致CurrentAheadOfFrame越来越大，当达到一个阈值的时候将会进行断线重连
+            // 2.非正常情况，客户端由于网络延迟或者断开导致没有收到服务端的帧指令，导致ServerCurrentFrame长时间没有更新，再次收到服务端回包的时候发现是很久之前包了，也就会导致CurrentAheadOfFrame变大，当达到一个阈值的时候将会进行断线重连
             if (self.CurrentFrame > self.ServerCurrentFrame)
             {
                 self.CurrentAheadOfFrame = (int) (self.CurrentFrame - self.ServerCurrentFrame);
@@ -204,16 +209,9 @@ namespace ET
                     return;
                 }
             }
-            else // 当前客户端帧数小于服务端帧数，三种情况，1.刚开局，2.玩家退游戏重连，3.玩家收到服务器回包，并且模拟之后发现结果并不一致，重置自己的currentFrame，进行追帧
+            else // 当前客户端帧数小于服务端帧数，只开局的时候由于网络延迟问题导致服务端先行于客户端，加快Tick频率
             {
                 self.CurrentAheadOfFrame = -(int) (self.ServerCurrentFrame - self.CurrentFrame);
-
-                //Log.Error("收到服务器回包后发现模拟的结果与服务器不一致，即需要强行回滚，则回滚，然后开始追帧");
-                int count = self.TargetAheadOfFrame;
-                while (count-- > 0)
-                {
-                    self.LSF_Tick();
-                }
             }
 
             // Log.Info(

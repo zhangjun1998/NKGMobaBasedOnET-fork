@@ -11,7 +11,7 @@
                 {
                     unitsToTick.List.Add(allUnit.Value);
                 }
-                
+
                 foreach (var unitToTick in unitsToTick.List)
                 {
                     if (entity.idUnits.TryGetValue(unitToTick.Id, out var unit))
@@ -21,5 +21,35 @@
                 }
             }
         }
+
+#if !SERVER
+        public override void OnLSF_PredictTick(UnitComponent entity, long deltaTime)
+        {
+            foreach (var allUnit in entity.idUnits)
+            {
+                LSF_TickDispatcherComponent.Instance.HandleLSF_PredictTick(allUnit.Value, deltaTime);
+            }
+        }
+
+        public override void OnLSF_RollBackTick(UnitComponent entity, uint frame, ALSF_Cmd stateToCompare)
+        {
+            foreach (var allUnit in entity.idUnits)
+            {
+                LSF_TickDispatcherComponent.Instance.HandleLSF_RollBack(allUnit.Value, frame,
+                    stateToCompare);
+            }
+        }
+
+        public override bool OnLSF_CheckConsistency(UnitComponent entity, uint frame, ALSF_Cmd stateToCompare)
+        {
+            foreach (var allUnit in entity.idUnits)
+            {
+                return LSF_TickDispatcherComponent.Instance.HandleLSF_CheckConsistency(allUnit.Value, frame,
+                    stateToCompare);
+            }
+
+            return true;
+        }
+#endif
     }
 }

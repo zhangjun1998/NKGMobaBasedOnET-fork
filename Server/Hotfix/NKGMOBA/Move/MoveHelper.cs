@@ -45,19 +45,18 @@ namespace ET
 
         public static void SendStop(this Unit unit, int error)
         {
-            MessageHelper.BroadcastToRoom(unit.BelongToRoom, new M2C_Stop()
-            {
-                Error = error,
-                Id = unit.Id,
-                X = unit.Position.x,
-                Y = unit.Position.y,
-                Z = unit.Position.z,
-            
-                A = unit.Rotation.x,
-                B = unit.Rotation.y,
-                C = unit.Rotation.z,
-                W = unit.Rotation.w,
-            });
+            LSF_MoveCmd lsfMoveCmd = ReferencePool.Acquire<LSF_MoveCmd>().Init(unit.Id) as LSF_MoveCmd;
+
+            lsfMoveCmd.PosX = unit.Position.x;
+            lsfMoveCmd.PosY = unit.Position.y;
+            lsfMoveCmd.PosZ = unit.Position.z;
+            lsfMoveCmd.RotA = unit.Rotation.x;
+            lsfMoveCmd.RotB = unit.Rotation.y;
+            lsfMoveCmd.RotC = unit.Rotation.z;
+            lsfMoveCmd.RotW = unit.Rotation.w;
+
+            lsfMoveCmd.IsStopped = true;
+            unit.BelongToRoom.GetComponent<LSF_Component>().SendMessage(lsfMoveCmd);
         }
     }
 }
