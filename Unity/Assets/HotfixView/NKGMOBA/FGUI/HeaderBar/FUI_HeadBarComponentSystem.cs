@@ -33,9 +33,9 @@ namespace ET
         }
     }
 
-    public class HeroHeadBarComponentUpdateSystem : UpdateSystem<HeroHeadBarComponent>
+    public class HeroHeadBarComponentUpdateSystem : LateUpdateSystem<HeroHeadBarComponent>
     {
-        public override void Update(HeroHeadBarComponent self)
+        public override void LateUpdate(HeroHeadBarComponent self)
         {
             // 游戏物体的世界坐标转屏幕坐标
             self.m_Hero2Screen =
