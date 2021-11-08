@@ -26,6 +26,11 @@ namespace ET
         public long BeginTime;
 
         /// <summary>
+        /// 两点之间寻路的累加计时器
+        /// </summary>
+        public long AccumulateTime;
+
+        /// <summary>
         /// 目标的范围
         /// </summary>
         public float TargetRange = 0;
@@ -72,6 +77,7 @@ namespace ET
             }
         }
 
+        public bool ShouldMove = false;
         /// <summary>
         /// 下一个路径点的索引值
         /// </summary>
@@ -84,7 +90,5 @@ namespace ET
         public Quaternion From;
 
         public Quaternion To;
-
-        public long MoveTimer;
     }
 }

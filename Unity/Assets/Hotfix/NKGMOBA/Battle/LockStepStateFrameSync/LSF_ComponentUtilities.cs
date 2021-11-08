@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Box2DSharp.Dynamics;
 using ET.EventType;
 using UnityEngine;
@@ -21,15 +22,38 @@ namespace ET
         {
             //Log.Info($"------------帧同步Tick Time Point： {TimeHelper.ClientNow()} Frame : {self.CurrentFrame}");
 
+            if (self.FrameCmdsToHandle.TryGetValue(self.CurrentFrame, out var currentFrameCmdToHandle))
+            {
+                foreach (var cmd in currentFrameCmdToHandle)
+                {
+                    // 处理客户端/服务端cmd
+                    //Log.Info($"------------处理第{self.CurrentFrame}帧指令");
+                    LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), cmd);
+                }
+            }
+
+            self.FrameCmdsToHandle.Remove(self.CurrentFrame);
+
 #if !SERVER
             if (!self.ShouldTickInternal)
             {
                 return;
             }
 
-            if (self.FrameCmdsBuffer.TryGetValue(self.CurrentFrame, out var inputCmdQueue))
+            Queue<ALSF_Cmd> lastValidCmds = null;
+
+            if (self.IsInChaseFrameState)
             {
-                foreach (var cmd in inputCmdQueue)
+                lastValidCmds  = self.GetLastValidCmd();
+            }
+            else
+            {
+                self.PlayerInputCmdsBuffer.TryGetValue(self.CurrentFrame, out lastValidCmds);
+            }
+
+            if (lastValidCmds != null)
+            {
+                foreach (var cmd in lastValidCmds)
                 {
                     //处理用户输入缓冲区中的指令，用于预测
                     //Log.Info($"------------处理用户输入缓冲区第{self.CurrentFrame}帧指令");
@@ -38,26 +62,16 @@ namespace ET
             }
 #endif
 
-            if (self.FrameCmdsToHandle.TryGetValue(self.CurrentFrame, out var currentFrameCmdToHandle))
-            {
-                foreach (var cmd in currentFrameCmdToHandle)
-                {
-                    //TODO 处理客户端/服务端cmd
-                    //Log.Info($"------------处理第{self.CurrentFrame}帧指令");
-                    LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), cmd);
-                }
-            }
+            // LSFTick Room，tick room的相关组件, 然后由Room去Tick其子组件，即此处是战斗的Tick起点
+            self.GetParent<Room>().GetComponent<LSF_TickComponent>()
+                ?.Tick(GlobalDefine.FixedUpdateTargetDTTime_Long);
 
 #if !SERVER
             //执行预测逻辑
             self.GetParent<Room>().GetComponent<LSF_TickComponent>()
-                ?.Predict(self.FixedUpdate.UpdateTime.Elapsed.Milliseconds);
+                ?.Predict(GlobalDefine.FixedUpdateTargetDTTime_Long);
 #endif
 
-            // LSFTick Room，tick room的相关组件, 然后由Room去Tick其子组件，即此处是战斗的Tick起点
-            self.GetParent<Room>().GetComponent<LSF_TickComponent>()
-                ?.Tick(self.FixedUpdate.UpdateTime.Elapsed.Milliseconds);
-            
             self.CurrentFrame++;
         }
 
@@ -70,7 +84,7 @@ namespace ET
         public static void AddCmdToHandle(this LSF_Component self, ALSF_Cmd cmdToHandle)
         {
 #if SERVER
-            uint correntFrame = self.CurrentFrame + 1;
+            uint correntFrame = self.CurrentFrame;
 #else
             uint correntFrame = cmdToHandle.Frame;
 #endif
@@ -120,7 +134,7 @@ namespace ET
             Game.Scene.GetComponent<PlayerComponent>().GateSession.Send(c2MFrameCmd);
 
             //将消息放入玩家输入缓冲区，用于预测回滚
-            if (self.FrameCmdsBuffer.TryGetValue(self.CurrentFrame, out var queue))
+            if (self.PlayerInputCmdsBuffer.TryGetValue(self.CurrentFrame, out var queue))
             {
                 queue.Enqueue(c2MFrameCmd.CmdContent);
             }
@@ -128,7 +142,7 @@ namespace ET
             {
                 Queue<ALSF_Cmd> newQueue = new Queue<ALSF_Cmd>();
                 newQueue.Enqueue(cmdToSend);
-                self.FrameCmdsBuffer[self.CurrentFrame] = newQueue;
+                self.PlayerInputCmdsBuffer[self.CurrentFrame] = newQueue;
             }
 #endif
         }
@@ -151,10 +165,9 @@ namespace ET
 
             self.CurrentArrivedFrame = self.CurrentFrame;
 
-            // 将这一帧用户输入指令从本地缓冲区移除，因为服务端已经发送这一帧的指令下来了，缓冲区里的这一帧已经没用了
-            self.FrameCmdsBuffer.Remove(messageFrame);
+            self.CurrentAheadOfFrame = (int) (self.CurrentFrame - self.ServerCurrentFrame);
         }
-        
+
         /// <summary>
         /// 检测指定帧的数据一致性，并得出结果
         /// </summary>
@@ -175,6 +188,26 @@ namespace ET
         {
             return self.GetParent<Room>().GetComponent<LSF_TickComponent>()
                 .RollBack(frame, alsfCmd);
+        }
+
+        /// <summary>
+        /// 获取最近的有效输入
+        /// </summary>
+        /// <returns></returns>
+        public static Queue<ALSF_Cmd> GetLastValidCmd(this LSF_Component self)
+        {
+            uint frame = self.CurrentFrame;
+            while (!self.PlayerInputCmdsBuffer.ContainsKey(frame) && frame >= 1)
+            {
+                frame--;
+            }
+
+            if (self.PlayerInputCmdsBuffer.TryGetValue(frame, out var queue))
+            {
+                return queue;
+            }
+
+            return null;
         }
 
         /// <summary>

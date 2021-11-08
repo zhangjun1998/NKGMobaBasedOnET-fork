@@ -23,7 +23,6 @@ namespace ET
             self.StartTime = 0;
             self.StartPos = Vector3.zero;
             self.NeedTime = 0;
-            self.MoveTimer = 0;
             self.Callback = null;
             self.Targets.Clear();
             self.Speed = 0;
@@ -54,7 +53,7 @@ namespace ET
             Unit unit = self.GetParent<Unit>();
             using (MonoListComponent<Vector3> path = MonoListComponent<Vector3>.Create())
             {
-                self.MoveForward(true);
+                self.Stop();
 
                 path.List.Add(unit.Position); // 第一个是Unit的pos
                 for (int i = self.NextPointIndex; i < self.Targets.Count; ++i)
@@ -118,12 +117,12 @@ namespace ET
             return moveRet;
         }
 
-        public static void MoveForward(this MoveComponent self, bool needCancel)
+        public static void MoveForward(this MoveComponent self, long deltaTime, bool needCancel)
         {
             Unit unit = self.GetParent<Unit>();
 
-            long timeNow = TimeHelper.ClientNow();
-            long moveTime = timeNow - self.StartTime;
+            long moveTime = self.AccumulateTime += deltaTime;
+            
             while (true)
             {
                 if (moveTime <= 0)
@@ -162,7 +161,7 @@ namespace ET
                 moveTime -= self.NeedTime;
 
                 // 如果抵达了目标范围，强行让客户端停止
-                if (Vector3.Distance(unit.Position, self.FinalTarget) - self.TargetRange <= 0.01f)
+                if (Vector3.Distance(unit.Position, self.FinalTarget) - self.TargetRange <= 0.0001f)
                 {
                     unit.Rotation = self.To;
                     
@@ -200,24 +199,10 @@ namespace ET
 
         private static void StartMove(this MoveComponent self)
         {
-            Unit unit = self.GetParent<Unit>();
-
             self.BeginTime = TimeHelper.ClientNow();
             self.StartTime = self.BeginTime;
             self.SetNextTarget();
-
-            self.MoveTimer = TimerComponent.Instance.NewFrameTimer(() =>
-                {
-                    try
-                    {
-                        self.MoveForward(false);
-                    }
-                    catch (Exception e)
-                    {
-                        Log.Error($"move timer error: {unit.Id}\n{e}");
-                    }
-                }
-            );
+            self.ShouldMove = true;
         }
 
         private static void SetNextTarget(this MoveComponent self)
@@ -233,6 +218,7 @@ namespace ET
             // 插值的起始点要以unit的真实位置来算
             self.StartPos = unit.Position;
 
+            self.AccumulateTime = 0;
             self.StartTime += self.NeedTime;
 
             self.NeedTime = (long) (distance / self.Speed * 1000);
@@ -373,10 +359,6 @@ namespace ET
 
         public static void Stop(this MoveComponent self)
         {
-            if (self.Targets.Count > 0)
-            {
-                self.MoveForward(true);
-            }
             self.Clear();
         }
 
@@ -386,12 +368,13 @@ namespace ET
             self.StartPos = Vector3.zero;
             self.BeginTime = 0;
             self.NeedTime = 0;
-            TimerComponent.Instance.Remove(ref self.MoveTimer);
+            self.AccumulateTime = 0;
             self.Targets.Clear();
             self.Speed = 0;
             self.NextPointIndex = 0;
             self.TurnTime = 0;
             self.IsTurnHorizontal = false;
+            self.ShouldMove = false;
 
             if (self.Callback != null)
             {

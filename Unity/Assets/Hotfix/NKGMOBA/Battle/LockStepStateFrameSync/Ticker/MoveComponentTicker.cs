@@ -16,6 +16,20 @@ namespace ET
 
                 if (!result)
                 {
+                    // 由于我们客户端模拟服务端的帧数会比较激进的向上取整，即服务端此时可能才跑在25.5帧，我们就当作它跑到26帧了，这就会有这样一种可能：我们客户端指令会超前到达服务端，也就会导致服务端指令超前到达客户端
+                    // 所以要往后对比一帧，消除这个激进的策略误差
+                    if (entity.HistroyMoveStates.TryGetValue(serverMoveState.Frame + 1, out var histroyStateForward))
+                    {
+                        result = serverMoveState.CheckConsistency(histroyStateForward);
+
+                        if (result)
+                        {
+                            Log.Error(
+                                $"√√√来自MoveComponent的一致：服务端 {serverMoveState.Frame} X：{serverMoveState.PosX} Y: {serverMoveState.PosY} Z: {serverMoveState.PosZ}\n客户端：{frame} X：{histroyState.PosX} Y: {histroyState.PosY} Z: {histroyState.PosZ}");
+                            return true;
+                        }
+                    }
+
                     Log.Error(
                         $"---来自MoveComponent的不一致：服务端 {serverMoveState.Frame} X：{serverMoveState.PosX} Y: {serverMoveState.PosY} Z: {serverMoveState.PosZ}\n客户端：{frame} X：{histroyState.PosX} Y: {histroyState.PosY} Z: {histroyState.PosZ}");
                 }
@@ -25,7 +39,7 @@ namespace ET
                         $"√√√来自MoveComponent的一致：服务端 {serverMoveState.Frame} X：{serverMoveState.PosX} Y: {serverMoveState.PosY} Z: {serverMoveState.PosZ}\n客户端：{frame} X：{histroyState.PosX} Y: {histroyState.PosY} Z: {histroyState.PosZ}");
                 }
 
-                return serverMoveState.CheckConsistency(histroyState);
+                return result;
             }
 
             return true;
@@ -73,6 +87,16 @@ namespace ET
         public override void OnLSF_Tick(MoveComponent entity, long deltaTime)
         {
             Unit unit = entity.GetParent<Unit>();
+
+            if (entity.ShouldMove)
+            {
+                entity.MoveForward(deltaTime, false);
+#if !SERVER
+                Log.Error(
+                    $"////// MoveComponent Tick {unit.BelongToRoom.GetComponent<LSF_Component>().CurrentFrame} {unit.Position.ToString("0.0000")}");
+#endif
+            }
+
 #if SERVER
             LSF_MoveCmd lsfMoveCmd = ReferencePool.Acquire<LSF_MoveCmd>().Init(unit.Id) as LSF_MoveCmd;
 

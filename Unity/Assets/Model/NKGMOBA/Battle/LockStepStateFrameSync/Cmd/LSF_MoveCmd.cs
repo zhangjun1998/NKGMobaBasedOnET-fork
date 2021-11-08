@@ -32,17 +32,12 @@ namespace ET
         {
             LSF_MoveCmd lsfMoveCmd = alsfCmd as LSF_MoveCmd;
 
-            if (Mathf.Abs(lsfMoveCmd.PosX - this.PosX) > 0.0001f)
+            if (Mathf.Abs(lsfMoveCmd.PosX - this.PosX) > 0.001f)
             {
                 return false;
             }
             
-            if (Mathf.Abs(lsfMoveCmd.PosY - this.PosY) > 0.0001f)
-            {
-                return false;
-            }
-            
-            if (Mathf.Abs(lsfMoveCmd.PosZ - this.PosZ) > 0.0001f)
+            if (Mathf.Abs(lsfMoveCmd.PosZ - this.PosZ) > 0.001f)
             {
                 return false;
             }

@@ -35,7 +35,7 @@ namespace ET
         /// <summary>
         /// 玩家输入缓冲区，因为会有回滚操作，需要重新预测到当前帧，保存范围为上一次服务器确认的帧到当前帧
         /// </summary>
-        public Dictionary<uint, Queue<ALSF_Cmd>> FrameCmdsBuffer = new Dictionary<uint, Queue<ALSF_Cmd>>(64);
+        public Dictionary<uint, Queue<ALSF_Cmd>> PlayerInputCmdsBuffer = new Dictionary<uint, Queue<ALSF_Cmd>>();
         
         /// <summary>
         /// 服务端当前帧，用于判断客户端当前超前帧数是否合法，Ping协议和正常的帧同步协议都会有这个信息，根据回包信息和RTT信息计算后获得
@@ -77,6 +77,11 @@ namespace ET
         /// 当客户端长时间没有接收到服务器回包时就停止模拟（断线重连），直到接收到之后再开始模拟，所以需要一个标识位
         /// </summary>
         public bool ShouldTickInternal = true;
+
+        /// <summary>
+        /// 是否正处于追帧状态
+        /// </summary>
+        public bool IsInChaseFrameState = false;
 #endif
     }
 }
