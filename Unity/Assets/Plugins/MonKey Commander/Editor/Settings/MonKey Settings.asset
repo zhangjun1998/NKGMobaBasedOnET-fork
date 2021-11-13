@@ -20,7 +20,7 @@ MonoBehaviour:
   PutInvalidCommandAtEndOfSearch: 0
   IncludeMenuItems: 1
   IncludeOnlyMenuItemsWithHotKeys: 0
-  ExcludedAssemblies: Unity.Model;Unity.Hotfix;Unity.ModelView;Unity.HotfixView;MonKey
+  ExcludedAssemblies: Unity.Model;Unity.Hotfix;MonKey
     Commander
   ExcludedNameSpaces: 
   IncludedAssemblies: Assembly-CSharp-Editor-firstpass;Unity.Editor;XAsset.Editor
