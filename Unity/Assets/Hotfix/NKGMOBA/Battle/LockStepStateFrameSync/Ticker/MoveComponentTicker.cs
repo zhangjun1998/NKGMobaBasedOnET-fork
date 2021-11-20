@@ -112,7 +112,7 @@ namespace ET
 
             lsfMoveCmd.IsStopped = false;
 
-            unit.BelongToRoom.GetComponent<LSF_Component>().SendMessage(lsfMoveCmd);
+            unit.BelongToRoom.GetComponent<LSF_Component>().AddCmdToSendQueue(lsfMoveCmd);
             
             //Log.Info($"Frame: {unit.BelongToRoom.GetComponent<LSF_Component>().CurrentFrame} {entity.To.ToString()}");
 #else

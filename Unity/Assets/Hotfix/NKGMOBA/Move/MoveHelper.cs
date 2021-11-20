@@ -46,7 +46,7 @@ namespace ET
             pathFindCmd.PosY = targetPoint.y;
             pathFindCmd.PosZ = targetPoint.z;
 
-            unit.BelongToRoom.GetComponent<LSF_Component>().SendMessage(pathFindCmd);
+            unit.BelongToRoom.GetComponent<LSF_Component>().AddCmdToSendQueue(pathFindCmd);
         }
     }
 }

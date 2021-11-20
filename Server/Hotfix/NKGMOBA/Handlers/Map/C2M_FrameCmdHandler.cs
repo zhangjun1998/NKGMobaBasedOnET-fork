@@ -7,7 +7,7 @@
             LSF_Component lockStepStateFrameSyncComponent =
                 entity.BelongToRoom.GetComponent<LSF_Component>();
 
-            lockStepStateFrameSyncComponent.AddCmdToHandle(message.CmdContent);
+            lockStepStateFrameSyncComponent.AddCmdToHandleQueue(message.CmdContent);
 
             await ETTask.CompletedTask;
         }

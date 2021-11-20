@@ -56,7 +56,7 @@ namespace ET
             lsfMoveCmd.RotW = unit.Rotation.w;
 
             lsfMoveCmd.IsStopped = true;
-            unit.BelongToRoom.GetComponent<LSF_Component>().SendMessage(lsfMoveCmd);
+            unit.BelongToRoom.GetComponent<LSF_Component>().AddCmdToSendQueue(lsfMoveCmd);
         }
     }
 }

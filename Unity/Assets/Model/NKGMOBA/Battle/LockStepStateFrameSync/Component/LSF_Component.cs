@@ -9,7 +9,15 @@ namespace ET
         /// </summary>
         public Dictionary<uint, Queue<ALSF_Cmd>> WholeCmds = new Dictionary<uint, Queue<ALSF_Cmd>>(8192);
         
+        /// <summary>
+        /// 将要处理的命令列表
+        /// </summary>
         public Dictionary<uint, Queue<ALSF_Cmd>> FrameCmdsToHandle = new Dictionary<uint, Queue<ALSF_Cmd>>(64);
+
+        /// <summary>
+        /// 将要发送的命令列表
+        /// </summary>
+        public Dictionary<uint, Queue<ALSF_Cmd>> FrameCmdsToSend = new Dictionary<uint, Queue<ALSF_Cmd>>(64);
 
         /// <summary>
         /// 用于帧同步的FixedUpdate，需要注意的是，这个FixedUpdate与框架层的是不搭嘎的
@@ -29,7 +37,7 @@ namespace ET
         /// <summary>
         /// 服务器缓冲帧时长，按帧为单位，这里锁定为1帧，也就是33ms
         /// </summary>
-        public int BufferFrame = 1;
+        public uint BufferFrame = 1;
 
 #if !SERVER
         /// <summary>
