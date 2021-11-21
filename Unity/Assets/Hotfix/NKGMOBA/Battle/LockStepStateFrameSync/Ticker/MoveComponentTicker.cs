@@ -10,14 +10,14 @@ namespace ET
         {
             LSF_MoveCmd serverMoveState = stateToCompare as LSF_MoveCmd;
 
+            // 由于我们客户端模拟服务端的帧数会比较激进的向上取整加上服务端的缓存帧机制，即服务端此时可能才跑在25.5帧，我们就当作它跑到26帧了，这就会有这样一种可能：我们客户端指令会超前/延后被服务端处理，也就会导致服务端指令延后/超前被客户端处理
+            // 所以要往前往后对比一到二帧，消除这个激进的策略误差
             if (entity.HistroyMoveStates.TryGetValue(serverMoveState.Frame, out var histroyState))
             {
                 bool result = serverMoveState.CheckConsistency(histroyState);
 
                 if (!result)
                 {
-                    // 由于我们客户端模拟服务端的帧数会比较激进的向上取整，即服务端此时可能才跑在25.5帧，我们就当作它跑到26帧了，这就会有这样一种可能：我们客户端指令会超前到达服务端，也就会导致服务端指令超前到达客户端
-                    // 所以要往后对比一帧，消除这个激进的策略误差
                     if (entity.HistroyMoveStates.TryGetValue(serverMoveState.Frame + 1, out var histroyStateForward))
                     {
                         result = serverMoveState.CheckConsistency(histroyStateForward);
@@ -25,8 +25,22 @@ namespace ET
                         if (result)
                         {
                             Log.Error(
-                                $"√√√来自MoveComponent的一致：服务端 {serverMoveState.Frame} X：{serverMoveState.PosX} Y: {serverMoveState.PosY} Z: {serverMoveState.PosZ}\n客户端：{frame} X：{histroyState.PosX} Y: {histroyState.PosY} Z: {histroyState.PosZ}");
+                                $"√√√来自MoveComponent的一致：服务端 {serverMoveState.Frame} X：{serverMoveState.PosX} Y: {serverMoveState.PosY} Z: {serverMoveState.PosZ}\n客户端：{frame} X：{histroyStateForward.PosX} Y: {histroyStateForward.PosY} Z: {histroyStateForward.PosZ}");
                             return true;
+                        }
+                        else
+                        {
+                            if (entity.HistroyMoveStates.TryGetValue(serverMoveState.Frame + 2,
+                                out var histroyStateForward1))
+                            {
+                                result = serverMoveState.CheckConsistency(histroyStateForward1);
+                                if (result)
+                                {
+                                    Log.Error(
+                                        $"√√√来自MoveComponent的一致：服务端 {serverMoveState.Frame} X：{serverMoveState.PosX} Y: {serverMoveState.PosY} Z: {serverMoveState.PosZ}\n客户端：{frame} X：{histroyStateForward1.PosX} Y: {histroyStateForward1.PosY} Z: {histroyStateForward1.PosZ}");
+                                    return true;
+                                }
+                            }
                         }
                     }
 

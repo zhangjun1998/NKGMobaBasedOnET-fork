@@ -25,8 +25,7 @@ namespace ET
             {
                 return;
             }
-            
-            
+
 #if !SERVER
             Profiler.BeginSample("LockStepStateFrameSyncComponentUpdateSystem");
 #endif          

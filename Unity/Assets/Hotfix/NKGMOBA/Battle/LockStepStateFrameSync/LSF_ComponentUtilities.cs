@@ -20,7 +20,19 @@ namespace ET
         /// </summary>
         private static void LSF_TickNormally(this LSF_Component self)
         {
-#if SERVER 
+#if !SERVER
+            if (!self.ShouldTickInternal)
+            {
+                return;
+            }
+#endif
+            self.CurrentFrame++;
+
+#if !SERVER
+            self.CurrentArrivedFrame = self.CurrentFrame;
+#endif
+
+#if SERVER
             //Log.Info($"------------帧同步Tick Time Point： {TimeHelper.ClientNow()} Frame : {self.CurrentFrame}");
             if (self.FrameCmdsToHandle.TryGetValue(self.CurrentFrame, out var currentFrameCmdToHandle))
             {
@@ -32,18 +44,12 @@ namespace ET
             }
 
             self.FrameCmdsToHandle.Remove(self.CurrentFrame);
-            
-#else
-            if (!self.ShouldTickInternal)
-            {
-                return;
-            }
-            
-            // 现根据服务端发回的指令进行一致性检测，如果需要的话就进行回滚
-            bool shouldRollback = false;
 
+#else
             foreach (var frameCmdsQueuePair in self.FrameCmdsToHandle)
             {
+                // 现根据服务端发回的指令进行一致性检测，如果需要的话就进行回滚
+                bool shouldRollback = false;
                 Queue<ALSF_Cmd> frameCmdsQueue = frameCmdsQueuePair.Value;
                 uint targetFrame = frameCmdsQueuePair.Key;
                 
@@ -72,8 +78,10 @@ namespace ET
                     self.CurrentFrame++;
 
                     //Log.Error("收到服务器回包后发现模拟的结果与服务器不一致，即需要强行回滚，则回滚，然后开始追帧");
-                    uint count = self.CurrentArrivedFrame - self.CurrentFrame;
-                    while (count-- > 0)
+                    // 注意这里追帧到当前已抵达帧的前一帧，因为最后有一步self.LSF_TickManually();用于当前帧Tick，不属于追帧的范围
+                    int count = (int)self.CurrentArrivedFrame - 1 - (int)self.CurrentFrame;
+                    
+                    while (count-- >= 0)
                     {
                         self.LSF_TickManually();
                         self.CurrentFrame++;
@@ -82,21 +90,21 @@ namespace ET
                     self.IsInChaseFrameState = false;
                 }
 
-                // 清空这一帧的玩家输入缓冲区，因为这一帧我们已经确保本地与服务器状态一致了
-                self.PlayerInputCmdsBuffer.Remove(targetFrame);
+                // TODO 不能直接清，因为类似寻路这种指令，并不是每帧都在发起，比如在70帧发起了一次寻路，这个寻路过程一直持续到90帧，在此期间的不同步都需要使用这个70帧发起的指令
+                // TODO 清空这一帧的玩家输入缓冲区，因为这一帧我们已经确保本地与服务器状态一致了
+                // self.PlayerInputCmdsBuffer.Remove(targetFrame);
+                // Log.Info($"rrrrrrrrrrr 移除第{targetFrame}本地数据");
             }
             
             // 客户端每帧Tick完需要清空待处理列表，因为我们已经全量执行了服务端发来的指令（检测一致性，回滚），这样才能确保与服务端结果一致
             self.FrameCmdsToHandle.Clear();
 #endif
-            
+
             // 执行本帧本应该执行的的Tick
             self.LSF_TickManually();
-            
+
             // 发送本帧收集的指令
             self.SendCurrentFrameMessage();
-            
-            self.CurrentFrame++;
         }
 
         /// <summary>
@@ -122,7 +130,7 @@ namespace ET
                 foreach (var cmd in lastValidCmds)
                 {
                     //处理用户输入缓冲区中的指令，用于预测
-                    //Log.Info($"------------处理用户输入缓冲区第{self.CurrentFrame}帧指令");
+                    Log.Info($"------------第{self.CurrentFrame}帧处理用户输入缓冲区指令");
                     LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), cmd);
                 }
             }
@@ -164,7 +172,7 @@ namespace ET
             //因为我们KCP确保消息可靠性，所以可以直接移除
             self.FrameCmdsToSend.Remove(self.CurrentFrame);
         }
-        
+
         /// <summary>
         /// 注意这里的帧数是消息中的帧数
         /// 特殊的，对于服务器来说，哪一帧收到客户端指令就会当成客户端在哪一帧的输入(累加一个缓冲帧时长)
@@ -213,7 +221,7 @@ namespace ET
                 newQueue.Enqueue(cmdToSend);
                 self.WholeCmds[self.CurrentFrame] = newQueue;
             }
-            
+
             //将消息放入待发送列表，本帧末尾进行发送
             if (self.FrameCmdsToSend.TryGetValue(self.CurrentFrame, out var queue2))
             {
@@ -228,8 +236,10 @@ namespace ET
 #else
             C2M_FrameCmd c2MFrameCmd = new C2M_FrameCmd() {CmdContent = cmdToSend};
 
+            //客户端用户输入有他的特殊性，往往会在Update里收集输入，在FixedUpdate里进行指令发送，所以要放到下一帧
+            uint correctFrame = self.CurrentFrame + 1;
             //将消息放入玩家输入缓冲区，用于预测回滚
-            if (self.PlayerInputCmdsBuffer.TryGetValue(self.CurrentFrame, out var queue1))
+            if (self.PlayerInputCmdsBuffer.TryGetValue(correctFrame, out var queue1))
             {
                 queue1.Enqueue(c2MFrameCmd.CmdContent);
             }
@@ -237,11 +247,11 @@ namespace ET
             {
                 Queue<ALSF_Cmd> newQueue = new Queue<ALSF_Cmd>();
                 newQueue.Enqueue(cmdToSend);
-                self.PlayerInputCmdsBuffer[self.CurrentFrame] = newQueue;
+                self.PlayerInputCmdsBuffer[correctFrame] = newQueue;
             }
 
             //将消息放入待发送列表，本帧末尾进行发送
-            if (self.FrameCmdsToSend.TryGetValue(self.CurrentFrame, out var queue2))
+            if (self.FrameCmdsToSend.TryGetValue(correctFrame, out var queue2))
             {
                 queue2.Enqueue(c2MFrameCmd.CmdContent);
             }
@@ -249,7 +259,7 @@ namespace ET
             {
                 Queue<ALSF_Cmd> newQueue = new Queue<ALSF_Cmd>();
                 newQueue.Enqueue(cmdToSend);
-                self.FrameCmdsToSend[self.CurrentFrame] = newQueue;
+                self.FrameCmdsToSend[correctFrame] = newQueue;
             }
 #endif
         }
@@ -269,9 +279,6 @@ namespace ET
             self.ServerCurrentFrame = messageFrame +
                                       (uint) TimeAndFrameConverter.Frame_Float2FrameWithHalfRTT(Time.deltaTime,
                                           self.HalfRTT);
-
-            self.CurrentArrivedFrame = self.CurrentFrame;
-
             self.CurrentAheadOfFrame = (int) (self.CurrentFrame - self.ServerCurrentFrame);
         }
 
@@ -304,15 +311,17 @@ namespace ET
         public static Queue<ALSF_Cmd> GetLastValidCmd(this LSF_Component self)
         {
             uint frame = self.CurrentFrame;
-            while (!self.PlayerInputCmdsBuffer.ContainsKey(frame) && frame >= 1 && self.PlayerInputCmdsBuffer.Count > 0)
+            while (frame >= 1 && self.PlayerInputCmdsBuffer.Count > 0 && !self.PlayerInputCmdsBuffer.ContainsKey(frame))
             {
                 frame--;
             }
 
             if (self.PlayerInputCmdsBuffer.TryGetValue(frame, out var queue))
             {
+                Log.Info($"在第{self.CurrentFrame}帧从用户输入缓冲区获取第{frame}帧数据");
                 return queue;
             }
+            Log.Info($"在第{self.CurrentFrame}帧从用户输入缓冲区获取第{frame}帧数据, 失败");
 
             return null;
         }
