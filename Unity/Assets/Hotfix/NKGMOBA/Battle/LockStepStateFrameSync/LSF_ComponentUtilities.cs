@@ -130,7 +130,7 @@ namespace ET
                 foreach (var cmd in lastValidCmds)
                 {
                     //处理用户输入缓冲区中的指令，用于预测
-                    Log.Info($"------------第{self.CurrentFrame}帧处理用户输入缓冲区指令");
+                    //Log.Info($"------------第{self.CurrentFrame}帧处理用户输入缓冲区指令");
                     LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), cmd);
                 }
             }
@@ -234,6 +234,7 @@ namespace ET
             
             //客户端用户输入有他的特殊性，往往会在Update里收集输入，在FixedUpdate里进行指令发送，所以要放到下一帧
             uint correctFrame = self.CurrentFrame + 1;
+            
             cmdToSend.Frame = correctFrame;
             C2M_FrameCmd c2MFrameCmd = new C2M_FrameCmd() {CmdContent = cmdToSend};
 
@@ -317,10 +318,10 @@ namespace ET
 
             if (self.PlayerInputCmdsBuffer.TryGetValue(frame, out var queue))
             {
-                Log.Info($"在第{self.CurrentFrame}帧从用户输入缓冲区获取第{frame}帧数据");
+                //Log.Info($"在第{self.CurrentFrame}帧从用户输入缓冲区获取第{frame}帧数据");
                 return queue;
             }
-            Log.Info($"在第{self.CurrentFrame}帧从用户输入缓冲区获取第{frame}帧数据, 失败");
+            //Log.Info($"在第{self.CurrentFrame}帧从用户输入缓冲区获取第{frame}帧数据, 失败");
 
             return null;
         }
