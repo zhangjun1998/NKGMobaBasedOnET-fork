@@ -33,12 +33,12 @@ namespace ET
         /// 当前帧数
         /// </summary>
         public uint CurrentFrame;
-        
+
         /// <summary>
         /// 服务器缓冲帧时长，按帧为单位，这里锁定为1帧，也就是33ms
         /// </summary>
         public uint BufferFrame = 1;
-
+        
 #if !SERVER
         /// <summary>
         /// 玩家输入缓冲区，因为会有回滚操作，需要重新预测到当前帧，保存范围为上一次服务器确认的帧到当前帧

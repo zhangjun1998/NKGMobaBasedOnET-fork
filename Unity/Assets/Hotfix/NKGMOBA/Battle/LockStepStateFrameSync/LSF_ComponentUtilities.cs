@@ -181,11 +181,8 @@ namespace ET
         /// <param name="cmdToHandle"></param>
         public static void AddCmdToHandleQueue(this LSF_Component self, ALSF_Cmd cmdToHandle)
         {
-#if SERVER
-            uint correntFrame = self.CurrentFrame + self.BufferFrame;
-#else
             uint correntFrame = cmdToHandle.Frame;
-#endif
+
             if (self.FrameCmdsToHandle.TryGetValue(correntFrame, out var queue))
             {
                 queue.Enqueue(cmdToHandle);
@@ -234,10 +231,12 @@ namespace ET
                 self.FrameCmdsToSend[self.CurrentFrame] = newQueue;
             }
 #else
-            C2M_FrameCmd c2MFrameCmd = new C2M_FrameCmd() {CmdContent = cmdToSend};
-
+            
             //客户端用户输入有他的特殊性，往往会在Update里收集输入，在FixedUpdate里进行指令发送，所以要放到下一帧
             uint correctFrame = self.CurrentFrame + 1;
+            cmdToSend.Frame = correctFrame;
+            C2M_FrameCmd c2MFrameCmd = new C2M_FrameCmd() {CmdContent = cmdToSend};
+
             //将消息放入玩家输入缓冲区，用于预测回滚
             if (self.PlayerInputCmdsBuffer.TryGetValue(correctFrame, out var queue1))
             {

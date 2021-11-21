@@ -18,32 +18,6 @@ namespace ET
 
                 if (!result)
                 {
-                    if (entity.HistroyMoveStates.TryGetValue(serverMoveState.Frame + 1, out var histroyStateForward))
-                    {
-                        result = serverMoveState.CheckConsistency(histroyStateForward);
-
-                        if (result)
-                        {
-                            Log.Error(
-                                $"√√√来自MoveComponent的一致：服务端 {serverMoveState.Frame} X：{serverMoveState.PosX} Y: {serverMoveState.PosY} Z: {serverMoveState.PosZ}\n客户端：{frame} X：{histroyStateForward.PosX} Y: {histroyStateForward.PosY} Z: {histroyStateForward.PosZ}");
-                            return true;
-                        }
-                        else
-                        {
-                            if (entity.HistroyMoveStates.TryGetValue(serverMoveState.Frame + 2,
-                                out var histroyStateForward1))
-                            {
-                                result = serverMoveState.CheckConsistency(histroyStateForward1);
-                                if (result)
-                                {
-                                    Log.Error(
-                                        $"√√√来自MoveComponent的一致：服务端 {serverMoveState.Frame} X：{serverMoveState.PosX} Y: {serverMoveState.PosY} Z: {serverMoveState.PosZ}\n客户端：{frame} X：{histroyStateForward1.PosX} Y: {histroyStateForward1.PosY} Z: {histroyStateForward1.PosZ}");
-                                    return true;
-                                }
-                            }
-                        }
-                    }
-
                     Log.Error(
                         $"---来自MoveComponent的不一致：服务端 {serverMoveState.Frame} X：{serverMoveState.PosX} Y: {serverMoveState.PosY} Z: {serverMoveState.PosZ}\n客户端：{frame} X：{histroyState.PosX} Y: {histroyState.PosY} Z: {histroyState.PosZ}");
                 }
