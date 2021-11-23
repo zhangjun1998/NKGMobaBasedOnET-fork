@@ -41,13 +41,7 @@ namespace ET
 
                 G2C_LoginGate g2CLoginGate = (G2C_LoginGate) await gateSession.Call(
                     new C2G_LoginGate() {Key = r2CLogin.Key, GateId = r2CLogin.GateId});
-
-                // // 创建一个Lobby Session,并且保存到SessionComponent中
-                // Session lobbySession = zoneScene.GetComponent<NetKcpComponent>()
-                //     .Create(NetworkHelper.ToIPEndPoint(g2CLoginGate.LobbyAddress));
-                //
-                // lobbySession.AddComponent<PingComponent>();
-                // playerComponent.LobbySession = lobbySession;
+                
                 playerComponent.PlayerId = g2CLoginGate.PlayerId;
                 playerComponent.PlayerAccount = account;
                 

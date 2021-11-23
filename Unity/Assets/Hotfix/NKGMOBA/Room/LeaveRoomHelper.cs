@@ -23,15 +23,9 @@ namespace ET
                         .Publish(new EventType.LeaveRoom()
                         {
                             DomainScene = fuiComponent.DomainScene(), 
-                            // PlayerId = l2CLeaveRoomLobby.PlayerId,
-                            // Camp = l2CLeaveRoomLobby.camp, RoomId = l2CLeaveRoomLobby.RoomId
                         })
                         .Coroutine();
                 }
-
-                playerComponent.BelongToRoom = null;
-
-
             }
             catch (Exception e)
             {

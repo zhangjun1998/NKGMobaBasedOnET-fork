@@ -28,7 +28,7 @@ namespace ET
         ///// <summary>
         ///// 归属的房间
         ///// </summary>
-        //public Room BelongToRoom;
+        public Entity BelongToRoom=>domain;
 
         /// <summary>
         /// 是否需要同步到客户端

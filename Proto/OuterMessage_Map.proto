@@ -102,7 +102,7 @@ message M2C_UnitDestoryed // IActorMessage
   int64 DestoryedUnitId = 94;
 }
 
-message C2M_PathfindingResult // IActorLocationMessage
+message C2M_PathfindingResult // IRoomMessage
 {
   int32 RpcId = 90;
   int64 ActorId = 93;
@@ -112,7 +112,7 @@ message C2M_PathfindingResult // IActorLocationMessage
   float Z = 3;
 }
 
-message C2M_Stop // IActorLocationMessage
+message C2M_Stop // IRoomMessage
 {
   int32 RpcId = 90;
   int64 ActorId = 93;
@@ -166,10 +166,8 @@ message M2C_ChangeProperty // IActorMessage
   float FinalValue = 4;
 }
 
-message C2M_CastHeroSkill // IActorLocationMessage
+message C2M_CastHeroSkill // IRoomMessage
 {
-  int32 RpcId = 90;
-  int64 ActorId = 93;
 }
 
 message M2C_CastHeroSkill // IActorMessage
@@ -184,20 +182,14 @@ message M2C_RecoverHP // IActorMessage
 }
 
 //请求攻击
-message C2M_CommonAttack // IActorLocationMessage
+message C2M_CommonAttack // IRoomMessage
 {
-  int32 RpcId = 90;
-  int64 ActorId = 93;
-
   int64 TargetUnitId = 1;
 }
 
 //请求攻击
 message M2C_CancelCommonAttack // IActorMessage
 {
-  int32 RpcId = 90;
-  int64 ActorId = 93;
-
   int64 TargetUnitId = 1;
 }
 
@@ -230,10 +222,8 @@ message M2C_BuffInfo // IActorMessage
   float BuffMaxLimitTime = 4; //Buff最大持续到的时间点
 }
 
-message C2M_UserInputSkillCmd // IActorLocationMessage
+message C2M_UserInputSkillCmd // IRoomMessage
 {
-  int32 RpcId = 90;
-  int64 ActorId = 93;
   string VK = 64;
 }
 
@@ -263,14 +253,11 @@ message M2C_SyncCDData // IActorMessage
   int64 RemainCDLength = 5;
 }
 
-message C2M_CreateSpiling // IActorLocationMessage
+message C2M_CreateSpiling // IRoomMessage
 {
   float X = 2;
   float Y = 3;
   float Z = 4;
-  //所归属的父实体id
-  int32 RpcId = 90;
-  int64 ActorId = 93;
 }
 
 

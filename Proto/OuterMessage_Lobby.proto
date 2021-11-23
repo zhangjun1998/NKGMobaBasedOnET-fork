@@ -126,6 +126,7 @@ message PlayerBattlePoint
 
 message L2C_PrepareToEnterBattle  // IActorMessage
 {
+   repeated UnitInfo Units = 1;
 }
 
 message C2L_PreparedToEnterBattle // IRoomMessage

@@ -53,6 +53,7 @@ namespace ET
                 response.playerInfoRoom.Add(new PlayerInfoRoom() { camp = player.camp, Name = player.Name, playerid = player.Id });
             }
             response.RoomInfo = RoomHelper.GetRoomInfoProto(scene);
+            response.RoomPlayerActorId = request.Player.InstanceId;
             reply();
             RoomHelper.UpdateRoomToRoomManager(scene);
             await ETTask.CompletedTask;
@@ -125,8 +126,8 @@ namespace ET
                     reply();
                     return;
                 }
-                session.AddComponent<RoomStateOnGateComponent, long,long>(joinresp.RoomPlayerActorId,resp.RoomInfo.RoomId);
-                response.RoomInfo = resp.RoomInfo;
+                session.AddComponent<RoomStateOnGateComponent, long,long>(joinresp.RoomPlayerActorId, joinresp.RoomInfo.RoomId);
+                response.RoomInfo = joinresp.RoomInfo;
                 response.playerInfoRoom.Add(playerinfo);
                 reply();
             }

@@ -2,14 +2,14 @@ namespace ET
 {
 	public static partial class InnerOpcode_Gate
 	{
-		 public const ushort G2G_LockRequest = 10001;
-		 public const ushort G2G_LockResponse = 10002;
-		 public const ushort G2G_LockReleaseRequest = 10003;
-		 public const ushort G2G_LockReleaseResponse = 10004;
-		 public const ushort G2R_GetLoginKey = 10005;
-		 public const ushort G2L_GetRoomId = 10006;
-		 public const ushort G2M_SessionDisconnect = 10007;
-		 public const ushort G2L_JoinRoomLobby = 10008;
-		 public const ushort BroadcastActorSyncMessage = 10009;
+		 public const ushort G2G_LockRequest = 55001;
+		 public const ushort G2G_LockResponse = 55002;
+		 public const ushort G2G_LockReleaseRequest = 55003;
+		 public const ushort G2G_LockReleaseResponse = 55004;
+		 public const ushort G2R_GetLoginKey = 55005;
+		 public const ushort G2L_GetRoomId = 55006;
+		 public const ushort G2M_SessionDisconnect = 55007;
+		 public const ushort G2L_JoinRoomLobby = 55008;
+		 public const ushort BroadcastActorSyncMessage = 55009;
 	}
 }

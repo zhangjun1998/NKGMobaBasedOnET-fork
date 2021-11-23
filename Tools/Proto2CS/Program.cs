@@ -36,7 +36,7 @@ namespace ET
         public static void Proto2CS()
         {
             msgOpcode.Clear();
-            Proto2CS("ET", "../../../Proto/InnerMessage_Gate.proto", serverMessagePath, "InnerOpcode_Gate", 10000);
+            Proto2CS("ET", "../../../Proto/InnerMessage_Gate.proto", serverMessagePath, "InnerOpcode_Gate", 55000);
             GenerateOpcode("ET", "InnerOpcode_Gate", serverMessagePath);
             Proto2CS("ET", "../../../Proto/InnerMessage_Realm.proto", serverMessagePath, "InnerOpcode_Realm", 12500);
             GenerateOpcode("ET", "InnerOpcode_Realm", serverMessagePath);

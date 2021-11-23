@@ -3,7 +3,6 @@
 	public class PlayerComponent: Entity
 	{
 		public Session GateSession;
-		public Room BelongToRoom;
 
 		/// <summary>
 		/// 已经完成的加载次数

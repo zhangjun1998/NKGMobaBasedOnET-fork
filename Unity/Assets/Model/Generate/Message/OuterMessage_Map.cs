@@ -220,7 +220,7 @@ namespace ET
 
 	[Message(OuterOpcode_Map.C2M_PathfindingResult)]
 	[ProtoContract]
-	public partial class C2M_PathfindingResult: Object, IActorLocationMessage
+	public partial class C2M_PathfindingResult: Object, IRoomMessage
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
@@ -241,7 +241,7 @@ namespace ET
 
 	[Message(OuterOpcode_Map.C2M_Stop)]
 	[ProtoContract]
-	public partial class C2M_Stop: Object, IActorLocationMessage
+	public partial class C2M_Stop: Object, IRoomMessage
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
@@ -352,14 +352,8 @@ namespace ET
 
 	[Message(OuterOpcode_Map.C2M_CastHeroSkill)]
 	[ProtoContract]
-	public partial class C2M_CastHeroSkill: Object, IActorLocationMessage
+	public partial class C2M_CastHeroSkill: Object, IRoomMessage
 	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
 	}
 
 	[Message(OuterOpcode_Map.M2C_CastHeroSkill)]
@@ -386,14 +380,8 @@ namespace ET
 //请求攻击
 	[Message(OuterOpcode_Map.C2M_CommonAttack)]
 	[ProtoContract]
-	public partial class C2M_CommonAttack: Object, IActorLocationMessage
+	public partial class C2M_CommonAttack: Object, IRoomMessage
 	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
 		[ProtoMember(1)]
 		public long TargetUnitId { get; set; }
 
@@ -404,12 +392,6 @@ namespace ET
 	[ProtoContract]
 	public partial class M2C_CancelCommonAttack: Object, IActorMessage
 	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
 		[ProtoMember(1)]
 		public long TargetUnitId { get; set; }
 
@@ -472,14 +454,8 @@ namespace ET
 
 	[Message(OuterOpcode_Map.C2M_UserInputSkillCmd)]
 	[ProtoContract]
-	public partial class C2M_UserInputSkillCmd: Object, IActorLocationMessage
+	public partial class C2M_UserInputSkillCmd: Object, IRoomMessage
 	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
 		[ProtoMember(64)]
 		public string VK { get; set; }
 
@@ -542,7 +518,7 @@ namespace ET
 
 	[Message(OuterOpcode_Map.C2M_CreateSpiling)]
 	[ProtoContract]
-	public partial class C2M_CreateSpiling: Object, IActorLocationMessage
+	public partial class C2M_CreateSpiling: Object, IRoomMessage
 	{
 		[ProtoMember(2)]
 		public float X { get; set; }
@@ -552,14 +528,6 @@ namespace ET
 
 		[ProtoMember(4)]
 		public float Z { get; set; }
-
-//所归属的父实体id
-//所归属的父实体id
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
 
 	}
 

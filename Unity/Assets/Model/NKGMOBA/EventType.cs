@@ -141,19 +141,18 @@ namespace ET
         public struct CreatePlayerCard
         {
             public Scene DomainScene;
-            public long RoomId;
             public long PlayerId;
-            public string PlayerAccount;
+            public string PlayerName;
             public int Camp;
         }
-
-        public struct LeaveRoom
+        public struct RemovePlayerCard
         {
             public Scene DomainScene;
             public long PlayerId;
-            public long RoomId;
-            public string PlayerAccount;
-            public int Camp;
+        }
+        public struct LeaveRoom
+        {
+            public Scene DomainScene;
         }
         
         public struct SpriteReceiveDamage

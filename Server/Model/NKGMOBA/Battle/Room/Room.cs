@@ -65,24 +65,7 @@ namespace ET
     {
         public Dictionary<long, long> PlayeridToRoomPlayer = new Dictionary<long, long>();
     }
-    public class RoomStateOnGateComponentAwakeSystem : AwakeSystem<RoomStateOnGateComponent, long,long>
-    {
-        public override void Awake(RoomStateOnGateComponent self, long actorid,long roomsceneid)
-        {
-            self.RoomPlayerActorId = actorid;
-            self.TargetRoomSceneId = roomsceneid;
-            BroadcastMsgOnGateComponent.Instance.AddSessionId(self.TargetRoomSceneId, self.Parent.InstanceId);
-        }
-    }
-    public class RoomStateOnGateComponentDestroySystem : DestroySystem<RoomStateOnGateComponent>
-    {
-        public override void Destroy(RoomStateOnGateComponent self)
-        {
-            BroadcastMsgOnGateComponent.Instance.RemoveSessionId(self.TargetRoomSceneId, self.Parent.InstanceId);
-            self.RoomPlayerActorId = 0;
-            self.TargetRoomSceneId = 0;
-        }
-    }
+
     /// <summary>
     /// gate上保留玩家在房间内的状态组件.
     /// In:Gate
@@ -98,6 +81,14 @@ namespace ET
         /// roomsceneid.用于注册或者注销消息监听
         /// </summary>
         public long TargetRoomSceneId;
+        /// <summary>
+        /// 销毁时是否需要通知Room.如果是room通知过来的.需要置为false再释放
+        /// </summary>
+        public bool NeedSendMessage;
+        public void Awake()
+        { 
+        
+        }
     }
 
     /// <summary>
@@ -152,7 +143,7 @@ namespace ET
             get;
             set;
         }
-        public Dictionary<long, List<long>> ActoridToSessionIds;
+        public Dictionary<long, List<long>> ActoridToSessionIds = new Dictionary<long, List<long>>();
         public void AddSessionId(long actorid, long sessionid)
         {
             if (!ActoridToSessionIds.ContainsKey(actorid))

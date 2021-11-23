@@ -62,7 +62,7 @@ message RM2RA_RemoveRoom // IActorMessage
 {
   int32 CloseCode = 1;
 }
-
+//同步房间信息
 message RA2RM_UpdateRoomInfo  // IActorMessage
 {
    RoomInfoProto RoomInfo = 1;
@@ -71,4 +71,9 @@ message RA2RM_UpdateRoomInfo  // IActorMessage
 message Room2G_RoomClose // IActorMessage
 {
   int32 CloseCode = 1;
+}
+//session断开通知房间
+message G2Room_SessionDisconnect  // IActorMessage
+{
+   long sessionId = 1;
 }

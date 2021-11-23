@@ -9,7 +9,7 @@ namespace ET
             FUI_RoomComponent fuiRoomComponent =
                 a.DomainScene.GetComponent<FUIManagerComponent>().GetFUIComponent<FUI_RoomComponent>(FUI_RoomComponent.FUIRoomListName);
 
-            FUI_RoomUtilities.AddPlayerCard(fuiRoomComponent, a.PlayerId, a.PlayerAccount, a.Camp);
+            FUI_RoomUtilities.AddPlayerCard(fuiRoomComponent, a.PlayerId, a.PlayerName, a.Camp);
 
             await ETTask.CompletedTask;
         }

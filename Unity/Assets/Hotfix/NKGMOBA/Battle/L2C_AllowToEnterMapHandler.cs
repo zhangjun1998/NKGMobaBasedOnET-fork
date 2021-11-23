@@ -7,7 +7,6 @@
             //TODO 单独的加载UI处理
             FUI_LoadingComponent.HideLoadingUI();
             PlayerComponent playerComponent = Game.Scene.GetComponent<PlayerComponent>();
-            playerComponent.BelongToRoom = null;
             playerComponent.HasCompletedLoadCount = 0;
             
             Game.EventSystem.Publish(new EventType.EnterMapFinish() {ZoneScene = session.DomainScene()}).Coroutine();

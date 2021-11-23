@@ -1,10 +1,11 @@
 ﻿namespace ET
 {
-    public class C2M_UserInputSkillCmdHandler : AMActorLocationHandler<Unit, C2M_UserInputSkillCmd>
+    public class C2M_UserInputSkillCmdHandler : AMActorHandler<Player, C2M_UserInputSkillCmd>
     {
-        protected override async ETTask Run(Unit entity, C2M_UserInputSkillCmd message)
+        protected override async ETTask Run(Player player, C2M_UserInputSkillCmd message)
         {
-            foreach (var skillTree in entity.GetComponent<NP_RuntimeTreeManager>().RuntimeTrees)
+            Unit unit = player.Domain.GetComponent<UnitComponent>().Get(player.UnitId);
+            foreach (var skillTree in unit.GetComponent<NP_RuntimeTreeManager>().RuntimeTrees)
             {
                 skillTree.Value.GetBlackboard().Set("PlayerInput", message.VK);
             }

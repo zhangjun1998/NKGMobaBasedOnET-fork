@@ -28,6 +28,11 @@ namespace ET
                 case SceneType.Gate:
                     scene.AddComponent<NetKcpComponent, IPEndPoint>(startSceneConfig.OuterIPPort);
                     scene.AddComponent<GateSessionKeyComponent>();
+                    scene.AddComponent<PlayerComponent>();
+                    if (BroadcastMsgOnGateComponent.Instance==null)
+                    {
+                        BroadcastMsgOnGateComponent.Instance=Game.Scene.AddComponent<BroadcastMsgOnGateComponent>();
+                    }
                     break;
                 case SceneType.Map:
                     // 因为战斗服也会有房间的概念，一个房间代表一场战斗，每个战斗都有自己的UnitManager，寻路网格，碰撞世界

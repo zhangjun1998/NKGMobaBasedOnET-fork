@@ -267,6 +267,9 @@ namespace ET
 	[ProtoContract]
 	public partial class L2C_PrepareToEnterBattle: Object, IActorMessage
 	{
+		[ProtoMember(1)]
+		public List<UnitInfo> Units = new List<UnitInfo>();
+
 	}
 
 	[Message(OuterOpcode_Lobby.C2L_PreparedToEnterBattle)]

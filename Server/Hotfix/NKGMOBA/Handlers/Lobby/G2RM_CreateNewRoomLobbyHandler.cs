@@ -89,6 +89,17 @@ namespace ET
             session.Send(new L2C_RoomClose() { CloseCode = request.CloseCode });
         }
     }
+    [ActorMessageHandler]
+    //RoomManager通知RoomScene关闭房间
+    public class G2Room_SessionDisconnectHandler : AMActorHandler<Player, G2Room_SessionDisconnect>
+    {
+        protected override async ETTask Run(Player player, G2Room_SessionDisconnect request)
+        {
+            await ETTask.CompletedTask;
+            player.GateSessionId = 0;
+            //todo: ai接管 通知其他玩家该玩家掉线
+        }
+    }
     public static class RoomHelper
     {
         public static void JoinRoom(Scene scene, Player player, bool isRoomHolder = false)
@@ -117,12 +128,6 @@ namespace ET
             return scene.GetComponent<RoomPreparedToEnterBattleComponent>() != null && scene.GetComponent<BattleComponent>() != null;
         }
 
-        public static void LeaveRoom(Scene scene, long playerid)
-        {
-            var player = scene.GetComponent<PlayerComponent>().Get(playerid);
-            scene.GetComponent<PlayerComponent>().Remove(playerid);
-            player.Dispose();
-        }
 
         /// <summary>
         /// 根据关键组件是否存在决定是否房间是锁定状态
@@ -139,7 +144,8 @@ namespace ET
         /// <param name="scene"></param>
         public static void InitBattleComponent(Scene scene)
         {
-            scene.AddComponent<BattleComponent>().BattleStartTime = TimeHelper.ServerNow();
+            //BattleComponent在准备完成时添加
+            //scene.AddComponent<BattleComponent>().BattleStartTime = TimeHelper.ServerNow();
             scene.AddComponent<RoomPreparedToEnterBattleComponent>();
             scene.AddComponent<NP_TreeDataRepositoryComponent>();
             scene.AddComponent<UnitAttributesDataRepositoryComponent>();
@@ -160,11 +166,12 @@ namespace ET
                 if (player.camp % 2 == 0)
                 {
                     heroCamp = RoleCamp.TianZai;
-                    unitPos = new Vector3(-15, 0, 0);
+                    unitPos = new Vector3(-12, 0,-10);
                 }
                 Unit unit = UnitFactory.CreateHeroUnit(unitcomponent, 10001, heroCamp, unitPos, Quaternion.identity);
                 unit.BelongToPlayer = player;
                 unit.AddComponent<UnitGateComponent, long>(player.GateSessionId);
+                player.UnitId = unit.Id;
             }
         }
         /// <summary>
@@ -191,6 +198,7 @@ namespace ET
             await ETTask.CompletedTask;
             long instanceId = IdGenerater.Instance.GenerateInstanceId();
             Scene scene = EntitySceneFactory.CreateScene(instanceId, parent.DomainZone(), SceneType.Room, "", parent);
+            scene.AddComponent<Room, RoomConfigProto>(RoomConfig);
             var playercomponent = scene.AddComponent<PlayerComponent>();
             scene.AddComponent<MailBoxComponent, MailboxType>(MailboxType.UnOrderMessageDispatcher);
             return scene;

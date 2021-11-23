@@ -136,6 +136,7 @@ namespace ET
 
 	}
 
+//同步房间信息
 	[Message(InnerOpcode_Lobby.RA2RM_UpdateRoomInfo)]
 	[ProtoContract]
 	public partial class RA2RM_UpdateRoomInfo: Object, IActorMessage
@@ -152,6 +153,16 @@ namespace ET
 	{
 		[ProtoMember(1)]
 		public int CloseCode { get; set; }
+
+	}
+
+//session断开通知房间
+	[Message(InnerOpcode_Lobby.G2Room_SessionDisconnect)]
+	[ProtoContract]
+	public partial class G2Room_SessionDisconnect: Object, IActorMessage
+	{
+		[ProtoMember(1)]
+		public long sessionId { get; set; }
 
 	}
 

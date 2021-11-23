@@ -21,6 +21,10 @@ namespace ET
             {
                 foreach (Player player in players)
                 {
+                    if (player.GateSessionId==0)
+                    {
+                        continue;
+                    }
                     ActorMessageSenderComponent.Instance.Send(player.GateSessionId, stream);
                 }
             }

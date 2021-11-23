@@ -5,7 +5,7 @@
         public override void Awake(RoomPreparedToEnterBattleComponent self)
         {
             self.Awake();
-            self.TimerId = TimerComponent.Instance.NewOnceTimer(TimeHelper.ServerNow() + 60 * 1000, self.OverTime);
+            self.TimerId = TimerComponent.Instance.NewOnceTimer(TimeHelper.ServerNow() + 30 * 1000, self.OverTime);
         }
     }
     public class RoomPreparedToEnterBattleComponentDestroy : DestroySystem<RoomPreparedToEnterBattleComponent>

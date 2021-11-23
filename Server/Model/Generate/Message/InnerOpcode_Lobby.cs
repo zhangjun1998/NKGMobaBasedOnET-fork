@@ -12,5 +12,6 @@ namespace ET
 		 public const ushort RM2RA_RemoveRoom = 15008;
 		 public const ushort RA2RM_UpdateRoomInfo = 15009;
 		 public const ushort Room2G_RoomClose = 15010;
+		 public const ushort G2Room_SessionDisconnect = 15011;
 	}
 }

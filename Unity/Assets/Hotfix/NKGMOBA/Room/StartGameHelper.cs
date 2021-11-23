@@ -12,7 +12,7 @@ namespace ET
 
                 PlayerComponent playerComponent = Game.Scene.GetComponent<PlayerComponent>();
                 
-                await playerComponent.LobbySession.Call(new C2L_StartGameLobby(){});
+                await playerComponent.GateSession.Call(new C2L_StartGameLobby(){});
             }
             catch (Exception e)
             {

@@ -4,10 +4,11 @@ using UnityEngine;
 namespace ET
 {
 	[ActorMessageHandler]
-	public class C2M_StopHandler : AMActorLocationHandler<Unit, C2M_Stop>
+	public class C2M_StopHandler : AMActorHandler<Player, C2M_Stop>
 	{
-		protected override async ETTask Run(Unit unit, C2M_Stop message)
+		protected override async ETTask Run(Player player, C2M_Stop message)
 		{
+			Unit unit = player.Domain.GetComponent<UnitComponent>().Get(player.UnitId);
 			unit.Stop(0);
 			await ETTask.CompletedTask;
 		}

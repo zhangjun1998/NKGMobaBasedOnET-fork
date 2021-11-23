@@ -16,17 +16,17 @@ namespace ET
                 reply();
                 return;
             }
-            if (!RoomHelper.CanStartGame(scene))
-            {
-                response.Error = ErrorCode.ERR_StartGameFail;
-                reply();
-                return;
-            }
+            //if (!RoomHelper.CanStartGame(scene))
+            //{
+            //    response.Error = ErrorCode.ERR_StartGameFail;
+            //    reply();
+            //    return;
+            //}
             reply();
             //如果正常.加载战斗需要的组件
             RoomHelper.InitBattleComponent(scene);
             // 广播给客户端进入战斗
-            MessageHelper.BroadcastToRoom(scene, new L2C_PrepareToEnterBattle());
+            MessageHelper.BroadcastToRoom(scene, new L2C_PrepareToEnterBattle() { Units = UnitHelper.CreateUnitInfo(scene) });
             RoomHelper.UpdateRoomToRoomManager(scene);
             await ETTask.CompletedTask;
         }

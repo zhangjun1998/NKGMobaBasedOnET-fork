@@ -19,9 +19,9 @@ namespace ET
         public override void Awake(B2S_CollisionListenerComponent self)
         {
             //绑定指定的物理世界，正常来说一个房间一个物理世界,这里是Demo，直接获取了
-            self.Parent.GetComponent<B2S_WorldComponent>().GetWorld().SetContactListener(self);
+            self.Domain.GetComponent<B2S_WorldComponent>().GetWorld().SetContactListener(self);
             //self.TestCollision();
-            self.B2SWorldColliderManagerComponent = self.Parent.GetComponent<B2S_WorldColliderManagerComponent>();
+            self.B2SWorldColliderManagerComponent = self.Domain.GetComponent<B2S_WorldColliderManagerComponent>();
         }
     }
 
@@ -99,8 +99,8 @@ namespace ET
             
             foreach (var cachedCollisionData in this.m_CollisionRecorder)
             {
-                Unit unitA = this.GetParent<Room>().GetComponent<UnitComponent>().Get(cachedCollisionData.Item1);
-                Unit unitB = this.GetParent<Room>().GetComponent<UnitComponent>().Get(cachedCollisionData.Item2);
+                Unit unitA = this.Domain.GetComponent<UnitComponent>().Get(cachedCollisionData.Item1);
+                Unit unitB = this.Domain.GetComponent<UnitComponent>().Get(cachedCollisionData.Item2);
 
                 if (unitA.IsDisposed || unitB.IsDisposed)
                 {
@@ -130,13 +130,13 @@ namespace ET
         public void TestCollision()
         {
             BodyDef bodyDef = new BodyDef {BodyType = BodyType.DynamicBody};
-            Body m_Body = this.parent.GetComponent<B2S_WorldComponent>().GetWorld().CreateBody(bodyDef);
+            Body m_Body = this.Domain.GetComponent<B2S_WorldComponent>().GetWorld().CreateBody(bodyDef);
             CircleShape m_CircleShape = new CircleShape();
             m_CircleShape.Radius = 5;
             m_Body.CreateFixture(m_CircleShape, 5);
 
             BodyDef bodyDef1 = new BodyDef {BodyType = BodyType.DynamicBody};
-            Body m_Body1 = this.parent.GetComponent<B2S_WorldComponent>().GetWorld().CreateBody(bodyDef1);
+            Body m_Body1 = this.Domain.GetComponent<B2S_WorldComponent>().GetWorld().CreateBody(bodyDef1);
             CircleShape m_CircleShape1 = new CircleShape();
             m_CircleShape1.Radius = 5;
             m_Body1.CreateFixture(m_CircleShape1, 5);
