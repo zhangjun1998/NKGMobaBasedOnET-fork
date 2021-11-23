@@ -36,10 +36,10 @@ namespace ET
                     break;
                 case SceneType.Map:
                     // 因为战斗服也会有房间的概念，一个房间代表一场战斗，每个战斗都有自己的UnitManager，寻路网格，碰撞世界
-                    scene.AddComponent<RoomManagerComponent>();
-                    scene.AddComponent<NP_TreeDataRepositoryComponent>();
-                    scene.AddComponent<UnitAttributesDataRepositoryComponent>();
-                    scene.AddComponent<B2S_ColliderDataRepositoryComponent>();
+                    //scene.AddComponent<RoomManagerComponent>();
+                    //scene.AddComponent<NP_TreeDataRepositoryComponent>();
+                    //scene.AddComponent<UnitAttributesDataRepositoryComponent>();
+                    //scene.AddComponent<B2S_ColliderDataRepositoryComponent>();
                     break;
                 case SceneType.Location:
                     scene.AddComponent<LocationComponent>();

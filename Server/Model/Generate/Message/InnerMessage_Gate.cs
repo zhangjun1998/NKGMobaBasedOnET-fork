@@ -133,22 +133,4 @@ namespace ET
 
 	}
 
-//进程级消息,处理广播时需要的session列表
-	[Message(InnerOpcode_Gate.BroadcastActorSyncMessage)]
-	[ProtoContract]
-	public partial class BroadcastActorSyncMessage: Object, IMessage
-	{
-		[ProtoMember(1)]
-		public long TargetActorId { get; set; }
-
-		[ProtoMember(2)]
-		public long SessionId { get; set; }
-
-// true:add false:remove
-// true:add false:remove
-		[ProtoMember(3)]
-		public bool OperaType { get; set; }
-
-	}
-
 }

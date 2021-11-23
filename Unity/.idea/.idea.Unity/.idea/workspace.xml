@@ -23,58 +23,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f1715052-b88e-4a65-9b40-1aa413711389" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Config/StartSceneConfigCategory.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/../Config/StartSceneConfigCategory.bytes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Config/StartZoneConfigCategory.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/../Config/StartZoneConfigCategory.bytes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Excel/StartSceneConfig.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Excel/StartSceneConfig.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Excel/StartZoneConfig.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Excel/StartZoneConfig.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Proto/InnerMessage_Lobby.proto" beforeDir="false" afterPath="$PROJECT_DIR$/../Proto/InnerMessage_Lobby.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Proto/OuterMessage_Map.proto" beforeDir="false" afterPath="$PROJECT_DIR$/../Proto/OuterMessage_Map.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/Hotfix/Module/MessageInner/OuterMessageDispatcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/Module/MessageInner/OuterMessageDispatcher.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Battle/ComponentSystems/RoomPreparedToEnterBattleComponentSystems.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Battle/ComponentSystems/RoomPreparedToEnterBattleComponentSystems.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Lobby/C2L_RoomLobbyHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Lobby/C2L_RoomLobbyHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Lobby/C2L_StartGameLobbyHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Lobby/C2L_StartGameLobbyHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Lobby/G2RM_CreateNewRoomLobbyHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Lobby/G2RM_CreateNewRoomLobbyHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Map/C2M_CommonAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Map/C2M_CommonAttack.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Map/C2M_CreateSpilingHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Map/C2M_CreateSpilingHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Map/C2M_PathfindingResultHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Map/C2M_PathfindingResultHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Map/C2M_StopHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Map/C2M_StopHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Map/C2M_UserInputSkillCmdHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Map/C2M_UserInputSkillCmdHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/MessageHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/MessageHelper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Scene/SceneFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Scene/SceneFactory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Model/Generate/Message/InnerMessage_Lobby.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Model/Generate/Message/InnerMessage_Lobby.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Model/Generate/Message/InnerOpcode_Gate.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Model/Generate/Message/InnerOpcode_Gate.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Model/Generate/Message/InnerOpcode_Lobby.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Model/Generate/Message/InnerOpcode_Lobby.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Model/Generate/Message/OuterMessage_Map.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Model/Generate/Message/OuterMessage_Map.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Model/NKGMOBA/Battle/Room/Room.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Model/NKGMOBA/Battle/Room/Room.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Model/NKGMOBA/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Model/NKGMOBA/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tools/Proto2CS/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Tools/Proto2CS/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Unity/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unity/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Battle/L2C_AllowToEnterMapHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Battle/L2C_AllowToEnterMapHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Battle/NPBehave/NP_RuntimeTreeFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Battle/NPBehave/NP_RuntimeTreeFactory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Login/LoginGateHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Login/LoginGateHelper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Room/CreateRoomHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Room/CreateRoomHelper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Room/JoinRoomHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Room/JoinRoomHelper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Room/L2C_PlayerTriggerRoomHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Room/L2C_PlayerTriggerRoomHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Room/L2C_PrepareToEnterBattleHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Room/L2C_PrepareToEnterBattleHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Room/LeaveRoomHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Room/LeaveRoomHelper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Room/StartGameHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Room/StartGameHelper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Unit/M2C_CreateHeroUnitsHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Unit/M2C_CreateHeroUnitsHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HotfixView/NKGMOBA/FGUI/Room/EnterRoomFinish_CreatePlayerCard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HotfixView/NKGMOBA/FGUI/Room/EnterRoomFinish_CreatePlayerCard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HotfixView/NKGMOBA/FGUI/Room/LeaveRoomFinish_UIHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HotfixView/NKGMOBA/FGUI/Room/LeaveRoomFinish_UIHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Model/Generate/Message/OuterMessage_Lobby.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/Generate/Message/OuterMessage_Lobby.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Model/Generate/Message/OuterMessage_Map.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/Generate/Message/OuterMessage_Map.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Model/NKGMOBA/EventType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/NKGMOBA/EventType.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Model/NKGMOBA/Session/PlayerComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/NKGMOBA/Session/PlayerComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.dll.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.dll.bytes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.pdb.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.pdb.bytes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/HotfixView.dll.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/HotfixView.dll.bytes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/HotfixView.pdb.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/HotfixView.pdb.bytes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/SessionPlayerComponentSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/SessionPlayerComponentSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/Module/Message/OpcodeTypeComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/Module/Message/OpcodeTypeComponent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Model.dll.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Model.dll.bytes" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Model.pdb.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Model.pdb.bytes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/ModelView.dll.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/ModelView.dll.bytes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/ModelView.pdb.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/ModelView.pdb.bytes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Res/Config/StartSceneConfigCategory.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Config/StartSceneConfigCategory.bytes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Res/Config/StartZoneConfigCategory.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Config/StartZoneConfigCategory.bytes" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,91 +47,151 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.1.0/Unity.Mathematics/double4x4.gen.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_SelectionCaret.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.1.0/Tests/Tests/Shared/TestBitmanipulation.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.rider@2.0.7/Rider/Editor/RiderScriptEditor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Manipulators/Move/MoveItemModeReplace.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/Canvas/CanvasScalerWithChildTextObjectDoesNotCrash.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Model/NKGMOBA/Battle/UnitAttributeData/UnitAttributesDataRepositoryComponent.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.1.0/Unity.Mathematics/math_unity_conversion.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/Canvas/CanvasSizeCorrectInAwakeAndStart.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/InputModules/BaseInput.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/treeview/TrackGui/TimelineGroupGUI.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Runtime/Control/ControlPlayableAsset.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Editor/UI/ButtonEditor.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Mono/MonoBehaviour/MonoBridge.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Serialization/MultiJson.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.rider@2.0.7/Rider/Editor/PluginSettings.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.test-framework@1.1.27/UnityEditor.TestRunner/Api/ITestRunSettings.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.rider@2.0.7/Rider/Editor/EditorPluginInterop.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMPro_Private.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.1.0/Tests/Tests/Shared/TestUint3.gen.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Actions/IMenuChecked.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Mono/MonoBehaviour/Effect_Darius_Bleed.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/inspectors/AnimationTrackInspector.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Runtime/Animation/AnimationPreviewUpdateCallback.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.test-framework@1.1.27/UnityEditor.TestRunner/Api/ITestAdaptor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Manipulators/Sequence/EaseClip.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.test-framework@1.1.27/UnityEditor.TestRunner/Api/Filter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_LineInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Audio/AudioTrackInspector.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Model/NKGMOBA/Battle/Component/CDComponent.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/TMPro_FontPlugin.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Editor/OtherUilityTools/CreateMatFromFileOrFolder.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Runtime/Playables/PrefabControlPlayable.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/inspectors/TrackAssetInspector.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.1.0/Unity.Mathematics/bool2x3.gen.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Data/Nodes/Mesh Deformation/LinearBlendSkinningNode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/Layout/VerticalLayoutGroupTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/Layout/ContentSizeFitterTests.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Editor/Canvas/CanvasElementsMaintainValidPositionsWhenCameraOrthoSizeIsZero.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.visualeffectgraph@10.6.0/Editor/Models/Contexts/VFXCameraSort.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@10.6.0/Editor/Deprecated.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Layout/AspectRatioFitter.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Signals/SignalEventDrawer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@10.6.0/Editor/2D/Renderer2DDataEditor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Recording/TimelineRecordingContextualResponder.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Layout/CanvasScaler.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.1.0/Unity.Mathematics/Noise/noise4D.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.test-framework@1.1.27/UnityEngine.TestRunner/Assertions/ConstraintsExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/State/ISequenceState.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.test-framework@1.1.27/UnityEngine.TestRunner/NUnitExtensions/Runner/RestoreTestContextAfterDomainReload.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/State/SequenceHierarchy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.1.0/Unity.Mathematics/Noise/noise3Dgrad.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Recording/TimelineRecording_PlayableAsset.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Signals/TreeView/SignalReceiverTreeView.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Mono/FGUI/JoystickModule.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Runtime/Utilities/IPropertyCollector.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/TMP_EditorUtility.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Data/Nodes/Input/Lighting/AmbientNode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/Graphic/NavigationTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Window/TimelineWindow_Gui.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.1.0/Unity.Mathematics/bool4x4.gen.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Window/TimelineWindow_PreviewPlayMode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Runtime/TimelinePlayable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Window/TimelineWindow_TrackGui.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Editor/CanvasRenderer/ParentCanvasIsSane.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_Text.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Runtime/Activation/ActivationPlayableAsset.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Editor/EventSystem/EventTriggerEditor.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/TMP_FontAsset_CreationMenu.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Data/Nodes/Channel/SwizzleNode.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.test-framework@1.1.27/UnityEngine.TestRunner/TestRunner/RemoteHelpers/RemoteTestData.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@10.6.0/Runtime/Textures/BufferedRTHandleSystem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Utilities/BreadcrumbDrawer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Utility/ListPool.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Data/Nodes/Input/PropertyNode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Runtime/ILayerable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/ScrollRect/ScrollRectTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/MaterialModifiers/IMaterialModifier.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Graphic.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@10.6.0/Runtime/XR/XRSystem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/TextEditor/TextEditorTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@10.6.0/Runtime/2D/Passes/Utility/RendererLighting.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Data/Nodes/Math/Range/OneMinusNode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.1.0/Unity.Mathematics/double2x2.gen.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/treeview/TrackPropertyCurvesDataSource.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Window/TimelineWindow_StateChange.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Runtime/AssetUpgrade/AnimationPlayableAssetUpgrade.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Animation/CoroutineTween.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/CanvasUpdateRegistry.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/B2S_MapColliderExport/B2S_MapColliderDrawer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@10.6.0/Runtime/Common/GlobalDynamicResolutionSettings.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Utilities/TimeReferenceUtility.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.searcher@4.3.2/Tests/Editor/SearcherTests.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_ListPool.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Importers/ShaderGraphMetadata.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/EventSystem/InputModuleTests/DragCallbackCheck.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/MenuPriority.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/MoveDirection.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.1.0/Unity.Mathematics/int2x2.gen.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@10.6.0/Runtime/Documentation.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/MaskClipping/RectMask2DClipping.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/HotfixView/NKGMOBA/Battle/NPBehave/ClientSpecial/NP_PlayAnimationAction.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/TMP_EditorPanelUI.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/NestedLayout/SceneWithNestedLayoutElementsLoads.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Window/Modes/TimeReferenceMode.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Drawing/Manipulators/WindowDraggable.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.1.0/Unity.Mathematics/double4x4.gen.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@10.6.0/Runtime/External/LibTessDotNet/Tess.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.1.0/Tests/Tests/Shared/TestBitmanipulation.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Data/Nodes/UV/ParallaxOcclusionMappingNode.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.1.0/Unity.Mathematics/math_unity_conversion.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Data/Nodes/UV/FlipbookNode.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/InputModules/BaseInput.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Runtime/Control/ControlPlayableAsset.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Editor/UI/ButtonEditor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Mono/MonoBehaviour/MonoBridge.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.1.0/Tests/Tests/Shared/TestUint3.gen.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Actions/IMenuChecked.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Mono/MonoBehaviour/Effect_Darius_Bleed.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@10.6.0/Editor/Debugging/DebugState.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/inspectors/AnimationTrackInspector.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Runtime/Animation/AnimationPreviewUpdateCallback.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@10.6.0/Runtime/2D/Light2DBlendStyle.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Data/Nodes/NodeClassCache.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@10.6.0/Editor/CoreEditorUtils.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/TMPro_FontPlugin.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Data/Graphs/Texture2DArrayShaderProperty.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Runtime/Playables/PrefabControlPlayable.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/inspectors/TrackAssetInspector.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@10.6.0/Editor/ContextualMenuDispatcher.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Editor/Canvas/CanvasElementsMaintainValidPositionsWhenCameraOrthoSizeIsZero.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Signals/SignalEventDrawer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.1.0/Unity.Mathematics/Noise/noise4D.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.pixel-perfect@2.1.0/Editor/PixelPerfectCameraEditor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.1.0/Unity.Mathematics/Noise/noise3Dgrad.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.pixel-perfect@2.1.0/Samples~/Scenes and Extras/Scenes/Rule Tiles/Scripts/Editor/RuleTileEditor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Signals/TreeView/SignalReceiverTreeView.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Mono/FGUI/JoystickModule.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Runtime/Utilities/IPropertyCollector.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@10.6.0/Runtime/UniversalAdditionalCameraData.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/TMP_EditorUtility.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.visualeffectgraph@10.6.0/Runtime/Utilities/PropertyBinding/Implementation/VFXTerrainBinder.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@10.6.0/Editor/LookDev/DisplayWindow.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@10.6.0/Editor/LookDev/DisplayWindow.DebugSidePanel.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Editor/CanvasRenderer/ParentCanvasIsSane.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Runtime/Activation/ActivationPlayableAsset.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Editor/EventSystem/EventTriggerEditor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/TMP_FontAsset_CreationMenu.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@10.6.0/Editor/ShaderGraph/Targets/UniversalTarget.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.rider@2.0.7/Rider/Editor/ProjectGeneration/ProjectGeneration.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@10.6.0/Editor/ShaderGraph/UniversalStructs.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@10.6.0/Editor/LookDev/ComparisonGizmoController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@10.6.0/Editor/Volume/VolumeProfileFactory.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.test-framework@1.1.27/UnityEditor.TestRunner/TestRunner/EditModeRunner.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Generation/Collections/FieldCollection.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Graphic.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/treeview/TrackPropertyCurvesDataSource.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@10.6.0/Editor/Volume/VolumeMenuItems.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@10.6.0/Editor/ShaderGUI/TerrainLitShaderGUI.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Data/Graphs/GradientShaderProperty.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Runtime/AssetUpgrade/AnimationPlayableAssetUpgrade.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/CanvasUpdateRegistry.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/B2S_MapColliderExport/B2S_MapColliderDrawer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_ListPool.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.pixel-perfect@2.1.0/Samples~/Scenes and Extras/Scenes/RoboHero/Scripts/Hero.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/MenuPriority.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.rider@2.0.7/Rider/Editor/UnitTesting/CallbackInitializer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Drawing/Views/NodeSettingsView.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@10.6.0/Runtime/DeferredLights.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/HotfixView/NKGMOBA/Battle/NPBehave/ClientSpecial/NP_PlayAnimationAction.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Data/Nodes/Artistic/Adjustment/ContrastNode.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Data/Nodes/Artistic/Utility/ColorspaceConversion.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/TimelineUtility.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.6.0/Editor/Data/Graphs/CubemapShaderProperty.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/RectMask2D.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@10.6.0/Runtime/Overrides/DepthOfField.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Manipulators/Move/MoveItemHandler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@10.6.0/Editor/UniversalRenderPipelineMaterialUpgrader.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/Button/TestButton.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.test-framework@1.1.27/UnityEngine.TestRunner/NUnitExtensions/Attributes/UnityPlatformAttribute.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -360,6 +374,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Model/NKGMOBA/Unit/UnitComponent.cs</url>
+          <line>15</line>
+          <properties documentPath="D:\NKGMobaBasedOnET\Unity\Assets\Model\NKGMOBA\Unit\UnitComponent.cs" initialLine="15" containingFunctionPresentation="method 'Get'">
+            <startOffsets>
+              <option value="362" />
+            </startOffsets>
+            <endOffsets>
+              <option value="401" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

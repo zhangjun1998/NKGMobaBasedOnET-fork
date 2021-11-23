@@ -89,7 +89,6 @@ message UnitInfo
 message M2C_CreateUnits // IActorMessage
 {
   int32 RpcId = 90;
-  int64 ActorId = 93;
   int64 PlayerId = 94;
   int64 RoomId = 95;
   repeated UnitInfo Units = 2;
@@ -97,7 +96,6 @@ message M2C_CreateUnits // IActorMessage
 
 message M2C_UnitDestoryed // IActorMessage
 {
-  int64 ActorId = 93;
   //被破坏的UnitId
   int64 DestoryedUnitId = 94;
 }
@@ -105,8 +103,6 @@ message M2C_UnitDestoryed // IActorMessage
 message C2M_PathfindingResult // IRoomMessage
 {
   int32 RpcId = 90;
-  int64 ActorId = 93;
-
   float X = 1;
   float Y = 2;
   float Z = 3;
@@ -115,12 +111,10 @@ message C2M_PathfindingResult // IRoomMessage
 message C2M_Stop // IRoomMessage
 {
   int32 RpcId = 90;
-  int64 ActorId = 93;
 }
 
 message M2C_PathfindingResult // IActorMessage
 {
-  int64 ActorId = 93;
 
   int64 Id = 1;
 
@@ -198,8 +192,6 @@ message M2C_CancelCommonAttack // IActorMessage
 message M2C_CommonAttack // IActorMessage
 {
   int32 RpcId = 90;
-  int64 ActorId = 93;
-
   int64 AttackCasterId = 4;//攻击发起者Id
   int64 TargetUnitId = 3;//攻击目标Id
   bool CanAttack = 2; //是否可以发起攻击
@@ -209,8 +201,6 @@ message M2C_CommonAttack // IActorMessage
 message M2C_BuffInfo // IActorMessage
 {
   int32 RpcId = 90;
-  int64 ActorId = 93;
-
   int64 UnitId = 1; //要发送到的目标UnitId
   int64 SkillId = 96; //目标技能Id
 
@@ -231,8 +221,6 @@ message C2M_UserInputSkillCmd // IRoomMessage
 message M2C_SyncNPBehaveBoolData // IActorMessage
 {
   int32 RpcId = 90;
-  int64 ActorId = 93;
-
   int64 UnitId = 94;
   //黑板键
   string BBKey = 2;
@@ -242,8 +230,6 @@ message M2C_SyncNPBehaveBoolData // IActorMessage
 message M2C_SyncCDData // IActorMessage
 {
   int32 RpcId = 90;
-  int64 ActorId = 93;
-
   int64 UnitId = 94;
   //CD名称
   string CDName = 2;
@@ -264,7 +250,6 @@ message C2M_CreateSpiling // IRoomMessage
 message M2C_CreateSpilings // IActorMessage
 {
   int32 RpcId = 90;
-  int64 ActorId = 93;
   int64 RoomId = 95;
   UnitInfo Unit = 2;
 }
@@ -272,8 +257,6 @@ message M2C_CreateSpilings // IActorMessage
 message M2C_SyncUnitAttribute // IActorMessage
 {
   int32 RpcId = 90;
-  int64 ActorId = 93;
-
   int64 UnitId = 94;
 
   int32 NumericType = 95;
@@ -283,8 +266,6 @@ message M2C_SyncUnitAttribute // IActorMessage
 message M2C_ChangeUnitAttribute // IActorMessage
 {
   int32 RpcId = 90;
-  int64 ActorId = 93;
-
   int64 UnitId = 94;
 
   int32 NumericType = 95;

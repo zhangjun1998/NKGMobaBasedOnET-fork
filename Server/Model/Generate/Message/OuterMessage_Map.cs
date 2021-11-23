@@ -190,9 +190,6 @@ namespace ET
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
 		[ProtoMember(94)]
 		public long PlayerId { get; set; }
 
@@ -208,9 +205,6 @@ namespace ET
 	[ProtoContract]
 	public partial class M2C_UnitDestoryed: Object, IActorMessage
 	{
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
 //被破坏的UnitId
 //被破坏的UnitId
 		[ProtoMember(94)]
@@ -224,9 +218,6 @@ namespace ET
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
 
 		[ProtoMember(1)]
 		public float X { get; set; }
@@ -246,18 +237,12 @@ namespace ET
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
 	}
 
 	[Message(OuterOpcode_Map.M2C_PathfindingResult)]
 	[ProtoContract]
 	public partial class M2C_PathfindingResult: Object, IActorMessage
 	{
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
 		[ProtoMember(1)]
 		public long Id { get; set; }
 
@@ -405,9 +390,6 @@ namespace ET
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
 		[ProtoMember(4)]
 		public long AttackCasterId { get; set; }
 
@@ -425,9 +407,6 @@ namespace ET
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
 
 		[ProtoMember(1)]
 		public long UnitId { get; set; }
@@ -469,9 +448,6 @@ namespace ET
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
 		[ProtoMember(94)]
 		public long UnitId { get; set; }
 
@@ -492,9 +468,6 @@ namespace ET
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
 
 		[ProtoMember(94)]
 		public long UnitId { get; set; }
@@ -538,9 +511,6 @@ namespace ET
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
 		[ProtoMember(95)]
 		public long RoomId { get; set; }
 
@@ -555,9 +525,6 @@ namespace ET
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
 
 		[ProtoMember(94)]
 		public long UnitId { get; set; }
@@ -576,9 +543,6 @@ namespace ET
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
 
 		[ProtoMember(94)]
 		public long UnitId { get; set; }

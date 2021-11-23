@@ -10,6 +10,5 @@ namespace ET
 		 public const ushort G2L_GetRoomId = 55006;
 		 public const ushort G2M_SessionDisconnect = 55007;
 		 public const ushort G2L_JoinRoomLobby = 55008;
-		 public const ushort BroadcastActorSyncMessage = 55009;
 	}
 }

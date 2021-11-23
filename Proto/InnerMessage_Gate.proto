@@ -64,11 +64,3 @@ message G2L_JoinRoomLobby // IActorRequest
   Player Player = 1;
   bool IsRoomHolder = 2;
 }
-//进程级消息,处理广播时需要的session列表
-message BroadcastActorSyncMessage // IMessage
-{
-  int64 TargetActorId = 1;
-  int64 SessionId = 2;
-  // true:add false:remove
-  bool OperaType = 3;
-}

@@ -9,6 +9,7 @@ namespace ET
 			// 发送断线消息
 			//ActorLocationSenderComponent.Instance.Send(self.Player.UnitId, new G2M_SessionDisconnect());
 			self.Domain.GetComponent<PlayerComponent>()?.Remove(self.Player.Id);
+			self.Player?.Dispose();
 		}
 	}
 }
