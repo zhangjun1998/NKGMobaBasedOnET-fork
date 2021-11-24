@@ -27,10 +27,9 @@ namespace ET
         /// <param name="pos"></param>
         /// <param name="rotation"></param>
         /// <returns></returns>
-        public static Unit CreateUnit(UnitComponent unitComponent, int configId, Vector3 pos, Quaternion rotation)
+        public static Unit CreateUnit(Scene scene, int configId, Vector3 pos, Quaternion rotation)
         {
-            Unit unit = unitComponent.AddChild<Unit, int>(configId);
-
+            Unit unit = scene.GetComponent<UnitComponent>().AddChild<Unit, int>(configId);
             unit.Position = pos;
             unit.Rotation = rotation;
 
@@ -49,9 +48,9 @@ namespace ET
         /// <param name="pos"></param>
         /// <param name="rotation"></param>
         /// <returns></returns>
-        public static Unit CreateHeroUnit(UnitComponent unitComponent, int configId, RoleCamp roleCamp, Vector3 pos, Quaternion rotation)
+        public static Unit CreateHeroUnit(Scene scene, int configId, RoleCamp roleCamp, Vector3 pos, Quaternion rotation)
         {
-            Unit unit = CreateUnit(unitComponent, configId, pos, rotation);
+            Unit unit = CreateUnit(scene, configId, pos, rotation);
 
             // 由于玩家操控的英雄是同步的关键，所以只需要为其添加MailBoxComponent来让Actor机制可以索引到
             unit.AddComponent<MailBoxComponent>();
@@ -121,10 +120,10 @@ namespace ET
         /// <param name="pos"></param>
         /// <param name="rotation"></param>
         /// <returns></returns>
-        public static Unit CreateHeroSpilingUnit(UnitComponent unitComponent, int configId, RoleCamp roleCamp, Vector3 pos,
+        public static Unit CreateHeroSpilingUnit(Scene scene, int configId, RoleCamp roleCamp, Vector3 pos,
             Quaternion rotation)
         {
-            Unit unit = CreateUnit(unitComponent, configId, pos, rotation);
+            Unit unit = CreateUnit(scene, configId, pos, rotation);
 
             unit.AddComponent<B2S_RoleCastComponent, RoleCamp, RoleTag>(roleCamp, RoleTag.Hero);
 

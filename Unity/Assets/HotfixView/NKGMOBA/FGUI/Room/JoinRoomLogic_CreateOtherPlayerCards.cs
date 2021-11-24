@@ -12,9 +12,10 @@
             foreach (var playerInfoRoom in a.PlayerInfoRooms)
             {
                 FUI_RoomUtilities.AddPlayerCard(fuiRoomComponent, playerInfoRoom.playerid, playerInfoRoom.Name,
-                    a.Camp);
+                    playerInfoRoom.camp);
             }
-
+            fuiRoomComponent.FuiRoomList.Visible = false;
+            fuiRoomComponent.FuiRoom.Visible = true;
             await ETTask.CompletedTask;
         }
     }

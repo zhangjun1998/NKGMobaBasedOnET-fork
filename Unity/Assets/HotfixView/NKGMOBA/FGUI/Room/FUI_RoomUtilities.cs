@@ -5,7 +5,6 @@
 //------------------------------------------------------------
 
 using System.Collections.Generic;
-using ET.Hotfix.Demo.Room;
 using FairyGUI;
 
 namespace ET

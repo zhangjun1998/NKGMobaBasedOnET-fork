@@ -79,6 +79,7 @@ namespace ET
 						if (session.InstanceId == instanceId)
 						{
 							session.Reply(response);
+							//此处为偷懒.
                             if (response is L2C_LeaveRoomLobby)
                             {
 								session.RemoveComponent<RoomStateOnGateComponent>();

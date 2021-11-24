@@ -23,12 +23,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f1715052-b88e-4a65-9b40-1aa413711389" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../Config/StartZoneConfigCategory.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/../Config/StartZoneConfigCategory.bytes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Excel/StartZoneConfig.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Excel/StartZoneConfig.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/Hotfix/Module/MessageInner/OuterMessageDispatcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/Module/MessageInner/OuterMessageDispatcher.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Lobby/G2RM_CreateNewRoomLobbyHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Lobby/G2RM_CreateNewRoomLobbyHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/SessionPlayerComponentSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/SessionPlayerComponentSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Model/Module/Message/OpcodeTypeComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/Module/Message/OpcodeTypeComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Battle/ComponentSystems/RoomPreparedToEnterBattleComponentSystems.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Battle/ComponentSystems/RoomPreparedToEnterBattleComponentSystems.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Gate/C2G_LoginGateHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Gate/C2G_LoginGateHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Lobby/C2L_RoomListInLobbyHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Lobby/C2L_RoomListInLobbyHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Lobby/C2L_RoomLobbyHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Lobby/InnerLobby/RA2RM_UpdateRoomInfoHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Lobby/InnerLobby/RA2RM_UpdateRoomInfoHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Map/C2M_CreateSpilingHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Handlers/Map/C2M_CreateSpilingHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/RoomHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/RoomHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Unit/UnitFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Hotfix/NKGMOBA/Unit/UnitFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Model/NKGMOBA/Battle/Room/Room.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Model/NKGMOBA/Battle/Room/Room.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Model/NKGMOBA/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Model/NKGMOBA/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Unity/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unity/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Room/CreateRoomHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Room/CreateRoomHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Room/JoinRoomHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Room/JoinRoomHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HotfixView/NKGMOBA/FGUI/Lobby/FUI_LobbyComponentSystems.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HotfixView/NKGMOBA/FGUI/Lobby/FUI_LobbyComponentSystems.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HotfixView/NKGMOBA/FGUI/Lobby/FUI_LobbyUtilities.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HotfixView/NKGMOBA/FGUI/Lobby/FUI_LobbyUtilities.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HotfixView/NKGMOBA/FGUI/Room/FUI_RoomUtilities.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HotfixView/NKGMOBA/FGUI/Room/FUI_RoomUtilities.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HotfixView/NKGMOBA/FGUI/Room/JoinRoomLogic_CreateOtherPlayerCards.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HotfixView/NKGMOBA/FGUI/Room/JoinRoomLogic_CreateOtherPlayerCards.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/NKGMOBA/Battle/Room/RoomManagerComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/NKGMOBA/Battle/Room/RoomManagerComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/NKGMOBA/EventType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/NKGMOBA/EventType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.dll.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.dll.bytes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.pdb.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.pdb.bytes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/HotfixView.dll.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/HotfixView.dll.bytes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/HotfixView.pdb.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/HotfixView.pdb.bytes" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Model.dll.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Model.dll.bytes" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Model.pdb.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Model.pdb.bytes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Res/Config/StartZoneConfigCategory.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Config/StartZoneConfigCategory.bytes" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -278,10 +301,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="37776">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="37776" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -329,6 +352,7 @@
       <workItem from="1637054036891" duration="2910000" />
       <workItem from="1637550893831" duration="15105000" />
       <workItem from="1637637113327" duration="6333000" />
+      <workItem from="1637741418113" duration="1707000" />
     </task>
     <servers />
   </component>

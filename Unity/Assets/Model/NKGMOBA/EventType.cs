@@ -124,6 +124,7 @@ namespace ET
         public struct CreateRoom
         {
             public Scene DomainScene;
+            public List<PlayerInfoRoom> PlayerInfoRooms;
         }
 
         public struct LoginLobbyFinish
@@ -135,7 +136,6 @@ namespace ET
         {
             public Scene DomainScene;
             public List<PlayerInfoRoom> PlayerInfoRooms;
-            public int Camp;
         }
         
         public struct CreatePlayerCard

@@ -4,8 +4,6 @@
 // Data: 2021年8月29日 9:39:13
 //------------------------------------------------------------
 
-using ET.Hotfix.Demo.Room;
-
 namespace ET
 {
     public class FUI_LobbyComponentAwakeSystem : AwakeSystem<FUI_LobbyComponent, FUI_Lobby>

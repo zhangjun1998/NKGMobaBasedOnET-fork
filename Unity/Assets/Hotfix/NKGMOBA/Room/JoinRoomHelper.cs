@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ET.Hotfix.Demo.Room
+namespace ET
 {
     public class JoinRoomHelper
     {
@@ -15,8 +15,10 @@ namespace ET.Hotfix.Demo.Room
                 L2C_JoinRoomLobby kL2CJoinRoomLobby = (L2C_JoinRoomLobby) await playerComponent.GateSession
                     .Call(new C2L_JoinRoomLobby()
                         {RoomId = roomId});
-
-                
+                Room room = zoneScene.GetComponent<RoomManagerComponent>().GetOrCreateBattleRoom();
+                room.RoomHolderPlayerId = kL2CJoinRoomLobby.RoomInfo.RoomHolderPlayer;
+                room.RoomName = kL2CJoinRoomLobby.RoomInfo.RoomConfig.RoomName;
+                room.PlayerCount = kL2CJoinRoomLobby.playerInfoRoom.Count;
                 // 根据服务器回包，处理房间玩家列表
                 Game.EventSystem.Publish(new EventType.JoinRoom()
                     {DomainScene = zoneScene, PlayerInfoRooms = kL2CJoinRoomLobby.playerInfoRoom}).Coroutine();

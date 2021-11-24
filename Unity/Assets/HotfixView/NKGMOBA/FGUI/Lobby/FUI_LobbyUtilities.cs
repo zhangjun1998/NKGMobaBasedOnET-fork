@@ -5,8 +5,6 @@
 //------------------------------------------------------------
 
 using System.Collections.Generic;
-using ET.Hotfix.Demo.Room;
-
 namespace ET
 {
     public static class FUI_LobbyUtilities

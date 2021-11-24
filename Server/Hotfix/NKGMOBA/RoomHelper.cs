@@ -6,6 +6,7 @@ namespace ET
     {
         public static void JoinRoom(Scene scene, Player player, bool isRoomHolder = false)
         {
+            player.camp = AutoCamp(scene);
             player.Parent = scene.GetComponent<PlayerComponent>();
             player.AddComponent<MailBoxComponent>();
             scene.GetComponent<PlayerComponent>().Add(player);
@@ -13,6 +14,24 @@ namespace ET
             {
                 scene.GetComponent<Room>().RoomHolderPlayerId = player.Id;
             }
+        }
+        /// <summary>
+        /// 简单的自动分配阵营
+        /// </summary>
+        /// <param name="scene"></param>
+        /// <returns></returns>
+        public static int AutoCamp(Scene scene)
+        {
+            return scene.GetComponent<PlayerComponent>().Count % 2;
+        }
+        /// <summary>
+        /// 获取对立阵营
+        /// </summary>
+        /// <param name="scene"></param>
+        /// <returns></returns>
+        public static int GetOffsetCamp(int camp)
+        {
+            return camp % 2;
         }
         public static RoomInfoProto GetRoomInfoProto(Scene scene)
         {
@@ -48,7 +67,7 @@ namespace ET
         {
             //BattleComponent在准备完成时添加
             //scene.AddComponent<BattleComponent>().BattleStartTime = TimeHelper.ServerNow();
-            scene.AddComponent<RoomPreparedToEnterBattleComponent>();
+            scene.AddComponent<RoomPreparedToEnterBattleComponent,int>(scene.GetComponent<PlayerComponent>().Count);
             scene.AddComponent<NP_TreeDataRepositoryComponent>();
             scene.AddComponent<UnitAttributesDataRepositoryComponent>();
             scene.AddComponent<B2S_ColliderDataRepositoryComponent>();
@@ -59,7 +78,7 @@ namespace ET
             scene.AddComponent<B2S_WorldComponent>();
             scene.AddComponent<B2S_WorldColliderManagerComponent>();
             scene.AddComponent<B2S_CollisionListenerComponent>();
-            var unitcomponent = scene.AddComponent<UnitComponent>();
+            scene.AddComponent<UnitComponent>();
             foreach (Player player in scene.GetComponent<PlayerComponent>().GetAll())
             {
                 Vector3 unitPos = new Vector3(-10, 0, -10);
@@ -70,7 +89,7 @@ namespace ET
                     heroCamp = RoleCamp.TianZai;
                     unitPos = new Vector3(-12, 0,-10);
                 }
-                Unit unit = UnitFactory.CreateHeroUnit(unitcomponent, 10001, heroCamp, unitPos, Quaternion.identity);
+                Unit unit = UnitFactory.CreateHeroUnit(scene, 10001, heroCamp, unitPos, Quaternion.identity);
                 unit.BelongToPlayer = player;
                 unit.AddComponent<UnitGateComponent, long>(player.GateSessionId);
                 player.UnitId = unit.Id;

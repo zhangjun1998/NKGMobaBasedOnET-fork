@@ -5,16 +5,17 @@ using System.Runtime.Serialization;
 
 namespace ET
 {
-	public class PlayerSystem : AwakeSystem<Player, string>
+	public class PlayerSystem : AwakeSystem<Player, string, int>
 	{
-		public override void Awake(Player self, string a)
+		public override void Awake(Player self, string name,int lv)
 		{
-			self.Awake(a);
+			self.Awake(name,lv);
 		}
 	}
 	public sealed class Player : Entity
 	{
 		public string Name { get;  set; }
+		public int Lv { get;  set; }
 		public long UnitId { get; set; }
 		/// <summary>
 		/// 所归属的阵营
@@ -22,9 +23,10 @@ namespace ET
 		public Int32 camp { get; set; }
 		public long GateSessionId { get; set; }
 
-        public void Awake(string account)
+        public void Awake(string name,int lv)
 		{
-			this.Name = account;
+			this.Name = name;
+			this.Lv = lv;
 		}
 	}
 }

@@ -18,11 +18,10 @@ namespace ET
                     .Call(new C2L_CreateNewRoomLobby(){});
 
                 Room room = zoneScene.GetComponent<RoomManagerComponent>().GetOrCreateBattleRoom();
-                
-                room.RoomHolderPlayerId = playerComponent.PlayerId;
-                room.RoomName = l2CCreateNewRoomLobby.Message;
-                room.PlayerCount = 1;
-                Game.EventSystem.Publish(new CreateRoom(){DomainScene = zoneScene}).Coroutine();
+                room.RoomHolderPlayerId = l2CCreateNewRoomLobby.RoomInfo.RoomHolderPlayer;
+                room.RoomName = l2CCreateNewRoomLobby.RoomInfo.RoomConfig.RoomName;
+                room.PlayerCount = l2CCreateNewRoomLobby.playerInfoRoom.Count;
+                Game.EventSystem.Publish(new JoinRoom(){DomainScene = zoneScene,PlayerInfoRooms = l2CCreateNewRoomLobby.playerInfoRoom}).Coroutine();
             }
             catch (Exception e)
             {

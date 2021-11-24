@@ -1,10 +1,11 @@
 ﻿namespace ET
 {
-    public class RoomPreparedToEnterBattleComponentAwake : AwakeSystem<RoomPreparedToEnterBattleComponent>
+    public class RoomPreparedToEnterBattleComponentAwake : AwakeSystem<RoomPreparedToEnterBattleComponent,int>
     {
-        public override void Awake(RoomPreparedToEnterBattleComponent self)
+        public override void Awake(RoomPreparedToEnterBattleComponent self,int targetcount)
         {
             self.Awake();
+            self.TargetPreparNum = targetcount;
             self.TimerId = TimerComponent.Instance.NewOnceTimer(TimeHelper.ServerNow() + 30 * 1000, self.OverTime);
         }
     }
