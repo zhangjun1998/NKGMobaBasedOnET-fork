@@ -16,6 +16,7 @@ namespace ET
         {
             self.FuiUIPanelBattle = fuiUIPanelBattle;
             Scene scene = self.DomainScene();
+
             UnitComponent unitComponent = scene.GetComponent<RoomManagerComponent>().GetBattleRoom()
                 .GetComponent<UnitComponent>();
 
@@ -95,10 +96,18 @@ namespace ET
 
             self.FuiUIPanelBattle.m_Btn_CreateSpiling.self.onClick.Add(() =>
             {
-                Game.Scene.GetComponent<PlayerComponent>().GateSession.Send(new C2M_CreateSpiling()
+                LSF_CreateSpilingCmd lsfCreateSpilingCmd =
+                    ReferencePool.Acquire<LSF_CreateSpilingCmd>().Init(unit.Id) as LSF_CreateSpilingCmd;
+
+                lsfCreateSpilingCmd.UnitInfo = new UnitInfo()
                 {
-                    X = unit.Position.x, Y = unit.Position.y, Z = unit.Position.z
-                });
+                    X = unit.Position.x, Y = unit.Position.y, Z = unit.Position.z, RoleCamp =
+                        (int) RoleCamp.TianZai,
+                    ConfigId = 10001, BelongToPlayerId = Game.Scene.GetComponent<PlayerComponent>().PlayerId,
+                    UnitId = IdGenerater.Instance.GenerateUnitId(scene.Zone), RoomId = unit.BelongToRoom.Id
+                };
+
+                unit.BelongToRoom.GetComponent<LSF_Component>().AddCmdToSendQueue(lsfCreateSpilingCmd);
             });
 
             self.FuiUIPanelBattle.m_HeroAvatarLoader.url =

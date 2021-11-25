@@ -43,7 +43,7 @@ namespace ET
             return unit;
         }
         
-        public static Unit CreateHeroSpiling(Room room, UnitInfo unitInfo)
+        public static Unit CreateHeroSpilingUnit(Room room, UnitInfo unitInfo)
         {
             Unit unit = CreateUnit(room, unitInfo.UnitId, unitInfo.ConfigId);
             unit.Position = new Vector3(unitInfo.X, unitInfo.Y, unitInfo.Z);
@@ -57,16 +57,23 @@ namespace ET
             //增加Buff管理组件
             unit.AddComponent<BuffManagerComponent>();
             unit.AddComponent<SkillCanvasManagerComponent>();
-            unit.AddComponent<B2S_RoleCastComponent, RoleCamp>((RoleCamp) unitInfo.RoleCamp);
+            unit.AddComponent<B2S_RoleCastComponent, RoleCamp, RoleTag>((RoleCamp) unitInfo.RoleCamp, RoleTag.Hero);
 
             unit.AddComponent<NP_RuntimeTreeManager>();
             //Log.Info("行为树创建完成");
             unit.AddComponent<ObjectWait>();
-
-
+            
             Game.EventSystem.Publish(new EventType.AfterHeroSpilingCreate_CreateGO()
                 {Unit = unit, HeroSpilingConfigId = unitInfo.ConfigId}).Coroutine();
             return unit;
+        }
+        
+        public class CreateHeroColliderArgs
+        {
+            public Unit Unit;
+            public B2S_ColliderDataStructureBase B2SColliderDataStructureBase;
+            public string CollisionHandler;
+            public bool FollowUnit;
         }
     }
 }

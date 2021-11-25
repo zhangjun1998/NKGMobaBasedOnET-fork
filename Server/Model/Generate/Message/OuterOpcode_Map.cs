@@ -24,18 +24,13 @@ namespace ET
 		 public const ushort C2M_CastHeroSkill = 50020;
 		 public const ushort M2C_CastHeroSkill = 50021;
 		 public const ushort M2C_RecoverHP = 50022;
-		 public const ushort C2M_CommonAttack = 50023;
-		 public const ushort M2C_CancelCommonAttack = 50024;
-		 public const ushort M2C_CommonAttack = 50025;
-		 public const ushort M2C_BuffInfo = 50026;
-		 public const ushort C2M_UserInputSkillCmd = 50027;
-		 public const ushort M2C_SyncNPBehaveBoolData = 50028;
-		 public const ushort M2C_SyncCDData = 50029;
-		 public const ushort C2M_CreateSpiling = 50030;
-		 public const ushort M2C_CreateSpilings = 50031;
-		 public const ushort C2M_FrameCmd = 50032;
-		 public const ushort M2C_FrameCmd = 50033;
-		 public const ushort M2C_SyncUnitAttribute = 50034;
-		 public const ushort M2C_ChangeUnitAttribute = 50035;
+		 public const ushort M2C_BuffInfo = 50023;
+		 public const ushort C2M_UserInputSkillCmd = 50024;
+		 public const ushort M2C_SyncNPBehaveBoolData = 50025;
+		 public const ushort M2C_SyncCDData = 50026;
+		 public const ushort C2M_FrameCmd = 50027;
+		 public const ushort M2C_FrameCmd = 50028;
+		 public const ushort M2C_SyncUnitAttribute = 50029;
+		 public const ushort M2C_ChangeUnitAttribute = 50030;
 	}
 }

@@ -1,9 +1,7 @@
 using System;
 using System.Buffers;
-using System.Collections;
 using System.Diagnostics;
 using System.Numerics;
-using Box2DSharp.Collision.Collider;
 using Box2DSharp.Common;
 using Box2DSharp.Dynamics.Contacts;
 using Box2DSharp.Dynamics.Joints;
@@ -11,7 +9,7 @@ using Box2DSharp.Dynamics.Joints;
 namespace Box2DSharp.Dynamics
 {
     /// This is an internal class.
-    public ref struct Island
+    public class Island
     {
         internal Body[] Bodies;
 
@@ -31,7 +29,7 @@ namespace Box2DSharp.Dynamics
 
         internal Velocity[] Velocities;
 
-        public Island(
+        public void Setup(
             int bodyCapacity,
             int contactCapacity,
             int jointCapacity,
@@ -72,6 +70,34 @@ namespace Box2DSharp.Dynamics
             Velocities = default;
         }
 
+        ~Island()
+        {
+            if (Bodies != null)
+            {
+                ArrayPool<Body>.Shared.Return(Bodies, true);
+            }
+
+            if (Contacts != null)
+            {
+                ArrayPool<Contact>.Shared.Return(Contacts, true);
+            }
+
+            if (Joints != null)
+            {
+                ArrayPool<Joint>.Shared.Return(Joints, true);
+            }
+
+            if (Positions != null)
+            {
+                ArrayPool<Position>.Shared.Return(Positions, true);
+            }
+
+            if (Velocities != null)
+            {
+                ArrayPool<Velocity>.Shared.Return(Velocities, true);
+            }
+        }
+
         internal void Clear()
         {
             BodyCount = 0;
@@ -79,10 +105,13 @@ namespace Box2DSharp.Dynamics
             JointCount = 0;
         }
 
+        private readonly ContactSolver _solveContactSolver = new ContactSolver();
+
+        private readonly Stopwatch _solveTimer = new Stopwatch();
+
         internal void Solve(out Profile profile, in TimeStep step, in Vector2 gravity, bool allowSleep)
         {
-            profile = new Profile();
-            var timer = Stopwatch.StartNew();
+            profile = default;
 
             var h = step.Dt;
 
@@ -103,7 +132,7 @@ namespace Box2DSharp.Dynamics
                 if (b.BodyType == BodyType.DynamicBody)
                 {
                     // Integrate velocities.
-                    v += h * (b.GravityScale * gravity + b.InvMass * b.Force);
+                    v += h * b.InvMass * (b.GravityScale * b.Mass * gravity + b.Force);
                     w += h * b.InverseInertia * b.Torque;
 
                     // Apply damping.
@@ -123,7 +152,7 @@ namespace Box2DSharp.Dynamics
                 Velocities[i].W = w;
             }
 
-            timer.Restart();
+            _solveTimer.Restart();
 
             // Solver data
             var solverData = new SolverData(in step, Positions, Velocities);
@@ -131,7 +160,8 @@ namespace Box2DSharp.Dynamics
             // Initialize velocity constraints.
             var contactSolverDef = new ContactSolverDef(in step, ContactCount, Contacts, Positions, Velocities);
 
-            var contactSolver = new ContactSolver(in contactSolverDef);
+            var contactSolver = _solveContactSolver;
+            contactSolver.Setup(in contactSolverDef);
             contactSolver.InitializeVelocityConstraints();
 
             if (step.WarmStarting)
@@ -144,10 +174,10 @@ namespace Box2DSharp.Dynamics
                 Joints[i].InitVelocityConstraints(in solverData);
             }
 
-            profile.SolveInit = timer.ElapsedMilliseconds;
+            profile.SolveInit = _solveTimer.ElapsedMilliseconds;
 
             // Solve velocity constraints
-            timer.Restart();
+            _solveTimer.Restart();
             for (var i = 0; i < step.VelocityIterations; ++i)
             {
                 for (var j = 0; j < JointCount; ++j)
@@ -160,8 +190,8 @@ namespace Box2DSharp.Dynamics
 
             // Store impulses for warm starting
             contactSolver.StoreImpulses();
-            timer.Stop();
-            profile.SolveVelocity = timer.ElapsedMilliseconds;
+            _solveTimer.Stop();
+            profile.SolveVelocity = _solveTimer.ElapsedMilliseconds;
 
             // Integrate positions
             for (var i = 0; i < BodyCount; ++i)
@@ -197,7 +227,7 @@ namespace Box2DSharp.Dynamics
             }
 
             // Solve position constraints
-            timer.Restart();
+            _solveTimer.Restart();
             var positionSolved = false;
             for (var i = 0; i < step.PositionIterations; ++i)
             {
@@ -229,8 +259,8 @@ namespace Box2DSharp.Dynamics
                 body.SynchronizeTransform();
             }
 
-            timer.Stop();
-            profile.SolvePosition = timer.ElapsedMilliseconds;
+            _solveTimer.Stop();
+            profile.SolvePosition = _solveTimer.ElapsedMilliseconds;
 
             Report(contactSolver.VelocityConstraints);
 
@@ -252,7 +282,7 @@ namespace Box2DSharp.Dynamics
                         continue;
                     }
 
-                    if (!b.HasFlag(BodyFlags.AutoSleep)                              // 不允许休眠
+                    if (!b.Flags.HasFlag(BodyFlags.AutoSleep)                              // 不允许休眠
                      || b.AngularVelocity * b.AngularVelocity > angTolSqr            // 或 角速度大于最小值
                      || Vector2.Dot(b.LinearVelocity, b.LinearVelocity) > linTolSqr) // 或 线速度大于最小值
                     {
@@ -279,6 +309,8 @@ namespace Box2DSharp.Dynamics
             contactSolver.Reset();
         }
 
+        private readonly ContactSolver _solveToiContactSolver = new ContactSolver();
+
         internal void SolveTOI(in TimeStep subStep, int toiIndexA, int toiIndexB)
         {
             Debug.Assert(toiIndexA < BodyCount);
@@ -295,7 +327,8 @@ namespace Box2DSharp.Dynamics
             }
 
             var contactSolverDef = new ContactSolverDef(in subStep, ContactCount, Contacts, Positions, Velocities);
-            var contactSolver = new ContactSolver(contactSolverDef);
+            var contactSolver = _solveToiContactSolver;
+            contactSolver.Setup(in contactSolverDef);
 
             // Solve position constraints.
             for (var i = 0; i < subStep.PositionIterations; ++i)

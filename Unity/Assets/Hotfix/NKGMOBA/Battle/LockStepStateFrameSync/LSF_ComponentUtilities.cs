@@ -201,7 +201,7 @@ namespace ET
         /// </summary>
         /// <param name="self"></param>
         /// <param name="cmdToSend"></param>
-        public static void AddCmdToSendQueue<T>(this LSF_Component self, T cmdToSend) where T : ALSF_Cmd
+        public static void AddCmdToSendQueue<T>(this LSF_Component self, T cmdToSend, bool shouldAddToPlayerInputBuffer = true) where T : ALSF_Cmd
         {
 #if SERVER
             cmdToSend.Frame = self.CurrentFrame;
@@ -238,18 +238,21 @@ namespace ET
             cmdToSend.Frame = correctFrame;
             C2M_FrameCmd c2MFrameCmd = new C2M_FrameCmd() {CmdContent = cmdToSend};
 
-            //将消息放入玩家输入缓冲区，用于预测回滚
-            if (self.PlayerInputCmdsBuffer.TryGetValue(correctFrame, out var queue1))
+            if (shouldAddToPlayerInputBuffer)
             {
-                queue1.Enqueue(c2MFrameCmd.CmdContent);
+                //将消息放入玩家输入缓冲区，用于预测回滚
+                if (self.PlayerInputCmdsBuffer.TryGetValue(correctFrame, out var queue1))
+                {
+                    queue1.Enqueue(c2MFrameCmd.CmdContent);
+                }
+                else
+                {
+                    Queue<ALSF_Cmd> newQueue = new Queue<ALSF_Cmd>();
+                    newQueue.Enqueue(cmdToSend);
+                    self.PlayerInputCmdsBuffer[correctFrame] = newQueue;
+                }
             }
-            else
-            {
-                Queue<ALSF_Cmd> newQueue = new Queue<ALSF_Cmd>();
-                newQueue.Enqueue(cmdToSend);
-                self.PlayerInputCmdsBuffer[correctFrame] = newQueue;
-            }
-
+            
             //将消息放入待发送列表，本帧末尾进行发送
             if (self.FrameCmdsToSend.TryGetValue(correctFrame, out var queue2))
             {

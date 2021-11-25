@@ -6,7 +6,7 @@ namespace ET
     {
         protected override async ETTask Run(CommonAttack a)
         {
-            a.AttackCast.GetComponent<CommonAttackComponent>().CommonAttackStart(a.AttackTarget).Coroutine();
+            a.AttackCast.GetComponent<CommonAttackComponent_View>().CommonAttackStart(a.AttackTarget).Coroutine();
             await ETTask.CompletedTask;
         }
     }
@@ -15,7 +15,7 @@ namespace ET
     {
         protected override async ETTask Run(CancelCommonAttack a)
         {
-            a.AttackCast.GetComponent<CommonAttackComponent>().CancelCommonAttack();
+            a.AttackCast.GetComponent<CommonAttackComponent_View>().CancelCommonAttack();
             await ETTask.CompletedTask;
         }
     }

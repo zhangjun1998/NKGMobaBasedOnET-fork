@@ -16,7 +16,7 @@ namespace ET
         public void CancelAttackAction()
         {
 #if SERVER
-            this.BelongToUnit.GetComponent<CommonAttackComponent>().CancelCommonAttackWithOutResetTarget_ResetAttackCD(); 
+            this.BelongToUnit.GetComponent<CommonAttackComponent_Logic>().CancelCommonAttackWithOutResetTarget_ResetAttackCD(); 
 #endif
         }
     }

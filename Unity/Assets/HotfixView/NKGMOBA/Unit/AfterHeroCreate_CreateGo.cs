@@ -18,7 +18,7 @@ namespace ET
             args.Unit.AddComponent<UnitTransformComponent>();
             args.Unit.AddComponent<TurnComponent>();
             args.Unit.AddComponent<EffectComponent>();
-            args.Unit.AddComponent<CommonAttackComponent>();
+            args.Unit.AddComponent<CommonAttackComponent_View>();
             args.Unit.AddComponent<FallingFontComponent>();
 
             gameObjectComponent.GameObject.GetComponent<MonoBridge>().BelongToUnitId = args.Unit.Id;

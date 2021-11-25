@@ -212,6 +212,9 @@ namespace ET
 		[ProtoMember(6)]
 		public int RoleCamp { get; set; }
 
+		[ProtoMember(7)]
+		public long RoomId { get; set; }
+
 	}
 
 	[Message(OuterOpcode_Map.M2C_CreateUnits)]
@@ -360,60 +363,6 @@ namespace ET
 
 	}
 
-//请求攻击
-	[Message(OuterOpcode_Map.C2M_CommonAttack)]
-	[ProtoContract]
-	public partial class C2M_CommonAttack: Object, IActorLocationMessage
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
-		[ProtoMember(1)]
-		public long TargetUnitId { get; set; }
-
-	}
-
-//请求攻击
-	[Message(OuterOpcode_Map.M2C_CancelCommonAttack)]
-	[ProtoContract]
-	public partial class M2C_CancelCommonAttack: Object, IActorMessage
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
-		[ProtoMember(1)]
-		public long TargetUnitId { get; set; }
-
-	}
-
-//服务器返回攻击指令，开始播放动画
-	[Message(OuterOpcode_Map.M2C_CommonAttack)]
-	[ProtoContract]
-	public partial class M2C_CommonAttack: Object, IActorMessage
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
-		[ProtoMember(4)]
-		public long AttackCasterId { get; set; }
-
-		[ProtoMember(3)]
-		public long TargetUnitId { get; set; }
-
-		[ProtoMember(2)]
-		public bool CanAttack { get; set; }
-
-	}
-
 	[Message(OuterOpcode_Map.M2C_BuffInfo)]
 	[ProtoContract]
 	public partial class M2C_BuffInfo: Object, IActorMessage
@@ -514,47 +463,6 @@ namespace ET
 //剩余CD时长
 		[ProtoMember(5)]
 		public long RemainCDLength { get; set; }
-
-	}
-
-	[Message(OuterOpcode_Map.C2M_CreateSpiling)]
-	[ProtoContract]
-	public partial class C2M_CreateSpiling: Object, IActorLocationMessage
-	{
-		[ProtoMember(2)]
-		public float X { get; set; }
-
-		[ProtoMember(3)]
-		public float Y { get; set; }
-
-		[ProtoMember(4)]
-		public float Z { get; set; }
-
-//所归属的父实体id
-//所归属的父实体id
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
-	}
-
-	[Message(OuterOpcode_Map.M2C_CreateSpilings)]
-	[ProtoContract]
-	public partial class M2C_CreateSpilings: Object, IActorMessage
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
-		[ProtoMember(95)]
-		public long RoomId { get; set; }
-
-		[ProtoMember(2)]
-		public UnitInfo Unit { get; set; }
 
 	}
 

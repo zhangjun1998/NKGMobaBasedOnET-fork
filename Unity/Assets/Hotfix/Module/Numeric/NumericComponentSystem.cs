@@ -16,20 +16,15 @@ namespace ET
         {
             return self.OriNumericDic[(int) numericType];
         }
-
-#if SERVER
+        
         /// <summary>
         /// 适配变化
         /// </summary>
         public static void ApplyChange(this NumericComponent self, NumericType numericType, float changedValue)
         {
             Unit unit = self.GetParent<Unit>();
-            MessageHelper.BroadcastToRoom(unit.BelongToRoom,
-                new M2C_ChangeUnitAttribute()
-                    {UnitId = unit.Id, NumericType = (int) numericType, ChangeValue = changedValue});
             self[numericType] += changedValue;
         }
-#endif
 
         public static void SetValueWithoutBroadCast(this NumericComponent self, NumericType numericType, float value)
         {

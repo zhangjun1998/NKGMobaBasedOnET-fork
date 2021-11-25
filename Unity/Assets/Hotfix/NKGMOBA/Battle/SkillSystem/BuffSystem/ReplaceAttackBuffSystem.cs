@@ -18,11 +18,11 @@ namespace ET
             Unit unit = this.GetBuffTarget();
             
             // 默认重置一次普攻
-            unit.GetComponent<CommonAttackComponent>().CancelCommonAttackWithOutResetTarget_ResetAttackCD();
+            unit.GetComponent<CommonAttackComponent_Logic>().CancelCommonAttackWithOutResetTarget_ResetAttackCD();
             
-            unit.GetComponent<CommonAttackComponent>().SetAttackReplaceInfo(this.BelongtoRuntimeTree.Id,
+            unit.GetComponent<CommonAttackComponent_Logic>().SetAttackReplaceInfo(this.BelongtoRuntimeTree.Id,
                 replaceAttackBuffData.AttackReplaceInfo);
-            unit.GetComponent<CommonAttackComponent>()
+            unit.GetComponent<CommonAttackComponent_Logic>()
                 .SetCancelAttackReplaceInfo(this.BelongtoRuntimeTree.Id, replaceAttackBuffData.CancelReplaceInfo);
 
             Blackboard blackboard =
@@ -47,8 +47,8 @@ namespace ET
             ReplaceAttackBuffData replaceAttackBuffData = this.GetBuffDataWithTType;
 
             Unit unit = this.GetBuffTarget();
-            unit.GetComponent<CommonAttackComponent>().ReSetAttackReplaceInfo();
-            unit.GetComponent<CommonAttackComponent>().ReSetCancelAttackReplaceInfo();
+            unit.GetComponent<CommonAttackComponent_Logic>().ReSetAttackReplaceInfo();
+            unit.GetComponent<CommonAttackComponent_Logic>().ReSetCancelAttackReplaceInfo();
 
             Blackboard blackboard =
                 unit.GetComponent<NP_RuntimeTreeManager>().GetTreeByRuntimeID(this.BelongtoRuntimeTree.Id)

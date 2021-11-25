@@ -43,7 +43,7 @@
     </Compile>
 
     <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Battle\Box2DSharp\**\*.cs">
-      <Link>NKGMOBA\Battle\Box2D\Data\%(RecursiveDir)%(FileName)%(Extension)</Link>
+      <Link>NKGMOBA\Battle\Box2DSharp\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>
 
     <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Move\MoveComponent.cs">
