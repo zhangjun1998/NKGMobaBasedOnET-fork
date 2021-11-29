@@ -50,30 +50,15 @@ namespace ET
     
     public static class CommonAttackComponentSystem_View
     {
-        public static async ETVoid CommonAttackStart(this CommonAttackComponent_View self, Unit targetUnit)
+        public static void CommonAttackStart(this CommonAttackComponent_View self, Unit targetUnit)
         {
-            self.CancellationTokenSource?.Cancel();
-            self.CancellationTokenSource = new ETCancellationToken();
-
             //转向目标Unit
             self.GetParent<Unit>().GetComponent<TurnComponent>().Turn(targetUnit.Position);
-            self.m_StackFsmComponent.ChangeState<CommonAttackState>(StateTypes.CommonAttack, "Attack", 1);
 
-            if (await self.CommonAttack_Internal(targetUnit, self.CancellationTokenSource))
-            {
-                self.CancellationTokenSource = null;
-                self.m_StackFsmComponent.RemoveState("Attack");
-            }
-        }
-
-        private static async ETTask<bool> CommonAttack_Internal(this CommonAttackComponent_View self, Unit targetUnit,
-            ETCancellationToken cancellationTokenSource)
-        {
             UnitAttributesDataComponent unitAttributesDataComponent =
                 self.GetParent<Unit>().GetComponent<UnitAttributesDataComponent>();
             float attackPre = unitAttributesDataComponent.UnitAttributesNodeDataBase.OriAttackPre /
                               (1 + unitAttributesDataComponent.GetAttribute(NumericType.AttackSpeedAdd));
-            float attackSpeed = unitAttributesDataComponent.GetAttribute(NumericType.AttackSpeed);
 
             //这里假设诺手原始攻击动画0.32s是动画攻击奏效点
             float animationAttackPoint = 0.32f;
@@ -83,15 +68,12 @@ namespace ET
             self.m_AnimationComponent.PlayAnimAndReturnIdelFromStart(StateTypes.CommonAttack, speed: animationSpeed, fadeMode: FadeMode.FromStart);
 
             Game.Scene.GetComponent<SoundComponent>().PlayClip("Darius/Sound_Darius_NormalAttack", 0.4f).Coroutine();
-
-            return await TimerComponent.Instance.WaitAsync((long) (1 / attackSpeed * 1000), cancellationTokenSource);
         }
+        
 
         public static void CancelCommonAttack(this CommonAttackComponent_View self)
         {
-            self.CancellationTokenSource?.Cancel();
-            self.CancellationTokenSource = null;
-            self.m_StackFsmComponent.RemoveState("Attack");
+
         }
     }
 }

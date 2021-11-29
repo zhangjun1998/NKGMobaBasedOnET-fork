@@ -12,7 +12,7 @@
             room.AddComponent<RecastPathComponent>();
             room.AddComponent<CDComponent>();
 
-            room.AddComponent<BattleEventSystem>();
+            room.AddComponent<BattleEventSystemComponent>();
             room.AddComponent<B2S_WorldComponent>();
             room.AddComponent<B2S_WorldColliderManagerComponent>();
             room.AddComponent<B2S_CollisionListenerComponent>();

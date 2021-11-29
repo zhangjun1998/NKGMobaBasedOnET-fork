@@ -53,6 +53,7 @@ namespace ET
                 BattleRoom.AddComponent<MapClickCompoent>();
                 BattleRoom.AddComponent<LSF_TickComponent>();
                 BattleRoom.AddComponent<RecastPathComponent>();
+                BattleRoom.AddComponent<BattleEventSystemComponent>();
             }
 
             return BattleRoom;

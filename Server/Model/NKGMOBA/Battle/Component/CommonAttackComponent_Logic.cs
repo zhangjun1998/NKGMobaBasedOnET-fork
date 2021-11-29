@@ -4,19 +4,6 @@ using Sirenix.OdinInspector;
 
 namespace ET
 {
-    #region System
-
-    [ObjectSystem]
-    public class CommonAttackComponentAwakeSystem : AwakeSystem<CommonAttackComponent_Logic>
-    {
-        public override void Awake(CommonAttackComponent_Logic self)
-        {
-            self.Awake();
-        }
-    }
-
-    #endregion
-
     /// <summary>
     /// 攻击执行或取消时执行替换的类型
     /// </summary>
@@ -31,7 +18,7 @@ namespace ET
     {
         #region 私有成员
 
-        public StackFsmComponent m_StackFsmComponent;
+        public StackFsmComponent StackFsmComponent;
 
         /// <summary>
         /// 上次选中的Unit，用于自动攻击
@@ -116,27 +103,7 @@ namespace ET
         #endregion
 
         #region 生命周期函数
-
-        public void Awake()
-        {
-            Unit unit = this.GetParent<Unit>();
-
-            //此处填写Awake逻辑
-            m_StackFsmComponent = unit.GetComponent<StackFsmComponent>();
-            this.CancellationTokenSource = new ETCancellationToken();
-
-            CDInfo attackCDInfo = ReferencePool.Acquire<CDInfo>();
-            attackCDInfo.Name = "CommonAttack";
-            attackCDInfo.Interval = 750;
-
-            CDInfo moveCDInfo = ReferencePool.Acquire<CDInfo>();
-            moveCDInfo.Name = "MoveToAttack";
-            moveCDInfo.Interval = 300;
-
-            CDComponent.Instance.AddCDData(unit.Id, attackCDInfo);
-            CDComponent.Instance.AddCDData(unit.Id, moveCDInfo);
-        }
-
+        
         public override void Dispose()
         {
             if (IsDisposed)

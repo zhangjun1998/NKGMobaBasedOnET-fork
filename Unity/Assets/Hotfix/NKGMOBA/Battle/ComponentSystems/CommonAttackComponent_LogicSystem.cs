@@ -11,6 +11,43 @@ using UnityEngine;
 
 namespace ET
 {
+    public class CommonAttackComponentAwakeSystem : AwakeSystem<CommonAttackComponent_Logic>
+    {
+        public override void Awake(CommonAttackComponent_Logic self)
+        {
+            Unit unit = self.GetParent<Unit>();
+
+            //此处填写Awake逻辑
+            self.StackFsmComponent = unit.GetComponent<StackFsmComponent>();
+            self.CancellationTokenSource = new ETCancellationToken();
+
+            CDInfo attackCDInfo = ReferencePool.Acquire<CDInfo>();
+            attackCDInfo.Name = "CommonAttack";
+            attackCDInfo.Interval = 750;
+
+            CDInfo moveCDInfo = ReferencePool.Acquire<CDInfo>();
+            moveCDInfo.Name = "MoveToAttack";
+            moveCDInfo.Interval = 300;
+
+            CDComponent.Instance.AddCDData(unit.Id, attackCDInfo);
+            CDComponent.Instance.AddCDData(unit.Id, moveCDInfo);
+        }
+    }
+
+    public class CommonAttackComponentDestroySystem : DestroySystem<CommonAttackComponent_Logic>
+    {
+        public override void Destroy(CommonAttackComponent_Logic self)
+        {
+            //此处填写释放逻辑,但涉及Entity的操作，请放在Destroy中
+            self.CancellationTokenSource?.Cancel();
+            self.CancellationTokenSource = null;
+
+            self.ReSetAttackReplaceInfo();
+            self.ReSetCancelAttackReplaceInfo();
+        }
+    }
+
+
     public class CancelAttackFromFsm : AEvent<EventType.CancelAttackFromFSM>
     {
         protected override async ETTask Run(CancelAttackFromFSM a)
@@ -48,7 +85,7 @@ namespace ET
 
                 self.CachedUnitForAttack = targetUnit;
 
-                self.m_StackFsmComponent.ChangeState<CommonAttackState>(StateTypes.CommonAttack, "CommonAttack", 1);
+                self.StackFsmComponent.ChangeState<CommonAttackState>(StateTypes.CommonAttack, "CommonAttack", 1);
             }
         }
 
@@ -56,6 +93,7 @@ namespace ET
         {
             self.CancellationTokenSource?.Cancel();
             self.CancellationTokenSource = new ETCancellationToken();
+            self.CancellationTokenSource.Add(() => { self.StackFsmComponent.RemoveState("CommonAttack"); });
             //如果有要执行攻击流程替换的内容，就执行替换流程
             if (self.HasAttackReplaceInfo())
             {
@@ -90,6 +128,15 @@ namespace ET
                               (1 + heroDataComponent.GetAttribute(NumericType.AttackSpeedAdd));
             float attackSpeed = heroDataComponent.GetAttribute(NumericType.AttackSpeed);
 
+#if !SERVER
+            UnitComponent unitComponent = unit.BelongToRoom.GetComponent<UnitComponent>();
+            Game.EventSystem.Publish(new EventType.CommonAttack()
+            {
+                AttackCast = unit,
+                AttackTarget = self.CachedUnitForAttack
+            }).Coroutine();
+#endif
+
             //播放动画，如果动画播放完成还不能进行下一次普攻，则播放空闲动画
             if (!await TimerComponent.Instance.WaitAsync((long) (attackPre * 1000), self.CancellationTokenSource))
             {
@@ -109,12 +156,13 @@ namespace ET
                 self.CachedUnitForAttack.GetComponent<UnitAttributesDataComponent>().NumericComponent
                     .ApplyChange(NumericType.Hp, -finalDamage);
 
-                BattleEventSystem battleEventSystem = unit.BelongToRoom.GetComponent<BattleEventSystem>();
+                BattleEventSystemComponent battleEventSystemComponent =
+                    unit.BelongToRoom.GetComponent<BattleEventSystemComponent>();
 
                 //抛出伤害事件，需要监听伤害的buff（比如吸血buff）需要监听此事件
-                battleEventSystem.Run($"ExcuteDamage{unit.Id}", damageData);
+                battleEventSystemComponent.Run($"ExcuteDamage{unit.Id}", damageData);
                 //抛出受伤事件，需要监听受伤的Buff（例如反甲）需要监听此事件
-                battleEventSystem.Run($"TakeDamage{self.CachedUnitForAttack.Id}", damageData);
+                battleEventSystemComponent.Run($"TakeDamage{self.CachedUnitForAttack.Id}", damageData);
             }
 
             CDComponent.Instance.TriggerCD(unit.Id, "CommonAttack");
@@ -176,8 +224,9 @@ namespace ET
         /// </summary>
         public static void CancelCommonAttackWithOutResetTarget(this CommonAttackComponent_Logic self)
         {
-            self.CancellationTokenSource?.Cancel();
+            ETCancellationToken token = self.CancellationTokenSource;
             self.CancellationTokenSource = null;
+            token?.Cancel();
 
             if (self.HasCancelAttackReplaceInfo())
             {

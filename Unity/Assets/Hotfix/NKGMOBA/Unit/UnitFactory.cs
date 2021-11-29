@@ -36,6 +36,9 @@ namespace ET
             //Log.Info("行为树创建完成");
             unit.AddComponent<ObjectWait>();
             unit.AddComponent<LSF_TickComponent>();
+            unit.AddComponent<CommonAttackComponent_Logic>();
+            unit.AddComponent<CastDamageComponent>();
+            unit.AddComponent<ReceiveDamageComponent>();
 
 
             Game.EventSystem.Publish(new EventType.AfterHeroCreate_CreateGo()
@@ -62,6 +65,8 @@ namespace ET
             unit.AddComponent<NP_RuntimeTreeManager>();
             //Log.Info("行为树创建完成");
             unit.AddComponent<ObjectWait>();
+            unit.AddComponent<CastDamageComponent>();
+            unit.AddComponent<ReceiveDamageComponent>();
             
             Game.EventSystem.Publish(new EventType.AfterHeroSpilingCreate_CreateGO()
                 {Unit = unit, HeroSpilingConfigId = unitInfo.ConfigId}).Coroutine();

@@ -53,10 +53,10 @@ namespace ET
                 this.TheUnitBelongto.GetComponent<UnitAttributesDataComponent>().NumericComponent
                     .ApplyChange(NumericType.Hp, -finalDamage);
                 //抛出伤害事件
-                this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystem>()
+                this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystemComponent>()
                     .Run($"ExcuteDamage{this.TheUnitFrom.Id}", damageData);
                 //抛出受伤事件
-                this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystem>()
+                this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystemComponent>()
                     .Run($"TakeDamage{this.GetBuffTarget().Id}", damageData);
             }
 

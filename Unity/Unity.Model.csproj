@@ -317,6 +317,7 @@
      <Compile Include="Assets\Model\Module\Config\ConfigComponent.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Decorator\Inverter.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\BuffData\ChangePropertyBuffData.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\Component\BattleEventSystemComponent.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\Others\AnimationCore\PlayAnimInfo.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\BuffData\TreatmentBuffData.cs" />
      <Compile Include="Assets\Model\Core\Object\NoMemoryCheck.cs" />

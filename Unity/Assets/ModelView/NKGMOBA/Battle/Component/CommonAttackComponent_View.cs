@@ -19,8 +19,6 @@ namespace ET
         /// </summary>
         public Unit m_CachedUnit;
 
-        public ETCancellationToken CancellationTokenSource;
-
         #endregion
 
         #region 公有成员
@@ -39,7 +37,6 @@ namespace ET
             m_UserInputComponent = null;
             m_StackFsmComponent = null;
             m_AnimationComponent = null;
-            this.CancellationTokenSource = null;
         }
 
         #endregion

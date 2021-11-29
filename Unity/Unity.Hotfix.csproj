@@ -160,7 +160,6 @@
      <Compile Include="Assets\Hotfix\NKGMOBA\Unit\UnitComponent.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\LSF_CmdHandlerComponentSystem.cs" />
      <Compile Include="Assets\Hotfix\Module\Numeric\NumericWatcher_AttackValue.cs" />
-     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\SkillSystem\BuffSystem\Core\BattleEventSystem.cs" />
      <Compile Include="Assets\Hotfix\Module\Message\MessageDispatcherComponentSystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\NP_ResetAttackCDAction.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\Box2D\CollisionHandler\Darius_Q_CollisionHandler.cs" />
@@ -181,6 +180,7 @@
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\BBValue\NP_ChangeTargetSkillBBValueAction.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\NP_TriggerAttackCDAction.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\M2C_FrameCmdHandler.cs" />
+     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\ComponentSystems\BattleEventSystemUtilities.cs" />
      <None Include="Assets\Hotfix\Unity.Hotfix.asmdef" />
      <None Include="Assets\Hotfix\csc.rsp" />
  <Reference Include="UnityEngine">
