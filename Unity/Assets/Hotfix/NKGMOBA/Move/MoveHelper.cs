@@ -31,12 +31,11 @@ namespace ET
             return ret;
         }
 
-        public static void Stop(this Unit unit, int error)
+        public static void Stop(this Unit unit)
         {
             unit.GetComponent<MoveComponent>().Stop();
         }
-
-
+        
         public static void SendPathFindCmd(this Unit unit, Vector3 targetPoint)
         {
             LSF_PathFindCmd pathFindCmd =

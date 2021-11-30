@@ -4,9 +4,7 @@
     {
         protected override async ETTask Run(EventType.CancelMoveFromFSM a)
         {
-#if SERVER
-                        a.Unit.Stop(1);
-#endif
+            a.Unit.Stop();
 
             await ETTask.CompletedTask;
         }

@@ -12,7 +12,7 @@ namespace ET
             float speed = unit.GetComponent<NumericComponent>()[NumericType.Speed] / 100f;
             if (speed < 0.01)
             {
-                unit.SendStop(-1);
+                unit.SendStop();
                 return true;
             }
 
@@ -23,7 +23,7 @@ namespace ET
             List<Vector3> path = list.List;
             if (path.Count < 2)
             {
-                unit.SendStop(0);
+                unit.SendStop();
                 return true;
             }
 
@@ -31,19 +31,19 @@ namespace ET
                 .MoveToAsync(path, speed, 500, targetRange, cancellationToken);
             if (ret) // 如果返回false，说明被其它移动取消了，这时候不需要通知客户端stop
             {
-                unit.SendStop(0);
+                unit.SendStop();
             }
 
             return ret;
         }
 
-        public static void Stop(this Unit unit, int error)
+        public static void Stop(this Unit unit)
         {
             unit.GetComponent<MoveComponent>().Stop();
-            unit.SendStop(error);
+            unit.SendStop();
         }
 
-        public static void SendStop(this Unit unit, int error)
+        public static void SendStop(this Unit unit)
         {
             LSF_MoveCmd lsfMoveCmd = ReferencePool.Acquire<LSF_MoveCmd>().Init(unit.Id) as LSF_MoveCmd;
 

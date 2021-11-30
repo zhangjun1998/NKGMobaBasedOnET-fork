@@ -30,7 +30,7 @@ namespace ET
             //增加Buff管理组件
             unit.AddComponent<BuffManagerComponent>();
             unit.AddComponent<SkillCanvasManagerComponent>();
-            unit.AddComponent<B2S_RoleCastComponent, RoleCamp>((RoleCamp) unitInfo.RoleCamp);
+            unit.AddComponent<B2S_RoleCastComponent, RoleCamp, RoleTag>((RoleCamp) unitInfo.RoleCamp, RoleTag.Hero);
 
             unit.AddComponent<NP_RuntimeTreeManager>();
             //Log.Info("行为树创建完成");

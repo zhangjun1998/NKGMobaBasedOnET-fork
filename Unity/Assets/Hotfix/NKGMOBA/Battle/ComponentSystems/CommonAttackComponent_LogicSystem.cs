@@ -93,7 +93,10 @@ namespace ET
         {
             self.CancellationTokenSource?.Cancel();
             self.CancellationTokenSource = new ETCancellationToken();
-            self.CancellationTokenSource.Add(() => { self.StackFsmComponent.RemoveState("CommonAttack"); });
+            self.CancellationTokenSource.Add(() =>
+            {
+                self.StackFsmComponent.RemoveState("CommonAttack");
+            });
             //如果有要执行攻击流程替换的内容，就执行替换流程
             if (self.HasAttackReplaceInfo())
             {
@@ -228,6 +231,8 @@ namespace ET
             self.CancellationTokenSource = null;
             token?.Cancel();
 
+            Log.Info("取消普攻");
+            
             if (self.HasCancelAttackReplaceInfo())
             {
                 Unit unit = self.GetParent<Unit>();

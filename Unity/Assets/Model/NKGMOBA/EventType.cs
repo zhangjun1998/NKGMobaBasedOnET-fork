@@ -104,6 +104,11 @@ namespace ET
         {
             public Unit Unit;
         }
+        
+        public struct FSMStateChanged_PlayAnim
+        {
+            public Unit Unit;
+        }
 
         public struct NumericChange
         {

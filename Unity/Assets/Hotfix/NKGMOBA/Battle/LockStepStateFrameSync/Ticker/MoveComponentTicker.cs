@@ -1,7 +1,17 @@
-﻿using UnityEngine;
+﻿using ET.EventType;
+using UnityEngine;
 
 namespace ET
 {
+    public class MoveStop_LogicHandler: AEvent<EventType.MoveStop>
+    {
+        protected override async ETTask Run(MoveStop a)
+        {
+            a.Unit.GetComponent<StackFsmComponent>().RemoveState(StateTypes.Run);
+            await ETTask.CompletedTask;
+        }
+    }
+    
     [LSF_Tickable(EntityType = typeof(MoveComponent))]
     public class MoveComponentTicker : ALSF_TickHandler<MoveComponent>
     {

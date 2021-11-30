@@ -7,10 +7,10 @@ namespace ET
     {
         public override void Awake(CommonAttackComponent_View self)
         {
-            //此处填写Awake逻辑
-            self.m_AnimationComponent = self.GetParent<Unit>().GetComponent<AnimationComponent>();
-            self.m_StackFsmComponent = self.GetParent<Unit>().GetComponent<StackFsmComponent>();
-            self.m_MouseTargetSelectorComponent = self.GetParent<Unit>().BelongToRoom.GetComponent<MouseTargetSelectorComponent>();
+            Unit unit = self.GetParent<Unit>();
+            self.m_AnimationComponent = unit.GetComponent<AnimationComponent>();
+            self.m_StackFsmComponent = unit.GetComponent<StackFsmComponent>();
+            self.m_MouseTargetSelectorComponent = unit.BelongToRoom.GetComponent<MouseTargetSelectorComponent>();
             self.m_UserInputComponent = Game.Scene.GetComponent<UserInputComponent>();
         }
     }
@@ -20,6 +20,12 @@ namespace ET
     {
         public override void Update(CommonAttackComponent_View self)
         {
+            // 只有本地玩家才有选择的权力
+            if (self.GetParent<Unit>() != self.GetParent<Unit>().BelongToRoom.GetComponent<UnitComponent>().MyUnit)
+            {
+                return;
+            }
+
             //此处填写Update逻辑
             if (self.m_UserInputComponent.RightMouseDown && self.m_MouseTargetSelectorComponent.TargetUnit != null)
             {
@@ -47,7 +53,7 @@ namespace ET
             await ETTask.CompletedTask;
         }
     }
-    
+
     public static class CommonAttackComponentSystem_View
     {
         public static void CommonAttackStart(this CommonAttackComponent_View self, Unit targetUnit)
@@ -65,15 +71,15 @@ namespace ET
 
             float animationSpeed = animationAttackPoint / attackPre;
             //播放动画，如果动画播放完成还不能进行下一次普攻，则播放空闲动画
-            self.m_AnimationComponent.PlayAnimAndReturnIdelFromStart(StateTypes.CommonAttack, speed: animationSpeed, fadeMode: FadeMode.FromStart);
+            self.m_AnimationComponent.PlayAnimAndReturnIdelFromStart(StateTypes.CommonAttack, speed: animationSpeed,
+                fadeMode: FadeMode.FromStart);
 
             Game.Scene.GetComponent<SoundComponent>().PlayClip("Darius/Sound_Darius_NormalAttack", 0.4f).Coroutine();
         }
-        
+
 
         public static void CancelCommonAttack(this CommonAttackComponent_View self)
         {
-
         }
     }
 }

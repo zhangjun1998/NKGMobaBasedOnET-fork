@@ -4,8 +4,6 @@ using UnityEngine;
 
 namespace ET
 {
-    
-    
     [ObjectSystem]
     public class MoveComponentDestroySystem : DestroySystem<MoveComponent>
     {
@@ -72,7 +70,7 @@ namespace ET
         {
             if (!self.GetParent<Unit>().GetComponent<StackFsmComponent>()
                 .ChangeState<NavigateState>(StateTypes.Run, "Navigate", 1)) return false;
-            
+
             self.Stop();
 
             self.TargetRange = targetRange;
@@ -122,7 +120,7 @@ namespace ET
             Unit unit = self.GetParent<Unit>();
 
             long moveTime = self.AccumulateTime += deltaTime;
-            
+
             while (true)
             {
                 if (moveTime <= 0)
@@ -164,7 +162,7 @@ namespace ET
                 if (Vector3.Distance(unit.Position, self.FinalTarget) - self.TargetRange <= 0.0001f)
                 {
                     unit.Rotation = self.To;
-                    
+
                     Action<bool> callback = self.Callback;
                     self.Callback = null;
 
@@ -272,7 +270,7 @@ namespace ET
         /// <param name="targetRange">目标距离</param>
         /// <param name="targetState">目标状态</param>
         public static async ETVoid NavigateTodoSomething(this Unit self, Vector3 target, float targetRange,
-            AFsmStateBase targetState)
+            AFsmStateBase targetState, ETCancellationToken etCancellationToken = null)
         {
             Unit unit = self;
 
@@ -281,17 +279,22 @@ namespace ET
                 ReferencePool.Release(targetState);
                 return;
             }
-            
-            if (await unit.FindPathMoveToAsync(target, targetRange))
+
+            if (await unit.FindPathMoveToAsync(target, targetRange, etCancellationToken))
             {
                 if (targetState != null)
                 {
                     if (unit.GetComponent<StackFsmComponent>().ChangeState(targetState))
                     {
-                        //Log.Info($"切换至{targetState.StateName} ");
+                        Log.Info($"切换至{targetState.StateName} ");
+
+#if !SERVER
+                        Game.EventSystem.Publish(new EventType.FSMStateChanged_PlayAnim() {Unit = unit}).Coroutine();
+#endif
                     }
                 }
             }
+
             await ETTask.CompletedTask;
         }
 
