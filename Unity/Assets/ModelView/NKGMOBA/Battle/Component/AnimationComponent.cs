@@ -147,6 +147,15 @@ namespace ET
                 this.AnimationClips[RuntimeAnimationClips[StateTypes.Idle.GetStateTypeMapedString()]], 0.25f,
                 FadeMode.FromStart);
         }
+        
+        /// <summary>
+        /// 播放默认动画如果在此期间再次播放，则会继续播放
+        /// </summary>
+        public void PlayIdel()
+        {
+            this.CommonAnimState = AnimancerComponent.Play(
+                this.AnimationClips[RuntimeAnimationClips[StateTypes.Idle.GetStateTypeMapedString()]], 0.25f);
+        }
 
         /// <summary>
         /// 根据栈式状态机来自动播放动画

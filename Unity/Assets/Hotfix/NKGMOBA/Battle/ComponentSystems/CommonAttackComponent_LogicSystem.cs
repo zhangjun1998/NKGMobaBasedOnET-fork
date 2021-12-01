@@ -93,10 +93,7 @@ namespace ET
         {
             self.CancellationTokenSource?.Cancel();
             self.CancellationTokenSource = new ETCancellationToken();
-            self.CancellationTokenSource.Add(() =>
-            {
-                self.StackFsmComponent.RemoveState("CommonAttack");
-            });
+            self.CancellationTokenSource.Add(() => { self.StackFsmComponent.RemoveState("CommonAttack"); });
             //如果有要执行攻击流程替换的内容，就执行替换流程
             if (self.HasAttackReplaceInfo())
             {
@@ -213,9 +210,16 @@ namespace ET
                         //目标不为空，且处于攻击状态，且上次攻击已完成或取消
                         if ((self.CancellationTokenSource == null || self.CancellationTokenSource.IsCancel()))
                         {
-                            if (distance - attackRange <= 0.1f &&
-                                CDComponent.Instance.GetCDResult(unit.Id, "CommonAttack"))
+                            if (CDComponent.Instance.GetCDResult(unit.Id, "CommonAttack"))
                                 self.StartCommonAttack().Coroutine();
+                            else // 说明还不能进行下一次普攻，就罚站
+                            {
+#if !SERVER
+                                //TODO 可能服务端也会有同步转向的需求
+                                Game.EventSystem.Publish(new WaitForAttack()
+                                    {CastUnit = unit, TargetUnit = self.CachedUnitForAttack}).Coroutine();
+#endif
+                            }
                         }
                     }
                 }
@@ -232,7 +236,7 @@ namespace ET
             token?.Cancel();
 
             Log.Info("取消普攻");
-            
+
             if (self.HasCancelAttackReplaceInfo())
             {
                 Unit unit = self.GetParent<Unit>();

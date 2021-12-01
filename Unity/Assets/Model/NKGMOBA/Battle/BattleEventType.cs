@@ -83,6 +83,15 @@ namespace ET
         }
 
         /// <summary>
+        /// 等待下次普攻可以发出
+        /// </summary>
+        public struct WaitForAttack
+        {
+            public Unit CastUnit;
+            public Unit TargetUnit;
+        }
+        
+        /// <summary>
         /// 修改对象的属性，用于处理具体的改变数值
         /// 例如服务端发送了一条扣血（50）消息
         /// Numeric处理当前血量（例如当前血量为100 - 50 = 50）事件

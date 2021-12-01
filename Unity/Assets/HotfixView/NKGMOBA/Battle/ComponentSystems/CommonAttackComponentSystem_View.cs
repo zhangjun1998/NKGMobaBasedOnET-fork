@@ -53,6 +53,16 @@ namespace ET
             await ETTask.CompletedTask;
         }
     }
+    
+    public class WaitForAttack_View : AEvent<EventType.WaitForAttack>
+    {
+        protected override async ETTask Run(WaitForAttack a)
+        {
+            a.CastUnit.GetComponent<TurnComponent>().Turn(a.TargetUnit.Position);
+            a.CastUnit.GetComponent<AnimationComponent>().PlayIdel();
+            await ETTask.CompletedTask;
+        }
+    }
 
     public static class CommonAttackComponentSystem_View
     {
