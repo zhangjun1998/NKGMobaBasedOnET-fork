@@ -8,13 +8,13 @@
         {
             OnLSF_Tick(entity as T, deltaTime);
         }
-
-#if !SERVER
+        
         public virtual bool OnLSF_CheckConsistency(T entity, uint frame, ALSF_Cmd stateToCompare)
         {
             return true;
         }
 
+#if !SERVER
         public virtual void OnLSF_PredictTick(T entity, long deltaTime)
         {
         }

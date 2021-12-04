@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Box2DSharp.Dynamics;
 using ET.EventType;
@@ -20,6 +21,14 @@ namespace ET
         /// </summary>
         private static void LSF_TickNormally(this LSF_Component self)
         {
+#if !SERVER
+            Profiler.BeginSample("LockStepStateFrameSyncComponentUpdateSystem");
+#else
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+#endif
+            
+            
 #if !SERVER
             if (!self.ShouldTickInternal)
             {
@@ -105,6 +114,14 @@ namespace ET
 
             // 发送本帧收集的指令
             self.SendCurrentFrameMessage();
+            
+            
+#if !SERVER
+            Profiler.EndSample();
+#else
+            stopwatch.Stop();
+            //Log.Info($"LockStepStateFrameSyncComponentUpdateSystem Cost: {stopwatch.ElapsedMilliseconds}");
+#endif
         }
 
         /// <summary>
@@ -205,19 +222,9 @@ namespace ET
         {
 #if SERVER
             cmdToSend.Frame = self.CurrentFrame;
+            self.AddCmdsToWholeCmdsBuffer(ref cmdToSend);
+            
             M2C_FrameCmd m2CFrameCmd = new M2C_FrameCmd() {CmdContent = cmdToSend};
-
-            //将指令放入整局游戏的缓冲区，用于录像和观战系统
-            if (self.WholeCmds.TryGetValue(self.CurrentFrame, out var queue))
-            {
-                queue.Enqueue(m2CFrameCmd.CmdContent);
-            }
-            else
-            {
-                Queue<ALSF_Cmd> newQueue = new Queue<ALSF_Cmd>();
-                newQueue.Enqueue(cmdToSend);
-                self.WholeCmds[self.CurrentFrame] = newQueue;
-            }
 
             //将消息放入待发送列表，本帧末尾进行发送
             if (self.FrameCmdsToSend.TryGetValue(self.CurrentFrame, out var queue2))
@@ -265,6 +272,24 @@ namespace ET
                 self.FrameCmdsToSend[correctFrame] = newQueue;
             }
 #endif
+        }
+
+        
+        public static void AddCmdsToWholeCmdsBuffer<T>(this LSF_Component self, ref T cmdToSend) where T : ALSF_Cmd
+        {
+            cmdToSend.Frame = self.CurrentFrame;
+
+            //将指令放入整局游戏的缓冲区，用于录像和观战系统
+            if (self.WholeCmds.TryGetValue(self.CurrentFrame, out var queue))
+            {
+                queue.Enqueue(cmdToSend);
+            }
+            else
+            {
+                Queue<ALSF_Cmd> newQueue = new Queue<ALSF_Cmd>();
+                newQueue.Enqueue(cmdToSend);
+                self.WholeCmds[self.CurrentFrame] = newQueue;
+            }
         }
 
         public static void StartFrameSync(this LSF_Component self)

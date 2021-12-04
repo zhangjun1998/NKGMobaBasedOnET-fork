@@ -1,9 +1,10 @@
-﻿using ET.EventType;
+﻿using System.Diagnostics;
+using ET.EventType;
 using UnityEngine;
 
 namespace ET
 {
-    public class MoveStop_LogicHandler: AEvent<EventType.MoveStop>
+    public class MoveStop_LogicHandler : AEvent<EventType.MoveStop>
     {
         protected override async ETTask Run(MoveStop a)
         {
@@ -11,23 +12,22 @@ namespace ET
             await ETTask.CompletedTask;
         }
     }
-    
+
     [LSF_Tickable(EntityType = typeof(MoveComponent))]
     public class MoveComponentTicker : ALSF_TickHandler<MoveComponent>
     {
-#if !SERVER
         public override bool OnLSF_CheckConsistency(MoveComponent entity, uint frame, ALSF_Cmd stateToCompare)
         {
             LSF_MoveCmd serverMoveState = stateToCompare as LSF_MoveCmd;
-            
-            if (entity.HistroyMoveStates.TryGetValue(serverMoveState.Frame, out var histroyState))
+
+            if (entity.HistroyMoveStates.TryGetValue(frame, out var histroyState))
             {
                 bool result = serverMoveState.CheckConsistency(histroyState);
 
                 if (!result)
                 {
-                    Log.Error(
-                        $"---来自MoveComponent的不一致：服务端 {serverMoveState.Frame} X：{serverMoveState.PosX} Y: {serverMoveState.PosY} Z: {serverMoveState.PosZ}\n客户端：{frame} X：{histroyState.PosX} Y: {histroyState.PosY} Z: {histroyState.PosZ}");
+                    // Log.Error(
+                    //     $"---来自MoveComponent的不一致：服务端 {serverMoveState.Frame} X：{serverMoveState.PosX} Y: {serverMoveState.PosY} Z: {serverMoveState.PosZ}\n客户端：{frame} X：{histroyState.PosX} Y: {histroyState.PosY} Z: {histroyState.PosZ}");
                 }
                 else
                 {
@@ -38,9 +38,10 @@ namespace ET
                 return result;
             }
 
-            return true;
+            return false;
         }
 
+#if !SERVER
         public override void OnLSF_PredictTick(MoveComponent entity, long deltaTime)
         {
             Unit unit = entity.GetParent<Unit>();
@@ -108,8 +109,22 @@ namespace ET
 
             lsfMoveCmd.IsStopped = false;
 
-            unit.BelongToRoom.GetComponent<LSF_Component>().AddCmdToSendQueue(lsfMoveCmd);
-            
+            LSF_Component lsfComponent = unit.BelongToRoom.GetComponent<LSF_Component>();
+
+            lsfMoveCmd.Frame = lsfComponent.CurrentFrame;
+
+            entity.HistroyMoveStates[lsfMoveCmd.Frame] = lsfMoveCmd;
+
+            // 只有数据脏了才进行发送
+            if (!this.OnLSF_CheckConsistency(entity, lsfComponent.CurrentFrame - 1, lsfMoveCmd))
+            {
+                lsfComponent.AddCmdToSendQueue(lsfMoveCmd);
+            }
+            else
+            {
+                lsfComponent.AddCmdsToWholeCmdsBuffer(ref lsfMoveCmd);
+            }
+
             //Log.Info($"Frame: {unit.BelongToRoom.GetComponent<LSF_Component>().CurrentFrame} {entity.To.ToString()}");
 #else
             //Log.Info($"Frame: {unit.BelongToRoom.GetComponent<LSF_Component>().CurrentFrame} {entity.To.ToString()}");

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using ET.EventType;
 using NPBehave_Core;
 
@@ -26,23 +27,15 @@ namespace ET
                 return;
             }
 
-#if !SERVER
-            Profiler.BeginSample("LockStepStateFrameSyncComponentUpdateSystem");
-#endif          
-            
             // 将FixedUpdate Tick放在此处，这样可以防止框架层FixedUpdate帧率小于帧同步FixedUpdate帧率而导致的一些问题
             self.FixedUpdate.Tick();
-            
+
 #if !SERVER
             self.ClientHandleExceptionNet().Coroutine();
 #endif
-
-#if !SERVER
-            Profiler.EndSample();
-#endif
         }
     }
-    
+
     public class LockStepStateFrameSyncComponentFixedUpdateSystem : FixedUpdateSystem<LSF_Component>
     {
         public override void FixedUpdate(LSF_Component self)

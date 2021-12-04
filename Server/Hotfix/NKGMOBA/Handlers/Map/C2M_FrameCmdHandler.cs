@@ -8,7 +8,6 @@
                 entity.BelongToRoom.GetComponent<LSF_Component>();
 
             lockStepStateFrameSyncComponent.AddCmdToHandleQueue(message.CmdContent);
-
             await ETTask.CompletedTask;
         }
     }
