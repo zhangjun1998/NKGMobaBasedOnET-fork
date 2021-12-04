@@ -386,9 +386,20 @@ namespace ET
                     return;
                 }
             }
-            else // 当前客户端帧数小于服务端帧数，只开局的时候由于网络延迟问题导致服务端先行于客户端，加快Tick频率
+            else // 当前客户端帧数小于服务端帧数，是因为开局的时候由于网络延迟问题导致服务端先行于客户端，直接多次tick
             {
                 self.CurrentAheadOfFrame = -(int) (self.ServerCurrentFrame - self.CurrentFrame);
+                
+                // 落后，追帧，追到目标帧
+                int count = self.TargetAheadOfFrame - self.CurrentAheadOfFrame;
+
+                while (--count >= 0)
+                {                
+                    self.CurrentFrame++;
+                    self.LSF_TickManually();
+                }
+
+                self.CurrentAheadOfFrame = self.TargetAheadOfFrame;
             }
 
             // Log.Info(
