@@ -73,6 +73,12 @@ namespace ET
         public override void OnLSF_RollBackTick(MoveComponent entity, uint frame, ALSF_Cmd stateToCompare)
         {
             LSF_MoveCmd lsfMoveCmd = stateToCompare as LSF_MoveCmd;
+
+            if (lsfMoveCmd == null)
+            {
+                return;
+            }
+            
             Unit unit = entity.GetParent<Unit>();
 
             entity.Stop();

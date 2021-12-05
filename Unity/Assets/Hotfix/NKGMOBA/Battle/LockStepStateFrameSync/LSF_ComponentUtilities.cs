@@ -55,6 +55,8 @@ namespace ET
             self.FrameCmdsToHandle.Remove(self.CurrentFrame);
 
 #else
+            Unit playerUnit = self.GetParent<Room>().GetComponent<UnitComponent>().MyUnit;
+            
             foreach (var frameCmdsQueuePair in self.FrameCmdsToHandle)
             {
                 // 现根据服务端发回的指令进行一致性检测，如果需要的话就进行回滚
@@ -65,9 +67,10 @@ namespace ET
                 foreach (var frameCmd in frameCmdsQueue)
                 {
                     //说明需要回滚
-                    if (!self.CheckConsistencyCompareSpecialFrame(targetFrame, frameCmd))
+                    if (frameCmd.UnitId == playerUnit.Id && !self.CheckConsistencyCompareSpecialFrame(targetFrame, frameCmd))
                     {
                         shouldRollback = true;
+                        
                         break;
                     }
                 }
@@ -79,8 +82,12 @@ namespace ET
 
                     foreach (var frameCmd in frameCmdsQueue)
                     {
-                        //回滚处理
-                        self.RollBack(self.CurrentFrame, frameCmd);
+                        // 自己的指令才回滚
+                        if (frameCmd.UnitId == playerUnit.Id)
+                        {
+                            //回滚处理
+                            self.RollBack(self.CurrentFrame, frameCmd);
+                        }
                     }
 
                     //因为这一帧已经重置过数据，所以从下一帧开始追帧
@@ -97,6 +104,15 @@ namespace ET
                     }
 
                     self.IsInChaseFrameState = false;
+                }
+                
+                foreach (var frameCmd in frameCmdsQueue)
+                {
+                    //其他玩家的指令直接执行
+                    if (frameCmd.UnitId != playerUnit.Id)
+                    {
+                        LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), frameCmd);
+                    }
                 }
 
                 // TODO 不能直接清，因为类似寻路这种指令，并不是每帧都在发起，比如在70帧发起了一次寻路，这个寻路过程一直持续到90帧，在此期间的不同步都需要使用这个70帧发起的指令
