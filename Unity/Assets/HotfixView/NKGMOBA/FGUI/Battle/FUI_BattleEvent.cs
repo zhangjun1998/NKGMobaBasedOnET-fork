@@ -18,6 +18,13 @@ namespace ET
                 unitComponent.MyUnit.GetComponent<UnitAttributesDataComponent>().GetAttribute(NumericType.Hp), 0.2f);
             fuiBattleMain.m_RedText.text =
                 $"{fuiBattleMain.m_RedProBar.self.value}/{fuiBattleMain.m_RedProBar.self.max}";
+            
+            Game.EventSystem.Publish(new EventType.ChangeUnitAttribute()
+            {
+                Unit = numericComponent.GetParent<Unit>(),
+                NumericType = numericType,
+                ChangeValue = value
+            }).Coroutine();
         }
     }
 
@@ -73,6 +80,13 @@ namespace ET
                 unitComponent.MyUnit.GetComponent<UnitAttributesDataComponent>().GetAttribute(NumericType.Mp), 0.2f);
             fuiBattleMain.m_BlueText.text =
                 $"{fuiBattleMain.m_BlueProBar.self.value}/{fuiBattleMain.m_BlueProBar.self.max}";
+            
+            Game.EventSystem.Publish(new EventType.ChangeUnitAttribute()
+            {
+                Unit = numericComponent.GetParent<Unit>(),
+                NumericType = numericType,
+                ChangeValue = value
+            }).Coroutine();
         }
     }
 

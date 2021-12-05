@@ -60,7 +60,7 @@ namespace ET
 
         public struct NumericApplyChangeValue
         {
-            public long UnitId;
+            public Unit Unit;
             public NumericType NumericType;
             public float ChangedValue;
         }

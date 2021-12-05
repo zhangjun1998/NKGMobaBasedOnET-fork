@@ -23,6 +23,8 @@ namespace ET
         public static void ApplyChange(this NumericComponent self, NumericType numericType, float changedValue)
         {
             Unit unit = self.GetParent<Unit>();
+            Game.EventSystem.Publish(new EventType.NumericApplyChangeValue()
+                {ChangedValue = changedValue, NumericType = numericType, Unit = unit}).Coroutine();
             self[numericType] += changedValue;
         }
 
