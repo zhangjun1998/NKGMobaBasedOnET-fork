@@ -20,6 +20,11 @@ namespace ET
         {
             LSF_MoveCmd serverMoveState = stateToCompare as LSF_MoveCmd;
 
+            if (serverMoveState == null)
+            {
+                return true;
+            }
+
             if (entity.HistroyMoveStates.TryGetValue(frame, out var histroyState))
             {
                 bool result = serverMoveState.CheckConsistency(histroyState);

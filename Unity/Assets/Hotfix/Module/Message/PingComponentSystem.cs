@@ -52,13 +52,14 @@ namespace ET
                     long clientNow_C2MSend = TimeHelper.ClientNow();
 
                     self.C2GPingValue =
-                        (uint) Mathf.Clamp(clientNow_C2MSend - clientNow_C2GSend - (long) (Time.deltaTime * 1000), 0.0f,
+                        (uint) Mathf.Clamp(TimeHelper.ClientNow() - clientNow_C2GSend - (long) (Time.deltaTime * 1000), 0.0f,
                             999.0f);
 
                     M2C_Ping responseFromMap = await session.Call(self.C2M_Ping) as M2C_Ping;
                     
                     self.C2MPingValue =
-                        (uint) (TimeHelper.ClientNow() - clientNow_C2MSend - (long) (Time.deltaTime * 1000));
+                        (uint) Mathf.Clamp(TimeHelper.ClientNow()- clientNow_C2MSend - (long) (Time.deltaTime * 1000), 0.0f,
+                            999.0f);
 
                     //TODO 这里是只有C2M的ping发生变化才发送通知
                     Game.EventSystem.Publish(new EventType.PingChange()

@@ -235,8 +235,6 @@ namespace ET
             self.CancellationTokenSource = null;
             token?.Cancel();
 
-            Log.Info("取消普攻");
-
             if (self.HasCancelAttackReplaceInfo())
             {
                 Unit unit = self.GetParent<Unit>();

@@ -39,6 +39,9 @@ namespace ET
         [BoxGroup("客户端网络状态")] [LabelText("客户端当前超前服务器的帧数（uint）")]
         public int CurrentAdvancedFrame;
 
+        [BoxGroup("客户端网络状态")] [LabelText("客户端当前用户输入缓冲区")] [InfoBox("客户端当前用户输入缓冲区")]
+        public Dictionary<uint, Queue<ALSF_Cmd>> CurrentPlayerInputBuffer;
+
         [BoxGroup("网络同步状态")]
         [LabelText("客户端当前帧（uint）")]
         [ProgressBar(nameof(GetCompareMinFrame), nameof(GetCompareMaxFrame), Segmented = true, Height = 30,
@@ -90,6 +93,7 @@ namespace ET
                     this.ClientFixedUpdateInternal = lsfComponent.FixedUpdate.TargetElapsedTime.Milliseconds;
                     this.ClientCurrentFrame = lsfComponent.CurrentFrame;
                     this.ServerCurrentFrame = lsfComponent.ServerCurrentFrame;
+                    this.CurrentPlayerInputBuffer = lsfComponent.PlayerInputCmdsBuffer;
                 }
             }
 

@@ -286,8 +286,6 @@ namespace ET
                 {
                     if (unit.GetComponent<StackFsmComponent>().ChangeState(targetState))
                     {
-                        Log.Info($"切换至{targetState.StateName} ");
-
 #if !SERVER
                         Game.EventSystem.Publish(new EventType.FSMStateChanged_PlayAnim() {Unit = unit}).Coroutine();
 #endif
