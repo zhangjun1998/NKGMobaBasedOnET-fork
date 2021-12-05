@@ -15,7 +15,7 @@ namespace ET
         {
             self.LobbyRooms.Clear();
             
-            self.BattleRoom.Dispose();
+            self.BattleRoom?.Dispose();
         }
     }
 

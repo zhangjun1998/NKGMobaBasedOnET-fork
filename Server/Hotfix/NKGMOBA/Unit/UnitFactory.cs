@@ -51,6 +51,7 @@ namespace ET
         public static Unit CreateHeroUnit(Room room, UnitInfo unitInfo)
         {
             Unit unit = CreateUnit(room, unitInfo);
+            unit.NeedSyncToClient = true;
 
             // 由于玩家操控的英雄是同步的关键，所以只需要为其添加MailBoxComponent来让Actor机制可以索引到
             unit.AddComponent<MailBoxComponent>();
