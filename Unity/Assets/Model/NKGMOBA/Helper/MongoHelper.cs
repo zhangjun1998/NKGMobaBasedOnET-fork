@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -21,6 +22,13 @@ namespace ET
     /// </summary>
     public static class MongoHelper
     {
+        public static bool HasRegisted;
+
+        static MongoHelper()
+        {
+            HasRegisted = false;
+        }
+
         /// <summary>
         /// 注册所有供反序列化的子类
         /// </summary>
@@ -60,13 +68,14 @@ namespace ET
             }
         }
 
-#if SERVER
-#else
-        [InitializeOnLoadMethod]
-#endif
-
         public static void Init()
         {
+            if (HasRegisted)
+            {
+                return;
+            }
+
+            HasRegisted = true;
             // 自动注册IgnoreExtraElements
             ConventionPack conventionPack = new ConventionPack {new IgnoreExtraElementsConvention(true)};
             ConventionRegistry.Register("IgnoreExtraElements", conventionPack, type => true);
@@ -102,10 +111,7 @@ namespace ET
             BsonClassMap.LookupClassMap(typeof(NP_BBValue_Long));
             BsonClassMap.LookupClassMap(typeof(NP_BBValue_List_Long));
 
-            #region 注意，此部分的函数为Runtime模式专属，因为使用了 Game.EventSystem.GetTypes()
-
 #if UNITY_EDITOR
-
             Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
             var types = new List<Type>();
             foreach (var assembly in assemblies)
@@ -116,11 +122,9 @@ namespace ET
                     types.AddRange(assembly.GetTypes());
                 }
             }
-
 #else
             var types = Game.EventSystem.GetTypes();
 #endif
-
 
             foreach (Type type in types)
             {
@@ -138,8 +142,6 @@ namespace ET
             }
 
             RegisterAllSubClassForDeserialize(types);
-
-            #endregion
         }
 
         public static string ToJson(object obj)

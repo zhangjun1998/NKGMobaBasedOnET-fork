@@ -17,7 +17,7 @@ namespace ET
         /// <summary>
         /// 5v5地图的Nav数据路径
         /// </summary>
-        public const string Moba5V5MapNavDataPath = "Assets/Resources/RecastNavData/solo_navmesh.bin";
+        public const string Moba5V5MapNavDataPath = "Recast/solo_navmesh.bin";
 
         /// <summary>
         /// 寻路处理者（可用于拓展多线程，参考A*插件）
@@ -32,9 +32,9 @@ namespace ET
         public void Awake()
         {
             Log.Info($"Recast寻路引擎初始化：{RecastInterface.Init()}");
-            
+
             //TODO 先直接在这里强行初始化地图
-            LoadMapNavData(10001, Moba5V5MapNavDataPath.ToCharArray());
+            LoadMapNavData(10001, $"{Application.streamingAssetsPath}/{Moba5V5MapNavDataPath}".ToCharArray());
             // // 读取体素数据
             // VoxelFile = new VoxelFile();
         }
