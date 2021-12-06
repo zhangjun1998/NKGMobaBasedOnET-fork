@@ -65,7 +65,7 @@ namespace ET
             lsfMoveCmd.RotC = unit.Rotation.z;
             lsfMoveCmd.RotW = unit.Rotation.w;
 
-            lsfMoveCmd.IsStopped = false;
+            lsfMoveCmd.IsStopped = !entity.ShouldMove;
 
             entity.HistroyMoveStates[lsfComponent.CurrentFrame] = lsfMoveCmd;
         }
@@ -99,10 +99,6 @@ namespace ET
             if (entity.ShouldMove)
             {
                 entity.MoveForward(deltaTime, false);
-#if !SERVER
-                // Log.Error(
-                //     $"////// MoveComponent Tick {unit.BelongToRoom.GetComponent<LSF_Component>().CurrentFrame} {unit.Position.ToString("0.0000")}");
-#endif
             }
 
 #if SERVER
@@ -118,7 +114,7 @@ namespace ET
             lsfMoveCmd.RotC = unit.Rotation.z;
             lsfMoveCmd.RotW = unit.Rotation.w;
 
-            lsfMoveCmd.IsStopped = false;
+            lsfMoveCmd.IsStopped = !entity.ShouldMove;
 
             LSF_Component lsfComponent = unit.BelongToRoom.GetComponent<LSF_Component>();
 
@@ -135,12 +131,6 @@ namespace ET
             {
                 lsfComponent.AddCmdsToWholeCmdsBuffer(ref lsfMoveCmd);
             }
-
-            //Log.Info($"Frame: {unit.BelongToRoom.GetComponent<LSF_Component>().CurrentFrame} {entity.To.ToString()}");
-#else
-            //Log.Info($"Frame: {unit.BelongToRoom.GetComponent<LSF_Component>().CurrentFrame} {entity.To.ToString()}");
-
-
 #endif
         }
     }

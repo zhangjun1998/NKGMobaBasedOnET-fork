@@ -104,6 +104,7 @@ namespace ET
                 }
 
                 this.m_FsmStateBases.Remove(state);
+                state.OnExit(this);
                 state.OnRemoved(this);
                 ReferencePool.Release(state);
             }

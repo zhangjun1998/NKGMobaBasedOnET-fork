@@ -42,6 +42,11 @@ namespace ET
                 return false;
             }
 
+            if (lsfMoveCmd.IsStopped != this.IsStopped)
+            {
+                return false;
+            }
+
             return true;
         }
 

@@ -51,11 +51,11 @@ namespace ET
         /// <returns></returns>
         public static bool CheckConsistency(this LSF_TickComponent self, uint frame, ALSF_Cmd alsfCmd)
         {
-            Entity entity = self.GetParent<Entity>();
+            Unit unit = self.GetParent<Room>().GetComponent<UnitComponent>().MyUnit;
 
             using (ListComponent<Entity> componentsToTick = ListComponent<Entity>.Create())
             {
-                foreach (var component1 in entity.Components)
+                foreach (var component1 in unit.Components)
                 {
                     if (LSF_TickDispatcherComponent.Instance.HasTicker(component1.Key))
                     {
@@ -79,11 +79,11 @@ namespace ET
         /// <returns></returns>
         public static void Predict(this LSF_TickComponent self, long deltaTime)
         {
-            Entity entity = self.GetParent<Entity>();
+            Unit unit = self.GetParent<Room>().GetComponent<UnitComponent>().MyUnit;
 
             using (ListComponent<Entity> componentsToTick = ListComponent<Entity>.Create())
             {
-                foreach (var component1 in entity.Components)
+                foreach (var component1 in unit.Components)
                 {
                     if (LSF_TickDispatcherComponent.Instance.HasTicker(component1.Key))
                     {
@@ -101,11 +101,11 @@ namespace ET
         /// <returns></returns>
         public static bool RollBack(this LSF_TickComponent self, uint frame, ALSF_Cmd alsfCmd)
         {
-            Entity entity = self.GetParent<Entity>();
+            Unit unit = self.GetParent<Room>().GetComponent<UnitComponent>().MyUnit;
 
             using (ListComponent<Entity> componentsToTick = ListComponent<Entity>.Create())
             {
-                foreach (var component1 in entity.Components)
+                foreach (var component1 in unit.Components)
                 {
                     if (LSF_TickDispatcherComponent.Instance.HasTicker(component1.Key))
                     {
