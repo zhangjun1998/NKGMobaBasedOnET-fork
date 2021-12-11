@@ -90,6 +90,13 @@ namespace ET
             unit.Rotation = rotation;
         }
 
+        public override void OnLSF_ViewTick(MoveComponent entity, long deltaTime)
+        {
+            Unit unit = entity.GetParent<Unit>();
+            unit.ViewPosition = Vector3.Lerp(unit.ViewPosition, unit.Position, 0.5f);
+            unit.ViewRotation = Quaternion.Slerp(unit.ViewRotation, unit.Rotation, 0.5f);
+        }
+
 #endif
 
         public override void OnLSF_Tick(MoveComponent entity, long deltaTime)
@@ -99,6 +106,9 @@ namespace ET
             if (entity.ShouldMove)
             {
                 entity.MoveForward(deltaTime, false);
+#if !SERVER
+                Log.Info($"寻路完成后：{unit.Position.ToString("#0.0000")}");  
+#endif
             }
 
 #if SERVER

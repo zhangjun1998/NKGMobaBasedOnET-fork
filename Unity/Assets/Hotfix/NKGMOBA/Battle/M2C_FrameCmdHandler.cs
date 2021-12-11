@@ -7,10 +7,10 @@
             LSF_Component lsfComponent = session.DomainScene()
                 .GetComponent<RoomManagerComponent>().BattleRoom.GetComponent<LSF_Component>();
             
-            lsfComponent.RefreshClientNetInfoByCmdFrameAndHalfRTT(message.CmdContent.Frame);
+            lsfComponent.RefreshClientNetInfoByCmdFrameAndHalfRTT(message.ServerTimeSnap, message.CmdContent.Frame);
             //将消息加入待处理列表
             lsfComponent.AddCmdToHandleQueue(message.CmdContent);
-            
+            Log.Info(TimeHelper.ClientNow().ToString());
             await ETTask.CompletedTask;
         }
     }

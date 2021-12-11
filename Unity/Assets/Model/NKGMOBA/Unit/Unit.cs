@@ -20,7 +20,6 @@ namespace ET
             set
             {
                 this.position = value;
-                Game.EventSystem.Publish(new EventType.ChangePosition() { Unit = this }).Coroutine();
             }
         }
 
@@ -38,8 +37,34 @@ namespace ET
             set
             {
                 this.rotation = value;
+            }
+        }
+
+#if !SERVER
+        
+        private Vector3 viewPosition; //坐标
+
+        public Vector3 ViewPosition
+        {
+            get => this.viewPosition;
+            set
+            {
+                this.viewPosition = value;
+                Game.EventSystem.Publish(new EventType.ChangePosition() { Unit = this }).Coroutine();
+            }
+        }
+
+        private Quaternion viewRotation;
+        public Quaternion ViewRotation
+        {
+            get => this.viewRotation;
+            set
+            {
+                this.viewRotation = value;
                 Game.EventSystem.Publish(new EventType.ChangeRotation() {Unit = this}).Coroutine();
             }
         }
+        
+#endif
     }
 }

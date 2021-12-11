@@ -7,7 +7,7 @@ namespace ET
         protected override async ETTask Run(EventType.ChangeRotation args)
         {
             Transform transform = args.Unit.GetComponent<GameObjectComponent>().GameObject.transform;
-            transform.rotation = args.Unit.Rotation;
+            transform.rotation = args.Unit.ViewRotation;
             await ETTask.CompletedTask;
         }
     }

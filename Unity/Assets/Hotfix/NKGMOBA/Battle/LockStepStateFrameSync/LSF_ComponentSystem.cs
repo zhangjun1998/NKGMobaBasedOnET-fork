@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using ET.EventType;
 using NPBehave_Core;
+using UnityEngine;
 
 #if !SERVER
 using UnityEngine.Profiling;
@@ -32,6 +33,7 @@ namespace ET
 
 #if !SERVER
             self.ClientHandleExceptionNet().Coroutine();
+            self.LSF_TickBattleView(TimeAndFrameConverter.MS_Float2Long(Time.deltaTime));
 #endif
         }
     }

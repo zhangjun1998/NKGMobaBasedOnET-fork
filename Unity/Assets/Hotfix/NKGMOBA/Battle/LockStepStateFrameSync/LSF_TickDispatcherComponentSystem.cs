@@ -57,6 +57,14 @@ namespace ET
                 handler.LSF_PredictTick(entity, deltaTime);
             }
         }
+        
+        public static void HandleLSF_ViewTick(this LSF_TickDispatcherComponent self, Entity entity, long deltaTime)
+        {
+            if (self.LSF_TickHandlers.TryGetValue(entity.GetType(), out var handler))
+            {
+                handler.LSF_ViewTick(entity, deltaTime);
+            }
+        }
 #endif
 
 

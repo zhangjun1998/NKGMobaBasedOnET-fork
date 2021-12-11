@@ -9,6 +9,15 @@
         }
         
 #if !SERVER
+        public override void OnLSF_ViewTick(Unit entity, long deltaTime)
+        {
+            LSF_TickComponent lsfTickComponent = entity.GetComponent<LSF_TickComponent>();
+            if (lsfTickComponent != null)
+            {
+                entity.GetComponent<LSF_TickComponent>().TickView(deltaTime);
+            }
+        }
+
         public override void OnLSF_PredictTick(Unit entity, long deltaTime)
         {
             LSF_TickComponent lsfTickComponent = entity.GetComponent<LSF_TickComponent>();

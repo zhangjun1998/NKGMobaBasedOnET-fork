@@ -23,6 +23,14 @@
         }
 
 #if !SERVER
+        public override void OnLSF_ViewTick(UnitComponent entity, long deltaTime)
+        {
+            foreach (var allUnit in entity.idUnits)
+            {
+                LSF_TickDispatcherComponent.Instance.HandleLSF_ViewTick(allUnit.Value, deltaTime);
+            }
+        }
+
         public override void OnLSF_PredictTick(UnitComponent entity, long deltaTime)
         {
             foreach (var allUnit in entity.idUnits)

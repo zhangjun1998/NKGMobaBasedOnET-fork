@@ -27,8 +27,8 @@ namespace ET
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 #endif
-            
-            
+
+
 #if !SERVER
             if (!self.ShouldTickInternal)
             {
@@ -56,21 +56,21 @@ namespace ET
 
 #else
             Unit playerUnit = self.GetParent<Room>().GetComponent<UnitComponent>().MyUnit;
-            
+
             foreach (var frameCmdsQueuePair in self.FrameCmdsToHandle)
             {
                 // 现根据服务端发回的指令进行一致性检测，如果需要的话就进行回滚
                 bool shouldRollback = false;
                 Queue<ALSF_Cmd> frameCmdsQueue = frameCmdsQueuePair.Value;
                 uint targetFrame = frameCmdsQueuePair.Key;
-                
+
                 foreach (var frameCmd in frameCmdsQueue)
                 {
                     //说明需要回滚
-                    if (frameCmd.UnitId == playerUnit.Id && !self.CheckConsistencyCompareSpecialFrame(targetFrame, frameCmd))
+                    if (frameCmd.UnitId == playerUnit.Id &&
+                        !self.CheckConsistencyCompareSpecialFrame(targetFrame, frameCmd))
                     {
                         shouldRollback = true;
-                        
                         break;
                     }
                 }
@@ -95,8 +95,8 @@ namespace ET
 
                     //Log.Error("收到服务器回包后发现模拟的结果与服务器不一致，即需要强行回滚，则回滚，然后开始追帧");
                     // 注意这里追帧到当前已抵达帧的前一帧，因为最后有一步self.LSF_TickManually();用于当前帧Tick，不属于追帧的范围
-                    int count = (int)self.CurrentArrivedFrame - 1 - (int)self.CurrentFrame;
-                    
+                    int count = (int) self.CurrentArrivedFrame - 1 - (int) self.CurrentFrame;
+
                     while (count-- >= 0)
                     {
                         self.LSF_TickManually();
@@ -105,13 +105,17 @@ namespace ET
 
                     self.IsInChaseFrameState = false;
                 }
-                
-                foreach (var frameCmd in frameCmdsQueue)
+
+                // 因为其他玩家严格根据服务端Tick指令做表现，所以要限制帧数
+                if (frameCmdsQueuePair.Key <= self.ServerCurrentFrame)
                 {
-                    //其他玩家的指令直接执行
-                    if (frameCmd.UnitId != playerUnit.Id)
+                    foreach (var frameCmd in frameCmdsQueue)
                     {
-                        LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), frameCmd);
+                        //其他玩家的指令直接执行
+                        if (frameCmd.UnitId != playerUnit.Id)
+                        {
+                            LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), frameCmd);
+                        }
                     }
                 }
 
@@ -121,17 +125,14 @@ namespace ET
                 // Log.Info($"rrrrrrrrrrr 移除第{targetFrame}本地数据");
             }
             
-            // 客户端每帧Tick完需要清空待处理列表，因为我们已经全量执行了服务端发来的指令（检测一致性，回滚），这样才能确保与服务端结果一致
             self.FrameCmdsToHandle.Clear();
 #endif
-
             // 执行本帧本应该执行的的Tick
             self.LSF_TickManually();
 
             // 发送本帧收集的指令
             self.SendCurrentFrameMessage();
-            
-            
+
 #if !SERVER
             Profiler.EndSample();
 #else
@@ -193,8 +194,10 @@ namespace ET
                 foreach (var cmdToSend in cmdQueueToSend)
                 {
 #if SERVER
-                    M2C_FrameCmd m2CFrameCmd = new M2C_FrameCmd() {CmdContent = cmdToSend};
+                    M2C_FrameCmd m2CFrameCmd = new M2C_FrameCmd() {CmdContent = cmdToSend, ServerTimeSnap =
+ TimeHelper.ClientNow()};
                     MessageHelper.BroadcastToRoom(self.GetParent<Room>(), m2CFrameCmd);
+                    Log.Info(TimeHelper.ClientNow().ToString());
 #else
                     C2M_FrameCmd c2MFrameCmd = new C2M_FrameCmd() {CmdContent = cmdToSend};
                     Game.Scene.GetComponent<PlayerComponent>().GateSession.Send(c2MFrameCmd);
@@ -234,7 +237,8 @@ namespace ET
         /// </summary>
         /// <param name="self"></param>
         /// <param name="cmdToSend"></param>
-        public static void AddCmdToSendQueue<T>(this LSF_Component self, T cmdToSend, bool shouldAddToPlayerInputBuffer = true) where T : ALSF_Cmd
+        public static void AddCmdToSendQueue<T>(this LSF_Component self, T cmdToSend,
+            bool shouldAddToPlayerInputBuffer = true) where T : ALSF_Cmd
         {
 #if SERVER
             cmdToSend.Frame = self.CurrentFrame;
@@ -254,10 +258,10 @@ namespace ET
                 self.FrameCmdsToSend[self.CurrentFrame] = newQueue;
             }
 #else
-            
+
             //客户端用户输入有他的特殊性，往往会在Update里收集输入，在FixedUpdate里进行指令发送，所以要放到下一帧
             uint correctFrame = self.CurrentFrame + 1;
-            
+
             cmdToSend.Frame = correctFrame;
             C2M_FrameCmd c2MFrameCmd = new C2M_FrameCmd() {CmdContent = cmdToSend};
 
@@ -275,7 +279,7 @@ namespace ET
                     self.PlayerInputCmdsBuffer[correctFrame] = newQueue;
                 }
             }
-            
+
             //将消息放入待发送列表，本帧末尾进行发送
             if (self.FrameCmdsToSend.TryGetValue(correctFrame, out var queue2))
             {
@@ -290,7 +294,7 @@ namespace ET
 #endif
         }
 
-        
+
         public static void AddCmdsToWholeCmdsBuffer<T>(this LSF_Component self, ref T cmdToSend) where T : ALSF_Cmd
         {
             cmdToSend.Frame = self.CurrentFrame;
@@ -315,15 +319,26 @@ namespace ET
         }
 
 #if !SERVER
+        public static void LSF_TickBattleView(this LSF_Component self, long deltaTime)
+        {
+            // LSFTick Room，tick room的相关组件, 然后由Room去Tick其子组件，即此处是战斗的Tick起点
+            self.GetParent<Room>().GetComponent<LSF_TickComponent>()
+                ?.TickView(deltaTime);
+        }
+        
         /// <summary>
         /// 根据消息包中服务端帧数 + 半个RTT来计算出服务端当前帧数并且对一些字段和数据进行处理
         /// </summary>
-        public static void RefreshClientNetInfoByCmdFrameAndHalfRTT(this LSF_Component self, uint messageFrame)
+        public static void RefreshClientNetInfoByCmdFrameAndHalfRTT(this LSF_Component self, long serverTimeSnap,
+            uint messageFrame)
         {
             self.ServerCurrentFrame = messageFrame +
-                                      (uint) TimeAndFrameConverter.Frame_Float2FrameWithHalfRTT(Time.deltaTime,
+                                      (uint) TimeAndFrameConverter.Frame_Long2FrameWithHalfRTT(
+                                          TimeHelper.ClientNow() - serverTimeSnap,
                                           self.HalfRTT);
             self.CurrentAheadOfFrame = (int) (self.CurrentFrame - self.ServerCurrentFrame);
+
+            Log.Info($"刷新服务端CurrentFrame成功：{self.ServerCurrentFrame} ---- {TimeHelper.ClientNow()}");
         }
 
         /// <summary>
@@ -405,12 +420,12 @@ namespace ET
             else // 当前客户端帧数小于服务端帧数，是因为开局的时候由于网络延迟问题导致服务端先行于客户端，直接多次tick
             {
                 self.CurrentAheadOfFrame = -(int) (self.ServerCurrentFrame - self.CurrentFrame);
-                
+
                 // 落后，追帧，追到目标帧
                 int count = self.TargetAheadOfFrame - self.CurrentAheadOfFrame;
 
                 while (--count >= 0)
-                {                
+                {
                     self.CurrentFrame++;
                     self.LSF_TickManually();
                 }

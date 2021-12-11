@@ -44,7 +44,7 @@ message M2C_Ping // IActorLocationResponse
   int32 RpcId = 90;
   string Message = 92;
   int32 Error = 91;
-  int32 TimePoint = 1;
+  int64 TimePoint = 1;
 }
 
 //ResponseType M2C_Reload
@@ -236,6 +236,8 @@ message M2C_FrameCmd // IActorMessage
 {
   int32 RpcId = 90;
   int64 ActorId = 93;
+  
+  int64 ServerTimeSnap = 94;
   
   ALSF_Cmd CmdContent = 92;
 }

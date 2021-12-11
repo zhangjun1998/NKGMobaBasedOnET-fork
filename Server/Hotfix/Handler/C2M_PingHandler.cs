@@ -6,6 +6,7 @@ namespace ET
     {
         protected override async ETTask Run(Unit unit, C2M_Ping request, M2C_Ping response, Action reply)
         {
+            response.TimePoint = TimeHelper.ServerNow();
             reply();
             await ETTask.CompletedTask;
         }

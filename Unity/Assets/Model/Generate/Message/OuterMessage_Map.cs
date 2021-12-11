@@ -95,7 +95,7 @@ namespace ET
 		public int Error { get; set; }
 
 		[ProtoMember(1)]
-		public int TimePoint { get; set; }
+		public long TimePoint { get; set; }
 
 	}
 
@@ -490,6 +490,9 @@ namespace ET
 
 		[ProtoMember(93)]
 		public long ActorId { get; set; }
+
+		[ProtoMember(94)]
+		public long ServerTimeSnap { get; set; }
 
 		[ProtoMember(92)]
 		public ALSF_Cmd CmdContent { get; set; }

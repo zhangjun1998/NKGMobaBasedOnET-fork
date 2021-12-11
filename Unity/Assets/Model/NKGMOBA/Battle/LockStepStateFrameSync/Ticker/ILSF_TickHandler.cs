@@ -18,6 +18,13 @@
         bool LSF_CheckConsistency(Entity entity, uint frame, ALSF_Cmd stateToCompare);
 
         /// <summary>
+        /// 视图层Tick
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="alsfCmd"></param>
+        void LSF_ViewTick(Entity entity, long deltaTime);
+
+        /// <summary>
         /// 预测
         /// </summary>
         /// <param name="entity"></param>

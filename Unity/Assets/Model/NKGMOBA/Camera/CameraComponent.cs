@@ -63,7 +63,7 @@ namespace ET
                 return;
             }
 
-            this.m_MainCamera.transform.position = this.Unit.Position + offenPosition;
+            this.m_MainCamera.transform.position = this.Unit.ViewPosition + offenPosition;
         }
 
         public void SetTargetUnit(Unit unit)

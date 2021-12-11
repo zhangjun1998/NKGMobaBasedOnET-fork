@@ -31,5 +31,10 @@ namespace ET
         {
             return Frame_Long2Frame(((long) (time * 1000) + halfRTT));
         }
+        
+        public static int Frame_Long2FrameWithHalfRTT(long time, long halfRTT)
+        {
+            return Frame_Long2Frame(time + halfRTT);
+        }
     }
 }
