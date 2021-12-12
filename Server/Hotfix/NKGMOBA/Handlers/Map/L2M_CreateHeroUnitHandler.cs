@@ -29,7 +29,7 @@ namespace ET
             Unit unit = UnitFactory.CreateHeroUnit(targetRoom,
                 new UnitInfo()
                 {
-                    ConfigId = 10001, X = -10, Y = 0, Z = -10, RoleCamp = (int)RoleCamp.HuiYue, RoomId = targetRoom.Id,
+                    ConfigId = 10001, X = -10, Y = 0, Z = -10, RoleCamp = targetRoom.ContainsPlayers.Count % 2 ==0 ? (int)RoleCamp.TianZai : (int)RoleCamp.HuiYue, RoomId = targetRoom.Id,
                     BelongToPlayerId = player.Id, UnitId = IdGenerater.Instance.GenerateUnitId(player.DomainZone())
                 });
             
