@@ -99,7 +99,7 @@ namespace ET
 
 #endif
 
-        public override void OnLSF_Tick(MoveComponent entity, long deltaTime)
+        public override void OnLSF_Tick(MoveComponent entity, uint currentFrame, long deltaTime)
         {
             Unit unit = entity.GetParent<Unit>();
 

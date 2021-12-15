@@ -3,11 +3,11 @@
     [LSF_Tickable(EntityType = typeof(Unit))]
     public class UnitTicker : ALSF_TickHandler<Unit>
     {
-        public override void OnLSF_Tick(Unit entity, long deltaTime)
+        public override void OnLSF_Tick(Unit entity, uint currentFrame, long deltaTime)
         {
-            entity.GetComponent<LSF_TickComponent>()?.Tick(deltaTime);
+            entity.GetComponent<LSF_TickComponent>()?.Tick(currentFrame, deltaTime);
         }
-        
+
 #if !SERVER
         public override void OnLSF_ViewTick(Unit entity, long deltaTime)
         {
@@ -35,7 +35,7 @@
                 entity.GetComponent<LSF_TickComponent>().RollBack(frame, stateToCompare);
             }
         }
-        
+
         public override bool OnLSF_CheckConsistency(Unit entity, uint frame, ALSF_Cmd stateToCompare)
         {
             LSF_TickComponent lsfTickComponent = entity.GetComponent<LSF_TickComponent>();

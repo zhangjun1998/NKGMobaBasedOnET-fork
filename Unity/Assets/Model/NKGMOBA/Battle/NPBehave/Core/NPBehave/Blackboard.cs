@@ -48,6 +48,7 @@ namespace NPBehave
         private HashSet<Blackboard> m_Children = new HashSet<Blackboard>();
 
         private System.Action NotifiyObserversActionCache;
+        private long TimerId;
 
         public Blackboard(Blackboard mParent, Clock mClock)
         {
@@ -89,7 +90,7 @@ namespace NPBehave
 
             if (this.m_Clock != null)
             {
-                this.m_Clock.RemoveTimer(this.NotifiyObservers);
+                this.m_Clock.RemoveTimer(TimerId);
             }
         }
 
@@ -124,7 +125,7 @@ namespace NPBehave
                     {
                         targetBBValue.SetValue(value);
                         this.m_Notifications.Add(new Notification(key, Type.CHANGE, targetBBValue));
-                        this.m_Clock.AddTimer(0f, 0, NotifiyObserversActionCache);
+                        TimerId = this.m_Clock.AddTimer(0, NotifiyObserversActionCache);
                     }
                 }
             }
@@ -136,7 +137,7 @@ namespace NPBehave
             {
                 this.m_Data.Remove(key);
                 this.m_Notifications.Add(new Notification(key, Type.REMOVE, null));
-                this.m_Clock.AddTimer(0f, 0, NotifiyObservers);
+                TimerId = this.m_Clock.AddTimer(0, NotifiyObserversActionCache);
             }
         }
 
@@ -250,7 +251,7 @@ namespace NPBehave
             foreach (Blackboard child in this.m_Children)
             {
                 child.m_Notifications.AddRange(this.m_Notifications);
-                child.m_Clock.AddTimer(0f, 0, child.NotifiyObservers);
+                child.m_Clock.AddTimer(0, child.NotifiyObservers);
             }
 
             this.m_Notifications.Clear();

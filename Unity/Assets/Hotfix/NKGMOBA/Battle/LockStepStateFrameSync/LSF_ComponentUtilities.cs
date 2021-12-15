@@ -124,7 +124,7 @@ namespace ET
                 // self.PlayerInputCmdsBuffer.Remove(targetFrame);
                 // Log.Info($"rrrrrrrrrrr 移除第{targetFrame}本地数据");
             }
-            
+
             self.FrameCmdsToHandle.Clear();
 #endif
             // 执行本帧本应该执行的的Tick
@@ -172,7 +172,7 @@ namespace ET
 
             // LSFTick Room，tick room的相关组件, 然后由Room去Tick其子组件，即此处是战斗的Tick起点
             self.GetParent<Room>().GetComponent<LSF_TickComponent>()
-                ?.Tick(GlobalDefine.FixedUpdateTargetDTTime_Long);
+                ?.Tick(self.CurrentFrame, GlobalDefine.FixedUpdateTargetDTTime_Long);
 
 #if !SERVER
             //执行预测逻辑
@@ -325,7 +325,7 @@ namespace ET
             self.GetParent<Room>().GetComponent<LSF_TickComponent>()
                 ?.TickView(deltaTime);
         }
-        
+
         /// <summary>
         /// 根据消息包中服务端帧数 + 半个RTT来计算出服务端当前帧数并且对一些字段和数据进行处理
         /// </summary>

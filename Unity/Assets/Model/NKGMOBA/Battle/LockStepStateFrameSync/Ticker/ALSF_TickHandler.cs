@@ -2,11 +2,11 @@
 {
     public abstract class ALSF_TickHandler<T> : ILSF_TickHandler where T : Entity
     {
-        public abstract void OnLSF_Tick(T entity, long deltaTime);
+        public abstract void OnLSF_Tick(T entity, uint currentFrame, long deltaTime);
 
-        public void LSF_Tick(Entity entity, long deltaTime)
+        public void LSF_Tick(Entity entity, uint currentFrame, long deltaTime)
         {
-            OnLSF_Tick(entity as T, deltaTime);
+            OnLSF_Tick(entity as T, currentFrame, deltaTime);
         }
 
         public virtual bool OnLSF_CheckConsistency(T entity, uint frame, ALSF_Cmd stateToCompare)

@@ -31,6 +31,8 @@ namespace ET
                 Client_SkillCanvasConfigCategory.Instance.Get(clientUnitConfig.UnitWSkillId);
             Client_SkillCanvasConfig unitESkillConfig =
                 Client_SkillCanvasConfigCategory.Instance.Get(clientUnitConfig.UnitESkillId);
+            Client_SkillCanvasConfig Test =
+                Client_SkillCanvasConfigCategory.Instance.Get(clientUnitConfig.UnitRSkillId);
 
             //英雄属性组件
             args.Unit.AddComponent<UnitAttributesDataComponent, long>(clientUnitConfig.UnitAttributesDataId);
@@ -46,6 +48,9 @@ namespace ET
                 .Start();
             NP_RuntimeTreeFactory
                 .CreateSkillNpRuntimeTree(args.Unit, unitESkillConfig.NPBehaveId, unitESkillConfig.BelongToSkillId)
+                .Start();
+            NP_RuntimeTreeFactory
+                .CreateSkillNpRuntimeTree(args.Unit, Test.NPBehaveId, unitESkillConfig.BelongToSkillId)
                 .Start();
 
             await ETTask.CompletedTask;

@@ -20,7 +20,7 @@ namespace ET
             lsfComponent.HalfRTT = a.C2MPing % 2 == 0 ? a.C2MPing / 2 : a.C2MPing / 2 + 1;
             
             int targetAheadOfFrame =
-                TimeAndFrameConverter.Frame_Long2Frame(lsfComponent.HalfRTT) + (int)lsfComponent.BufferFrame;
+                (int)TimeAndFrameConverter.Frame_Long2Frame(lsfComponent.HalfRTT) + (int)lsfComponent.BufferFrame;
 
             lsfComponent.TargetAheadOfFrame =
                 targetAheadOfFrame > LSF_Component.AheadOfFrameMax

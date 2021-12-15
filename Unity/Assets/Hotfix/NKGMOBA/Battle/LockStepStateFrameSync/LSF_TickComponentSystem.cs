@@ -16,7 +16,7 @@ namespace ET
         /// </summary>
         /// <param name="self"></param>
         /// <param name="deltaTime"></param>
-        public static void Tick(this LSF_TickComponent self, long deltaTime)
+        public static void Tick(this LSF_TickComponent self, uint currentFrame, long deltaTime)
         {
             Entity entity = self.GetParent<Entity>();
 
@@ -36,7 +36,7 @@ namespace ET
                     // 因为有可能Tick过程中移除了Component，所以需要做一下判断
                     if (entity.Components.ContainsKey(type))
                     {
-                        LSF_TickDispatcherComponent.Instance.HandleLSF_Tick(componentToTick, deltaTime);
+                        LSF_TickDispatcherComponent.Instance.HandleLSF_Tick(componentToTick, currentFrame, deltaTime);
                     }
                 }
             }

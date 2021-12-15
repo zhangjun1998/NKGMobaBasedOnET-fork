@@ -55,6 +55,7 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\Others\ValueTypeDecideByCanvasData\VTD_EventId.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\NodeDatas\BBValues\NP_BBValue_UInt.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\Component\CastDamageComponent.cs" />
      <Compile Include="Assets\Model\Core\Entity\EntitySceneFactory.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Composite\RandomSelector.cs" />
@@ -98,7 +99,6 @@
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\NodeDatas\BBValues\NP_BBValue_Float.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\Others\SkillDesNodeData.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\UpdateModule\FixedUpdate.cs" />
-     <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Decorator\WaitForCondition.cs" />
      <Compile Include="Assets\Model\Generate\Message\OuterMessage_Realm.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\NodeDatas\NP_DataSupportorBase.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\Box2DSharp\CollisionHandler\AB2S_CollisionHandler.cs" />
@@ -162,7 +162,6 @@
      <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Component\LSF_TickComponent.cs" />
      <Compile Include="Assets\Model\Module\Message\SessionAcceptTimeoutComponent.cs" />
      <Compile Include="Assets\Model\Module\Numeric\NumericComponent.cs" />
-     <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Decorator\TimeMax.cs" />
      <Compile Include="Assets\Model\Generate\Config\Client_UnitConfig.cs" />
      <Compile Include="Assets\Model\Module\Message\Session.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\BuffData\BuffEnums\SkillReleaseMode.cs" />
@@ -182,10 +181,8 @@
      <Compile Include="Assets\Model\Generate\Config\Server_SkillCanvasConfig.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Task\WaitUntilStopped.cs" />
      <Compile Include="Assets\Model\Module\CoroutineLock\CoroutineLock.cs" />
-     <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Decorator\TimeMin.cs" />
      <Compile Include="Assets\Model\Module\Message\NetThreadComponent.cs" />
      <Compile Include="Assets\Model\Generate\Message\OuterMessage_Gate.cs" />
-     <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Decorator\Cooldown.cs" />
      <Compile Include="Assets\Model\Generate\Message\OuterMessage_Lobby.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\BuffData\BuffEnums\BuffBaseDataEffectTypes.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Decorator\BlackboardQuery.cs" />
@@ -256,6 +253,7 @@
      <Compile Include="Assets\Model\NKGMOBA\Battle\DataModifiers\DataModifierComponent.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\NodeDatas\Composite\NP_SequenceNodeData.cs" />
      <Compile Include="Assets\Model\Core\TimeHelper.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\FrameAction.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\NodeDatas\BBValues\NP_BBValueBase.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\NodeDatas\Decorator\NP_BlackboardMultipleConditionsNodeData.cs" />
      <Compile Include="Assets\Model\Module\Config\ConfigAttribute.cs" />
@@ -298,6 +296,7 @@
      <Compile Include="Assets\Model\Module\Actor\IActorMessage.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\BuffData\SustainDamageBuffData.cs" />
      <Compile Include="Assets\Model\Module\AI\AIDispatcherComponent.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Helper\TimeAndFrameConverter.cs" />
      <Compile Include="Assets\Model\Module\UnityWebRequest\UnityWebRequestAsync.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\BuffData\ChangeRenderAssetBuffData.cs" />
      <Compile Include="Assets\Model\Core\Object\NoObjectPool.cs" />

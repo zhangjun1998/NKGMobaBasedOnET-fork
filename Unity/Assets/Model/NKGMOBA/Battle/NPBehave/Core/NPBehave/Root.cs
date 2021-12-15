@@ -8,7 +8,7 @@ namespace NPBehave
 
         private System.Action m_MainNodeStartActionCache;
 
-        //private Node inProgressNode;
+        private long TimerId;
 
         public Blackboard blackboard;
 
@@ -33,7 +33,7 @@ namespace NPBehave
             this.blackboard = new Blackboard(this.clock);
             this.SetRoot(this);
         }
-        
+
         public Root(Blackboard blackboard, Clock clock, Node mainNode) : base("Root", mainNode)
         {
             this.blackboard = blackboard;
@@ -64,7 +64,7 @@ namespace NPBehave
             }
             else
             {
-                this.clock.RemoveTimer(this.m_MainNodeStartActionCache);
+                this.clock.RemoveTimer(this.TimerId);
             }
         }
 
@@ -73,7 +73,7 @@ namespace NPBehave
             if (!IsStopRequested)
             {
                 // wait one tick, to prevent endless recursions
-                this.clock.AddTimer(0, 0, this.m_MainNodeStartActionCache);
+                this.TimerId = this.clock.AddTimer(0, this.m_MainNodeStartActionCache);
             }
             else
             {

@@ -7,9 +7,9 @@
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="deltaTime"></param>
-        void LSF_Tick(Entity entity, long deltaTime);
+        void LSF_Tick(Entity entity, uint currentFrame, long deltaTime);
 
-#if !SERVER 
+#if !SERVER
         /// <summary>
         /// 检测结果一致性
         /// </summary>
@@ -30,7 +30,7 @@
         /// <param name="entity"></param>
         /// <param name="deltaTime"></param>
         void LSF_PredictTick(Entity entity, long deltaTime);
-        
+
         /// <summary>
         /// 回滚
         /// </summary>

@@ -9,7 +9,7 @@ namespace ET
     [LSF_Tickable(EntityType = typeof(MapClickCompoent))]
     public class MapClickCompoentTicker: ALSF_TickHandler<MapClickCompoent>
     {
-        public override void OnLSF_Tick(MapClickCompoent entity, long deltaTime)
+        public override void OnLSF_Tick(MapClickCompoent entity, uint currentFrame, long deltaTime)
         {
             // if (entity.m_UserInputComponent.RightMouseDown)
             // {
