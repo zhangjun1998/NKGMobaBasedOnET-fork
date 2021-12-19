@@ -15,9 +15,8 @@ namespace ET
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public class ProtobufBaseTypeRegisterAttribute : Attribute
     {
-        
     }
-    
+
     public static class ProtobufHelper
     {
         static ProtobufHelper()
@@ -31,7 +30,8 @@ namespace ET
             foreach (Type type in types)
             {
                 if (type.GetCustomAttributes(typeof(ProtoContractAttribute), false).Length == 0 &&
-                    type.GetCustomAttributes(typeof(ProtoMemberAttribute), false).Length == 0)
+                    type.GetCustomAttributes(typeof(ProtoMemberAttribute), false).Length == 0 &&
+                    type.GetCustomAttributes(typeof(ProtobufBaseTypeRegisterAttribute), false).Length == 0)
                 {
                     continue;
                 }

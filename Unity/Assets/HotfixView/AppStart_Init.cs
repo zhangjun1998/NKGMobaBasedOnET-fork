@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Security.Policy;
 
 namespace ET
@@ -11,7 +12,7 @@ namespace ET
 
             Game.Scene.AddComponent<ConfigComponent>();
             await ConfigComponent.Instance.LoadAsync();
-            
+
             Game.Scene.AddComponent<OpcodeTypeComponent>();
             Game.Scene.AddComponent<MessageDispatcherComponent>();
 

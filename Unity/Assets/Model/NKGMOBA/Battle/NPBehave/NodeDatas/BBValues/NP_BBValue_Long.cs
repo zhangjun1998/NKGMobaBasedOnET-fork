@@ -5,12 +5,14 @@
 //------------------------------------------------------------
 
 using System;
+using ProtoBuf;
 using Sirenix.OdinInspector;
 
 namespace ET
 {
     [HideLabel]
     [HideReferenceObjectPicker]
+    [ProtoContract]
     public class NP_BBValue_Long: NP_BBValueBase<long>, IEquatable<NP_BBValue_Long>
     {
         public override Type NP_BBValueType
@@ -119,5 +121,24 @@ namespace ET
         }
 
         #endregion
+        
+        #region proto序列化支持
+
+        [ProtoMember(1)] private long ValueForProtoSerilize;
+
+        [ProtoBeforeSerialization]
+        private void HandleBeforSerilize()
+        {
+            ValueForProtoSerilize = Value;
+        }
+
+        [ProtoAfterDeserialization]
+        private void HandleAfterSerilize()
+        {
+            Value = ValueForProtoSerilize;
+        }
+
+        #endregion
+        
     }
 }

@@ -6,9 +6,11 @@
 
 using System;
 using System.Collections.Generic;
+using ProtoBuf;
 
 namespace ET
 {
+    [ProtoContract]
     public class NP_BBValue_List_Long: NP_BBValueBase<List<long>>, IEquatable<NP_BBValue_List_Long>
     {
         public override Type NP_BBValueType
@@ -118,6 +120,24 @@ namespace ET
         {
             Log.Error("你他妈确定对比两个List<long>大小关系？这是人能干出来的事？想对比自己写");
             return false;
+        }
+
+        #endregion
+        
+        #region proto序列化支持
+
+        [ProtoMember(1)] private List<long> ValueForProtoSerilize;
+
+        [ProtoBeforeSerialization]
+        private void HandleBeforSerilize()
+        {
+            ValueForProtoSerilize = Value;
+        }
+
+        [ProtoAfterDeserialization]
+        private void HandleAfterSerilize()
+        {
+            Value = ValueForProtoSerilize;
         }
 
         #endregion

@@ -5,14 +5,14 @@
 //------------------------------------------------------------
 
 using System;
+using ProtoBuf;
 using Sirenix.OdinInspector;
 
 namespace ET
 {
-    public abstract class NP_BBValueBase<T>: ANP_BBValue, INP_BBValue<T>
+    public abstract class NP_BBValueBase<T> : ANP_BBValue, INP_BBValue<T>
     {
-        [LabelText("值")]
-        public T Value;
+        [LabelText("值")] public T Value;
 
         public T GetValue()
         {

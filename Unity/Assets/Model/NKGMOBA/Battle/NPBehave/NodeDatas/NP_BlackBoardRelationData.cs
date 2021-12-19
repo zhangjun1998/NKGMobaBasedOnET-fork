@@ -22,7 +22,7 @@ namespace ET
     /// </summary>
     [BoxGroup("黑板数据配置"), GUIColor(0.961f, 0.902f, 0.788f, 1f)]
     [HideLabel]
-    public partial class NP_BlackBoardRelationData
+    public class NP_BlackBoardRelationData
     {
         [LabelText("字典键")]
         [ValueDropdown("GetBBKeys")]

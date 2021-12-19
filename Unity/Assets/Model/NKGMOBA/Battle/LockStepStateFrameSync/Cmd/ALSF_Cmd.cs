@@ -16,7 +16,7 @@ namespace ET
         public long UnitId;
 
         public abstract ALSF_Cmd Init(long unitId);
-
+        
         public virtual bool CheckConsistency(ALSF_Cmd alsfCmd)
         {
             return true;

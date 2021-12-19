@@ -8,6 +8,7 @@ using System;
 
 namespace ET
 {
+    [ProtobufBaseTypeRegister]
     public abstract class ANP_BBValue
     {
         public abstract Type NP_BBValueType { get; }
