@@ -32,15 +32,15 @@ namespace NPBehave
         private Dictionary<string, ANP_BBValue> m_Data = new Dictionary<string, ANP_BBValue>();
 
         private Dictionary<string, List<System.Action<Type, ANP_BBValue>>> m_Observers =
-                new Dictionary<string, List<System.Action<Type, ANP_BBValue>>>();
+            new Dictionary<string, List<System.Action<Type, ANP_BBValue>>>();
 
         private bool m_IsNotifiyng = false;
 
         private Dictionary<string, List<System.Action<Type, ANP_BBValue>>> m_AddObservers =
-                new Dictionary<string, List<System.Action<Type, ANP_BBValue>>>();
+            new Dictionary<string, List<System.Action<Type, ANP_BBValue>>>();
 
         private Dictionary<string, List<System.Action<Type, ANP_BBValue>>> m_RemoveObservers =
-                new Dictionary<string, List<System.Action<Type, ANP_BBValue>>>();
+            new Dictionary<string, List<System.Action<Type, ANP_BBValue>>>();
 
         private List<Notification> m_Notifications = new List<Notification>();
         private List<Notification> m_NotificationsDispatch = new List<Notification>();
@@ -111,17 +111,17 @@ namespace NPBehave
             {
                 if (!this.m_Data.ContainsKey(key))
                 {
-                    // ANP_BBValue newBBValue = AutoCreateNPBBValueFromTValue(value);
-                    // this.m_Data.Add(key, newBBValue);
-                    // this.m_Notifications.Add(new Notification(key, Type.ADD, newBBValue));
-                    // this.m_Clock.AddTimer(0f, 0, NotifiyObserversActionCache);
-                    //Log.Warning($"黑板中未注册key为{key}的键值对，此次赋值无效");
+                    ANP_BBValue newBBValue = BBValueHelper.AutoCreateNPBBValueFromTValue(value);
+                    this.m_Data.Add(key, newBBValue);
+                    this.m_Notifications.Add(new Notification(key, Type.ADD, newBBValue));
+                    this.m_Clock.AddTimer(0, NotifiyObserversActionCache);
                 }
                 else
                 {
                     NP_BBValueBase<T> targetBBValue = this.m_Data[key] as NP_BBValueBase<T>;
                     if ((targetBBValue == null && value != null) ||
-                        (targetBBValue != null && (targetBBValue.GetValue() == null || !targetBBValue.GetValue().Equals(value))))
+                        (targetBBValue != null &&
+                         (targetBBValue.GetValue() == null || !targetBBValue.GetValue().Equals(value))))
                     {
                         targetBBValue.SetValue(value);
                         this.m_Notifications.Add(new Notification(key, Type.CHANGE, targetBBValue));
@@ -152,7 +152,7 @@ namespace NPBehave
             NP_BBValueBase<T> finalResult = result as NP_BBValueBase<T>;
             if (finalResult == null)
             {
-                Log.Error($"黑板获取值转型失败，Key：{key}，Type：{typeof (NP_BBValueBase<T>)}");
+                Log.Error($"黑板获取值转型失败，Key：{key}，Type：{typeof(NP_BBValueBase<T>)}");
                 return default;
             }
             else
@@ -160,6 +160,7 @@ namespace NPBehave
                 return finalResult.GetValue();
             }
         }
+
         public ANP_BBValue Get(string key)
         {
             if (this.m_Data.ContainsKey(key))
@@ -178,7 +179,8 @@ namespace NPBehave
 
         public bool Isset(string key)
         {
-            return this.m_Data.ContainsKey(key) || (this.m_ParentBlackboard != null && this.m_ParentBlackboard.Isset(key));
+            return this.m_Data.ContainsKey(key) ||
+                   (this.m_ParentBlackboard != null && this.m_ParentBlackboard.Isset(key));
         }
 
         public void AddObserver(string key, System.Action<Type, ANP_BBValue> observer)
@@ -268,7 +270,8 @@ namespace NPBehave
                 List<System.Action<Type, ANP_BBValue>> observers = GetObserverList(this.m_Observers, notification.Key);
                 foreach (System.Action<Type, ANP_BBValue> observer in observers)
                 {
-                    if (this.m_RemoveObservers.ContainsKey(notification.Key) && this.m_RemoveObservers[notification.Key].Contains(observer))
+                    if (this.m_RemoveObservers.ContainsKey(notification.Key) &&
+                        this.m_RemoveObservers[notification.Key].Contains(observer))
                     {
                         continue;
                     }
@@ -296,7 +299,8 @@ namespace NPBehave
             this.m_IsNotifiyng = false;
         }
 
-        private List<System.Action<Type, ANP_BBValue>> GetObserverList(Dictionary<string, List<System.Action<Type, ANP_BBValue>>> target, string key)
+        private List<System.Action<Type, ANP_BBValue>> GetObserverList(
+            Dictionary<string, List<System.Action<Type, ANP_BBValue>>> target, string key)
         {
             List<System.Action<Type, ANP_BBValue>> observers;
             if (target.ContainsKey(key))
@@ -311,28 +315,5 @@ namespace NPBehave
 
             return observers;
         }
-
-        // /// <summary>
-        // /// 自动从T创建一个NP_BBValue
-        // /// </summary>
-        // private static ANP_BBValue AutoCreateNPBBValueFromTValue<T>(T value)
-        // {
-        //     string valueType = typeof (T).ToString();
-        //     object targetValue = value;
-        //     switch (valueType)
-        //     {
-        //         case "int":
-        //             NP_BBValue_Int npBbValueInt = new NP_BBValue_Int();
-        //             npBbValueInt.SetValue((int) targetValue);
-        //             return npBbValueInt;
-        //         case "Vector3":
-        //             NP_BBValue_Vector3 npBbValueVector3 = new NP_BBValue_Vector3();
-        //             npBbValueVector3.SetValue((Vector3) targetValue);
-        //             return npBbValueVector3;
-        //         default:
-        //             Log.Error($"未找到类型为{valueType}的NP_BBValue类型");
-        //             return null;
-        //     }
-        // }
     }
 }
