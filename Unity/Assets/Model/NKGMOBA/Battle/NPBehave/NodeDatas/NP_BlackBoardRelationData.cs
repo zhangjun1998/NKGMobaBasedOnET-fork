@@ -24,21 +24,15 @@ namespace ET
     [HideLabel]
     public class NP_BlackBoardRelationData
     {
-        [LabelText("字典键")]
-        [ValueDropdown("GetBBKeys")]
-        [OnValueChanged("OnBBKeySelected")]
+        [LabelText("字典键")] [ValueDropdown("GetBBKeys")] [OnValueChanged("OnBBKeySelected")]
         public string BBKey;
 
-        [LabelText("指定的值类型")]
-        [ReadOnly]
-        public string NP_BBValueType;
+        [LabelText("指定的值类型")] [ReadOnly] public string NP_BBValueType;
 
-        [LabelText("是否可以把值写入黑板，或者是否与黑板进行值对比")]
-        [BsonIgnore]
+        [LabelText("是否可以把值写入黑板，或者是否与黑板进行值对比")] [BsonIgnore]
         public bool WriteOrCompareToBB;
 
-        [ShowIf("WriteOrCompareToBB")]
-        public ANP_BBValue NP_BBValue;
+        [ShowIf("WriteOrCompareToBB")] public ANP_BBValue NP_BBValue;
 
 #if UNITY_EDITOR
         private IEnumerable<string> GetBBKeys()
@@ -93,46 +87,7 @@ namespace ET
         /// <param name="blackboard">要修改的黑板</param>
         public void SetBlackBoardValue(Blackboard blackboard)
         {
-            switch (this.NP_BBValueType)
-            {
-                case "System.String":
-                    blackboard.Set(this.BBKey, (this.NP_BBValue as NP_BBValue_String).GetValue());
-                    break;
-                case "System.Single":
-                    blackboard.Set(this.BBKey, (this.NP_BBValue as NP_BBValue_Float).GetValue());
-                    break;
-                case "System.Int32":
-                    blackboard.Set(this.BBKey, (this.NP_BBValue as NP_BBValue_Int).GetValue());
-                    break;
-                case "System.Int64":
-                    blackboard.Set(this.BBKey, (this.NP_BBValue as NP_BBValue_Long).GetValue());
-                    break;
-                case "System.Boolean":
-                    blackboard.Set(this.BBKey, (this.NP_BBValue as NP_BBValue_Bool).GetValue());
-                    break;
-                case "System.Collections.Generic.List`1[System.Int64]":
-                    //因为List是引用类型，所以这里要做一下特殊处理，如果要设置的值为0元素的List，就Clear一下，而且这个东西也不会用来做为黑板条件，因为它没办法用来对比
-                    //否则就拷贝全部元素
-                    NP_BBValue_List_Long selfBBValue = (this.NP_BBValue as NP_BBValue_List_Long);
-                    List<long> targetList = blackboard.Get<List<long>>(this.BBKey);
-                    if (selfBBValue.Value.Count == 0)
-                    {
-                        targetList.Clear();
-                    }
-                    else
-                    {
-                        targetList.Clear();
-                        foreach (var item in selfBBValue.Value)
-                        {
-                            targetList.Add(item);
-                        }
-                    }
-
-                    break;
-                case "System.Numerics.Vector3":
-                    blackboard.Set(this.BBKey, (this.NP_BBValue as NP_BBValue_Vector3).GetValue());
-                    break;
-            }
+            BBValueHelper.SetTargetBlackboardUseANP_BBValue(this.NP_BBValue, blackboard, BBKey);
         }
 
         /// <summary>
@@ -152,46 +107,7 @@ namespace ET
         /// <param name="desBB">目标黑板</param>
         public void SetBBValueFromThisBBValue(Blackboard oriBB, Blackboard desBB)
         {
-            switch (this.NP_BBValueType)
-            {
-                case "System.String":
-                    desBB.Set(this.BBKey, oriBB.Get<string>(BBKey));
-                    break;
-                case "System.Single":
-                    desBB.Set(this.BBKey, oriBB.Get<float>(BBKey));
-                    break;
-                case "System.Int32":
-                    desBB.Set(this.BBKey, oriBB.Get<int>(BBKey));
-                    break;
-                case "System.Int64":
-                    desBB.Set(this.BBKey, oriBB.Get<long>(BBKey));
-                    break;
-                case "System.Boolean":
-                    desBB.Set(this.BBKey, oriBB.Get<bool>(BBKey));
-                    break;
-                case "System.Collections.Generic.List`1[System.Int64]":
-                    //因为List是引用类型，所以这里要做一下特殊处理，如果要设置的值为0元素的List，就Clear一下，而且这个东西也不会用来做为黑板条件，因为它没办法用来对比
-                    //否则就拷贝全部元素
-                    List<long> oriList = oriBB.Get<List<long>>(this.BBKey);
-                    List<long> desList = desBB.Get<List<long>>(this.BBKey);
-                    if (oriList.Count == 0)
-                    {
-                        desList.Clear();
-                    }
-                    else
-                    {
-                        desList.Clear();
-                        foreach (var item in oriList)
-                        {
-                            desList.Add(item);
-                        }
-                    }
-
-                    break;
-                case "System.Numerics.Vector3":
-                    desBB.Set(this.BBKey, oriBB.Get<Vector3>(BBKey));
-                    break;
-            }
+            BBValueHelper.SetTargetBlackboardUseANP_BBValue(oriBB.Get(BBKey), desBB, BBKey);
         }
     }
 }

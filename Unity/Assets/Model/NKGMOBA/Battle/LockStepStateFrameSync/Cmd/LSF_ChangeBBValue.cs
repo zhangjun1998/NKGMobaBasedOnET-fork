@@ -8,13 +8,22 @@ namespace ET
     {
         public const uint CmdType = LSF_CmdType.ChangeBlackBoardValue;
 
-        [ProtoMember(1)]
+        /// <summary>
+        /// 目标行为树Id
+        /// </summary>
+        [ProtoMember(1)] public long TargetNPBehaveTreeId;
+
+        /// <summary>
+        /// 将要同步修改的黑板键值
+        /// </summary>
+        [ProtoMember(2)]
         public Dictionary<string, ANP_BBValue> TargetBBValues = new Dictionary<string, ANP_BBValue>();
 
         public override ALSF_Cmd Init(long unitId)
         {
             this.LockStepStateFrameSyncDataType = CmdType;
             this.UnitId = unitId;
+            this.TargetNPBehaveTreeId = 0;
 
             return this;
         }
