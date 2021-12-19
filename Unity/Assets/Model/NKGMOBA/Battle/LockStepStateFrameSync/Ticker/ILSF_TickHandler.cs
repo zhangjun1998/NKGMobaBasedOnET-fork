@@ -8,6 +8,13 @@
         /// <param name="entity"></param>
         /// <param name="deltaTime"></param>
         void LSF_Tick(Entity entity, uint currentFrame, long deltaTime);
+        
+        /// <summary>
+        /// 当前帧所有Tick都结束了，可用于做数据收集工作
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="deltaTime"></param>
+        void LSF_TickEnd(Entity entity, uint frame, long deltaTime);
 
 #if !SERVER
         /// <summary>
@@ -23,13 +30,6 @@
         /// <param name="entity"></param>
         /// <param name="alsfCmd"></param>
         void LSF_ViewTick(Entity entity, long deltaTime);
-
-        /// <summary>
-        /// 预测
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="deltaTime"></param>
-        void LSF_PredictTick(Entity entity, long deltaTime);
 
         /// <summary>
         /// 回滚

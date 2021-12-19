@@ -22,7 +22,7 @@ namespace ET
                 return typeof (long);
             }
         }
-
+        
         #region 对比函数
 
         public bool Equals(NP_BBValue_Long other)

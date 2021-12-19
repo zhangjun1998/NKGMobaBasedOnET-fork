@@ -40,6 +40,8 @@ namespace ET
 
             //显示登陆界面
             await Game.EventSystem.Publish(new EventType.AppStartInitFinish() {ZoneScene = zoneScene});
+
+            ProtoTest.Do();
         }
     }
 }

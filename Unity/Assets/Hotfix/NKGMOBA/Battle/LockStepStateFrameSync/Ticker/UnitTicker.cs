@@ -7,6 +7,15 @@
         {
             entity.GetComponent<LSF_TickComponent>()?.Tick(currentFrame, deltaTime);
         }
+        
+        public override void OnLSF_TickEnd(Unit entity, uint frame, long deltaTime)
+        {
+            LSF_TickComponent lsfTickComponent = entity.GetComponent<LSF_TickComponent>();
+            if (lsfTickComponent != null)
+            {
+                entity.GetComponent<LSF_TickComponent>().TickEnd(frame ,deltaTime);
+            }
+        }
 
 #if !SERVER
         public override void OnLSF_ViewTick(Unit entity, long deltaTime)
@@ -15,15 +24,6 @@
             if (lsfTickComponent != null)
             {
                 entity.GetComponent<LSF_TickComponent>().TickView(deltaTime);
-            }
-        }
-
-        public override void OnLSF_PredictTick(Unit entity, long deltaTime)
-        {
-            LSF_TickComponent lsfTickComponent = entity.GetComponent<LSF_TickComponent>();
-            if (lsfTickComponent != null)
-            {
-                entity.GetComponent<LSF_TickComponent>().Predict(deltaTime);
             }
         }
 

@@ -16,7 +16,19 @@ namespace ET
         /// 已经添加过的行为树，第一个id为配置id，第二个id为运行时id
         /// </summary>
         private Dictionary<long, long> m_HasAddedTrees = new Dictionary<long, long>();
-
+        
+        /// <summary>
+        /// 帧快照（全量）
+        /// </summary>
+        public Dictionary<uint, Dictionary<long, NP_RuntimeTreeBBSnap>> FrameSnaps_Whole =
+            new Dictionary<uint, Dictionary<long, NP_RuntimeTreeBBSnap>>();
+        
+        /// <summary>
+        /// 帧快照（仅为脏数据）
+        /// </summary>
+        public Dictionary<uint, Dictionary<long, LSF_ChangeBBValue>> FrameSnaps_DeltaOnly =
+            new Dictionary<uint, Dictionary<long, LSF_ChangeBBValue>>();
+        
         /// <summary>
         /// 添加行为树
         /// </summary>

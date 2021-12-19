@@ -173,12 +173,10 @@ namespace ET
             // LSFTick Room，tick room的相关组件, 然后由Room去Tick其子组件，即此处是战斗的Tick起点
             self.GetParent<Room>().GetComponent<LSF_TickComponent>()
                 ?.Tick(self.CurrentFrame, GlobalDefine.FixedUpdateTargetDTTime_Long);
-
-#if !SERVER
-            //执行预测逻辑
+            
+            // 所有Tick结束后，一些数据收集工作，比如收集快照信息（对于服务端来说，每个玩家都要记录，而对于客户端来说，只需要记录本地玩家即可，因为只有本地玩家进行了预测）
             self.GetParent<Room>().GetComponent<LSF_TickComponent>()
-                ?.Predict(GlobalDefine.FixedUpdateTargetDTTime_Long);
-#endif
+                ?.TickEnd(self.CurrentFrame, GlobalDefine.FixedUpdateTargetDTTime_Long);
         }
 
         /// <summary>

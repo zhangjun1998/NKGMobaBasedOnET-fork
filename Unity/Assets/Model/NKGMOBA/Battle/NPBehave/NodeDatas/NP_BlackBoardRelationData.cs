@@ -87,7 +87,7 @@ namespace ET
         /// <param name="blackboard">要修改的黑板</param>
         public void SetBlackBoardValue(Blackboard blackboard)
         {
-            BBValueHelper.SetTargetBlackboardUseANP_BBValue(this.NP_BBValue, blackboard, BBKey);
+            NP_BBValueHelper.SetTargetBlackboardUseANP_BBValue(this.NP_BBValue, blackboard, BBKey);
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace ET
         /// <param name="desBB">目标黑板</param>
         public void SetBBValueFromThisBBValue(Blackboard oriBB, Blackboard desBB)
         {
-            BBValueHelper.SetTargetBlackboardUseANP_BBValue(oriBB.Get(BBKey), desBB, BBKey);
+            NP_BBValueHelper.SetTargetBlackboardUseANP_BBValue(oriBB.Get(BBKey), desBB, BBKey);
         }
     }
 }

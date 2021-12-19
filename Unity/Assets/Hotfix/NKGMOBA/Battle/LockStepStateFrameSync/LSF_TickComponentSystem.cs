@@ -42,6 +42,54 @@ namespace ET
             }
         }
 
+        /// <summary>
+        /// Tick End
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="frame"></param>
+        /// <returns></returns>
+        public static void TickEnd(this LSF_TickComponent self, uint frame, long deltaTime)
+        {
+            // 只有Server才需要去关心所有玩家的帧数据，客户端只需要关心自己的就行了
+#if SERVER
+            Entity entity = self.GetParent<Entity>();
+
+            using (ListComponent<Entity> componentsToTick = ListComponent<Entity>.Create())
+            {
+                foreach (var component1 in entity.Components)
+                {
+                    if (LSF_TickDispatcherComponent.Instance.HasTicker(component1.Key))
+                    {
+                        componentsToTick.List.Add(component1.Value);
+                    }
+                }
+
+                foreach (var componentToTick in componentsToTick.List)
+                {
+                    Type type = componentToTick.GetType();
+                    // 因为有可能Tick过程中移除了Component，所以需要做一下判断
+                    if (entity.Components.ContainsKey(type))
+                    {
+                        LSF_TickDispatcherComponent.Instance.HandleLSF_TickEnd(componentToTick, frame, deltaTime);
+                    }
+                }
+            }
+#else
+            Unit unit = self.GetParent<Room>().GetComponent<UnitComponent>().MyUnit;
+
+            using (ListComponent<Entity> componentsToTick = ListComponent<Entity>.Create())
+            {
+                foreach (var component1 in unit.Components)
+                {
+                    if (LSF_TickDispatcherComponent.Instance.HasTicker(component1.Key))
+                    {
+                        LSF_TickDispatcherComponent.Instance.HandleLSF_TickEnd(component1.Value, frame, deltaTime);
+                    }
+                }
+            }
+#endif
+        }
+
 #if !SERVER
         /// <summary>
         /// 检查一致性
@@ -97,27 +145,6 @@ namespace ET
             }
         }
 
-        /// <summary>
-        /// 预测
-        /// </summary>
-        /// <param name="self"></param>
-        /// <param name="frame"></param>
-        /// <returns></returns>
-        public static void Predict(this LSF_TickComponent self, long deltaTime)
-        {
-            Unit unit = self.GetParent<Room>().GetComponent<UnitComponent>().MyUnit;
-
-            using (ListComponent<Entity> componentsToTick = ListComponent<Entity>.Create())
-            {
-                foreach (var component1 in unit.Components)
-                {
-                    if (LSF_TickDispatcherComponent.Instance.HasTicker(component1.Key))
-                    {
-                        LSF_TickDispatcherComponent.Instance.HandleLSF_PredictTick(component1.Value, deltaTime);
-                    }
-                }
-            }
-        }
 
         /// <summary>
         /// 回滚

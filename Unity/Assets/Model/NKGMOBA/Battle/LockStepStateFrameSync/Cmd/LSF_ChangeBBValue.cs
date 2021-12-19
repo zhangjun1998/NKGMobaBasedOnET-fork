@@ -17,7 +17,7 @@ namespace ET
         /// 将要同步修改的黑板键值
         /// </summary>
         [ProtoMember(2)]
-        public Dictionary<string, ANP_BBValue> TargetBBValues = new Dictionary<string, ANP_BBValue>();
+        public NP_RuntimeTreeBBSnap NP_RuntimeTreeBBSnap;
 
         public override ALSF_Cmd Init(long unitId)
         {
@@ -30,7 +30,8 @@ namespace ET
 
         public override void Clear()
         {
-            TargetBBValues.Clear();
+            NP_RuntimeTreeBBSnap.NP_FrameBBValues.Clear();
+            NP_RuntimeTreeBBSnap.NP_FrameBBValueOperations.Clear();
         }
     }
 }

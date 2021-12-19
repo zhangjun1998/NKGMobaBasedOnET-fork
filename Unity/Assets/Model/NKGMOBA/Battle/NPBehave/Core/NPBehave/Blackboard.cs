@@ -111,7 +111,7 @@ namespace NPBehave
             {
                 if (!this.m_Data.ContainsKey(key))
                 {
-                    ANP_BBValue newBBValue = BBValueHelper.AutoCreateNPBBValueFromTValue(value);
+                    ANP_BBValue newBBValue = NP_BBValueHelper.AutoCreateNPBBValueFromTValue(value);
                     this.m_Data.Add(key, newBBValue);
                     this.m_Notifications.Add(new Notification(key, Type.ADD, newBBValue));
                     this.m_Clock.AddTimer(0, NotifiyObserversActionCache);
@@ -123,7 +123,7 @@ namespace NPBehave
                         (targetBBValue != null &&
                          (targetBBValue.GetValue() == null || !targetBBValue.GetValue().Equals(value))))
                     {
-                        targetBBValue.SetValue(value);
+                        targetBBValue.SetValueFrom(value);
                         this.m_Notifications.Add(new Notification(key, Type.CHANGE, targetBBValue));
                         TimerId = this.m_Clock.AddTimer(0, NotifiyObserversActionCache);
                     }

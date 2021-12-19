@@ -18,13 +18,29 @@ namespace ET
         {
             return Value;
         }
-
-        public void SetValue(INP_BBValue<T> bbValue)
+        
+        public override void SetValueFrom(ANP_BBValue anpBbValue)
         {
-            Value = bbValue.GetValue();
+            if (anpBbValue == null || !(anpBbValue is NP_BBValueBase<T>))
+            {
+                Log.Error($"{typeof(T)} 拷贝失败，anpBbValue为空或类型非法");
+                return;
+            }
+            this.SetValueFrom((INP_BBValue<T>) anpBbValue);
         }
-
-        public void SetValue(T bbValue)
+        
+        protected virtual void SetValueFrom(INP_BBValue<T> bbValue)
+        {
+            if (bbValue == null || !(bbValue is NP_BBValueBase<T>) )
+            {
+                Log.Error($"{typeof(T)} 拷贝失败，anpBbValue为空或类型非法");
+                return;
+            }
+            
+            this.SetValueFrom(bbValue.GetValue());
+        }
+        
+        public virtual void SetValueFrom(T bbValue)
         {
             Value = bbValue;
         }

@@ -123,7 +123,7 @@ namespace ET
 
         #endregion
         
-        #region proto序列化支持
+        #region proto序列化支持，因为Protobuf不支持T字段的序列化，所以只能手写
 
         [ProtoMember(1)] private Vector3 ValueForProtoSerilize;
 

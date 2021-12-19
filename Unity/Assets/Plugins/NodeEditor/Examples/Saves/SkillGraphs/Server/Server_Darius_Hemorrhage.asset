@@ -180,8 +180,8 @@ MonoBehaviour:
   exposedParameters: []
   serializedParameterList: []
   stickyNotes: []
-  position: {x: 178.66667, y: -603.3333, z: 0}
-  scale: {x: 0.8695652, y: 0.8695652, z: 1}
+  position: {x: 240, y: -827, z: 0}
+  scale: {x: 1, y: 1, z: 1}
   Name: Server_Darius_Hemorrhage
   Config: {fileID: 4900000, guid: a8e0ba85b664efa4aa12af16ca37f2d7, type: 3}
   IdInConfig: 10001

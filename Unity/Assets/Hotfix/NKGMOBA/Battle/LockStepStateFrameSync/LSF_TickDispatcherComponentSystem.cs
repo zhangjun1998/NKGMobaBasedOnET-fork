@@ -50,14 +50,6 @@ namespace ET
             return true;
         }
 
-        public static void HandleLSF_PredictTick(this LSF_TickDispatcherComponent self, Entity entity, long deltaTime)
-        {
-            if (self.LSF_TickHandlers.TryGetValue(entity.GetType(), out var handler))
-            {
-                handler.LSF_PredictTick(entity, deltaTime);
-            }
-        }
-        
         public static void HandleLSF_ViewTick(this LSF_TickDispatcherComponent self, Entity entity, long deltaTime)
         {
             if (self.LSF_TickHandlers.TryGetValue(entity.GetType(), out var handler))
@@ -73,6 +65,14 @@ namespace ET
             if (self.LSF_TickHandlers.TryGetValue(entity.GetType(), out var handler))
             {
                 handler.LSF_Tick(entity, currentFrame, deltaTime);
+            }
+        }
+        
+        public static void HandleLSF_TickEnd(this LSF_TickDispatcherComponent self, Entity entity, uint frame, long deltaTime)
+        {
+            if (self.LSF_TickHandlers.TryGetValue(entity.GetType(), out var handler))
+            {
+                handler.LSF_TickEnd(entity, frame, deltaTime);
             }
         }
     }

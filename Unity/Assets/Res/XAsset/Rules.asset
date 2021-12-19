@@ -20,7 +20,7 @@ MonoBehaviour:
   searchPatternPrefab: '*.prefab'
   searchPatternScene: '*.unity'
   searchPatternText: '*.txt,*.bytes,*.json,*.csv,*.xml,*htm,*.html,*.yaml,*.fnt,*.bin'
-  version: 92
+  version: 93
   scenesInBuild:
   - {fileID: 102900000, guid: e0d691ac8c1d0454ba07089ea820e18a, type: 3}
   - {fileID: 102900000, guid: d1f6e76af288a614586be7868b6ddd96, type: 3}
@@ -124,6 +124,8 @@ MonoBehaviour:
     path: Assets/Res/Config/SkillConfig/Client_Darius_Hemorrhage.bytes
   - bundle: e1b4d53deb85af8b40d79b0ce1372f3a.unity3d
     path: Assets/Res/Config/SkillConfig/Client_Darius_Q.bytes
+  - bundle: 0929518d645a3261d8982f0eb1e833f7.unity3d
+    path: Assets/Res/Config/SkillConfig/Client_Darius_TestLSF.bytes
   - bundle: 1dd2ad92d16e18a5da0726e49dc84a96.unity3d
     path: Assets/Res/Config/SkillConfig/Client_Darius_W.bytes
   - bundle: 37f56b2351824cfb752c1cdf81358aa0.unity3d
@@ -395,6 +397,9 @@ MonoBehaviour:
   - name: e1b4d53deb85af8b40d79b0ce1372f3a.unity3d
     assets:
     - Assets/Res/Config/SkillConfig/Client_Darius_Q.bytes
+  - name: 0929518d645a3261d8982f0eb1e833f7.unity3d
+    assets:
+    - Assets/Res/Config/SkillConfig/Client_Darius_TestLSF.bytes
   - name: 1dd2ad92d16e18a5da0726e49dc84a96.unity3d
     assets:
     - Assets/Res/Config/SkillConfig/Client_Darius_W.bytes

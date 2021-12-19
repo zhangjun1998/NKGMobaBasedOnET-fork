@@ -45,9 +45,8 @@ namespace ET
 
             return false;
         }
-
-#if !SERVER
-        public override void OnLSF_PredictTick(MoveComponent entity, long deltaTime)
+        
+        public override void OnLSF_TickEnd(MoveComponent entity, uint frame, long deltaTime)
         {
             Unit unit = entity.GetParent<Unit>();
 
@@ -66,9 +65,24 @@ namespace ET
             lsfMoveCmd.RotW = unit.Rotation.w;
 
             lsfMoveCmd.IsStopped = !entity.ShouldMove;
+            lsfMoveCmd.Frame = lsfComponent.CurrentFrame;
 
             entity.HistroyMoveStates[lsfComponent.CurrentFrame] = lsfMoveCmd;
+
+#if SERVER 
+            // 只有数据脏了才进行发送
+            if (!this.OnLSF_CheckConsistency(entity, lsfComponent.CurrentFrame - 1, lsfMoveCmd))
+            {
+                lsfComponent.AddCmdToSendQueue(lsfMoveCmd);
+            }
+            else
+            {
+                lsfComponent.AddCmdsToWholeCmdsBuffer(ref lsfMoveCmd);
+            }  
+#endif
         }
+
+#if !SERVER
 
         public override void OnLSF_RollBackTick(MoveComponent entity, uint frame, ALSF_Cmd stateToCompare)
         {
@@ -110,38 +124,6 @@ namespace ET
                 Log.Info($"寻路完成后：{unit.Position.ToString("#0.0000")}");  
 #endif
             }
-
-#if SERVER
-            LSF_MoveCmd lsfMoveCmd = ReferencePool.Acquire<LSF_MoveCmd>().Init(unit.Id) as LSF_MoveCmd;
-
-            lsfMoveCmd.Speed = entity.Speed;
-            lsfMoveCmd.PosX = unit.Position.x;
-            lsfMoveCmd.PosY = unit.Position.y;
-            lsfMoveCmd.PosZ = unit.Position.z;
-
-            lsfMoveCmd.RotA = unit.Rotation.x;
-            lsfMoveCmd.RotB = unit.Rotation.y;
-            lsfMoveCmd.RotC = unit.Rotation.z;
-            lsfMoveCmd.RotW = unit.Rotation.w;
-
-            lsfMoveCmd.IsStopped = !entity.ShouldMove;
-
-            LSF_Component lsfComponent = unit.BelongToRoom.GetComponent<LSF_Component>();
-
-            lsfMoveCmd.Frame = lsfComponent.CurrentFrame;
-
-            entity.HistroyMoveStates[lsfMoveCmd.Frame] = lsfMoveCmd;
-
-            // 只有数据脏了才进行发送
-            if (!this.OnLSF_CheckConsistency(entity, lsfComponent.CurrentFrame - 1, lsfMoveCmd))
-            {
-                lsfComponent.AddCmdToSendQueue(lsfMoveCmd);
-            }
-            else
-            {
-                lsfComponent.AddCmdsToWholeCmdsBuffer(ref lsfMoveCmd);
-            }
-#endif
         }
     }
 }

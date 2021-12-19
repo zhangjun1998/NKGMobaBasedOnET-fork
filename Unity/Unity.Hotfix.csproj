@@ -156,7 +156,7 @@
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\NP_CreateColliderDataAction.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Room\L2C_PrepareToEnterBattleHandler.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Unit\UnitComponent.cs" />
-     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\ComponentSystems\NP_SyncComponentSystems.cs" />
+     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\ComponentSystems\NP_SyncComponentSystems.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\LSF_CmdHandlerComponentSystem.cs" />
      <Compile Include="Assets\Hotfix\Module\Numeric\NumericWatcher_AttackValue.cs" />
      <Compile Include="Assets\Hotfix\Module\Message\MessageDispatcherComponentSystem.cs" />
@@ -168,7 +168,6 @@
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\SkillSystem\BuffSystem\PlayEffectBuffSystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\NP_MoveToRandomPosAction.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\BBValue\NP_ChangeBlackValueAction.cs" />
-     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\ComponentSystems\NP_TreeDataRepositoryComponentSystems.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\SkillSystem\BuffSystem\FlashDamageBuffSystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\NP_ChangeUnitPropertyAction.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\SkillSystem\BuffSystem\ListenBuffEvents\ListenBuffEvent_CheckOverlay.cs" />
@@ -181,6 +180,10 @@
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\NP_TriggerAttackCDAction.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\M2C_FrameCmdHandler.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\Handler\LSF_ChangeBBValueHandler.cs" />
+     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\ComponentSystems\SkillCanvasManagerComponentSystem.cs" />
+     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\Ticker\NP_RuntimeTreeManagerTicker.cs" />
+     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\ComponentSystems\NP_TreeDataRepositoryComponentSystems.cs" />
+     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\ComponentSystems\NP_RuntimeTreeSystem.cs" />
      <None Include="Assets\Hotfix\Unity.Hotfix.asmdef" />
      <None Include="Assets\Hotfix\csc.rsp" />
  <Reference Include="UnityEngine">

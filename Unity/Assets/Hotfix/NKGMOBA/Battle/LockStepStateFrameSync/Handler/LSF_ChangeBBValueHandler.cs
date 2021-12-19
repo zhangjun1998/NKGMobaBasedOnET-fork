@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NPBehave;
 
 namespace ET
 {
@@ -7,18 +8,28 @@ namespace ET
     {
         protected override async ETVoid Run(Unit unit, LSF_ChangeBBValue cmd)
         {
-            SkillCanvasManagerComponent skillCanvasManagerComponent = unit.GetComponent<SkillCanvasManagerComponent>();
+            NP_RuntimeTreeManager npRuntimeTreeManager = unit.GetComponent<NP_RuntimeTreeManager>();
+            NP_RuntimeTreeBBSnap cmdNPRuntimeTreeBbSnap = cmd.NP_RuntimeTreeBBSnap;
 
-            foreach (var allSkillCanva in skillCanvasManagerComponent.GetAllSkillCanvas())
+            // 服务器发来的脏数据就是变更的黑板数据，直接原样设置到黑板中即可
+            if (npRuntimeTreeManager.RuntimeTrees.TryGetValue(cmd.TargetNPBehaveTreeId, out var npRuntimeTree))
             {
-                foreach (var sTree in allSkillCanva.Value)
+                Blackboard blackboard = npRuntimeTree.GetBlackboard();
+
+                foreach (var toBeChangedBBValues in cmd.NP_RuntimeTreeBBSnap.NP_FrameBBValues)
                 {
-                    if (sTree.Id == cmd.TargetNPBehaveTreeId)
+                    if (cmdNPRuntimeTreeBbSnap.NP_FrameBBValueOperations.TryGetValue(toBeChangedBBValues.Key, out var operationType))
                     {
-                        foreach (var toBeChangedBBValues in cmd.TargetBBValues)
+                        switch (operationType)
                         {
-                            BBValueHelper.SetTargetBlackboardUseANP_BBValue(toBeChangedBBValues.Value,
-                                sTree.GetBlackboard(), toBeChangedBBValues.Key);
+                            case NP_RuntimeTreeBBOperationType.ADD:
+                            case NP_RuntimeTreeBBOperationType.CHANGE:
+                                NP_BBValueHelper.SetTargetBlackboardUseANP_BBValue(toBeChangedBBValues.Value, blackboard,
+                                    toBeChangedBBValues.Key);
+                                break;
+                            case NP_RuntimeTreeBBOperationType.REMOVE:
+                                blackboard.Unset(toBeChangedBBValues.Key);
+                                break;
                         }
                     }
                 }

@@ -359,7 +359,8 @@
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Decorator\Failer.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\BuffData\ReplaceAttackBuffData.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Cmd\LSF_ChangeBBValue.cs" />
-     <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Helper\BBValueHelper.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Helper\NP_BBValueHelper.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\LockStepStateFrameSync\NP_RuntimeTreeBBSnap.cs" />
      <None Include="Assets\Model\csc.rsp" />
      <None Include="Assets\Model\Unity.Model.asmdef" />
  <Reference Include="UnityEngine">
