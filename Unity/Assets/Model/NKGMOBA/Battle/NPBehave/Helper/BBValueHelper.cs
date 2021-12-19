@@ -28,6 +28,9 @@ namespace ET
                 case "System.Int64":
                     blackboard.Set(key, (nAnpBbValue as NP_BBValue_Long).GetValue());
                     break;
+                case "System.UInt32":
+                    blackboard.Set(key, (nAnpBbValue as NP_BBValue_UInt).GetValue());
+                    break;
                 case "System.Boolean":
                     blackboard.Set(key, (nAnpBbValue as NP_BBValue_Bool).GetValue());
                     break;
