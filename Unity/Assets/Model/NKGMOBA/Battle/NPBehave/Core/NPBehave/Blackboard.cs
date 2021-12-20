@@ -101,7 +101,8 @@ namespace NPBehave
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <typeparam name="T"></typeparam>
-        public void Set<T>(string key, T value)
+        /// <param name="addIfNotExit">如果不存在这个键值的话，就添加一个</param>
+        public void Set<T>(string key, T value, bool addIfNotExit = false)
         {
             if (this.m_ParentBlackboard != null && this.m_ParentBlackboard.Isset(key))
             {
@@ -111,6 +112,7 @@ namespace NPBehave
             {
                 if (!this.m_Data.ContainsKey(key))
                 {
+                    if (!addIfNotExit) return;
                     ANP_BBValue newBBValue = NP_BBValueHelper.AutoCreateNPBBValueFromTValue(value);
                     this.m_Data.Add(key, newBBValue);
                     this.m_Notifications.Add(new Notification(key, Type.ADD, newBBValue));

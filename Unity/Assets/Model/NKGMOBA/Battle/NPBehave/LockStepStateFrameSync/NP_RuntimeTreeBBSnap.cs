@@ -94,31 +94,30 @@ namespace ET
         {
             NP_RuntimeTreeBBSnap npRuntimeTreeBbSnap = ReferencePool.Acquire<NP_RuntimeTreeBBSnap>();
             //先检测移除的
-            foreach (var selfSnap in this.NP_FrameBBValues)
+            foreach (var targetSnap in targetBBSnapToCompare.NP_FrameBBValues)
             {
-                if (!targetBBSnapToCompare.NP_FrameBBValues.ContainsKey(selfSnap.Key))
+                if (!this.NP_FrameBBValues.ContainsKey(targetSnap.Key))
                 {
-                    npRuntimeTreeBbSnap.NP_FrameBBValueOperations.Add(selfSnap.Key,
+                    npRuntimeTreeBbSnap.NP_FrameBBValueOperations.Add(targetSnap.Key,
                         NP_RuntimeTreeBBOperationType.REMOVE);
                 }
             }
 
             //再检测新增和修改的
-            foreach (var snap in targetBBSnapToCompare.NP_FrameBBValues)
+            foreach (var selfSnap in this.NP_FrameBBValues)
             {
-                ANP_BBValue anpBbValue = targetBBSnapToCompare.NP_FrameBBValues[snap.Key];
-                ANP_BBValue selfBbValue = this.NP_FrameBBValues[snap.Key];
-
-                // 代表是新增的
-                if (selfBbValue == null)
+                if (targetBBSnapToCompare.NP_FrameBBValues.TryGetValue(selfSnap.Key, out var targetSnap))
                 {
-                    npRuntimeTreeBbSnap.NP_FrameBBValues.Add(snap.Key, anpBbValue.DeepCopy());
-                    npRuntimeTreeBbSnap.NP_FrameBBValueOperations.Add(snap.Key, NP_RuntimeTreeBBOperationType.ADD);
+                    if (!NP_BBValueHelper.Compare(selfSnap.Value, targetSnap, Operator.IS_EQUAL))
+                    {
+                        npRuntimeTreeBbSnap.NP_FrameBBValues.Add(selfSnap.Key, selfSnap.Value.DeepCopy());
+                        npRuntimeTreeBbSnap.NP_FrameBBValueOperations.Add(selfSnap.Key, NP_RuntimeTreeBBOperationType.CHANGE);
+                    }
                 }
-                else if (!NP_BBValueHelper.Compare(selfBbValue, anpBbValue, Operator.IS_EQUAL))
+                else
                 {
-                    npRuntimeTreeBbSnap.NP_FrameBBValues.Add(snap.Key, anpBbValue.DeepCopy());
-                    npRuntimeTreeBbSnap.NP_FrameBBValueOperations.Add(snap.Key, NP_RuntimeTreeBBOperationType.CHANGE);
+                    npRuntimeTreeBbSnap.NP_FrameBBValues.Add(selfSnap.Key, selfSnap.Value.DeepCopy());
+                    npRuntimeTreeBbSnap.NP_FrameBBValueOperations.Add(selfSnap.Key, NP_RuntimeTreeBBOperationType.ADD);
                 }
             }
 
