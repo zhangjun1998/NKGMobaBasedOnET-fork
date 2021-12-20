@@ -60,7 +60,8 @@ namespace ET
 
             foreach (var runtimeTree in entity.RuntimeTrees)
             {
-                NP_RuntimeTreeBBSnap currentFrameNPRuntimeTreeBbSnap = runtimeTree.Value.AcquireCurrentFrameBBValueSnap();
+                NP_RuntimeTreeBBSnap currentFrameNPRuntimeTreeBbSnap =
+                    runtimeTree.Value.AcquireCurrentFrameBBValueSnap();
                 entity.FrameSnaps_Whole[frame].Add(runtimeTree.Key, currentFrameNPRuntimeTreeBbSnap);
 
                 LSF_ChangeBBValue changeBbValue =
@@ -76,11 +77,17 @@ namespace ET
                 {
                     // 与前一帧快照对比得出脏数据
                     changeBbValue.NP_RuntimeTreeBBSnap =
-                        currentFrameNPRuntimeTreeBbSnap.GetDifference(entity.FrameSnaps_Whole[frame - 1][runtimeTree.Key]);
+                        currentFrameNPRuntimeTreeBbSnap.GetDifference(
+                            entity.FrameSnaps_Whole[frame - 1][runtimeTree.Key]);
                 }
                 else
                 {
                     changeBbValue.NP_RuntimeTreeBBSnap = currentFrameNPRuntimeTreeBbSnap;
+                    foreach (var snap in changeBbValue.NP_RuntimeTreeBBSnap.NP_FrameBBValues)
+                    {
+                        changeBbValue.NP_RuntimeTreeBBSnap.NP_FrameBBValueOperations.Add(snap.Key,
+                            NP_RuntimeTreeBBOperationType.ADD);
+                    }
                 }
 
                 // 如果没有脏数据，就直接返回
@@ -89,7 +96,7 @@ namespace ET
                 {
                     continue;
                 }
-                
+
 #if SERVER
                 unit.BelongToRoom.GetComponent<LSF_Component>().AddCmdToSendQueue(changeBbValue);
 #else
