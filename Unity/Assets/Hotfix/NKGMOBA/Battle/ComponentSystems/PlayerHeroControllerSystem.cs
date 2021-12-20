@@ -7,22 +7,38 @@ namespace ET
         {
             if (self.UserInputComponent.QDown)
             {
-                Game.Scene.GetComponent<PlayerComponent>().GateSession.Send(new C2M_UserInputSkillCmd() {VK = "Q"});
+                Unit unit = self.GetParent<Unit>();
+                LSF_PlaySkillInputCmd lsfPlaySkillInputCmd = ReferencePool.Acquire<LSF_PlaySkillInputCmd>();
+                lsfPlaySkillInputCmd.Init(unit.Id);
+                lsfPlaySkillInputCmd.InputKey = "Q";
+                unit.BelongToRoom.GetComponent<LSF_Component>().AddCmdToSendQueue(lsfPlaySkillInputCmd);
             }
 
             if (self.UserInputComponent.WDown)
             {
-                Game.Scene.GetComponent<PlayerComponent>().GateSession.Send(new C2M_UserInputSkillCmd() {VK = "W"});
+                Unit unit = self.GetParent<Unit>();
+                LSF_PlaySkillInputCmd lsfPlaySkillInputCmd = ReferencePool.Acquire<LSF_PlaySkillInputCmd>();
+                lsfPlaySkillInputCmd.Init(unit.Id);
+                lsfPlaySkillInputCmd.InputKey = "W";
+                unit.BelongToRoom.GetComponent<LSF_Component>().AddCmdToSendQueue(lsfPlaySkillInputCmd);
             }
 
             if (self.UserInputComponent.EDown)
             {
-                Game.Scene.GetComponent<PlayerComponent>().GateSession.Send(new C2M_UserInputSkillCmd() {VK = "E"});
+                Unit unit = self.GetParent<Unit>();
+                LSF_PlaySkillInputCmd lsfPlaySkillInputCmd = ReferencePool.Acquire<LSF_PlaySkillInputCmd>();
+                lsfPlaySkillInputCmd.Init(unit.Id);
+                lsfPlaySkillInputCmd.InputKey = "E";
+                unit.BelongToRoom.GetComponent<LSF_Component>().AddCmdToSendQueue(lsfPlaySkillInputCmd);
             }
 
             if (self.UserInputComponent.RDown)
             {
-                Game.Scene.GetComponent<PlayerComponent>().GateSession.Send(new C2M_UserInputSkillCmd() {VK = "R"});
+                Unit unit = self.GetParent<Unit>();
+                LSF_PlaySkillInputCmd lsfPlaySkillInputCmd = ReferencePool.Acquire<LSF_PlaySkillInputCmd>();
+                lsfPlaySkillInputCmd.Init(unit.Id);
+                lsfPlaySkillInputCmd.InputKey = "R";
+                unit.BelongToRoom.GetComponent<LSF_Component>().AddCmdToSendQueue(lsfPlaySkillInputCmd);
             }
         }
     }

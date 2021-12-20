@@ -15,22 +15,22 @@ namespace ET
         /// <returns></returns>
         public override bool OnLSF_CheckConsistency(NP_RuntimeTreeManager entity, uint frame, ALSF_Cmd stateToCompare)
         {
-            LSF_ChangeBBValue changeBbValue = stateToCompare as LSF_ChangeBBValue;
+            LSF_ChangeBBValueCmd changeBbValueCmd = stateToCompare as LSF_ChangeBBValueCmd;
 
-            if (changeBbValue == null)
+            if (changeBbValueCmd == null)
             {
                 return true;
             }
 
             if (entity.FrameSnaps_DeltaOnly.TryGetValue(frame - 1, out var previousSnaps))
             {
-                if (previousSnaps.TryGetValue(changeBbValue.TargetNPBehaveTreeId, out var previousSnap))
+                if (previousSnaps.TryGetValue(changeBbValueCmd.TargetNPBehaveTreeId, out var previousSnap))
                 {
-                    previousSnap.NP_RuntimeTreeBBSnap.Merge(changeBbValue.NP_RuntimeTreeBBSnap);
+                    previousSnap.NP_RuntimeTreeBBSnap.Merge(changeBbValueCmd.NP_RuntimeTreeBBSnap);
 
                     if (entity.FrameSnaps_DeltaOnly.TryGetValue(frame, out var targetFrameSnaps))
                     {
-                        if (targetFrameSnaps.TryGetValue(changeBbValue.TargetNPBehaveTreeId, out var targetFrameSnap))
+                        if (targetFrameSnaps.TryGetValue(changeBbValueCmd.TargetNPBehaveTreeId, out var targetFrameSnap))
                         {
                             return previousSnap.NP_RuntimeTreeBBSnap.Check(targetFrameSnap.NP_RuntimeTreeBBSnap);
                         }
@@ -55,7 +55,7 @@ namespace ET
         public override void OnLSF_TickEnd(NP_RuntimeTreeManager entity, uint frame, long deltaTime)
         {
             Unit unit = entity.GetParent<Unit>();
-            entity.FrameSnaps_DeltaOnly[frame] = new Dictionary<long, LSF_ChangeBBValue>();
+            entity.FrameSnaps_DeltaOnly[frame] = new Dictionary<long, LSF_ChangeBBValueCmd>();
             entity.FrameSnaps_Whole[frame] = new Dictionary<long, NP_RuntimeTreeBBSnap>();
 
             foreach (var runtimeTree in entity.RuntimeTrees)
@@ -64,10 +64,10 @@ namespace ET
                     runtimeTree.Value.AcquireCurrentFrameBBValueSnap();
                 entity.FrameSnaps_Whole[frame].Add(runtimeTree.Key, currentFrameNPRuntimeTreeBbSnap);
 
-                LSF_ChangeBBValue changeBbValue =
-                    ReferencePool.Acquire<LSF_ChangeBBValue>().Init(unit.Id) as LSF_ChangeBBValue;
-                changeBbValue.TargetNPBehaveTreeId = runtimeTree.Key;
-                changeBbValue.Frame = frame;
+                LSF_ChangeBBValueCmd changeBbValueCmd =
+                    ReferencePool.Acquire<LSF_ChangeBBValueCmd>().Init(unit.Id) as LSF_ChangeBBValueCmd;
+                changeBbValueCmd.TargetNPBehaveTreeId = runtimeTree.Key;
+                changeBbValueCmd.Frame = frame;
 
                 bool hasPreviousSnapValue = entity.FrameSnaps_Whole.ContainsKey(frame - 1) &&
                                             entity.FrameSnaps_Whole[frame - 1].ContainsKey(runtimeTree.Key);
@@ -76,31 +76,31 @@ namespace ET
                 if (hasPreviousSnapValue)
                 {
                     // 与前一帧快照对比得出脏数据
-                    changeBbValue.NP_RuntimeTreeBBSnap =
+                    changeBbValueCmd.NP_RuntimeTreeBBSnap =
                         currentFrameNPRuntimeTreeBbSnap.GetDifference(
                             entity.FrameSnaps_Whole[frame - 1][runtimeTree.Key]);
                 }
                 else
                 {
-                    changeBbValue.NP_RuntimeTreeBBSnap = currentFrameNPRuntimeTreeBbSnap;
-                    foreach (var snap in changeBbValue.NP_RuntimeTreeBBSnap.NP_FrameBBValues)
+                    changeBbValueCmd.NP_RuntimeTreeBBSnap = currentFrameNPRuntimeTreeBbSnap;
+                    foreach (var snap in changeBbValueCmd.NP_RuntimeTreeBBSnap.NP_FrameBBValues)
                     {
-                        changeBbValue.NP_RuntimeTreeBBSnap.NP_FrameBBValueOperations.Add(snap.Key,
+                        changeBbValueCmd.NP_RuntimeTreeBBSnap.NP_FrameBBValueOperations.Add(snap.Key,
                             NP_RuntimeTreeBBOperationType.ADD);
                     }
                 }
 
                 // 如果没有脏数据，就直接返回
-                if (changeBbValue.NP_RuntimeTreeBBSnap.NP_FrameBBValues.Count == 0 &&
-                    changeBbValue.NP_RuntimeTreeBBSnap.NP_FrameBBValueOperations.Count == 0)
+                if (changeBbValueCmd.NP_RuntimeTreeBBSnap.NP_FrameBBValues.Count == 0 &&
+                    changeBbValueCmd.NP_RuntimeTreeBBSnap.NP_FrameBBValueOperations.Count == 0)
                 {
                     continue;
                 }
 
 #if SERVER
-                unit.BelongToRoom.GetComponent<LSF_Component>().AddCmdToSendQueue(changeBbValue);
+                unit.BelongToRoom.GetComponent<LSF_Component>().AddCmdToSendQueue(changeBbValueCmd);
 #else
-                entity.FrameSnaps_DeltaOnly[frame][runtimeTree.Key] = changeBbValue;
+                entity.FrameSnaps_DeltaOnly[frame][runtimeTree.Key] = changeBbValueCmd;
 #endif
             }
         }

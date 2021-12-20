@@ -3,10 +3,10 @@ using NPBehave;
 
 namespace ET
 {
-    [LSF_MessageHandler(LSF_CmdHandlerType = LSF_ChangeBBValue.CmdType)]
-    public class LSF_ChangeBBValueHandler : ALockStepStateFrameSyncMessageHandler<LSF_ChangeBBValue>
+    [LSF_MessageHandler(LSF_CmdHandlerType = LSF_ChangeBBValueCmd.CmdType)]
+    public class LSF_ChangeBBValueHandler : ALockStepStateFrameSyncMessageHandler<LSF_ChangeBBValueCmd>
     {
-        protected override async ETVoid Run(Unit unit, LSF_ChangeBBValue cmd)
+        protected override async ETVoid Run(Unit unit, LSF_ChangeBBValueCmd cmd)
         {
             NP_RuntimeTreeManager npRuntimeTreeManager = unit.GetComponent<NP_RuntimeTreeManager>();
             NP_RuntimeTreeBBSnap cmdNPRuntimeTreeBbSnap = cmd.NP_RuntimeTreeBBSnap;

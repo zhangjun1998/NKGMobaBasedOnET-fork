@@ -26,8 +26,8 @@ namespace ET
         /// <summary>
         /// 帧快照（仅为脏数据）
         /// </summary>
-        public Dictionary<uint, Dictionary<long, LSF_ChangeBBValue>> FrameSnaps_DeltaOnly =
-            new Dictionary<uint, Dictionary<long, LSF_ChangeBBValue>>();
+        public Dictionary<uint, Dictionary<long, LSF_ChangeBBValueCmd>> FrameSnaps_DeltaOnly =
+            new Dictionary<uint, Dictionary<long, LSF_ChangeBBValueCmd>>();
         
         /// <summary>
         /// 添加行为树

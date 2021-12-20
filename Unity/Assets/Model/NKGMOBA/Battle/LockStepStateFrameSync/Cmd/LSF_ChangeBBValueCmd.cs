@@ -4,7 +4,7 @@ using ProtoBuf;
 namespace ET
 {
     [ProtoContract]
-    public class LSF_ChangeBBValue: ALSF_Cmd
+    public class LSF_ChangeBBValueCmd: ALSF_Cmd
     {
         public const uint CmdType = LSF_CmdType.ChangeBlackBoardValue;
 

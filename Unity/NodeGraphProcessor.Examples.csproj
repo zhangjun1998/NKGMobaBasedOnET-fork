@@ -196,7 +196,6 @@
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\SkillGraph\Nodes\BuffNodeBase.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\SkillGraph\Nodes\BuffNodes\ReplaceAnimBuffNode.cs" />
      <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\NPBehaveGraph\Nodes\Task\NP_MacroActionNode.cs" />
-     <Compile Include="Assets\Plugins\NodeEditor\Examples\Editor\NPBehaveGraph\Nodes\Task\NP_SyncNPBBValue_BoolActionNode.cs" />
      <None Include="Assets\Plugins\NodeEditor\Examples\NodeGraphProcessor.Examples.asmdef" />
      <None Include="Assets\Plugins\NodeEditor\Examples\Resources\PortViewTypes.uss" />
      <None Include="Assets\Plugins\NodeEditor\Examples\Resources\TestType.uss" />

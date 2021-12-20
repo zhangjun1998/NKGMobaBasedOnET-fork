@@ -396,45 +396,6 @@ namespace ET
 
 	}
 
-	[Message(OuterOpcode_Map.C2M_UserInputSkillCmd)]
-	[ProtoContract]
-	public partial class C2M_UserInputSkillCmd: Object, IActorLocationMessage
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
-		[ProtoMember(64)]
-		public string VK { get; set; }
-
-	}
-
-//同步行为树bool黑板变量
-	[Message(OuterOpcode_Map.M2C_SyncNPBehaveBoolData)]
-	[ProtoContract]
-	public partial class M2C_SyncNPBehaveBoolData: Object, IActorMessage
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
-		[ProtoMember(94)]
-		public long UnitId { get; set; }
-
-//黑板键
-//黑板键
-		[ProtoMember(2)]
-		public string BBKey { get; set; }
-
-		[ProtoMember(5)]
-		public bool Value { get; set; }
-
-	}
-
 //同步CD信息
 	[Message(OuterOpcode_Map.M2C_SyncCDData)]
 	[ProtoContract]

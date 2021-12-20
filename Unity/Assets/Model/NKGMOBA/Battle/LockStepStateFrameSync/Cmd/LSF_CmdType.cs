@@ -13,5 +13,9 @@
         
         //----------Slate模块，10001 - 20000
         public const uint ChangeMainKey = 10001;
+        
+        
+        //----------其他模块，20000~30000
+        public const uint PlayerSkillInput = 20001;
     }
 }

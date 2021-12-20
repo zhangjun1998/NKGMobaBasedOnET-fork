@@ -190,24 +190,6 @@ message M2C_BuffInfo // IActorMessage
   float BuffMaxLimitTime = 4; //Buff最大持续到的时间点
 }
 
-message C2M_UserInputSkillCmd // IActorLocationMessage
-{
-  int32 RpcId = 90;
-  int64 ActorId = 93;
-  string VK = 64;
-}
-
-//同步行为树bool黑板变量
-message M2C_SyncNPBehaveBoolData // IActorMessage
-{
-  int32 RpcId = 90;
-  int64 ActorId = 93;
-
-  int64 UnitId = 94;
-  //黑板键
-  string BBKey = 2;
-  bool Value = 5;
-}
 //同步CD信息
 message M2C_SyncCDData // IActorMessage
 {
