@@ -110,6 +110,15 @@ namespace ET
                     Server_SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitESkillId).BelongToSkillId)
                 .Start();
 
+            Server_SkillCanvasConfig Test =
+                Server_SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitRSkillId);
+
+            NP_RuntimeTreeFactory
+                .CreateSkillNpRuntimeTree(unit, Test.NPBehaveId,
+                    Server_SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitRSkillId).BelongToSkillId)
+                .Start();
+
+
             unit.AddComponent<LSF_TickComponent>();
 
             return unit;

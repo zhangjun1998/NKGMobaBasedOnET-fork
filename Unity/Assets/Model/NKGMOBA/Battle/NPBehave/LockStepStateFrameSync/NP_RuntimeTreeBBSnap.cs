@@ -44,7 +44,8 @@ namespace ET
                 }
 
                 // 最后对比具体相不相等
-                if (NP_FrameBBValues[bbValue.Key] != npRuntimeTreeBbSnapToBeCompared.NP_FrameBBValues[bbValue.Key])
+                if (NP_BBValueHelper.Compare(NP_FrameBBValues[bbValue.Key],
+                    npRuntimeTreeBbSnapToBeCompared.NP_FrameBBValues[bbValue.Key], Operator.IS_NOT_EQUAL))
                 {
                     return false;
                 }
@@ -111,7 +112,8 @@ namespace ET
                     if (!NP_BBValueHelper.Compare(selfSnap.Value, targetSnap, Operator.IS_EQUAL))
                     {
                         npRuntimeTreeBbSnap.NP_FrameBBValues.Add(selfSnap.Key, selfSnap.Value.DeepCopy());
-                        npRuntimeTreeBbSnap.NP_FrameBBValueOperations.Add(selfSnap.Key, NP_RuntimeTreeBBOperationType.CHANGE);
+                        npRuntimeTreeBbSnap.NP_FrameBBValueOperations.Add(selfSnap.Key,
+                            NP_RuntimeTreeBBOperationType.CHANGE);
                     }
                 }
                 else

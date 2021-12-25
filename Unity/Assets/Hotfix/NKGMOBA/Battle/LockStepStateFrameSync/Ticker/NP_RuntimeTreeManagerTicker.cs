@@ -8,6 +8,7 @@ namespace ET
 #if !SERVER
         /// <summary>
         /// 这种可变内容的状态数据一致性检查比较特殊，需要使用发过来的脏数据和本地已经经过验证的数据做merge之后再检查才行（当然只需要客户端去做，因为服务端只需要进行脏数据构建就行了）
+        /// 只对比每帧脏数据即可
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="frame"></param>
@@ -22,19 +23,11 @@ namespace ET
                 return true;
             }
 
-            if (entity.FrameSnaps_DeltaOnly.TryGetValue(frame - 1, out var previousSnaps))
+            if (entity.FrameSnaps_DeltaOnly.TryGetValue(frame, out var localDeltaSnaps))
             {
-                if (previousSnaps.TryGetValue(changeBbValueCmd.TargetNPBehaveTreeId, out var previousSnap))
+                if (localDeltaSnaps.TryGetValue(changeBbValueCmd.TargetNPBehaveTreeId, out var localDeltaSnap))
                 {
-                    previousSnap.NP_RuntimeTreeBBSnap.Merge(changeBbValueCmd.NP_RuntimeTreeBBSnap);
-
-                    if (entity.FrameSnaps_DeltaOnly.TryGetValue(frame, out var targetFrameSnaps))
-                    {
-                        if (targetFrameSnaps.TryGetValue(changeBbValueCmd.TargetNPBehaveTreeId, out var targetFrameSnap))
-                        {
-                            return previousSnap.NP_RuntimeTreeBBSnap.Check(targetFrameSnap.NP_RuntimeTreeBBSnap);
-                        }
-                    }
+                    return localDeltaSnap.NP_RuntimeTreeBBSnap.Check(changeBbValueCmd.NP_RuntimeTreeBBSnap);
                 }
             }
 

@@ -123,8 +123,8 @@
      <Compile Include="Assets\ThirdParty\FGUISDK\Utils\XMLIterator.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil\FieldAttributes.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\ILRuntime\Runtime\Debugger\Protocol\SCBindBreakpointResult.cs" />
-     <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil\IConstantProvider.cs" />
      <Compile Include="Assets\ThirdParty\protobuf-net\Serializers\ListDecorator.cs" />
+     <Compile Include="Assets\ThirdParty\ILRuntime\Mono.Cecil\Mono.Cecil\IConstantProvider.cs" />
      <Compile Include="Assets\ThirdParty\ILRuntime\ILRuntime\Runtime\Enviorment\ValueTypeBinder.cs" />
      <Compile Include="Assets\ThirdParty\Box2D\Box2D\Collision\DynamicTree.cs" />
      <Compile Include="Assets\ThirdParty\Box2D\Box2D\Common\Matrix3x3.cs" />

@@ -195,7 +195,6 @@ namespace ET
                     M2C_FrameCmd m2CFrameCmd = new M2C_FrameCmd() {CmdContent = cmdToSend, ServerTimeSnap =
  TimeHelper.ClientNow()};
                     MessageHelper.BroadcastToRoom(self.GetParent<Room>(), m2CFrameCmd);
-                    Log.Info(TimeHelper.ClientNow().ToString());
 #else
                     C2M_FrameCmd c2MFrameCmd = new C2M_FrameCmd() {CmdContent = cmdToSend};
                     Game.Scene.GetComponent<PlayerComponent>().GateSession.Send(c2MFrameCmd);
