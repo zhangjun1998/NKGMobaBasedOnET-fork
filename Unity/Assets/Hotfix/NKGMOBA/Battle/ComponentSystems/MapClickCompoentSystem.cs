@@ -52,8 +52,6 @@ namespace ET
             UnitComponent unitComponent = room.GetComponent<UnitComponent>();
 
             unitComponent.MyUnit.SendPathFindCmd(ClickPoint);
-            IdleState idleState = ReferencePool.Acquire<IdleState>();
-            idleState.SetData(StateTypes.Idle, "Idle", 1);
         }
     }
 }

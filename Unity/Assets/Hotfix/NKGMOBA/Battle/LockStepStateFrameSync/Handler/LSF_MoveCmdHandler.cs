@@ -20,7 +20,7 @@ namespace ET
             if (cmd.IsStopped)
             {
                 MoveComponent moveComponent = unit.GetComponent<MoveComponent>();
-                moveComponent.Stop();
+                moveComponent.Stop(true);
                 Game.EventSystem.Publish(new EventType.MoveStop() {Unit = unit}).Coroutine();
             }
 

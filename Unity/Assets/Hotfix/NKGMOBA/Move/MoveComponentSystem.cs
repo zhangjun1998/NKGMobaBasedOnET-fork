@@ -358,12 +358,12 @@ namespace ET
             return true;
         }
 
-        public static void Stop(this MoveComponent self)
+        public static void Stop(this MoveComponent self, bool result = false)
         {
-            self.Clear();
+            self.Clear(result);
         }
 
-        public static void Clear(this MoveComponent self)
+        public static void Clear(this MoveComponent self, bool result = false)
         {
             self.StartTime = 0;
             self.StartPos = Vector3.zero;
@@ -381,7 +381,7 @@ namespace ET
             {
                 Action<bool> callback = self.Callback;
                 self.Callback = null;
-                callback.Invoke(false);
+                callback.Invoke(result);
             }
         }
     }
