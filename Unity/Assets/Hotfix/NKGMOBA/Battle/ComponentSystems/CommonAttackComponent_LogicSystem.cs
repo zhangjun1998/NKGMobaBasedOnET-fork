@@ -93,7 +93,6 @@ namespace ET
         {
             self.CancellationTokenSource?.Cancel();
             self.CancellationTokenSource = new ETCancellationToken();
-            self.CancellationTokenSource.Add(() => { self.StackFsmComponent.RemoveState("CommonAttack"); });
             //如果有要执行攻击流程替换的内容，就执行替换流程
             if (self.HasAttackReplaceInfo())
             {
@@ -201,7 +200,6 @@ namespace ET
 
                         CommonAttackState commonAttackState = ReferencePool.Acquire<CommonAttackState>();
                         commonAttackState.SetData(StateTypes.CommonAttack, "CommonAttack", 1);
-
                         unit.NavigateTodoSomething(self.CachedUnitForAttack.Position, 1.75f, commonAttackState)
                             .Coroutine();
                     }
