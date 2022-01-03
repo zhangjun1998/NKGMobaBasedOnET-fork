@@ -154,6 +154,8 @@ namespace ET
                             return npBbValue != rhs as NP_BBValue_Long;
                         case NP_BBValue_Vector3 npBbValue:
                             return npBbValue != rhs as NP_BBValue_Vector3;
+                        case NP_BBValue_List_Long npBbValue:
+                            return npBbValue != rhs as NP_BBValue_List_Long;
                         default:
                             Log.Error($"类型为{lhs.GetType()}的数未注册为NP_BBValue");
                             return false;
@@ -176,6 +178,8 @@ namespace ET
                             return (rhs as NP_BBValue_Long) >= npBbValue;
                         case NP_BBValue_Vector3 npBbValue:
                             return (rhs as NP_BBValue_Vector3) >= npBbValue;
+                        case NP_BBValue_List_Long npBbValue:
+                            return (rhs as NP_BBValue_List_Long) >= npBbValue;
                         default:
                             Log.Error($"类型为{lhs.GetType()}的数未注册为NP_BBValue");
                             return false;
@@ -198,6 +202,8 @@ namespace ET
                             return (rhs as NP_BBValue_Long) > npBbValue;
                         case NP_BBValue_Vector3 npBbValue:
                             return (rhs as NP_BBValue_Vector3) > npBbValue;
+                        case NP_BBValue_List_Long npBbValue:
+                            return (rhs as NP_BBValue_List_Long) > npBbValue;
                         default:
                             Log.Error($"类型为{lhs.GetType()}的数未注册为NP_BBValue");
                             return false;

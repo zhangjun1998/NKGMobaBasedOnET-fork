@@ -74,8 +74,8 @@ namespace ET
             {
                 return;
             }
-
             HasRegisted = true;
+            
             // 自动注册IgnoreExtraElements
             ConventionPack conventionPack = new ConventionPack {new IgnoreExtraElementsConvention(true)};
             ConventionRegistry.Register("IgnoreExtraElements", conventionPack, type => true);

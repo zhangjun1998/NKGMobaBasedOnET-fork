@@ -40,8 +40,8 @@ namespace ET
 
             //根据传过来的行为树Id来给这个碰撞Unit加上行为树
             NP_RuntimeTreeFactory.CreateSkillNpRuntimeTree(colliderUnit,
-                    Server_SkillCanvasConfigCategory.Instance.Get(ColliderNPBehaveTreeIdInExcel).NPBehaveId,
-                    Server_SkillCanvasConfigCategory.Instance.Get(ColliderNPBehaveTreeIdInExcel).BelongToSkillId)
+                    SkillCanvasConfigCategory.Instance.Get(ColliderNPBehaveTreeIdInExcel).NPBehaveId,
+                    SkillCanvasConfigCategory.Instance.Get(ColliderNPBehaveTreeIdInExcel).BelongToSkillId)
                 .Start();
 #endif
         }

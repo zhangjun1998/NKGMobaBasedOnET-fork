@@ -36,7 +36,7 @@ namespace ET
                 }
             }
 #else
-            foreach (var skillCanvasConfig in Client_SkillCanvasConfigCategory.Instance.GetAll())
+            foreach (var skillCanvasConfig in SkillCanvasConfigCategory.Instance.GetAll())
             {
                 TextAsset textAsset =
                     XAssetLoader.LoadAsset<TextAsset>(

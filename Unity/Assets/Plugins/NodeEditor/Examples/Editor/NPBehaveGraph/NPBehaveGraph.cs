@@ -32,8 +32,11 @@ namespace Plugins.NodeEditor
         [BoxGroup("本Canvas所有数据整理部分")] [LabelText("配置表中的Id"), GUIColor(0.9f, 0.7f, 1)]
         public int IdInConfig;
 
-        [BoxGroup("本Canvas所有数据整理部分")] [LabelText("保存路径"), GUIColor(0.1f, 0.7f, 1)] [FolderPath]
-        public string SavePath;
+        [BoxGroup("本Canvas所有数据整理部分")] [LabelText("保存路径(服务端)"), GUIColor(0.1f, 0.7f, 1)] [FolderPath]
+        public string SavePathServer;
+        
+        [BoxGroup("本Canvas所有数据整理部分")] [LabelText("保存路径(客户端)"), GUIColor(0.1f, 0.7f, 1)] [FolderPath]
+        public string SavePathClient;
 
         [BoxGroup("此行为树数据载体")] [DisableInEditorMode]
         public NP_DataSupportorBase NpDataSupportor = new NP_DataSupportorBase();
@@ -65,21 +68,24 @@ namespace Plugins.NodeEditor
         [Button("保存行为树信息为二进制文件", 25), GUIColor(0.4f, 0.8f, 1)]
         public void Save()
         {
-            if (string.IsNullOrEmpty(SavePath) || string.IsNullOrEmpty(Name))
+            if (string.IsNullOrEmpty(SavePathServer) || string.IsNullOrEmpty(SavePathClient) || string.IsNullOrEmpty(Name))
             {
                 Log.Error($"保存路径或文件名不能为空，请检查配置");
                 return;
             }
 
-            byte[] bytes = SerializationUtility.SerializeValue(NpDataSupportor, DataFormat.Binary);
-            using (var fs = new FileStream($"{SavePath}/{this.Name}.bytes", FileMode.Create, FileAccess.Write,
-                FileShare.Write))
-            using (var writer = new BinaryWriter(fs))
+            using (FileStream file = File.Create($"{SavePathServer}/{this.Name}.bytes"))
             {
-                writer.Write(bytes);
+                BsonSerializer.Serialize(new BsonBinaryWriter(file), NpDataSupportor);
             }
 
-            Log.Info($"保存 {SavePath}/{this.Name}.bytes 成功");
+            if (File.Exists($"{SavePathClient}/{this.Name}.bytes"))
+            {
+                File.Delete($"{SavePathClient}/{this.Name}.bytes");
+            }
+
+            File.Copy($"{SavePathServer}/{this.Name}.bytes", $"{SavePathClient}/{this.Name}.bytes", true);
+            Log.Info($"保存 {SavePathServer}/{this.Name}.bytes {SavePathClient}/{this.Name}.bytes 成功");
         }
 
         [Button("测试反序列化", 25), GUIColor(0.4f, 0.8f, 1)]
@@ -87,8 +93,9 @@ namespace Plugins.NodeEditor
         {
             try
             {
+                MongoHelper.Init();
                 this.NpDataSupportor1 = null;
-                using (var fs = new FileStream($"{SavePath}/{this.Name}.bytes", FileMode.Open, FileAccess.Read,
+                using (var fs = new FileStream($"{SavePathServer}/{this.Name}.bytes", FileMode.Open, FileAccess.Read,
                     FileShare.Read))
                 using (var reader = new BinaryReader(fs))
                 {
@@ -148,22 +155,12 @@ namespace Plugins.NodeEditor
             //目前行为树只有三种类型，直接在这里写出
             switch (config)
             {
-                case Server_SkillCanvasConfigCategory serverSkillCanvasConfigCategory:
-                    serverSkillCanvasConfigCategory.AfterDeserialization();
-                    Server_SkillCanvasConfig skillCanvasConfig = serverSkillCanvasConfigCategory.Get(this.IdInConfig);
+                case SkillCanvasConfigCategory skillCanvasConfigCategory:
+                    skillCanvasConfigCategory.AfterDeserialization();
+                    SkillCanvasConfig skillCanvasConfig = skillCanvasConfigCategory.Get(this.IdInConfig);
                     if (skillCanvasConfig != null)
                     {
                         npDataSupportorBase.NPBehaveTreeDataId = skillCanvasConfig.NPBehaveId;
-                    }
-
-                    break;
-                case Client_SkillCanvasConfigCategory clientSkillCanvasConfigCategory:
-                    clientSkillCanvasConfigCategory.AfterDeserialization();
-                    Client_SkillCanvasConfig clientSkillCanvasConfig =
-                        clientSkillCanvasConfigCategory.Get(this.IdInConfig);
-                    if (clientSkillCanvasConfig != null)
-                    {
-                        npDataSupportorBase.NPBehaveTreeDataId = clientSkillCanvasConfig.NPBehaveId;
                     }
 
                     break;

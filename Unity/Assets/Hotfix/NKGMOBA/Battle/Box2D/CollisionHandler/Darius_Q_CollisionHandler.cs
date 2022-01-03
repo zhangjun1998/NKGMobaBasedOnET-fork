@@ -31,7 +31,7 @@ namespace ET
                                 List<NP_RuntimeTree> targetSkillCanvas = aColliderComponent.GetParent<Unit>()
                                     .GetComponent<SkillCanvasManagerComponent>()
                                     .GetSkillCanvas(
-                                        Server_SkillCanvasConfigCategory.Instance.Get(10003).BelongToSkillId);
+                                        SkillCanvasConfigCategory.Instance.Get(10003).BelongToSkillId);
 
                                 //敌方英雄
                                 if (Vector3.Distance(aColliderComponent.BelongToUnit.Position,

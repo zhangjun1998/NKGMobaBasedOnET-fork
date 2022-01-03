@@ -180,7 +180,6 @@
      <Compile Include="Assets\Model\Core\Pool.cs" />
      <Compile Include="Assets\Model\Core\Object\ObjectSystemAttribute.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Move\MoveComponent.cs" />
-     <Compile Include="Assets\Model\Generate\Config\Server_SkillCanvasConfig.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Task\WaitUntilStopped.cs" />
      <Compile Include="Assets\Model\Module\CoroutineLock\CoroutineLock.cs" />
      <Compile Include="Assets\Model\Module\Message\NetThreadComponent.cs" />
@@ -312,7 +311,6 @@
      <Compile Include="Assets\Model\NKGMOBA\Battle\Fsm\States\CommonAttackState.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Attribute\LSF_TickableAttribute.cs" />
      <Compile Include="Assets\Model\Generate\Message\OuterOpcode_Gate.cs" />
-     <Compile Include="Assets\Model\Generate\Config\Client_SkillCanvasConfig.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Cmd\LSF_PlaySkillInputCmd.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\Fsm\States\CustomState.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Unit\UnitComponent.cs" />
@@ -363,6 +361,7 @@
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\BuffData\ReplaceAttackBuffData.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Cmd\LSF_SyncFSMStateCmd.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Cmd\LSF_SyncAttributeCmd.cs" />
+     <Compile Include="Assets\Model\Generate\Config\SkillCanvasConfig.cs" />
      <None Include="Assets\Model\csc.rsp" />
      <None Include="Assets\Model\Unity.Model.asmdef" />
  <Reference Include="UnityEngine">

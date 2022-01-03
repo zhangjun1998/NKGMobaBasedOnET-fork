@@ -23,16 +23,16 @@ namespace ET
 
             gameObjectComponent.GameObject.GetComponent<MonoBridge>().BelongToUnitId = args.Unit.Id;
             
-            Client_SkillCanvasConfig unitPassiveSkillConfig =
-                Client_SkillCanvasConfigCategory.Instance.Get(clientUnitConfig.UnitPassiveSkillId);
-            Client_SkillCanvasConfig unitQSkillConfig =
-                Client_SkillCanvasConfigCategory.Instance.Get(clientUnitConfig.UnitQSkillId);
-            Client_SkillCanvasConfig unitWSkillConfig =
-                Client_SkillCanvasConfigCategory.Instance.Get(clientUnitConfig.UnitWSkillId);
-            Client_SkillCanvasConfig unitESkillConfig =
-                Client_SkillCanvasConfigCategory.Instance.Get(clientUnitConfig.UnitESkillId);
-            Client_SkillCanvasConfig Test =
-                Client_SkillCanvasConfigCategory.Instance.Get(clientUnitConfig.UnitRSkillId);
+            SkillCanvasConfig unitPassiveSkillConfig =
+                SkillCanvasConfigCategory.Instance.Get(clientUnitConfig.UnitPassiveSkillId);
+            SkillCanvasConfig unitQSkillConfig =
+                SkillCanvasConfigCategory.Instance.Get(clientUnitConfig.UnitQSkillId);
+            SkillCanvasConfig unitWSkillConfig =
+                SkillCanvasConfigCategory.Instance.Get(clientUnitConfig.UnitWSkillId);
+            SkillCanvasConfig unitESkillConfig =
+                SkillCanvasConfigCategory.Instance.Get(clientUnitConfig.UnitESkillId);
+            SkillCanvasConfig Test =
+                SkillCanvasConfigCategory.Instance.Get(clientUnitConfig.UnitRSkillId);
 
             //英雄属性组件
             args.Unit.AddComponent<UnitAttributesDataComponent, long>(clientUnitConfig.UnitAttributesDataId);

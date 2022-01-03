@@ -35,24 +35,31 @@ namespace Plugins.NodeEditor
         [Button("保存技能树信息为二进制文件", 25), GUIColor(0.4f, 0.8f, 1)]
         public void Save()
         {
-            if (string.IsNullOrEmpty(SavePath) || string.IsNullOrEmpty(Name))
+            if (string.IsNullOrEmpty(SavePathServer) || string.IsNullOrEmpty(SavePathClient) || string.IsNullOrEmpty(Name))
             {
                 Log.Error($"保存路径或文件名不能为空，请检查配置");
                 return;
             }
 
-            using (FileStream file = File.Create($"{SavePath}/{this.Name}.bytes"))
+            using (FileStream file = File.Create($"{SavePathServer}/{this.Name}.bytes"))
             {
                 BsonSerializer.Serialize(new BsonBinaryWriter(file), SkillDataSupportor);
             }
-
-            Log.Info($"保存 {SavePath}/{this.Name}.bytes 成功");
+            
+            if (File.Exists($"{SavePathClient}/{this.Name}.bytes"))
+            {
+                File.Delete($"{SavePathClient}/{this.Name}.bytes");
+            }
+            
+            File.Copy($"{SavePathServer}/{this.Name}.bytes", $"{SavePathClient}/{this.Name}.bytes", true);
+            Log.Info($"保存 {SavePathServer}/{this.Name}.bytes {SavePathClient}/{this.Name}.bytes 成功");
         }
 
         [Button("测试技能树反序列化", 25), GUIColor(0.4f, 0.8f, 1)]
         public void TestDe()
         {
-            byte[] mfile = File.ReadAllBytes($"{SavePath}/{this.Name}.bytes");
+            MongoHelper.Init();
+            byte[] mfile = File.ReadAllBytes($"{SavePathServer}/{this.Name}.bytes");
 
             if (mfile.Length == 0) Log.Info("没有读取到文件");
             try

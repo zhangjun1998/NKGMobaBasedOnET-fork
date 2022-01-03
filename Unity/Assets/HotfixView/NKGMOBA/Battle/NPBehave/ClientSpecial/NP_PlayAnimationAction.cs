@@ -6,7 +6,9 @@
 
 using System;
 using System.Collections.Generic;
+#if !SERVER
 using Animancer;
+#endif
 using Sirenix.OdinInspector;
 
 namespace ET
@@ -19,6 +21,7 @@ namespace ET
     {
         [LabelText("要播放的动画数据")] public List<PlayAnimInfo> NodeDataForPlayAnims = new List<PlayAnimInfo>();
 
+#if !SERVER
         /// <summary>
         /// 用于标识当前播放到哪一个动画的flag
         /// </summary>
@@ -29,14 +32,17 @@ namespace ET
         /// </summary>
         private Action m_OnAnimFinished;
 
+
         /// <summary>
         /// 当前动画状态
         /// </summary>
         private AnimancerState m_AnimancerState;
+#endif
 
         public override Action GetActionToBeDone()
         {
-            //数据初始化
+#if !SERVER
+                        //数据初始化
             this.m_OnAnimFinished = this.OnAnimFinished;
             m_Flag = 0;
 
@@ -47,18 +53,23 @@ namespace ET
                     playAnimInfo.AnimationClipName;
             }
 
+#endif
+
             this.Action = this.PlayAnimation;
             return base.GetActionToBeDone();
         }
 
         private void PlayAnimation()
         {
-            m_Flag = 0;
+#if !SERVER
+                        m_Flag = 0;
             HandlePlayAnim(NodeDataForPlayAnims[this.m_Flag].StateTypes,
                 NodeDataForPlayAnims[this.m_Flag].OccAvatarMaskType, NodeDataForPlayAnims[this.m_Flag].FadeOutTime);
             //Log.Info("这次播放的是Q技能动画");
+#endif
         }
 
+#if !SERVER
         /// <summary>
         /// 处理播放动画
         /// </summary>
@@ -97,5 +108,7 @@ namespace ET
                 this.m_Flag = 0;
             }
         }
+
+#endif
     }
 }

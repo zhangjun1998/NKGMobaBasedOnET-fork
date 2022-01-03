@@ -31,7 +31,7 @@ namespace ET
                                 List<NP_RuntimeTree> targetSkillCanvas = aColliderComponent.BelongToUnit
                                     .GetComponent<SkillCanvasManagerComponent>()
                                     .GetSkillCanvas(
-                                        Server_SkillCanvasConfigCategory.Instance.Get(10006).BelongToSkillId);
+                                        SkillCanvasConfigCategory.Instance.Get(10006).BelongToSkillId);
                                 
                                 foreach (var skillCanvas in targetSkillCanvas)
                                 {

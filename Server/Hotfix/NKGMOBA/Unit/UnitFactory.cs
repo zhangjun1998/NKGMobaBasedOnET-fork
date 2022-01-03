@@ -91,31 +91,31 @@ namespace ET
 
             //Log.Info("开始创建行为树");
             NP_RuntimeTreeFactory.CreateSkillNpRuntimeTree(unit,
-                    Server_SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitPassiveSkillId).NPBehaveId,
-                    Server_SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitPassiveSkillId).BelongToSkillId)
+                    SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitPassiveSkillId).NPBehaveId,
+                    SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitPassiveSkillId).BelongToSkillId)
                 .Start();
 
             NP_RuntimeTreeFactory.CreateSkillNpRuntimeTree(unit,
-                    Server_SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitQSkillId).NPBehaveId,
-                    Server_SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitQSkillId).BelongToSkillId)
+                    SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitQSkillId).NPBehaveId,
+                    SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitQSkillId).BelongToSkillId)
                 .Start();
 
             NP_RuntimeTreeFactory.CreateSkillNpRuntimeTree(unit,
-                    Server_SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitWSkillId).NPBehaveId,
-                    Server_SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitWSkillId).BelongToSkillId)
+                    SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitWSkillId).NPBehaveId,
+                    SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitWSkillId).BelongToSkillId)
                 .Start();
 
             NP_RuntimeTreeFactory.CreateSkillNpRuntimeTree(unit,
-                    Server_SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitESkillId).NPBehaveId,
-                    Server_SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitESkillId).BelongToSkillId)
+                    SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitESkillId).NPBehaveId,
+                    SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitESkillId).BelongToSkillId)
                 .Start();
 
-            Server_SkillCanvasConfig Test =
-                Server_SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitRSkillId);
+            SkillCanvasConfig Test =
+                SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitRSkillId);
 
             NP_RuntimeTreeFactory
                 .CreateSkillNpRuntimeTree(unit, Test.NPBehaveId,
-                    Server_SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitRSkillId).BelongToSkillId)
+                    SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitRSkillId).BelongToSkillId)
                 .Start();
 
 

@@ -69,6 +69,10 @@
       <Link>NKGMOBA\Battle\NPbehave\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>
 
+    <Compile Include="..\..\Unity\Assets\HotfixView\NKGMOBA\Battle\NPBehave\**\*.cs">
+      <Link>NKGMOBA\Battle\NPbehave\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Compile>
+
     <Compile Include="..\..\Unity\Assets\Hotfix\Module\AI\**\*.cs">
       <Link>Module\AI\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>
