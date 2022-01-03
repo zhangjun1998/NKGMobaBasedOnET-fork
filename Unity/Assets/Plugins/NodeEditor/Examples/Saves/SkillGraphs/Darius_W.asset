@@ -356,8 +356,8 @@ MonoBehaviour:
   exposedParameters: []
   serializedParameterList: []
   stickyNotes: []
-  position: {x: 294, y: 271, z: 0}
-  scale: {x: 0.43232757, y: 0.43232757, z: 1}
+  position: {x: -217, y: 178, z: 0}
+  scale: {x: 0.65751624, y: 0.65751624, z: 1}
   Name: Darius_W
   Config: {fileID: 4900000, guid: 17d784476c914a44c88fe493027040e9, type: 3}
   IdInConfig: 10003

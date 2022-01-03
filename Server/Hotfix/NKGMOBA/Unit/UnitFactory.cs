@@ -110,11 +110,8 @@ namespace ET
                     SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitESkillId).BelongToSkillId)
                 .Start();
 
-            SkillCanvasConfig Test =
-                SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitRSkillId);
-
-            NP_RuntimeTreeFactory
-                .CreateSkillNpRuntimeTree(unit, Test.NPBehaveId,
+            NP_RuntimeTreeFactory.CreateSkillNpRuntimeTree(unit,
+                    SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitRSkillId).NPBehaveId,
                     SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitRSkillId).BelongToSkillId)
                 .Start();
 

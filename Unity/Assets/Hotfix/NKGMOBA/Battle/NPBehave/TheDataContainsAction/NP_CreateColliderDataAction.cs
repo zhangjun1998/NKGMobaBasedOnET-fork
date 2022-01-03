@@ -30,6 +30,7 @@ namespace ET
         public void CreateColliderData()
         {
 #if SERVER
+            Log.Info("创建碰撞");
             int colliderDataConfigId = Server_B2SCollisionRelationConfigCategory.Instance
                 .Get(CollisionsRelationSupportIdInExcel)
                 .B2S_ColliderConfigId;

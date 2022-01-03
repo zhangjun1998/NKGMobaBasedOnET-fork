@@ -194,6 +194,7 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.1.0/Unity.Mathematics/math_unity_conversion.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.visualeffectgraph@10.7.0/Editor/GraphView/Views/VFXView.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6446c53e8bba4fc3beae7303e913d9678200/ad/431bd291/DictionaryDrawerSettings.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.visualeffectgraph@10.7.0/Editor/Debug/VFXUIDebug.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_ShaderUtilities.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.visualeffectgraph@10.7.0/Editor/GraphView/Views/VFXNodeProvider.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.visualeffectgraph@10.7.0/Editor/GraphView/Views/VFXCopyPasteCommon.cs" root0="SKIP_HIGHLIGHTING" />
@@ -373,7 +374,7 @@
       <workItem from="1640005498994" duration="5334000" />
       <workItem from="1640398779774" duration="4145000" />
       <workItem from="1641100585697" duration="594000" />
-      <workItem from="1641188943682" duration="7326000" />
+      <workItem from="1641188943682" duration="15140000" />
     </task>
     <servers />
   </component>
@@ -399,41 +400,11 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Battle/LockStepStateFrameSync/Handler/LSF_ChangeBBValueHandler.cs</url>
-          <line>14</line>
-          <properties documentPath="D:\Study\GameProjects\NKGMobaBasedOnET\Unity\Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\Handler\LSF_ChangeBBValueHandler.cs" initialLine="14" containingFunctionPresentation="method 'Run'">
-            <startOffsets>
-              <option value="588" />
-            </startOffsets>
-            <endOffsets>
-              <option value="687" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Model/NKGMOBA/Battle/NPBehave/LockStepStateFrameSync/NP_RuntimeTreeBBSnap.cs</url>
-          <line>37</line>
-          <properties documentPath="D:\Study\GameProjects\NKGMobaBasedOnET\Unity\Assets\Model\NKGMOBA\Battle\NPBehave\LockStepStateFrameSync\NP_RuntimeTreeBBSnap.cs" initialLine="37" containingFunctionPresentation="method 'Check'">
-            <startOffsets>
-              <option value="1006" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1079" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="Type#System.Reflection.Assembly" memberName="CustomAttributes" />
+        <PinnedItemInfo parentTag="Type#ET.NP_RuntimeTreeManager" memberName="RuntimeTrees" />
         <PinnedItemInfo parentTag="Type#ET.Entity" memberName="Components" />
-        <PinnedItemInfo parentTag="Type#ET.NP_DataSupportor" memberName="NpDataSupportorBase" />
         <PinnedItemInfo parentTag="Type#ET.LSF_ChangeBBValue" memberName="TargetBBValues" />
         <PinnedItemInfo parentTag="Frame#OdinSerializer.SerializationUtility.DeserializeValue" memberName="bytes" />
       </pinned-members>

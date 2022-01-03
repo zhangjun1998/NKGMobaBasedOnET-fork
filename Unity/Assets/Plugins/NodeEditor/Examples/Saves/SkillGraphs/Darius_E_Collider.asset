@@ -100,8 +100,8 @@ MonoBehaviour:
   exposedParameters: []
   serializedParameterList: []
   stickyNotes: []
-  position: {x: 934, y: 42, z: 0}
-  scale: {x: 0.32690176, y: 0.32690176, z: 1}
+  position: {x: 440, y: 128, z: 0}
+  scale: {x: 0.7561437, y: 0.7561437, z: 1}
   Name: Darius_E_Collider
   Config: {fileID: 4900000, guid: 17d784476c914a44c88fe493027040e9, type: 3}
   IdInConfig: 10007

@@ -42,7 +42,7 @@ namespace ET
         public override Action GetActionToBeDone()
         {
 #if !SERVER
-                        //数据初始化
+            //数据初始化
             this.m_OnAnimFinished = this.OnAnimFinished;
             m_Flag = 0;
 
@@ -62,7 +62,7 @@ namespace ET
         private void PlayAnimation()
         {
 #if !SERVER
-                        m_Flag = 0;
+            m_Flag = 0;
             HandlePlayAnim(NodeDataForPlayAnims[this.m_Flag].StateTypes,
                 NodeDataForPlayAnims[this.m_Flag].OccAvatarMaskType, NodeDataForPlayAnims[this.m_Flag].FadeOutTime);
             //Log.Info("这次播放的是Q技能动画");
