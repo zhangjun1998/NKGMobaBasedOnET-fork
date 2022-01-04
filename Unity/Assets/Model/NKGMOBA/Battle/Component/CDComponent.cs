@@ -12,34 +12,28 @@ namespace ET
     {
         public override void Awake(CDComponent self)
         {
-            self.Awake();
+            CDComponent.Instance = self;
         }
     }
 
-    [ObjectSystem]
-    public class CDComponentUpdateSystem : UpdateSystem<CDComponent>
-    {
-        public override void Update(CDComponent self)
-        {
-            self.Update();
-        }
-    }
-
-    [ObjectSystem]
-    public class CDComponentFixedUpdateSystem : FixedUpdateSystem<CDComponent>
-    {
-        public override void FixedUpdate(CDComponent self)
-        {
-            self.FixedUpdate();
-        }
-    }
 
     [ObjectSystem]
     public class CDComponentDestroySystem : DestroySystem<CDComponent>
     {
         public override void Destroy(CDComponent self)
         {
-            self.Destroy();
+            //此处填写Destroy逻辑
+            foreach (var cdInfoList in self.CDInfos)
+            {
+                foreach (var cdInfo in cdInfoList.Value)
+                {
+                    ReferencePool.Release(cdInfo.Value);
+                }
+
+                cdInfoList.Value.Clear();
+            }
+
+            self.CDInfos.Clear();
         }
     }
 
@@ -53,7 +47,7 @@ namespace ET
         public string Name { get; set; }
 
         /// <summary>
-        /// 时间间隔（CD）
+        /// 时间间隔（CD），一般修改的都不是这个Interval
         /// </summary>
         public long Interval { get; set; }
 
@@ -61,6 +55,11 @@ namespace ET
         /// 剩余CD时长
         /// </summary>
         public long RemainCDLength { get; set; }
+
+        /// <summary>
+        /// 这个CD将在这一帧转好
+        /// </summary>
+        public uint TargetTriggerCDFrame;
 
         /// <summary>
         /// CD是否转好了
@@ -72,13 +71,14 @@ namespace ET
         /// </summary>
         public Action<CDInfo> CDChangedCallBack;
 
-        public void Init(string name, long cdLength, Action<CDInfo> cDChangedCallBack = null)
+        public void Init(string name, uint currentFrame, long cdLength, Action<CDInfo> cDChangedCallBack = null)
         {
             this.Name = name;
             this.Interval = cdLength;
             this.RemainCDLength = cdLength;
             this.Result = true;
             this.CDChangedCallBack = cDChangedCallBack;
+            this.TargetTriggerCDFrame = currentFrame + TimeAndFrameConverter.Frame_Long2Frame(cdLength);
         }
 
         public void Clear()
@@ -88,6 +88,7 @@ namespace ET
             this.RemainCDLength = 0;
             this.Result = false;
             this.CDChangedCallBack = null;
+            this.TargetTriggerCDFrame = 0;
         }
     }
 
@@ -102,31 +103,14 @@ namespace ET
         /// 包含所有CD信息的字典
         /// 键为id，值为对应所有CD信息
         /// </summary>
-        private Dictionary<long, Dictionary<string, CDInfo>> CDInfos =
+        public Dictionary<long, Dictionary<string, CDInfo>> CDInfos =
             new Dictionary<long, Dictionary<string, CDInfo>>();
 
         #endregion
 
         #region 公有成员
 
-        private static CDComponent m_Instance;
-
-        public static CDComponent Instance
-        {
-            get
-            {
-                if (m_Instance == null)
-                {
-                    Log.Error("请先注册CDComponent到Game.Scene中");
-
-                    return null;
-                }
-                else
-                {
-                    return m_Instance;
-                }
-            }
-        }
+        public static CDComponent Instance;
 
         /// <summary>
         /// 新增一条CD数据
@@ -139,8 +123,9 @@ namespace ET
                 return null;
             }
 
+            LSF_Component lsfComponent = this.GetParent<Room>().GetComponent<LSF_Component>();
             CDInfo cdInfo = ReferencePool.Acquire<CDInfo>();
-            cdInfo.Init(name, cDLength, onCDChangedCallback);
+            cdInfo.Init(name, lsfComponent.CurrentFrame, cDLength, onCDChangedCallback);
             AddCDData(id, cdInfo);
             return cdInfo;
         }
@@ -174,8 +159,11 @@ namespace ET
         {
             CDInfo cdInfo = GetCDData(id, name);
             cdInfo.Result = false;
-            cdInfo.Interval = cdLength == -1 ? cdInfo.Interval : cdLength;
-            cdInfo.RemainCDLength = cdInfo.Interval;
+            cdInfo.RemainCDLength = cdLength == -1 ? cdInfo.Interval : cdLength;
+
+            LSF_Component lsfComponent = this.GetParent<Room>().GetComponent<LSF_Component>();
+            cdInfo.TargetTriggerCDFrame = lsfComponent.CurrentFrame +
+                                          TimeAndFrameConverter.Frame_Long2Frame(cdInfo.RemainCDLength);
         }
 
         /// <summary>
@@ -202,7 +190,8 @@ namespace ET
         public void AddCD(long id, string name, long addedCDLength)
         {
             CDInfo cdInfo = GetCDData(id, name);
-            cdInfo.Interval += addedCDLength;
+            cdInfo.RemainCDLength += addedCDLength;
+            cdInfo.TargetTriggerCDFrame += TimeAndFrameConverter.Frame_Long2Frame(addedCDLength);
             cdInfo.CDChangedCallBack?.Invoke(cdInfo);
         }
 
@@ -212,12 +201,16 @@ namespace ET
         public void ReduceCD(long id, string name, long reducedCDLength)
         {
             CDInfo cdInfo = GetCDData(id, name);
-            cdInfo.Interval -= reducedCDLength;
+            cdInfo.RemainCDLength -= reducedCDLength;
+            
+            int tempFrame = (int) cdInfo.TargetTriggerCDFrame;
+            int result = tempFrame - (int)TimeAndFrameConverter.Frame_Long2Frame(reducedCDLength);
+            cdInfo.TargetTriggerCDFrame = result <= 0 ? (uint) 0 : (uint) result;
             cdInfo.CDChangedCallBack?.Invoke(cdInfo);
         }
 
         /// <summary>
-        /// 直接设定CD时间到指定CD
+        /// 直接重设CD数据以及CD的剩余时长
         /// </summary>
         public void SetCD(long id, string name, long cDLength, long remainCDLength)
         {
@@ -230,6 +223,9 @@ namespace ET
 
             cdInfo.Interval = cDLength;
             cdInfo.RemainCDLength = remainCDLength;
+            LSF_Component lsfComponent = this.GetParent<Room>().GetComponent<LSF_Component>();
+            cdInfo.TargetTriggerCDFrame =
+                lsfComponent.CurrentFrame + TimeAndFrameConverter.Frame_Long2Frame(remainCDLength);
             cdInfo.Result = false;
             cdInfo.CDChangedCallBack?.Invoke(cdInfo);
         }
@@ -271,17 +267,7 @@ namespace ET
 
         #region 生命周期函数
 
-        public void Awake()
-        {
-            //此处填写Awake逻辑
-            m_Instance = this;
-        }
-
-        public void Update()
-        {
-        }
-
-        public void FixedUpdate()
+        public void FixedUpdate(uint currentFrame)
         {
             //此处填写FixedUpdate逻辑
             foreach (var cdInfoDic in this.CDInfos)
@@ -290,9 +276,8 @@ namespace ET
                 {
                     if (!cdInfo.Value.Result)
                     {
-                        //TODO  切换帧同步驱动，使用帧数而非时间
                         cdInfo.Value.RemainCDLength -= 33;
-                        if (cdInfo.Value.RemainCDLength <= 0)
+                        if (currentFrame >= cdInfo.Value.TargetTriggerCDFrame)
                         {
                             cdInfo.Value.Result = true;
                             cdInfo.Value.CDChangedCallBack?.Invoke(cdInfo.Value);
@@ -302,36 +287,13 @@ namespace ET
             }
         }
 
-        public void Destroy()
-        {
-            //此处填写Destroy逻辑
-            foreach (var cdInfoList in CDInfos)
-            {
-                foreach (var cdInfo in cdInfoList.Value)
-                {
-                    ReferencePool.Release(cdInfo.Value);
-                }
-
-                cdInfoList.Value.Clear();
-            }
-
-            this.CDInfos.Clear();
-        }
-
-        public override void Dispose()
-        {
-            if (IsDisposed)
-                return;
-            base.Dispose();
-            //此处填写释放逻辑,但涉及Entity的操作，请放在Destroy中
-        }
-
         #endregion
 
         public void ResetCD(long belongToUnitId, string cdName)
         {
             CDInfo cdInfo = GetCDData(belongToUnitId, cdName);
             cdInfo.RemainCDLength = 0;
+            cdInfo.TargetTriggerCDFrame = 0;
             cdInfo.Result = true;
         }
     }
