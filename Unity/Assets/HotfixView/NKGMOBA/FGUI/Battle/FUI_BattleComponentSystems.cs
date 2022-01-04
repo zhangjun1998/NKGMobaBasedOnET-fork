@@ -20,10 +20,8 @@ namespace ET
             UnitComponent unitComponent = scene.GetComponent<RoomManagerComponent>().GetBattleRoom()
                 .GetComponent<UnitComponent>();
 
-            self.m_CDComponent = scene.GetComponent<CDComponent>();
-
             long playerUnitId = unitComponent.MyUnit.Id;
-            self.m_QCDInfo = self.m_CDComponent.AddCDData(playerUnitId, "Q", 0, info =>
+            self.m_QCDInfo = CDComponent.Instance.AddCDData(playerUnitId, "Q", 0, info =>
             {
                 if (info.Result)
                 {
@@ -39,7 +37,7 @@ namespace ET
                 self.FuiUIPanelBattle.m_SkillQ_Bar.self.value = 100 * (info.RemainCDLength / info.Interval);
                 self.FuiUIPanelBattle.m_SkillQ_Bar.Visible = true;
             });
-            self.m_WCDInfo = self.m_CDComponent.AddCDData(playerUnitId, "W", 0, info =>
+            self.m_WCDInfo = CDComponent.Instance.AddCDData(playerUnitId, "W", 0, info =>
             {
                 if (info.Result)
                 {
@@ -55,7 +53,7 @@ namespace ET
                 self.FuiUIPanelBattle.m_SkillW_Bar.self.value = 100 * (info.RemainCDLength / info.Interval);
                 self.FuiUIPanelBattle.m_SkillW_Bar.Visible = true;
             });
-            self.m_ECDInfo = self.m_CDComponent.AddCDData(playerUnitId, "E", 0, info =>
+            self.m_ECDInfo = CDComponent.Instance.AddCDData(playerUnitId, "E", 0, info =>
             {
                 if (info.Result)
                 {
@@ -200,7 +198,7 @@ namespace ET
                 .GetComponent<UnitComponent>().MyUnit;
             long playerUnitId = unit.Id;
             //此处填写Update逻辑
-            if (!self.m_CDComponent.GetCDResult(playerUnitId, "Q"))
+            if (!CDComponent.Instance.GetCDResult(playerUnitId, "Q"))
             {
                 self.FuiUIPanelBattle.m_SkillQ_CDInfo.text =
                     ((int) Math.Ceiling((double) (self.m_QCDInfo.RemainCDLength) / 1000))
@@ -209,7 +207,7 @@ namespace ET
                     100 * (self.m_QCDInfo.RemainCDLength * 1f / self.m_QCDInfo.Interval);
             }
 
-            if (!self.m_CDComponent.GetCDResult(playerUnitId, "W"))
+            if (!CDComponent.Instance.GetCDResult(playerUnitId, "W"))
             {
                 self.FuiUIPanelBattle.m_SkillW_CDInfo.text =
                     ((int) Math.Ceiling((double) (self.m_WCDInfo.RemainCDLength) / 1000))
@@ -218,7 +216,7 @@ namespace ET
                     100 * (self.m_WCDInfo.RemainCDLength * 1f / self.m_WCDInfo.Interval);
             }
 
-            if (!self.m_CDComponent.GetCDResult(playerUnitId, "E"))
+            if (!CDComponent.Instance.GetCDResult(playerUnitId, "E"))
             {
                 self.FuiUIPanelBattle.m_SkillE_CDInfo.text =
                     ((int) Math.Ceiling((double) (self.m_ECDInfo.RemainCDLength) / 1000))

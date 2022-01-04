@@ -12,8 +12,6 @@ namespace ET
             zoneScene.AddComponent<NP_TreeDataRepositoryComponent>();
             zoneScene.AddComponent<UnitAttributesDataRepositoryComponent>();
 
-            zoneScene.AddComponent<CDComponent>();
-            
             // UI层的初始化
             await Game.EventSystem.Publish(new EventType.AfterCreateZoneScene() {ZoneScene = zoneScene});
 
