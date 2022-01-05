@@ -24,9 +24,9 @@ namespace ET
         int CurrentOverlay { get; set; }
 
         /// <summary>
-        /// 最多持续到什么时候
+        /// 持续时间（目标帧）（到达这个帧就会移除）
         /// </summary>
-        long MaxLimitTime { get; set; }
+        uint MaxLimitFrame { get; set; }
 
         /// <summary>
         /// Buff数据
@@ -43,14 +43,14 @@ namespace ET
         /// </summary>
         Unit TheUnitBelongto { get; set; }
         
-        void Init(BuffDataBase buffDataBase, Unit theUnitFrom, Unit theUnitBelongto);
+        void Init(BuffDataBase buffDataBase, Unit theUnitFrom, Unit theUnitBelongto, uint currentFrame);
         
-        void Excute();
+        void Excute(uint currentFrame);
 
-        void Update();
+        void Update(uint currentFrame);
 
-        void Finished();
+        void Finished(uint currentFrame);
 
-        void Refresh();
+        void Refresh(uint currentFrame);
     }
 }

@@ -14,7 +14,7 @@ namespace ET
     public class FlashDamageBuffSystem : ABuffSystemBase<FlashDamageBuffData>
     {
 #if SERVER
-        public override void OnExecute()
+        public override void OnExecute(uint currentFrame)
         {
             FlashDamageBuffData flashDamageBuffData = this.GetBuffDataWithTType;
 
@@ -50,7 +50,7 @@ namespace ET
             }
         }
 #else
-        public override void OnExecute()
+        public override void OnExecute(uint currentFrame)
         {
             throw new NotImplementedException();
         }

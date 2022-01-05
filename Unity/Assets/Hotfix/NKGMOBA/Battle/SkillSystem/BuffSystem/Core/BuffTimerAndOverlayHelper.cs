@@ -16,7 +16,7 @@ namespace ET
         /// </summary>
         /// <param name="buffSystemBase">Buff逻辑类</param>
         /// <typeparam name="T"></typeparam>
-        public static void CalculateTimerAndOverlay<T>(ABuffSystemBase<T> buffSystemBase) where T : BuffDataBase
+        public static void CalculateTimerAndOverlay<T>(ABuffSystemBase<T> buffSystemBase, uint currentFrame) where T : BuffDataBase
         {
             BuffManagerComponent buffManagerComponent = buffSystemBase.GetBuffTarget().GetComponent<BuffManagerComponent>();
 
@@ -25,15 +25,15 @@ namespace ET
 
             if (targetBuffSystemBase != null)
             {
-                CalculateTimerAndOverlayHelper(targetBuffSystemBase as ABuffSystemBase<T>);
+                CalculateTimerAndOverlayHelper(targetBuffSystemBase as ABuffSystemBase<T>, currentFrame);
                 //Log.Info($"本次续命BuffID为{buffDataBase.FlagId}，当前层数{temp.CurrentOverlay}，最高层为{temp.MSkillBuffDataBase.MaxOverlay}");
                 buffSystemBase.CurrentOverlay = targetBuffSystemBase.CurrentOverlay;
                 //刷新当前已有的Buff
-                targetBuffSystemBase.Refresh();
+                targetBuffSystemBase.Refresh(currentFrame);
             }
             else
             {
-                CalculateTimerAndOverlayHelper(buffSystemBase);
+                CalculateTimerAndOverlayHelper(buffSystemBase, currentFrame);
 
                 //Log.Info($"本次新加BuffID为{buffDataBase.FlagId}");
                 buffSystemBase.BuffState = BuffState.Waiting;
@@ -44,7 +44,7 @@ namespace ET
         /// <summary>
         /// 计算刷新的持续时间和层数
         /// </summary>
-        private static void CalculateTimerAndOverlayHelper<T>(ABuffSystemBase<T> targetBuffSystemBase) where T : BuffDataBase
+        private static void CalculateTimerAndOverlayHelper<T>(ABuffSystemBase<T> targetBuffSystemBase, uint currentFrame) where T : BuffDataBase
         {
             //可以叠加，并且当前层数加上要添加Buff的目标层数未达到最高层
             if (targetBuffSystemBase.BuffData.CanOverlay)
@@ -68,7 +68,9 @@ namespace ET
             if (targetBuffSystemBase.BuffData.SustainTime + 1 > 0)
             {
                 //Log.Info($"原本结束时间：{temp.MaxLimitTime},续命之后的结束时间{TimeHelper.Now() + buffDataBase.SustainTime}");
-                targetBuffSystemBase.MaxLimitTime = TimeHelper.ClientNow() + targetBuffSystemBase.BuffData.SustainTime;
+                targetBuffSystemBase.MaxLimitFrame = currentFrame +
+                                                     TimeAndFrameConverter.Frame_Long2Frame(targetBuffSystemBase
+                                                         .BuffData.SustainTime);
             }
         }
     }

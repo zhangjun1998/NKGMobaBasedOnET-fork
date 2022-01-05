@@ -11,7 +11,7 @@ namespace ET
     public class ReplaceAttackBuffSystem : ABuffSystemBase<ReplaceAttackBuffData>
     {
 #if SERVER
-        public override void OnExecute()
+        public override void OnExecute(uint currentFrame)
         {
             ReplaceAttackBuffData replaceAttackBuffData = this.GetBuffDataWithTType;
 
@@ -42,7 +42,7 @@ namespace ET
             }
         }
 
-        public override void OnFinished()
+        public override void OnFinished(uint currentFrame)
         {
             ReplaceAttackBuffData replaceAttackBuffData = this.GetBuffDataWithTType;
 
@@ -58,7 +58,7 @@ namespace ET
             blackboard.Set(replaceAttackBuffData.CancelReplaceInfo.BBKey, false);
         }
 #else
-        public override void OnExecute()
+        public override void OnExecute(uint currentFrame)
         {
             throw new System.NotImplementedException();
         }

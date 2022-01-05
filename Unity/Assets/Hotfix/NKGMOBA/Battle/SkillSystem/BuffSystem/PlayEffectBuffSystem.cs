@@ -11,7 +11,7 @@ namespace ET
     public class PlayEffectBuffSystem : ABuffSystemBase<PlayEffectBuffData>
     {
 #if !SERVER
-        public override void OnExecute()
+        public override void OnExecute(uint currentFrame)
         {
             Game.EventSystem.Publish(new EventType.PlayEffectBuffSystemExcuteEvent()
             {
@@ -28,7 +28,7 @@ namespace ET
             }
         }
 
-        public override void OnFinished()
+        public override void OnFinished(uint currentFrame)
         {
             Game.EventSystem.Publish(new EventType.PlayEffectBuffSystemFinishEvent()
             {
@@ -37,7 +37,7 @@ namespace ET
             }).Coroutine();
         }
 
-        public override void OnRefreshed()
+        public override void OnRefreshed(uint currentFrame)
         {
             Game.EventSystem.Publish(new EventType.PlayEffectBuffSystemExcuteEvent()
             {
@@ -54,7 +54,7 @@ namespace ET
             }
         }
 #else
-        public override void OnExecute()
+        public override void OnExecute(uint currentFrame)
         {
             throw new System.NotImplementedException();
         }

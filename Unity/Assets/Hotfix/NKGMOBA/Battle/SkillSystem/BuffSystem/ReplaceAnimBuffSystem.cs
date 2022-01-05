@@ -16,7 +16,7 @@ namespace ET
         /// </summary>
         private Dictionary<string, string> m_ReplacedAnimData = new Dictionary<string, string>();
 
-        public override void OnExecute()
+        public override void OnExecute(uint currentFrame)
         {
             Game.EventSystem.Publish(new EventType.ReplaceAnimBuffSystemExcuteEvent()
             {
@@ -25,7 +25,7 @@ namespace ET
             }).Coroutine();
         }
 
-        public override void OnFinished()
+        public override void OnFinished(uint currentFrame)
         {
             Game.EventSystem.Publish(new EventType.RepalceAnimBuffSystemFinishEvent()
             {
@@ -34,7 +34,7 @@ namespace ET
             }).Coroutine();
         }
 #else
-        public override void OnExecute()
+        public override void OnExecute(uint currentFrame)
         {
             throw new System.NotImplementedException();
         }

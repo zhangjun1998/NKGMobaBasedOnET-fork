@@ -15,7 +15,7 @@ namespace ET
         /// </summary>
         private ADataModifier dataModifier;
 
-        public override void OnExecute()
+        public override void OnExecute(uint currentFrame)
         {
             switch (this.BuffData.BuffWorkType)
             {
@@ -46,7 +46,7 @@ namespace ET
             }
         }
 
-        public override void OnFinished()
+        public override void OnFinished(uint currentFrame)
         {
             switch (this.BuffData.BuffWorkType)
             {

@@ -12,7 +12,7 @@ namespace ET
     public class TreatmentBuffSystem : ABuffSystemBase<TreatmentBuffData>
     {
 #if SERVER
-        public override void OnExecute()
+        public override void OnExecute(uint currentFrame)
         {
             float finalTreatValue;
             finalTreatValue = BuffDataCalculateHelper.CalculateCurrentData(this);
@@ -31,7 +31,7 @@ namespace ET
                 .Run($"TakeTreate{this.GetBuffTarget()}", finalTreatValue);
         }
 #else
-        public override void OnExecute()
+        public override void OnExecute(uint currentFrame)
         {
             throw new System.NotImplementedException();
         }

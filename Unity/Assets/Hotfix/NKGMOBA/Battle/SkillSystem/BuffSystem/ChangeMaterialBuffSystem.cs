@@ -17,7 +17,7 @@ namespace ET
         /// </summary>
         private long m_SelfNextimer;
 #endif
-        public override void OnExecute()
+        public override void OnExecute(uint currentFrame)
         {
 #if !SERVER 
             Game.EventSystem.Publish(new EventType.ChangeMaterialBuffSystemExcuteEvent()
@@ -25,7 +25,7 @@ namespace ET
 #endif
         }
 
-        public override void OnFinished()
+        public override void OnFinished(uint currentFrame)
         {
 #if !SERVER 
             Game.EventSystem.Publish(new EventType.ChangeMaterialBuffSystemFinishEvent()

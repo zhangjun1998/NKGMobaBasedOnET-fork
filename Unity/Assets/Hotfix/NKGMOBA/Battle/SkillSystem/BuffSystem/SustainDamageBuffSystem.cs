@@ -17,23 +17,23 @@ namespace ET
         /// <summary>
         /// 自身下一个时间点
         /// </summary>
-        private long m_SelfNextimer;
+        private uint m_SelfNextExcuteFrame = 0;
 
-        public override void OnExecute()
+        public override void OnExecute(uint currentFrame)
         {
-            ExcuteDamage();
+            ExcuteDamage(currentFrame);
             //Log.Info($"作用间隔为{selfNextimer - TimeHelper.Now()},持续时间为{temp.SustainTime},持续到{this.selfNextimer}");
         }
 
-        public override void OnUpdate()
+        public override void OnUpdate(uint currentFrame)
         {
-            if (TimeHelper.ClientNow() > this.m_SelfNextimer)
+            if (currentFrame >= this.m_SelfNextExcuteFrame)
             {
-                ExcuteDamage();
+                ExcuteDamage(currentFrame);
             }
         }
 
-        private void ExcuteDamage()
+        private void ExcuteDamage(uint currentFrame)
         {
             //强制类型转换为伤害Buff数据 
             SustainDamageBuffData temp = this.GetBuffDataWithTType;
@@ -61,10 +61,10 @@ namespace ET
             }
 
             //设置下一个时间点
-            this.m_SelfNextimer = TimeHelper.ClientNow() + temp.WorkInternal;
+            this.m_SelfNextExcuteFrame = currentFrame + TimeAndFrameConverter.Frame_Long2Frame(temp.WorkInternal);
         }
 #else
-        public override void OnExecute()
+        public override void OnExecute(uint currentFrame)
         {
             throw new NotImplementedException();
         }

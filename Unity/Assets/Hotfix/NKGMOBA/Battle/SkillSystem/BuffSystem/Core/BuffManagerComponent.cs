@@ -9,15 +9,6 @@ using ET;
 
 namespace ET
 {
-    [ObjectSystem]
-    public class BuffManagerCompoenntUpdateSystem: UpdateSystem<BuffManagerComponent>
-    {
-        public override void Update(BuffManagerComponent self)
-        {
-            self.Update();
-        }
-    }
-
     public class BuffManagerComponent: Entity
     {
         /// <summary>
@@ -37,7 +28,7 @@ namespace ET
 
         private LinkedListNode<IBuffSystem> m_Current, m_Next;
 
-        public void Update()
+        public void FixedUpdate(uint currentFrame)
         {
             this.m_Current = m_Buffs.First;
             //轮询链表
@@ -46,16 +37,16 @@ namespace ET
                 IBuffSystem aBuff = this.m_Current.Value;
                 if (aBuff.BuffState == BuffState.Waiting)
                 {
-                    aBuff.Excute();
+                    aBuff.Excute(currentFrame);
                 }
                 else if (aBuff.BuffState == BuffState.Running || aBuff.BuffState == BuffState.Forever)
                 {
-                    aBuff.Update();
+                    aBuff.Update(currentFrame);
                     this.m_Current = this.m_Current.Next;
                 }
                 else if (aBuff.BuffState == BuffState.Finished)
                 {
-                    aBuff.Finished();
+                    aBuff.Finished(currentFrame);
                     this.m_Next = this.m_Current.Next;
                     m_Buffs.Remove(this.m_Current);
                     m_BuffsForFind_BuffWorkType.Remove(this.m_Current.Value.BuffData.BuffWorkType);

@@ -15,6 +15,11 @@ namespace ET
         [ProtoMember(3)]
         public long UnitId;
 
+        /// <summary>
+        /// 这条指令是否已经被处理过了
+        /// </summary>
+        public bool HasHandled;
+
         public abstract ALSF_Cmd Init(long unitId);
         
         public virtual bool CheckConsistency(ALSF_Cmd alsfCmd)

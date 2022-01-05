@@ -30,7 +30,6 @@ namespace ET
             { typeof(FlashDamageBuffData) , typeof (FlashDamageBuffSystem) },
             { typeof(SustainDamageBuffData) , typeof (SustainDamageBuffSystem) },
             { typeof(TreatmentBuffData) , typeof (TreatmentBuffSystem) },
-            { typeof(SendBuffInfoToClientBuffData) , typeof (SendBuffInfoToClientBuffSystem) },
             { typeof(ReplaceAttackBuffData) , typeof (ReplaceAttackBuffSystem) }
         };
 
@@ -75,9 +74,10 @@ namespace ET
         public static IBuffSystem AcquireBuff(BuffDataBase buffDataBase, Unit theUnitFrom, Unit theUnitBelongTo,
         NP_RuntimeTree theSkillCanvasBelongTo)
         {
+            LSF_Component lsfComponent = theUnitFrom.BelongToRoom.GetComponent<LSF_Component>();
             IBuffSystem resultBuff = ReferencePool.Acquire(AllBuffSystemTypes[buffDataBase.GetType()]) as IBuffSystem;
             resultBuff.BelongtoRuntimeTree = theSkillCanvasBelongTo;
-            resultBuff.Init(buffDataBase, theUnitFrom, theUnitBelongTo);
+            resultBuff.Init(buffDataBase, theUnitFrom, theUnitBelongTo, lsfComponent.CurrentFrame);
             return resultBuff;
         }
 

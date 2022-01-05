@@ -105,7 +105,7 @@ namespace ET
                     UnitId = IdGenerater.Instance.GenerateUnitId(scene.Zone), RoomId = unit.BelongToRoom.Id
                 };
 
-                unit.BelongToRoom.GetComponent<LSF_Component>().AddCmdToSendQueue(lsfCreateSpilingCmd);
+                unit.BelongToRoom.GetComponent<LSF_Component>().AddCmdToSendQueue(lsfCreateSpilingCmd, false);
             });
 
             self.FuiUIPanelBattle.m_HeroAvatarLoader.url =
