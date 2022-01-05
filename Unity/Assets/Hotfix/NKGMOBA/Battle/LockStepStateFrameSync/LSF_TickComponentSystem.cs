@@ -100,7 +100,7 @@ namespace ET
         public static bool CheckConsistency(this LSF_TickComponent self, uint frame, ALSF_Cmd alsfCmd)
         {
             Unit unit = self.GetParent<Room>().GetComponent<UnitComponent>().MyUnit;
-
+            
             using (ListComponent<Entity> componentsToTick = ListComponent<Entity>.Create())
             {
                 foreach (var component1 in unit.Components)
@@ -114,9 +114,8 @@ namespace ET
                         }
                     }
                 }
-
-                return true;
             }
+            return true;
         }
 
         public static void TickView(this LSF_TickComponent self, long deltaTime)

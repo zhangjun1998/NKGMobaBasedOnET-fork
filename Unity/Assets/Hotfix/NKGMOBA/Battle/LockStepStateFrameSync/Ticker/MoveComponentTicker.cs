@@ -18,6 +18,12 @@ namespace ET
     {
         public override bool OnLSF_CheckConsistency(MoveComponent entity, uint frame, ALSF_Cmd stateToCompare)
         {
+            if (stateToCompare is LSF_PathFindCmd pathFindCmd)
+            {
+                pathFindCmd.HasHandled = true;
+                return true;
+            }
+            
             LSF_MoveCmd serverMoveState = stateToCompare as LSF_MoveCmd;
 
             if (serverMoveState == null)
@@ -25,6 +31,7 @@ namespace ET
                 return true;
             }
 
+            stateToCompare.HasHandled = true;
             if (entity.HistroyMoveStates.TryGetValue(frame, out var histroyState))
             {
                 bool result = serverMoveState.CheckConsistency(histroyState);

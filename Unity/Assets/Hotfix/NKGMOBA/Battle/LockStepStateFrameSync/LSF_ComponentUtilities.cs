@@ -66,12 +66,15 @@ namespace ET
 
                 foreach (var frameCmd in frameCmdsQueue)
                 {
-                    //说明需要回滚
-                    if (frameCmd.UnitId == playerUnit.Id &&
-                        !self.CheckConsistencyCompareSpecialFrame(targetFrame, frameCmd))
+                    //只有本地玩家的指令才有回滚的可能性
+                    if (frameCmd.UnitId == playerUnit.Id)
                     {
-                        shouldRollback = true;
-                        break;
+                        // 在一致性检查过程中需要手动将指令的HasHandled设置为true，因为我们无法得知究竟那些指令被哪些一致性检查组件所使用了
+                        if (!self.CheckConsistencyCompareSpecialFrame(targetFrame, frameCmd))
+                        {
+                            shouldRollback = true;
+                            break;
+                        }
                     }
                 }
 
@@ -82,11 +85,12 @@ namespace ET
 
                     foreach (var frameCmd in frameCmdsQueue)
                     {
-                        // 自己的指令才回滚
+                        // 本地玩家的的指令才会回滚
                         if (frameCmd.UnitId == playerUnit.Id)
                         {
                             //回滚处理
                             self.RollBack(self.CurrentFrame, frameCmd);
+                            frameCmd.HasHandled = true;
                         }
                     }
 
@@ -106,13 +110,13 @@ namespace ET
                     self.IsInChaseFrameState = false;
                 }
 
-                // 因为其他玩家严格根据服务端Tick指令做表现，所以要限制帧数
+                // 因为其他玩家以及本地玩家的非预测指令严格根据服务端Tick指令做表现，所以要限制帧数
                 if (frameCmdsQueuePair.Key <= self.ServerCurrentFrame)
                 {
                     foreach (var frameCmd in frameCmdsQueue)
                     {
-                        //其他玩家的指令直接执行
-                        if (frameCmd.UnitId != playerUnit.Id)
+                        //随后处理所有未被处理的指令，可能是其他玩家的指令，也可能是本地玩家未被处理的指令（比如非预测指令）
+                        if (!frameCmd.HasHandled)
                         {
                             LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), frameCmd);
                         }
@@ -152,7 +156,7 @@ namespace ET
 
             if (self.IsInChaseFrameState)
             {
-                lastValidCmds = self.GetLastValidCmd();
+                lastValidCmds = self.GetLastPlayerInputValidCmd();
             }
             else
             {
@@ -234,6 +238,7 @@ namespace ET
         /// </summary>
         /// <param name="self"></param>
         /// <param name="cmdToSend"></param>
+        /// <param name="shouldAddToPlayerInputBuffer">如果为false代表这个cmd不在预测的考虑范围里，通常用于一些重要Unit的创建，因为这些UnitId需要有服务端裁定</param>
         public static void AddCmdToSendQueue<T>(this LSF_Component self, T cmdToSend,
             bool shouldAddToPlayerInputBuffer = true) where T : ALSF_Cmd
         {
@@ -364,7 +369,7 @@ namespace ET
         /// 获取最近的有效输入
         /// </summary>
         /// <returns></returns>
-        public static Queue<ALSF_Cmd> GetLastValidCmd(this LSF_Component self)
+        public static Queue<ALSF_Cmd> GetLastPlayerInputValidCmd(this LSF_Component self)
         {
             uint frame = self.CurrentFrame;
             while (frame >= 1 && self.PlayerInputCmdsBuffer.Count > 0 && !self.PlayerInputCmdsBuffer.ContainsKey(frame))
@@ -381,6 +386,20 @@ namespace ET
 
             return null;
         }
+        
+        /// <summary>
+        /// 在本地玩家的输入缓冲区寻找某个指令
+        /// </summary>
+        /// <returns></returns>
+        public static bool FindCmdInPlayInputCmd(this LSF_Component self, ALSF_Cmd cmd)
+        {
+            if (self.PlayerInputCmdsBuffer.TryGetValue(cmd.Frame, out var queue))
+            {
+                return queue.Contains(cmd);
+            }
+            return false;
+        }
+
 
         /// <summary>
         /// 客户端处理异常的网络状况

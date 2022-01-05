@@ -23,6 +23,8 @@ namespace ET
                 return true;
             }
 
+            stateToCompare.HasHandled = true;
+
             if (entity.FrameSnaps_DeltaOnly.TryGetValue(frame, out var localDeltaSnaps))
             {
                 if (localDeltaSnaps.TryGetValue(changeBbValueCmd.TargetNPBehaveTreeId, out var localDeltaSnap))
