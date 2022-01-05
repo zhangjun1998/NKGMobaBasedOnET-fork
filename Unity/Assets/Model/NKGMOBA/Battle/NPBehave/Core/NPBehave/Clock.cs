@@ -46,7 +46,7 @@ namespace NPBehave
 
         private void AddTimer(FrameAction frameAction)
         {
-            frameAction.TargetTickFrame = CurrentFrame + frameAction.IntervalFrame;
+            CalculateTimerFrame(frameAction);
             if (!isInUpdate)
             {
                 if (!this.AllFrameActions.ContainsKey(frameAction.Id))
@@ -92,6 +92,10 @@ namespace NPBehave
                     {
                         RemoveTimer(frameAction.Id);
                     }
+                    else
+                    {
+                        CalculateTimerFrame(frameAction);
+                    }
                 }
             }
 
@@ -113,6 +117,11 @@ namespace NPBehave
 
             this.ToBeAddedFrameActions.Clear();
             this.ToBeRemovedFrameActions.Clear();
+        }
+
+        private void CalculateTimerFrame(FrameAction frameAction)
+        {
+            frameAction.TargetTickFrame = CurrentFrame + frameAction.IntervalFrame;;
         }
     }
 }
