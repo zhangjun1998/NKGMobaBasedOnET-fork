@@ -67,6 +67,7 @@ namespace ET
             unit.AddComponent<ObjectWait>();
             unit.AddComponent<CastDamageComponent>();
             unit.AddComponent<ReceiveDamageComponent>();
+            unit.AddComponent<LSF_TickComponent>();
             
             Game.EventSystem.Publish(new EventType.AfterHeroSpilingCreate_CreateGO()
                 {Unit = unit, HeroSpilingConfigId = unitInfo.ConfigId}).Coroutine();

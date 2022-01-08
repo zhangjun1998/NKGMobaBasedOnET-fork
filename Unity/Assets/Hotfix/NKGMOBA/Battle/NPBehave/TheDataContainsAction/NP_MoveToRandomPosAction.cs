@@ -35,7 +35,20 @@ namespace ET
         {
 #if SERVER 
             Vector3 randomTarget = new Vector3(RandomHelper.RandomNumber(this.XMin, this.XMax), 0, RandomHelper.RandomNumber(this.YMin, this.YMax));
-            BelongToUnit.FindPathMoveToAsync(randomTarget).Coroutine(); 
+            LSF_PathFindCmd lsfPathFindCmd = ReferencePool.Acquire<LSF_PathFindCmd>().Init(this.BelongToUnit.Id) as LSF_PathFindCmd;
+            lsfPathFindCmd.PosX = randomTarget.x;
+            lsfPathFindCmd.PosY = randomTarget.y;
+            lsfPathFindCmd.PosZ = randomTarget.z;
+
+            LSF_Component lsfComponent = this.BelongToUnit.BelongToRoom.GetComponent<LSF_Component>();
+            
+            Vector3 target = new Vector3(lsfPathFindCmd.PosX, lsfPathFindCmd.PosY, lsfPathFindCmd.PosZ);
+
+            IdleState idleState = ReferencePool.Acquire<IdleState>();
+            idleState.SetData(StateTypes.Idle, "Idle", 1);
+            this.BelongToUnit.NavigateTodoSomething(target, 0, idleState).Coroutine();
+            
+            lsfComponent.AddCmdToSendQueue(lsfPathFindCmd);
 #endif
         }
     }
