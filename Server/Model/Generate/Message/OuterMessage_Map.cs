@@ -214,7 +214,6 @@ namespace ET
 
 		[ProtoMember(7)]
 		public long RoomId { get; set; }
-
 	}
 
 	[Message(OuterOpcode_Map.M2C_CreateUnits)]

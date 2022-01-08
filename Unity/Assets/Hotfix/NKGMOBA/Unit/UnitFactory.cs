@@ -7,10 +7,10 @@ namespace ET
         public static Unit CreateUnit(Room room, long id, int configId)
         {
             UnitComponent unitComponent = room.GetComponent<UnitComponent>();
-            
+
             Unit unit = unitComponent.AddChildWithId<Unit, int>(id, configId);
             unit.BelongToRoom = room;
-            
+
             unitComponent.Add(unit);
 
             return unit;
@@ -45,7 +45,7 @@ namespace ET
                 {Unit = unit, HeroConfigId = unitInfo.ConfigId}).Coroutine();
             return unit;
         }
-        
+
         public static Unit CreateHeroSpilingUnit(Room room, UnitInfo unitInfo)
         {
             Unit unit = CreateUnit(room, unitInfo.UnitId, unitInfo.ConfigId);
@@ -68,12 +68,42 @@ namespace ET
             unit.AddComponent<CastDamageComponent>();
             unit.AddComponent<ReceiveDamageComponent>();
             unit.AddComponent<LSF_TickComponent>();
-            
+
             Game.EventSystem.Publish(new EventType.AfterHeroSpilingCreate_CreateGO()
                 {Unit = unit, HeroSpilingConfigId = unitInfo.ConfigId}).Coroutine();
             return unit;
         }
-        
+
+        /// <summary>
+        /// 创建碰撞体
+        /// </summary>
+        /// <param name="room">归属的房间</param>
+        /// <param name="belongToUnit">归属的Unit</param>
+        /// <param name="colliderDataConfigId">碰撞体数据表Id</param>
+        /// <param name="collisionRelationDataConfigId">碰撞关系数据表Id</param>
+        /// <param name="colliderNPBehaveTreeIdInExcel">碰撞体的行为树Id</param>
+        /// <returns></returns>
+        public static Unit CreateSpecialColliderUnit(Room room, long belongToUnitId, long unitId,
+            int colliderNPBehaveTreeIdInExcel)
+        {
+            //为碰撞体新建一个Unit
+            Unit b2sColliderEntity = CreateUnit(room, unitId, 0);
+            Unit belongToUnit = room.GetComponent<UnitComponent>().Get(belongToUnitId);
+            b2sColliderEntity.Position = belongToUnit.Position;
+
+            b2sColliderEntity.AddComponent<NP_RuntimeTreeManager>();
+            b2sColliderEntity.AddComponent<SkillCanvasManagerComponent>();
+
+            //根据传过来的行为树Id来给这个碰撞Unit加上行为树
+            NP_RuntimeTreeFactory.CreateSkillNpRuntimeTree(b2sColliderEntity,
+                    SkillCanvasConfigCategory.Instance.Get(colliderNPBehaveTreeIdInExcel).NPBehaveId,
+                    SkillCanvasConfigCategory.Instance.Get(colliderNPBehaveTreeIdInExcel).BelongToSkillId)
+                .Start();
+
+            b2sColliderEntity.AddComponent<LSF_TickComponent>();
+            return b2sColliderEntity;
+        }
+
         public class CreateHeroColliderArgs
         {
             public Unit Unit;

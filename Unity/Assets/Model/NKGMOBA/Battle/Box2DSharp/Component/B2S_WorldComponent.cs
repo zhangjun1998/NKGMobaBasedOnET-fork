@@ -18,14 +18,6 @@ namespace ET
         }
     }
 
-    public class B2S_WorldComponentFixedUpdateSystem : FixedUpdateSystem<B2S_WorldComponent>
-    {
-        public override void FixedUpdate(B2S_WorldComponent self)
-        {
-            self.FixedUpdate();
-        }
-    }
-
     /// <summary>
     /// 物理世界组件，代表一个物理世界
     /// </summary>

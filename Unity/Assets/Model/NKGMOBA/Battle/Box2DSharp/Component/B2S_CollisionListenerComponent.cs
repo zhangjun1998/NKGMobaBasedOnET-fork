@@ -25,15 +25,6 @@ namespace ET
         }
     }
 
-    [ObjectSystem]
-    public class B2S_CollisionListenerComponentFixedUpdate : FixedUpdateSystem<B2S_CollisionListenerComponent>
-    {
-        public override void FixedUpdate(B2S_CollisionListenerComponent self)
-        {
-            self.FixedUpdate();
-        }
-    }
-
     /// <summary>
     /// 某一物理世界所有碰撞的监听者，负责碰撞事件的分发
     /// </summary>
@@ -101,12 +92,12 @@ namespace ET
             {
                 Unit unitA = this.GetParent<Room>().GetComponent<UnitComponent>().Get(cachedCollisionData.Item1);
                 Unit unitB = this.GetParent<Room>().GetComponent<UnitComponent>().Get(cachedCollisionData.Item2);
-
-                if (unitA.IsDisposed || unitB.IsDisposed)
+                
+                if (unitA == null || unitB == null || unitA.IsDisposed || unitB.IsDisposed)
                 {
                     // Id不分顺序，防止移除失败
-                    this.m_ToBeRemovedCollisionData.Add((unitA.Id, unitB.Id));
-                    this.m_ToBeRemovedCollisionData.Add((unitB.Id, unitA.Id));
+                    this.m_ToBeRemovedCollisionData.Add((cachedCollisionData.Item1, cachedCollisionData.Item2));
+                    this.m_ToBeRemovedCollisionData.Add((cachedCollisionData.Item2, cachedCollisionData.Item1));
                     continue;
                 }
 

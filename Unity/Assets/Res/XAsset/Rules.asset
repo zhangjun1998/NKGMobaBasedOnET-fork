@@ -20,7 +20,7 @@ MonoBehaviour:
   searchPatternPrefab: '*.prefab'
   searchPatternScene: '*.unity'
   searchPatternText: '*.txt,*.bytes,*.json,*.csv,*.xml,*htm,*.html,*.yaml,*.fnt,*.bin'
-  version: 94
+  version: 98
   scenesInBuild:
   - {fileID: 102900000, guid: e0d691ac8c1d0454ba07089ea820e18a, type: 3}
   - {fileID: 102900000, guid: d1f6e76af288a614586be7868b6ddd96, type: 3}
@@ -100,8 +100,6 @@ MonoBehaviour:
     path: Assets/Res/Config/AttackConfigCategory.bytes
   - bundle: 83af947d1300194c9f96375731960320.unity3d
     path: Assets/Res/Config/BuffConfigCategory.bytes
-  - bundle: 5ca92bbe2f198ce9fe3a1c299136710b.unity3d
-    path: Assets/Res/Config/Client_SkillCanvasConfigCategory.bytes
   - bundle: 6820dd984ce85cda122211d6e8a7d5f3.unity3d
     path: Assets/Res/Config/Client_UnitConfigCategory.bytes
   - bundle: c4762cb687cc28f3c9bc01978cf97144.unity3d
@@ -114,22 +112,26 @@ MonoBehaviour:
     path: Assets/Res/Config/Server_B2SColliderConfigCategory.bytes
   - bundle: 6be265ed46d5b399c4cf6ba342f68bcc.unity3d
     path: Assets/Res/Config/Server_B2SCollisionRelationConfigCategory.bytes
-  - bundle: 8057809a5b96b168ed63016a9310d39e.unity3d
-    path: Assets/Res/Config/Server_SkillCanvasConfigCategory.bytes
   - bundle: b889e87498fe4f11d9677ec8e7f8fa52.unity3d
     path: Assets/Res/Config/Server_UnitConfigCategory.bytes
-  - bundle: fd82b817380871e3f4f1514a07edc68b.unity3d
-    path: Assets/Res/Config/SkillConfig/Client_Darius_E.bytes
-  - bundle: 39e06aa8985fb7a8ed44302a075c1139.unity3d
-    path: Assets/Res/Config/SkillConfig/Client_Darius_Hemorrhage.bytes
-  - bundle: e1b4d53deb85af8b40d79b0ce1372f3a.unity3d
-    path: Assets/Res/Config/SkillConfig/Client_Darius_Q.bytes
-  - bundle: 0929518d645a3261d8982f0eb1e833f7.unity3d
-    path: Assets/Res/Config/SkillConfig/Client_Darius_TestLSF.bytes
-  - bundle: 1dd2ad92d16e18a5da0726e49dc84a96.unity3d
-    path: Assets/Res/Config/SkillConfig/Client_Darius_W.bytes
-  - bundle: 37f56b2351824cfb752c1cdf81358aa0.unity3d
-    path: Assets/Res/Config/SkillConfigCategory.bytes
+  - bundle: e54cd26e67d6aede20d8d3279b370be4.unity3d
+    path: Assets/Res/Config/SkillCanvasConfigCategory.bytes
+  - bundle: 3b9af3835c3b671d76b8240f540fa522.unity3d
+    path: Assets/Res/Config/SkillConfig/Darius_E.bytes
+  - bundle: eee370e7bbea191e2103ef58ab7ac94c.unity3d
+    path: Assets/Res/Config/SkillConfig/Darius_E_Collider.bytes
+  - bundle: 239dd5e7a896a5225aaf57e1f030b54b.unity3d
+    path: Assets/Res/Config/SkillConfig/Darius_Hemorrhage.bytes
+  - bundle: 508f4484799ad48351619f0359171946.unity3d
+    path: Assets/Res/Config/SkillConfig/Darius_Q.bytes
+  - bundle: cb41b275575be5008af57d51b7c0a028.unity3d
+    path: Assets/Res/Config/SkillConfig/Darius_Q_Collider.bytes
+  - bundle: cc4e68c40d34ebaaaee4c22e85c60f50.unity3d
+    path: Assets/Res/Config/SkillConfig/Darius_TestLSF.bytes
+  - bundle: 03be2e33b2b0e9ecab7b8060cc0d5a1e.unity3d
+    path: Assets/Res/Config/SkillConfig/Darius_W.bytes
+  - bundle: 465f5db2ef1b1b9e87f4f6c137fcd85d.unity3d
+    path: Assets/Res/Config/SkillConfig/Server_Darius_AI.bytes
   - bundle: de6911dfae3e6306a192b1a2b85251bb.unity3d
     path: Assets/Res/Config/SkinsConfigCategory.bytes
   - bundle: 8a225304448253da03f457a201ab63c0.unity3d
@@ -337,9 +339,6 @@ MonoBehaviour:
   - name: 83af947d1300194c9f96375731960320.unity3d
     assets:
     - Assets/Res/Config/BuffConfigCategory.bytes
-  - name: 5ca92bbe2f198ce9fe3a1c299136710b.unity3d
-    assets:
-    - Assets/Res/Config/Client_SkillCanvasConfigCategory.bytes
   - name: 6820dd984ce85cda122211d6e8a7d5f3.unity3d
     assets:
     - Assets/Res/Config/Client_UnitConfigCategory.bytes
@@ -358,15 +357,12 @@ MonoBehaviour:
   - name: 6be265ed46d5b399c4cf6ba342f68bcc.unity3d
     assets:
     - Assets/Res/Config/Server_B2SCollisionRelationConfigCategory.bytes
-  - name: 8057809a5b96b168ed63016a9310d39e.unity3d
-    assets:
-    - Assets/Res/Config/Server_SkillCanvasConfigCategory.bytes
   - name: b889e87498fe4f11d9677ec8e7f8fa52.unity3d
     assets:
     - Assets/Res/Config/Server_UnitConfigCategory.bytes
-  - name: 37f56b2351824cfb752c1cdf81358aa0.unity3d
+  - name: e54cd26e67d6aede20d8d3279b370be4.unity3d
     assets:
-    - Assets/Res/Config/SkillConfigCategory.bytes
+    - Assets/Res/Config/SkillCanvasConfigCategory.bytes
   - name: de6911dfae3e6306a192b1a2b85251bb.unity3d
     assets:
     - Assets/Res/Config/SkinsConfigCategory.bytes
@@ -388,21 +384,30 @@ MonoBehaviour:
   - name: 753fb261766d8dffa79c45a2851f3e39.unity3d
     assets:
     - Assets/Res/Config/UnitConfigCategory.bytes
-  - name: fd82b817380871e3f4f1514a07edc68b.unity3d
+  - name: 3b9af3835c3b671d76b8240f540fa522.unity3d
     assets:
-    - Assets/Res/Config/SkillConfig/Client_Darius_E.bytes
-  - name: 39e06aa8985fb7a8ed44302a075c1139.unity3d
+    - Assets/Res/Config/SkillConfig/Darius_E.bytes
+  - name: eee370e7bbea191e2103ef58ab7ac94c.unity3d
     assets:
-    - Assets/Res/Config/SkillConfig/Client_Darius_Hemorrhage.bytes
-  - name: e1b4d53deb85af8b40d79b0ce1372f3a.unity3d
+    - Assets/Res/Config/SkillConfig/Darius_E_Collider.bytes
+  - name: 239dd5e7a896a5225aaf57e1f030b54b.unity3d
     assets:
-    - Assets/Res/Config/SkillConfig/Client_Darius_Q.bytes
-  - name: 0929518d645a3261d8982f0eb1e833f7.unity3d
+    - Assets/Res/Config/SkillConfig/Darius_Hemorrhage.bytes
+  - name: 508f4484799ad48351619f0359171946.unity3d
     assets:
-    - Assets/Res/Config/SkillConfig/Client_Darius_TestLSF.bytes
-  - name: 1dd2ad92d16e18a5da0726e49dc84a96.unity3d
+    - Assets/Res/Config/SkillConfig/Darius_Q.bytes
+  - name: cb41b275575be5008af57d51b7c0a028.unity3d
     assets:
-    - Assets/Res/Config/SkillConfig/Client_Darius_W.bytes
+    - Assets/Res/Config/SkillConfig/Darius_Q_Collider.bytes
+  - name: cc4e68c40d34ebaaaee4c22e85c60f50.unity3d
+    assets:
+    - Assets/Res/Config/SkillConfig/Darius_TestLSF.bytes
+  - name: 03be2e33b2b0e9ecab7b8060cc0d5a1e.unity3d
+    assets:
+    - Assets/Res/Config/SkillConfig/Darius_W.bytes
+  - name: 465f5db2ef1b1b9e87f4f6c137fcd85d.unity3d
+    assets:
+    - Assets/Res/Config/SkillConfig/Server_Darius_AI.bytes
   - name: f878e5207e2d690d9855a54f8c302fee.unity3d
     assets:
     - Assets/Res/Config/UnitAttributeConfig/AllHeroAttributesData.bytes

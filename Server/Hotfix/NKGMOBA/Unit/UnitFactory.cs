@@ -193,9 +193,10 @@ namespace ET
         /// <param name="belongToUnit">归属的Unit</param>
         /// <param name="colliderDataConfigId">碰撞体数据表Id</param>
         /// <param name="collisionRelationDataConfigId">碰撞关系数据表Id</param>
+        /// <param name="colliderNPBehaveTreeIdInExcel">碰撞体的行为树Id</param>
         /// <returns></returns>
         public static Unit CreateSpecialColliderUnit(Room room, Unit belongToUnit, int colliderDataConfigId,
-            int collisionRelationDataConfigId)
+            int collisionRelationDataConfigId, int colliderNPBehaveTreeIdInExcel)
         {
             //为碰撞体新建一个Unit
             Unit b2sColliderEntity = CreateUnit(room);
@@ -210,6 +211,13 @@ namespace ET
             b2sColliderEntity.AddComponent<NP_RuntimeTreeManager>();
             b2sColliderEntity.AddComponent<SkillCanvasManagerComponent>();
 
+            //根据传过来的行为树Id来给这个碰撞Unit加上行为树
+            NP_RuntimeTreeFactory.CreateSkillNpRuntimeTree(b2sColliderEntity,
+                    SkillCanvasConfigCategory.Instance.Get(colliderNPBehaveTreeIdInExcel).NPBehaveId,
+                    SkillCanvasConfigCategory.Instance.Get(colliderNPBehaveTreeIdInExcel).BelongToSkillId)
+                .Start();
+            
+            b2sColliderEntity.AddComponent<LSF_TickComponent>();
             return b2sColliderEntity;
         }
 

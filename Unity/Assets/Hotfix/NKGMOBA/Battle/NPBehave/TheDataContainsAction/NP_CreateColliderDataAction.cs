@@ -30,20 +30,23 @@ namespace ET
         public void CreateColliderData()
         {
 #if SERVER
-            Log.Info("创建碰撞");
             int colliderDataConfigId = Server_B2SCollisionRelationConfigCategory.Instance
                 .Get(CollisionsRelationSupportIdInExcel)
                 .B2S_ColliderConfigId;
 
             Unit colliderUnit = UnitFactory
                 .CreateSpecialColliderUnit(BelongToUnit.BelongToRoom, BelongToUnit, colliderDataConfigId,
-                    CollisionsRelationSupportIdInExcel);
+                    CollisionsRelationSupportIdInExcel, ColliderNPBehaveTreeIdInExcel);
+            
+            // 让客户端创建独特的Unit，用于承载行为树同步
+            LSF_CreateColliderCmd lsfCreateColliderCmd =
+                ReferencePool.Acquire<LSF_CreateColliderCmd>().Init(BelongToUnit.Id) as LSF_CreateColliderCmd;
+            lsfCreateColliderCmd.Id = colliderUnit.Id;
+            lsfCreateColliderCmd.BelongtoUnitId = BelongToUnit.Id;
+            lsfCreateColliderCmd.ColliderNPBehaveTreeIdInExcel = ColliderNPBehaveTreeIdInExcel;
 
-            //根据传过来的行为树Id来给这个碰撞Unit加上行为树
-            NP_RuntimeTreeFactory.CreateSkillNpRuntimeTree(colliderUnit,
-                    SkillCanvasConfigCategory.Instance.Get(ColliderNPBehaveTreeIdInExcel).NPBehaveId,
-                    SkillCanvasConfigCategory.Instance.Get(ColliderNPBehaveTreeIdInExcel).BelongToSkillId)
-                .Start();
+            LSF_Component lsfComponent = BelongToUnit.BelongToRoom.GetComponent<LSF_Component>();
+            lsfComponent.AddCmdToSendQueue(lsfCreateColliderCmd);
 #endif
         }
     }

@@ -9,6 +9,7 @@
         public const uint CommonAttack = 4;
         public const uint SyncFSMState = 5;
         public const uint SyncAttribute = 6;
+        public const uint CreateCollider = 7;
 
         //----------行为树模块，101 - 10000
         public const uint ChangeBlackBoardValue = 101;

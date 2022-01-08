@@ -62,6 +62,11 @@ namespace ET
                 return false;
             }
 
+            if (this.Value.Count != other.GetValue().Count)
+            {
+                return false;
+            }
+
             // Return true if the fields match.
             // Note that the base class is not invoked because it is
             // System.Object, which defines Equals as reference equality.
@@ -153,7 +158,7 @@ namespace ET
 
         #region proto序列化支持
 
-        [ProtoMember(1)] private List<long> ValueForProtoSerilize;
+        [ProtoMember(1)] private List<long> ValueForProtoSerilize = new List<long>();
 
         [ProtoBeforeSerialization]
         private void HandleBeforSerilize()
