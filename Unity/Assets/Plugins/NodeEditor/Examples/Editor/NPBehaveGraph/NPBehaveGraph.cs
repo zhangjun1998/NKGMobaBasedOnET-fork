@@ -60,7 +60,10 @@ namespace Plugins.NodeEditor
             {
                 return;
             }
-
+            
+            this.OnGraphEnable();
+            NP_BlackBoardHelper.SetCurrentBlackBoardDataManager(this);
+            
             this.AutoSetNP_NodeData(this.NpDataSupportor);
             this.AutoSetNP_BBDatas(this.NpDataSupportor);
         }

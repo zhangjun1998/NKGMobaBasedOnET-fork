@@ -27,6 +27,7 @@ namespace Plugins.NodeEditor
         [Button("自动配置所有技能结点数据", 25), GUIColor(0.4f, 0.8f, 1)]
         public void AutoSetCanvasDatas()
         {
+            this.OnGraphEnable();
             base.AutoSetCanvasDatas();
             SkillDataSupportor.NpDataSupportorBase = this.NpDataSupportor;
             this.AutoSetSkillData_NodeData();
@@ -59,6 +60,7 @@ namespace Plugins.NodeEditor
         public void TestDe()
         {
             MongoHelper.Init();
+            
             byte[] mfile = File.ReadAllBytes($"{SavePathServer}/{this.Name}.bytes");
 
             if (mfile.Length == 0) Log.Info("没有读取到文件");
