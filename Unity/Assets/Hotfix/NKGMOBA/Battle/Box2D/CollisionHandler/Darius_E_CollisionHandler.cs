@@ -28,10 +28,10 @@ namespace ET
                             if (serverB2SCollisionRelationConfig.EnemyHero)
                             {
                                 //获取目标SkillCanvas
-                                List<NP_RuntimeTree> targetSkillCanvas = aColliderComponent.BelongToUnit
+                                List<NP_RuntimeTree> targetSkillCanvas = aColliderComponent.GetParent<Unit>()
                                     .GetComponent<SkillCanvasManagerComponent>()
                                     .GetSkillCanvas(
-                                        SkillCanvasConfigCategory.Instance.Get(10006).BelongToSkillId);
+                                        SkillCanvasConfigCategory.Instance.Get(10007).BelongToSkillId);
                                 
                                 foreach (var skillCanvas in targetSkillCanvas)
                                 {
