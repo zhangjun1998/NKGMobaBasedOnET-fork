@@ -9,9 +9,14 @@ namespace ET
         public const uint CmdType = LSF_CmdType.PlayerSkillInput;
 
         /// <summary>
-        /// 目标行为树Id
+        /// 输入的Tag标识，比如PlayerInput，E长按
         /// </summary>
-        [ProtoMember(1)] public string InputKey;
+        [ProtoMember(1)] public string InputTag;
+
+        /// <summary>
+        /// 输入的具体指令，比如E，EHold
+        /// </summary>
+        [ProtoMember(2)] public string InputKey;
 
         public override ALSF_Cmd Init(long unitId)
         {

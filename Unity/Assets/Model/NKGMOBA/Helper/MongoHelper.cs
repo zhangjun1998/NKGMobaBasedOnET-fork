@@ -42,6 +42,13 @@ namespace ET
     /// </summary>
     public class MongoHelper
     {
+        /// <summary>
+        /// 这里之所以使用Unity特性执行一次静态初始化，是因为Mongo.Bson要求在使用Bson之前（不管是序列化还是反序列化）必须准备就绪所有的序列化器，否则就会出问题
+        /// 比如我在执行序列化的时候没有注册序列化器，在执行反序列化的时候才想起来注册序列化器，那么就会报错
+        /// </summary>
+#if UNITY_EDITOR
+        [InitializeOnLoadMethod]
+#endif
         public static void Init()
         {
             

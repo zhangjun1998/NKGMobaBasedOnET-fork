@@ -59,8 +59,6 @@ namespace Plugins.NodeEditor
         [Button("测试技能树反序列化", 25), GUIColor(0.4f, 0.8f, 1)]
         public void TestDe()
         {
-            MongoHelper.Init();
-            
             byte[] mfile = File.ReadAllBytes($"{SavePathServer}/{this.Name}.bytes");
 
             if (mfile.Length == 0) Log.Info("没有读取到文件");

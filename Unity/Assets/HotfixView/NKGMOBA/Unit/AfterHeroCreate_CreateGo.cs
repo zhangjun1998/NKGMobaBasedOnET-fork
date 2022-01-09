@@ -21,8 +21,15 @@ namespace ET
             args.Unit.AddComponent<CommonAttackComponent_View>();
             args.Unit.AddComponent<FallingFontComponent>();
 
-            gameObjectComponent.GameObject.GetComponent<MonoBridge>().BelongToUnitId = args.Unit.Id;
+            // 只有本地玩家才会显示技能指示器
+            if (args.IsLocalPlayer)
+            {
+                args.Unit.AddComponent<SkillIndicatorComponent>();
+                args.Unit.AddComponent<PlayerHeroControllerComponent>();
+            }
             
+            gameObjectComponent.GameObject.GetComponent<MonoBridge>().BelongToUnitId = args.Unit.Id;
+
             SkillCanvasConfig unitPassiveSkillConfig =
                 SkillCanvasConfigCategory.Instance.Get(clientUnitConfig.UnitPassiveSkillId);
             SkillCanvasConfig unitQSkillConfig =

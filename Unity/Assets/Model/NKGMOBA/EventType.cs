@@ -76,6 +76,7 @@ namespace ET
         {
             public int HeroConfigId;
             public Unit Unit;
+            public bool IsLocalPlayer;
         }
 
         public struct AfterHeroSpilingCreate_CreateGO

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ET.EventType;
+using UnityEngine;
 
 namespace ET
 {
@@ -19,6 +20,8 @@ namespace ET
         public static Unit CreateHero(Room room, UnitInfo unitInfo)
         {
             Unit unit = CreateUnit(room, unitInfo.UnitId, unitInfo.ConfigId);
+            PlayerComponent playerComponent = Game.Scene.GetComponent<PlayerComponent>();
+
             unit.Position = new Vector3(unitInfo.X, unitInfo.Y, unitInfo.Z);
 
             unit.AddComponent<DataModifierComponent>();
@@ -40,9 +43,19 @@ namespace ET
             unit.AddComponent<CastDamageComponent>();
             unit.AddComponent<ReceiveDamageComponent>();
 
+            EventType.AfterHeroCreate_CreateGo createGo = new AfterHeroCreate_CreateGo()
+            {
+                Unit = unit, HeroConfigId = unitInfo.ConfigId,
+            };
+            
+            if (unitInfo.BelongToPlayerId == playerComponent.PlayerId)
+            {
+                UnitComponent unitComponent = room.GetComponent<UnitComponent>();
+                unitComponent.MyUnit = unit;
+                createGo.IsLocalPlayer = true;
+            }
 
-            Game.EventSystem.Publish(new EventType.AfterHeroCreate_CreateGo()
-                {Unit = unit, HeroConfigId = unitInfo.ConfigId}).Coroutine();
+            Game.EventSystem.Publish(createGo).Coroutine();
             return unit;
         }
 
@@ -101,10 +114,10 @@ namespace ET
                 .Start();
 
             b2sColliderEntity.AddComponent<LSF_TickComponent>();
-            
+
             // DEBUG 将碰撞体可视化出来
-            
-            
+
+
             return b2sColliderEntity;
         }
 

@@ -7,7 +7,7 @@
         {
             foreach (var skillTree in unit.GetComponent<NP_RuntimeTreeManager>().RuntimeTrees)
             {
-                skillTree.Value.GetBlackboard().Set("PlayerInput", cmd.InputKey);
+                skillTree.Value.GetBlackboard().Set(cmd.InputTag, cmd.InputKey);
             }
             
 #if SERVER

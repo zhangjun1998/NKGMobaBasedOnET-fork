@@ -96,7 +96,6 @@ namespace Plugins.NodeEditor
         {
             try
             {
-                MongoHelper.Init();
                 this.NpDataSupportor1 = null;
                 using (var fs = new FileStream($"{SavePathServer}/{this.Name}.bytes", FileMode.Open, FileAccess.Read,
                     FileShare.Read))

@@ -22,7 +22,7 @@ namespace ET
             return default(T);
         }
         
-        public void RemoveSplate<T>(string name)
+        public void RemoveSplate(string name)
         {
             Splats.Remove(name);
         }

@@ -30,6 +30,9 @@ namespace ET
     {
         public bool RightMouseDown { get; set; }
         public bool RightMouseUp { get; set; }
+        
+        public bool LeftMouseDown { get; set; }
+        public bool LeftMouseUp { get; set; }
 
         public bool ADown_long { get; set; }
         public bool ADown { get; set; }
@@ -107,6 +110,12 @@ namespace ET
         /// </summary>
         private void CheckKeyUp()
         {
+            if (Input.GetMouseButtonUp(0))
+            {
+                this.LeftMouseDown = false;
+                this.LeftMouseUp = true;
+            }
+            
             if (Input.GetMouseButtonUp(1))
             {
                 this.RightMouseDown = false;
@@ -176,6 +185,11 @@ namespace ET
         /// </summary>
         void CheckKeyDown()
         {
+            if (Input.GetMouseButtonDown(0))
+            {
+                this.LeftMouseDown = true;
+            }
+            
             if (Input.GetMouseButtonDown(1))
             {
                 this.RightMouseDown = true;

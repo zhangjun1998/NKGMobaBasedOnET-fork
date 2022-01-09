@@ -41,6 +41,11 @@ namespace ET
             return $"Assets/Res/Effect/{fileName}.prefab";
         }
         
+        public static string GetSkillIndicatorPath(string fileName)
+        {
+            return $"Assets/Res/SkillIndicator/{fileName}.prefab";
+        }
+        
         public static string GetSkillConfigPath(string fileName)
         {
             return $"Assets/Res/Config/SkillConfig/{fileName}.bytes";
