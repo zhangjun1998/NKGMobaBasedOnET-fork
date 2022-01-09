@@ -80,6 +80,7 @@
      <Compile Include="Assets\Model\Core\Object\BaseAttribute.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\UnitAttributeData\UnitAttributesDataSupportor.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\Others\SkillCanvasManagerComponent.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Cmd\LSF_CreateColliderCmd.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\BuffData\RefreshTargetBuffTimeBuffData.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\BuffData\BuffEnums\BuffWorkTypes.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\UnityMath\Mathf.cs" />
@@ -362,7 +363,6 @@
      <Compile Include="Assets\Model\Core\Object\ObjectPool.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Decorator\Failer.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\BuffData\ReplaceAttackBuffData.cs" />
-     <Compile Include="Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\Cmd\LSF_CreateColliderCmd.cs" />
      <None Include="Assets\Model\csc.rsp" />
      <None Include="Assets\Model\Unity.Model.asmdef" />
  <Reference Include="UnityEngine">

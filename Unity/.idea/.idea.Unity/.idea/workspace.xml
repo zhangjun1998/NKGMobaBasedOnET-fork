@@ -72,6 +72,7 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.1.0/Unity.Mathematics/Noise/psrdnoise2D.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_TextUtilities.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.test-framework@1.1.29/UnityEngine.TestRunner/Utils/ColorEqualityComparer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.visualeffectgraph@10.7.0/Editor/Controls/VFXLabeledField.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Runtime/TimelinePlayable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Utility/ListPool.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Utilities/BreadcrumbDrawer.cs" root0="SKIP_HIGHLIGHTING" />
@@ -102,6 +103,7 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.7.0/Editor/Data/Nodes/FunctionMultiInput.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/NestedLayout/SceneWithNestedLayoutElementsLoads.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Window/Modes/TimeReferenceMode.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.1.0/Tests/Tests/Shared/TestBool4.gen.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@10.7.0/Editor/LookDev/DisplayWindow.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Mono/FGUI/JoystickModule.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2f601d648c9944d0b18c273428b271a948400/b2/71c756c4/SendBuffInfoToClientBuffData.cs" root0="SKIP_HIGHLIGHTING" />
@@ -119,6 +121,7 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Actions/IMenuChecked.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.rider@2.0.7/Rider/Editor/PluginSettings.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d82962cd623d4d1fa1793ead3990e36756abe8/3d/0cb0a9ff/KeyValuePair`2.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/TMP_ColorGradientAssetMenu.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Battle/Box2D/System/B2S_ColliderComponentSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.rider@2.0.7/Rider/Editor/RiderScriptEditor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/inspectors/AnimationTrackInspector.cs" root0="SKIP_HIGHLIGHTING" />
@@ -170,6 +173,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d82962cd623d4d1fa1793ead3990e36756abe8/cc/fa543644/MemberInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/treeview/TrackPropertyCurvesDataSource.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.visualeffectgraph@10.7.0/Editor/Models/VFXGraph.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.test-framework@1.1.29/UnityEditor.TestRunner/TestLaunchers/PlatformSetup/SwitchPlatformSetup.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/CanvasUpdateRegistry.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.1.0/Unity.Mathematics/double3.gen.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_ListPool.cs" root0="SKIP_HIGHLIGHTING" />
@@ -188,6 +192,7 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/treeview/Snapping/SnapEngine.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Manipulators/Move/MoveItemHandler.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/Canvas/CanvasSizeCorrectInAwakeAndStart.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6446c53e8bba4fc3beae7303e913d9678200/5f/f47dfe98/OnValueChangedAttribute.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/Canvas/CanvasScalerWithChildTextObjectDoesNotCrash.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.7.0/Editor/Data/Nodes/Artistic/Adjustment/HueNode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_SelectionCaret.cs" root0="SKIP_HIGHLIGHTING" />
@@ -313,10 +318,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="4472">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="11268">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="4472" />
+      <option name="pid" value="11268" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -388,6 +393,7 @@
       <workItem from="1640398779774" duration="4145000" />
       <workItem from="1641100585697" duration="594000" />
       <workItem from="1641188943682" duration="15140000" />
+      <workItem from="1641701417015" duration="5784000" />
     </task>
     <servers />
   </component>
@@ -440,6 +446,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Plugins/Werewolf/StatusIndicators/Scripts/Base/SpellIndicator.cs</url>
+          <line>68</line>
+          <properties documentPath="D:\Study\GameProjects\NKGMobaBasedOnET\Unity\Assets\Plugins\Werewolf\StatusIndicators\Scripts\Base\SpellIndicator.cs" initialLine="73" containingFunctionPresentation="method 'CalculateQuaWithHitPointHeight'">
+            <startOffsets>
+              <option value="1974" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2161" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

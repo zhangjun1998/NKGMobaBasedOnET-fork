@@ -64,6 +64,7 @@
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\Handler\LSF_CreateSpilingHandler.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\Handler\LSF_SyncAttributeHandler.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\LSF_TickDispatcherComponentSystem.cs" />
+     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\Ticker\B2S_CollisionListenerComponentTicker.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\ComponentSystems\CommonAttackComponent_LogicSystem.cs" />
      <Compile Include="Assets\Hotfix\Module\Numeric\NumericChangeEvent_NotifyWatcher.cs" />
      <Compile Include="Assets\Hotfix\Core\Scene\ZoneSceneManagerComponentSystem.cs" />
@@ -83,6 +84,7 @@
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\LSF_CmdHandlerComponentUtilities.cs" />
      <Compile Include="Assets\Hotfix\Module\Message\NetKcpComponentSystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\SkillSystem\BuffSystem\ReplaceAnimBuffSystem.cs" />
+     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\Handler\LSF_CreateColliderHandler.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\Ticker\NP_RuntimeTreeManagerTicker.cs" />
      <Compile Include="Assets\Hotfix\Module\Numeric\NumericWatcher_Hp_ShowUI.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\M2C_ChangePropertyHandler.cs" />
@@ -142,6 +144,7 @@
      <Compile Include="Assets\Hotfix\Module\Message\SessionIdleCheckerComponentSystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\Box2D\System\B2S_ColliderComponentSystem.cs" />
      <Compile Include="Assets\Hotfix\Module\AI\AIComponentSystem.cs" />
+     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\Ticker\B2S_WorldComponentTicker.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\NP_WaitCDAction.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\NP_RemoveBuffAction.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\NP_SetUnitIdTheColliderBelongToAction.cs" />
@@ -157,6 +160,7 @@
      <Compile Include="Assets\Hotfix\NKGMOBA\Scene\SceneFactory.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\Ticker\UnitTicker.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\ComponentSystems\SkillCanvasManagerComponentSystem.cs" />
+     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\Box2D\Helper\B2S_ColliderDataLoadHelper.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\LSF_MessageHandlerComponentSystem.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\NP_CreateColliderDataAction.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Room\L2C_PrepareToEnterBattleHandler.cs" />
@@ -185,9 +189,6 @@
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\BBValue\NP_ChangeTargetSkillBBValueAction.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\NPBehave\TheDataContainsAction\NP_TriggerAttackCDAction.cs" />
      <Compile Include="Assets\Hotfix\NKGMOBA\Battle\M2C_FrameCmdHandler.cs" />
-     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\Handler\LSF_CreateColliderHandler.cs" />
-     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\Ticker\B2S_CollisionListenerComponentTicker.cs" />
-     <Compile Include="Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\Ticker\B2S_WorldComponentTicker.cs" />
      <None Include="Assets\Hotfix\Unity.Hotfix.asmdef" />
      <None Include="Assets\Hotfix\csc.rsp" />
  <Reference Include="UnityEngine">

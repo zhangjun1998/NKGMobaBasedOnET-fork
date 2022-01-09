@@ -6,7 +6,7 @@ using Werewolf.StatusIndicators.Services;
 
 namespace Werewolf.StatusIndicators.Components
 {
-    public class SpellIndicator: Splat
+    public class SpellIndicator : Splat
     {
         // Fields
 
@@ -14,14 +14,12 @@ namespace Werewolf.StatusIndicators.Components
         /// Special indicator for displaying range, unselectable.
         /// 当技能指示器出现时，用于额外显示一个圆形的范围指示器
         /// </summary>
-        [SerializeField]
-        public RangeIndicator RangeIndicator;
+        [SerializeField] public RangeIndicator RangeIndicator;
 
         /// <summary>
         /// Set the size of the Range Indicator and bounds of Spell Cursor.
         /// </summary>
-        [SerializeField]
-        [OnValueChanged("OnRangeChanged")]
+        [SerializeField] [OnValueChanged("OnRangeChanged")]
         protected float range = 1f;
 
         /// <summary>
@@ -29,17 +27,14 @@ namespace Werewolf.StatusIndicators.Components
         /// </summary>
         public float Range
         {
-            get
-            {
-                return range;
-            }
+            get { return range; }
             set
             {
                 range = value;
                 SetRange();
             }
         }
-        
+
 #if UNITY_EDITOR
         public void OnRangeChanged()
         {
@@ -67,6 +62,12 @@ namespace Werewolf.StatusIndicators.Components
         protected Vector3 FlattenVector(Vector3 target)
         {
             return new Vector3(target.x, 0, target.z);
+        }
+
+        protected Quaternion CalculateQuaWithAlineHeight(Vector3 hitPoint, Vector3 selfPostion, float standardHeight)
+        {
+            return Quaternion.LookRotation(new Vector3(hitPoint.x, standardHeight, hitPoint.z) -
+                                           new Vector3(selfPostion.x, standardHeight, selfPostion.z));
         }
     }
 }

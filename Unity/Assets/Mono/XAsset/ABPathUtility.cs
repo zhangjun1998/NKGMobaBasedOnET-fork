@@ -46,6 +46,11 @@ namespace ET
             return $"Assets/Res/Config/SkillConfig/{fileName}.bytes";
         }
         
+        public static string GetB2SColliderConfigPath(string fileName)
+        {
+            return $"Assets/Res/Config/B2SColliderConfig/{fileName}.bytes";
+        }
+        
         public static string GetUnitPath(string fileName)
         {
             return $"Assets/Res/Unit/{fileName}.prefab";

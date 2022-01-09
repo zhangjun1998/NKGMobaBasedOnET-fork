@@ -39,14 +39,6 @@ MonoBehaviour:
     outputFieldName: NextNode
     inputPortIdentifier: 
     outputPortIdentifier: 
-  - GUID: 13ab41f0-7b54-4469-be09-90f60060fea7
-    owner: {fileID: 11400000}
-    inputNodeGUID: 23bf7839-91ca-4de7-a889-c4ea98f58556
-    outputNodeGUID: 6ebfd68d-706d-4b7d-a6be-45772b25d375
-    inputFieldName: PrevNode
-    outputFieldName: NextNode
-    inputPortIdentifier: 
-    outputPortIdentifier: 
   - GUID: e8156022-8f11-4bfa-9afe-ec0bfae9d5d1
     owner: {fileID: 11400000}
     inputNodeGUID: 17ef79e9-1d07-4667-b53d-beebeb97f46c
@@ -91,6 +83,14 @@ MonoBehaviour:
     owner: {fileID: 11400000}
     inputNodeGUID: b0f56a06-a036-4bd1-af75-e75e60898dd3
     outputNodeGUID: 823a0e90-9cb2-43d0-89ad-5a230ff08c37
+    inputFieldName: PrevNode
+    outputFieldName: NextNode
+    inputPortIdentifier: 
+    outputPortIdentifier: 
+  - GUID: 5d581556-8d2a-4e00-9775-c60ce38b9361
+    owner: {fileID: 11400000}
+    inputNodeGUID: 23bf7839-91ca-4de7-a889-c4ea98f58556
+    outputNodeGUID: 6ebfd68d-706d-4b7d-a6be-45772b25d375
     inputFieldName: PrevNode
     outputFieldName: NextNode
     inputPortIdentifier: 

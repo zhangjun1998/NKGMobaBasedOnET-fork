@@ -53,7 +53,6 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Paths\Path.cs" />
-     <Compile Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Components\AngleMissile.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Cameras\ShotCamera.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Events\SendMessageObject.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Cameras\GameCamera.cs" />
@@ -62,7 +61,6 @@
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Utility\UnityObjectUtility.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Paths\BezierPath.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\MecanimTrack\AnimateLayerWeight.cs" />
-     <Compile Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Components\SplatManager.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Environment\AnimateAmbientLighting.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Control\DestroyGameObjects.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\Actor\MecanimTrack.cs" />
@@ -73,8 +71,6 @@
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Control\DirectorDisableGameObjects.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Transform\SimpleGrounder.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\Actor\ActorPropertiesTrack.cs" />
-     <Compile Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Components\LineMissile.cs" />
-     <Compile Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Services\Normalize.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\DirectorActionClip.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\Director\DirectorAudioTrack.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Framework\TimePointers.cs" />
@@ -107,13 +103,10 @@
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Control\InstantiateObject.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Partial Editor\SceneGUIUtility.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\Enums.cs" />
-     <Compile Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Effects\FixedRotation.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Events\SendMessageString.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Partial Editor\AnimatableParameterEditor.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Cameras\IDirectableCamera.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Transform\SetTransformParent.cs" />
-     <Compile Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Effects\ProjectorFixedRotation.cs" />
-     <Compile Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Components\Point.cs" />
      <Compile Include="Assets\Plugins\B2S_BattleColliderExport\VisualHelper\B2S_CircleColliderVisualHelper.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Utility\DecoratorFactory.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\_QuickStartScripts\StopCutsceneOnClick.cs" />
@@ -122,9 +115,7 @@
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ShotTrack\CameraShot.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Partial Editor\DopeSheetEditor.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\ActionTrack.cs" />
-     <Compile Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Effects\RadialDistort.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Paths\PathfindFromTo.cs" />
-     <Compile Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Base\SpellIndicator.cs" />
      <Compile Include="Assets\Plugins\B2S_BattleColliderExport\VisualHelper\B2S_DebuggerHandler.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Transform\Noise.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Utility\AnimatorDispatcher.cs" />
@@ -154,7 +145,6 @@
      <Compile Include="Assets\Plugins\NKGSlate\Samples\ST_ParadoxNotionEvent.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Framework\AnimatedParameter.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Utility\AnimationDataUtility.cs" />
-     <Compile Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Components\StatusIndicator.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\Actor\AnimatorTrack_2017.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Events\SendGlobalMessageInteger.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Utility\TransformRefPosition.cs" />
@@ -178,7 +168,6 @@
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Transform\LookAt.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\Actor\AnimatorTrack_5_6.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Utility\VideoSampler.cs" />
-     <Compile Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Base\Splat.cs" />
      <Compile Include="Assets\Plugins\Werewolf\StatusIndicators\Demos\Scripts\CameraMovement.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Events\SendGlobalMessageBoolean.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Environment\EasySlowMotion.cs" />
@@ -212,7 +201,6 @@
      <Compile Include="Assets\Plugins\B2S_BattleColliderExport\VisualHelper\B2S_BoxColliderVisualHelper.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Design\Partial Editor\Prefs.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Events\RaiseUnityEvent.cs" />
-     <Compile Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Components\RangeIndicator.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Composition\AdditiveScene.cs" />
      <Compile Include="Assets\Plugins\B2S_BattleColliderExport\B2S_ColliderEditor.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\GameObject\SetActorActiveState.cs" />
@@ -232,11 +220,9 @@
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\_QuickStartScripts\CutsceneSequencePlayer.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Utility\CurveUtility.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\MecanimTrack\AnimateTrigger.cs" />
-     <Compile Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Services\Math3D.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\GameObject\AnimateActorVisibility.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Control\SampleParticleSystem.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Tracks\Runtime\Director\DirectorPropertiesTrack.cs" />
-     <Compile Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Effects\ProjectorRotate.cs" />
      <Compile Include="Assets\Plugins\NKGSlate\Samples\ST_ParadoxNotionLogAction.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Utility\Easing.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Transform\ScaleBy.cs" />
@@ -255,32 +241,18 @@
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Events\IEvent.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Events\SendMessageFloat.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\DirectorActions\Rendering\OverlayText.cs" />
-     <Compile Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Effects\LinearDistort.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\GameObject\SetBehavioursActiveState.cs" />
      <Compile Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\Directables\Clips\Runtime\ActionTrack\ActorActions\Events\SendMessage.cs" />
-     <Compile Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Components\Cone.cs" />
-     <None Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Shaders\ProjectorLinearDistortColor.shader" />
-     <None Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Shaders\ProjectorHoloLinear.shader" />
      <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.Config.xml" />
-     <None Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Shaders\ProjectorFillCone.shader" />
-     <None Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Shaders\ProjectorHoloRadial.shader" />
-     <None Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Shaders\ProjectorConeDistort.shader" />
-     <None Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Shaders\ProjectorFillLinear.shader" />
-     <None Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Shaders\SSD.shader" />
      <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.xml" />
      <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.xml" />
-     <None Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Shaders\ProjectorFillRadialDistort.shader" />
      <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Editor.xml" />
      <None Include="Assets\Plugins\MonKey Commander\MonKey Core.xml" />
      <None Include="Assets\Plugins\Sirenix\Readme.txt" />
      <None Include="Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.Editor.xml" />
-     <None Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Shaders\ProjectorHoloCone.shader" />
      <None Include="Assets\Plugins\Sirenix\Assemblies\link.xml" />
      <None Include="Assets\Plugins\ParadoxNotion\SLATE Cinematic Sequencer\!READ ME!.txt" />
-     <None Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Shaders\ProjectorBasic.shader" />
      <None Include="Assets\Plugins\MonKey Commander\MonKey Readme!.txt" />
-     <None Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Shaders\ProjectorFillRadial.shader" />
-     <None Include="Assets\Plugins\Werewolf\StatusIndicators\Scripts\Shaders\ProjectorRadialDistortColor.shader" />
  <Reference Include="UnityEngine">
  <HintPath>D:/Study/Unity/UnityEditor/Unity 2020.3.24f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
@@ -1039,6 +1011,10 @@
     <ProjectReference Include="XAsset.Runtime.csproj">
       <Project>{fb79c1d2-40c3-f61e-3d5c-f52409c3a8b0}</Project>
       <Name>XAsset.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="StatusIndiactors.csproj">
+      <Project>{4f122565-a36b-ff5b-2ac8-b05afd48dd60}</Project>
+      <Name>StatusIndiactors</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

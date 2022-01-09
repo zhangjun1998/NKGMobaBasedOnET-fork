@@ -883,6 +883,10 @@
       <Project>{fb79c1d2-40c3-f61e-3d5c-f52409c3a8b0}</Project>
       <Name>XAsset.Runtime</Name>
     </ProjectReference>
+    <ProjectReference Include="StatusIndiactors.csproj">
+      <Project>{4f122565-a36b-ff5b-2ac8-b05afd48dd60}</Project>
+      <Name>StatusIndiactors</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
