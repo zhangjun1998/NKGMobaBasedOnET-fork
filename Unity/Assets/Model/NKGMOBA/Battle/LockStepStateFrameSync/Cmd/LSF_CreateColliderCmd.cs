@@ -16,6 +16,9 @@ namespace ET
         [ProtoMember(3)]
         public long Id;
 
+        [ProtoMember(4)]
+        public int ColliderDataConfigId;
+
         public override ALSF_Cmd Init(long unitId)
         {
             this.LockStepStateFrameSyncDataType = CmdType;
@@ -29,6 +32,7 @@ namespace ET
             base.Clear();
             ColliderNPBehaveTreeIdInExcel = 0;
             BelongtoUnitId = 0;
+            ColliderDataConfigId = 0;
             Id = 0;
         }
     }

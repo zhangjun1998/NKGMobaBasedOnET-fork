@@ -43,6 +43,7 @@ namespace ET
                 ReferencePool.Acquire<LSF_CreateColliderCmd>().Init(BelongToUnit.Id) as LSF_CreateColliderCmd;
             lsfCreateColliderCmd.Id = colliderUnit.Id;
             lsfCreateColliderCmd.BelongtoUnitId = BelongToUnit.Id;
+            lsfCreateColliderCmd.ColliderDataConfigId = CollisionsRelationSupportIdInExcel;
             lsfCreateColliderCmd.ColliderNPBehaveTreeIdInExcel = ColliderNPBehaveTreeIdInExcel;
 
             LSF_Component lsfComponent = BelongToUnit.BelongToRoom.GetComponent<LSF_Component>();

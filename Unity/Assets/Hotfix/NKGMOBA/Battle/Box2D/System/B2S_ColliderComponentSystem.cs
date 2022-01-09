@@ -31,60 +31,14 @@ namespace ET
             //先默认为True，即每帧碰撞体都会跟随
             self.Sync = true;
 
-            LoadDependenceRes(self);
-
+            self.CreateB2S_Collider();
             self.SyncBody();
-        }
-
-        /// <summary>
-        /// 加载依赖数据，并且进行碰撞体的生成
-        /// </summary>
-        /// <param name="self"></param>
-        private void LoadDependenceRes(B2S_ColliderComponent self)
-        {
-            B2S_ColliderDataRepositoryComponent b2SColliderDataRepositoryComponent =
-                self.DomainScene().GetComponent<B2S_ColliderDataRepositoryComponent>();
-
-            self.B2S_ColliderDataStructureBase = b2SColliderDataRepositoryComponent.GetDataByColliderId(
-                Server_B2SColliderConfigCategory.Instance.Get(self.B2S_ColliderDataConfigId).B2S_ColliderId);
-
-            self.Body = self.WorldComponent.CreateDynamicBody();
-
-            switch (self.B2S_ColliderDataStructureBase.b2SColliderType)
-            {
-                case B2S_ColliderType.BoxColllider:
-                    B2S_BoxColliderDataStructure b2SBoxColliderDataStructure =
-                        (B2S_BoxColliderDataStructure) self.B2S_ColliderDataStructureBase;
-                    self.Body.CreateBoxFixture(b2SBoxColliderDataStructure.hx, b2SBoxColliderDataStructure.hy,
-                        b2SBoxColliderDataStructure.finalOffset, 0, b2SBoxColliderDataStructure.isSensor, self.Parent);
-                    break;
-                case B2S_ColliderType.CircleCollider:
-                    B2S_CircleColliderDataStructure b2SCircleColliderDataStructure =
-                        (B2S_CircleColliderDataStructure) self.B2S_ColliderDataStructureBase;
-                    Log.Info(
-                        $"finalOffset {b2SCircleColliderDataStructure.finalOffset.ToString()} radius {b2SCircleColliderDataStructure.radius}");
-                    self.Body.CreateCircleFixture(b2SCircleColliderDataStructure.radius,
-                        b2SCircleColliderDataStructure.finalOffset,
-                        b2SCircleColliderDataStructure.isSensor,
-                        self.Parent);
-                    break;
-                case B2S_ColliderType.PolygonCollider:
-                    B2S_PolygonColliderDataStructure b2SPolygonColliderDataStructure =
-                        (B2S_PolygonColliderDataStructure) self.B2S_ColliderDataStructureBase;
-                    foreach (var verxtPoint in b2SPolygonColliderDataStructure.finalPoints)
-                    {
-                        self.Body.CreatePolygonFixture(verxtPoint, b2SPolygonColliderDataStructure.isSensor,
-                            self.Parent);
-                    }
-
-                    break;
-            }
         }
     }
 
 
     /// <summary>
-    /// 直接传递碰撞体数据进行初始化，用于我们的场景碰撞初始化
+    /// 直接传递碰撞体数据进行初始化
     /// </summary>
     public class
         B2S_ColliderComponentAwakeSystem1 : AwakeSystem<B2S_ColliderComponent, UnitFactory.CreateHeroColliderArgs>

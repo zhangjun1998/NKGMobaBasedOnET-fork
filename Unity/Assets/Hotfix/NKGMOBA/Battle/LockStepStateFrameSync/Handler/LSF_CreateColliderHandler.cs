@@ -7,7 +7,7 @@
         {
 #if !SERVER
             UnitFactory.CreateSpecialColliderUnit(unit.BelongToRoom, cmd.BelongtoUnitId, cmd.Id,
-                cmd.ColliderNPBehaveTreeIdInExcel);
+                cmd.ColliderNPBehaveTreeIdInExcel, cmd.ColliderDataConfigId);
 #endif
 
             await ETTask.CompletedTask;

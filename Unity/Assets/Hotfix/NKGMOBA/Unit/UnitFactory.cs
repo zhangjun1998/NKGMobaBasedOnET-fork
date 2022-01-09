@@ -84,7 +84,7 @@ namespace ET
         /// <param name="colliderNPBehaveTreeIdInExcel">碰撞体的行为树Id</param>
         /// <returns></returns>
         public static Unit CreateSpecialColliderUnit(Room room, long belongToUnitId, long unitId,
-            int colliderNPBehaveTreeIdInExcel)
+            int colliderNPBehaveTreeIdInExcel, int colliderDataConfigId)
         {
             //为碰撞体新建一个Unit
             Unit b2sColliderEntity = CreateUnit(room, unitId, 0);
@@ -101,6 +101,10 @@ namespace ET
                 .Start();
 
             b2sColliderEntity.AddComponent<LSF_TickComponent>();
+            
+            // DEBUG 将碰撞体可视化出来
+            
+            
             return b2sColliderEntity;
         }
 

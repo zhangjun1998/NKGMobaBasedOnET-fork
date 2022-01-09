@@ -11,7 +11,7 @@ using UnityEngine;
 namespace ET
 {
 #if !SERVER
-        /// <summary>
+    /// <summary>
     /// Box2D的碰撞体可视化Debugger组件
     /// </summary>
     public class B2S_DebuggerComponent: Entity
