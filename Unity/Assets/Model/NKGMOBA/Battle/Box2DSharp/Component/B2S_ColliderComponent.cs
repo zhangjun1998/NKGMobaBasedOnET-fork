@@ -46,9 +46,14 @@ namespace ET
         public Unit BelongToUnit;
 
         /// <summary>
-        /// 是否同步归属的Unit
+        /// 是否同步归属的UnitPos
         /// </summary>
-        public bool Sync;
+        public bool SyncPosToBelongUnit;
+        
+        /// <summary>
+        /// 是否同步归属的UnitRot
+        /// </summary>
+        public bool SyncRotToBelongUnit;
 
         /// <summary>
         /// 碰撞体数据实例

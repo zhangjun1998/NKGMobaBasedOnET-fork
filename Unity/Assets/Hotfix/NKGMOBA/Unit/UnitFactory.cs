@@ -47,7 +47,7 @@ namespace ET
             {
                 Unit = unit, HeroConfigId = unitInfo.ConfigId,
             };
-            
+
             if (unitInfo.BelongToPlayerId == playerComponent.PlayerId)
             {
                 UnitComponent unitComponent = room.GetComponent<UnitComponent>();
@@ -96,13 +96,32 @@ namespace ET
         /// <param name="collisionRelationDataConfigId">碰撞关系数据表Id</param>
         /// <param name="colliderNPBehaveTreeIdInExcel">碰撞体的行为树Id</param>
         /// <returns></returns>
-        public static Unit CreateSpecialColliderUnit(Room room, long belongToUnitId, long unitId,
-            int colliderNPBehaveTreeIdInExcel, int colliderDataConfigId)
+        public static Unit CreateSpecialColliderUnit(Room room, long belongToUnitId, long selfId,
+            int collisionRelationDataConfigId, int colliderNPBehaveTreeIdInExcel, bool followUnitPos,
+            bool followUnitRot, Vector3 offset,
+            Vector3 targetPos, float angle)
         {
             //为碰撞体新建一个Unit
-            Unit b2sColliderEntity = CreateUnit(room, unitId, 0);
+            Unit b2sColliderEntity = CreateUnit(room, selfId, 0);
             Unit belongToUnit = room.GetComponent<UnitComponent>().Get(belongToUnitId);
-            b2sColliderEntity.Position = belongToUnit.Position;
+
+            if (followUnitPos)
+            {
+                b2sColliderEntity.Position = belongToUnit.Position + offset;
+            }
+            else
+            {
+                b2sColliderEntity.Position = targetPos;
+            }
+
+            if (followUnitRot)
+            {
+                b2sColliderEntity.Rotation = belongToUnit.Rotation;
+            }
+            else
+            {
+                b2sColliderEntity.Rotation = Quaternion.Euler(0, angle, 0);
+            }
 
             b2sColliderEntity.AddComponent<NP_RuntimeTreeManager>();
             b2sColliderEntity.AddComponent<SkillCanvasManagerComponent>();
@@ -127,6 +146,17 @@ namespace ET
             public B2S_ColliderDataStructureBase B2SColliderDataStructureBase;
             public string CollisionHandler;
             public bool FollowUnit;
+        }
+
+        public class CreateSkillColliderArgs
+        {
+            public Unit belontToUnit;
+            public int collisionRelationDataConfigId;
+            public bool FollowUnitPos;
+            public bool FollowUnitRot;
+            public Vector3 offset;
+            public Vector3 targetPos;
+            public float angle;
         }
     }
 }

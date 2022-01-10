@@ -13,23 +13,44 @@ namespace ET
     /// <summary>
     /// 通过数据表中的Id进行初始化，用于我们自定义的，在配置表中配置的碰撞体
     /// </summary>
-    public class B2S_ColliderComponentAwakeSystem : AwakeSystem<B2S_ColliderComponent, Unit, int>
+    public class
+        B2S_ColliderComponentAwakeSystem : AwakeSystem<B2S_ColliderComponent, UnitFactory.CreateSkillColliderArgs>
     {
-        public override void Awake(B2S_ColliderComponent self, Unit belongToUnit, int collisionRelationDataConfigId)
+        public override void Awake(B2S_ColliderComponent self,
+            UnitFactory.CreateSkillColliderArgs createSkillColliderArgs)
         {
             Server_B2SCollisionRelationConfig serverB2SCollisionRelationConfig =
                 Server_B2SCollisionRelationConfigCategory.Instance
-                    .Get(collisionRelationDataConfigId);
+                    .Get(createSkillColliderArgs.collisionRelationDataConfigId);
             string collisionHandlerName = serverB2SCollisionRelationConfig.B2S_ColliderHandlerName;
 
             self.WorldComponent = self.GetParent<Unit>().BelongToRoom.GetComponent<B2S_WorldComponent>();
-            self.BelongToUnit = belongToUnit;
+            self.BelongToUnit = createSkillColliderArgs.belontToUnit;
             self.B2S_CollisionRelationConfigId = serverB2SCollisionRelationConfig.Id;
             self.B2S_ColliderDataConfigId = serverB2SCollisionRelationConfig.B2S_ColliderConfigId;
             self.CollisionHandlerName = collisionHandlerName;
+            
+            self.SyncPosToBelongUnit = createSkillColliderArgs.FollowUnitPos;
+            self.SyncRotToBelongUnit = createSkillColliderArgs.FollowUnitRot;
 
-            //先默认为True，即每帧碰撞体都会跟随
-            self.Sync = true;
+            Unit selfUnit = self.GetParent<Unit>();
+            if (createSkillColliderArgs.FollowUnitPos)
+            {
+                selfUnit.Position = self.BelongToUnit.Position + createSkillColliderArgs.offset;
+            }
+            else
+            {
+                selfUnit.Position = createSkillColliderArgs.targetPos;
+            }
+
+            if (createSkillColliderArgs.FollowUnitRot)
+            {
+                selfUnit.Rotation = self.BelongToUnit.Rotation;
+            }
+            else
+            {
+                selfUnit.Rotation = Quaternion.Euler(new Vector3(0, createSkillColliderArgs.angle, 0));
+            }
 
             self.CreateB2S_Collider();
             self.SyncBody();
@@ -47,7 +68,7 @@ namespace ET
         {
             self.WorldComponent = self.GetParent<Unit>().BelongToRoom.GetComponent<B2S_WorldComponent>();
             self.BelongToUnit = args.Unit;
-            self.Sync = args.FollowUnit;
+            self.SyncPosToBelongUnit = args.FollowUnit;
             self.CollisionHandlerName = args.CollisionHandler;
             self.B2S_ColliderDataStructureBase = args.B2SColliderDataStructureBase;
             LoadMapColliderDependenceRes(self);
@@ -99,8 +120,19 @@ namespace ET
         public override void FixedUpdate(B2S_ColliderComponent self)
         {
             //如果刚体处于激活状态，且设定上此刚体是跟随Unit的话，就同步位置和角度
-            if (self.Body.IsEnabled && self.Sync && !self.WorldComponent.GetWorld().IsLocked)
+            if (self.Body.IsEnabled && !self.WorldComponent.GetWorld().IsLocked)
             {
+                Unit unit = self.GetParent<Unit>();
+                if (self.SyncPosToBelongUnit)
+                {
+                    unit.Position = self.BelongToUnit.Position;
+                }
+
+                if (self.SyncRotToBelongUnit)
+                {
+                    unit.Rotation = self.BelongToUnit.Rotation;
+                }
+
                 self.SyncBody();
                 //Log.Info($"进行了位置移动");
             }
@@ -122,19 +154,20 @@ namespace ET
     public static class B2S_HeroColliderComponentHelper
     {
         /// <summary>
-        /// 同步刚体（依据归属Unit）
+        /// 同步刚体（依据Unit载体，例如诺克UnitA释放碰撞体UnitB，这里的Unit同步是UnitB的同步）
         /// </summary>
         /// <param name="self"></param>
         /// <param name="pos"></param>
         public static void SyncBody(this B2S_ColliderComponent self)
         {
             //Log.Info($"{new Vector2(self.BelongToUnit.Position.x, self.BelongToUnit.Position.z)}");
-            self.SetColliderBodyPos(new Vector2(self.GetParent<Unit>().Position.x, self.GetParent<Unit>().Position.z));
+            Unit selfUnit = self.GetParent<Unit>();
+            self.SetColliderBodyPos(new Vector2(selfUnit.Position.x, selfUnit.Position.z));
 
 #if SERVER
-            self.SetColliderBodyAngle(Quaternion.QuaternionToEuler(self.BelongToUnit.Rotation).y * Settings.Pi / 180);
+            self.SetColliderBodyAngle(Quaternion.QuaternionToEuler(selfUnit.Rotation).y * Settings.Pi / 180);
 #else
-            self.SetColliderBodyAngle(self.BelongToUnit.Rotation.eulerAngles.y * Mathf.PI / 180);
+            self.SetColliderBodyAngle(selfUnit.Rotation.eulerAngles.y * Mathf.PI / 180);
 #endif
         }
 

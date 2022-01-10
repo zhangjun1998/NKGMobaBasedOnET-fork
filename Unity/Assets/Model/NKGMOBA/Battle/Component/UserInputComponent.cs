@@ -378,6 +378,9 @@ namespace ET
 
         private void ResetAllState()
         {
+            this.LeftMouseDown = false;
+            this.LeftMouseUp = false;
+            
             this.RightMouseDown = false;
             this.RightMouseUp = false;
 

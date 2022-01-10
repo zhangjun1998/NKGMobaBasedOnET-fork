@@ -165,12 +165,13 @@ namespace ET
             unit.AddComponent<BuffManagerComponent>();
             unit.AddComponent<NP_RuntimeTreeManager>();
             unit.AddComponent<SkillCanvasManagerComponent>();
-            
-            NP_RuntimeTreeFactory.CreateNpRuntimeTree(unit, Server_AICanvasConfigCategory.Instance.Get(10001).NPBehaveId)
+
+            NP_RuntimeTreeFactory
+                .CreateNpRuntimeTree(unit, Server_AICanvasConfigCategory.Instance.Get(10001).NPBehaveId)
                 .Start();
-            
+
             unit.AddComponent<LSF_TickComponent>();
-            
+
             return unit;
         }
 
@@ -186,6 +187,17 @@ namespace ET
             public bool FollowUnit;
         }
 
+        public class CreateSkillColliderArgs
+        {
+            public Unit belontToUnit;
+            public int collisionRelationDataConfigId;
+            public bool FollowUnitPos;
+            public bool FollowUnitRot;
+            public Vector3 offset;
+            public Vector3 targetPos;
+            public float angle;
+        }
+
         /// <summary>
         /// 创建碰撞体
         /// </summary>
@@ -196,7 +208,9 @@ namespace ET
         /// <param name="colliderNPBehaveTreeIdInExcel">碰撞体的行为树Id</param>
         /// <returns></returns>
         public static Unit CreateSpecialColliderUnit(Room room, Unit belongToUnit, int colliderDataConfigId,
-            int collisionRelationDataConfigId, int colliderNPBehaveTreeIdInExcel)
+            int collisionRelationDataConfigId, int colliderNPBehaveTreeIdInExcel, bool followUnitPos,
+            bool followUnitRot, Vector3 offset,
+            Vector3 targetPos, float angle)
         {
             //为碰撞体新建一个Unit
             Unit b2sColliderEntity = CreateUnit(room);
@@ -205,8 +219,13 @@ namespace ET
             b2sColliderEntity.AddComponent<B2S_RoleCastComponent, RoleCamp, RoleTag>(
                 belongToUnit.GetComponent<B2S_RoleCastComponent>().RoleCamp, RoleTag.SkillCollision);
 
-            b2sColliderEntity.AddComponent<B2S_ColliderComponent, Unit, int>(belongToUnit,
-                collisionRelationDataConfigId);
+            b2sColliderEntity.AddComponent<B2S_ColliderComponent, CreateSkillColliderArgs>(
+                new CreateSkillColliderArgs()
+                {
+                    belontToUnit = belongToUnit, collisionRelationDataConfigId = collisionRelationDataConfigId,
+                    FollowUnitPos = followUnitPos, FollowUnitRot = followUnitRot, offset = offset,
+                    targetPos = targetPos, angle = angle
+                });
 
             b2sColliderEntity.AddComponent<NP_RuntimeTreeManager>();
             b2sColliderEntity.AddComponent<SkillCanvasManagerComponent>();
@@ -216,7 +235,7 @@ namespace ET
                     SkillCanvasConfigCategory.Instance.Get(colliderNPBehaveTreeIdInExcel).NPBehaveId,
                     SkillCanvasConfigCategory.Instance.Get(colliderNPBehaveTreeIdInExcel).BelongToSkillId)
                 .Start();
-            
+
             b2sColliderEntity.AddComponent<LSF_TickComponent>();
             return b2sColliderEntity;
         }
