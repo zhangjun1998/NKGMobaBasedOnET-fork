@@ -105,24 +105,13 @@ namespace ET
             Unit b2sColliderEntity = CreateUnit(room, selfId, 0);
             Unit belongToUnit = room.GetComponent<UnitComponent>().Get(belongToUnitId);
 
-            if (followUnitPos)
-            {
-                b2sColliderEntity.Position = belongToUnit.Position + offset;
-            }
-            else
-            {
-                b2sColliderEntity.Position = targetPos;
-            }
-
-            if (followUnitRot)
-            {
-                b2sColliderEntity.Rotation = belongToUnit.Rotation;
-            }
-            else
-            {
-                b2sColliderEntity.Rotation = Quaternion.Euler(0, angle, 0);
-            }
-
+            b2sColliderEntity.AddComponent<B2S_ColliderComponent, CreateSkillColliderArgs>(
+                new CreateSkillColliderArgs()
+                {
+                    belontToUnit = belongToUnit, collisionRelationDataConfigId = collisionRelationDataConfigId,
+                    FollowUnitPos = followUnitPos, FollowUnitRot = followUnitRot, offset = offset,
+                    targetPos = targetPos, angle = angle
+                });
             b2sColliderEntity.AddComponent<NP_RuntimeTreeManager>();
             b2sColliderEntity.AddComponent<SkillCanvasManagerComponent>();
 

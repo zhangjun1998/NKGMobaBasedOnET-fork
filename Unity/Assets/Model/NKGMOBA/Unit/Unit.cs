@@ -30,7 +30,7 @@ namespace ET
             set => this.Rotation = Quaternion.LookRotation(value, Vector3.up);
         }
 
-        private Quaternion rotation;
+        private Quaternion rotation = Quaternion.identity;
         public Quaternion Rotation
         {
             get => this.rotation;
@@ -54,7 +54,7 @@ namespace ET
             }
         }
 
-        private Quaternion viewRotation;
+        private Quaternion viewRotation = Quaternion.identity;
         public Quaternion ViewRotation
         {
             get => this.viewRotation;

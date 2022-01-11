@@ -5,6 +5,7 @@
 //------------------------------------------------------------
 
 using Box2DSharp.Common;
+using ET.EventType;
 using UnityEngine;
 using Vector2 = System.Numerics.Vector2;
 
@@ -29,7 +30,7 @@ namespace ET
             self.B2S_CollisionRelationConfigId = serverB2SCollisionRelationConfig.Id;
             self.B2S_ColliderDataConfigId = serverB2SCollisionRelationConfig.B2S_ColliderConfigId;
             self.CollisionHandlerName = collisionHandlerName;
-            
+
             self.SyncPosToBelongUnit = createSkillColliderArgs.FollowUnitPos;
             self.SyncRotToBelongUnit = createSkillColliderArgs.FollowUnitRot;
 
@@ -134,6 +135,10 @@ namespace ET
                 }
 
                 self.SyncBody();
+
+#if !SERVER
+                Game.EventSystem.Publish(new DebugVisualBox2D() {Unit = unit}).Coroutine();
+#endif
                 //Log.Info($"进行了位置移动");
             }
         }

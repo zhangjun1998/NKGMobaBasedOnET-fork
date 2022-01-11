@@ -191,5 +191,10 @@ namespace ET
             public Scene ZoneScene;
             public List<(string name, int score)> Scores;
         }
+
+        public struct DebugVisualBox2D
+        {
+            public Unit Unit;
+        }
     }
 }

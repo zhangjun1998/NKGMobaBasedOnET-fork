@@ -984,6 +984,10 @@
       <Project>{e0456168-1ba5-5e68-ef99-a1034c8b63ab}</Project>
       <Name>Sirenix.OdinInspector.CompatibilityLayer.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="StatusIndiactors.csproj">
+      <Project>{4f122565-a36b-ff5b-2ac8-b05afd48dd60}</Project>
+      <Name>StatusIndiactors</Name>
+    </ProjectReference>
     <ProjectReference Include="NKGSlate_Runtime.csproj">
       <Project>{267ff9c2-66b4-f5db-a609-bb60288c6c82}</Project>
       <Name>NKGSlate_Runtime</Name>
@@ -1011,10 +1015,6 @@
     <ProjectReference Include="XAsset.Runtime.csproj">
       <Project>{fb79c1d2-40c3-f61e-3d5c-f52409c3a8b0}</Project>
       <Name>XAsset.Runtime</Name>
-    </ProjectReference>
-    <ProjectReference Include="StatusIndiactors.csproj">
-      <Project>{4f122565-a36b-ff5b-2ac8-b05afd48dd60}</Project>
-      <Name>StatusIndiactors</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

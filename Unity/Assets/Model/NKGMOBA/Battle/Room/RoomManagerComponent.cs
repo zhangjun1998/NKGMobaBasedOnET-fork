@@ -55,6 +55,7 @@ namespace ET
                 BattleRoom.AddComponent<RecastPathComponent>();
                 BattleRoom.AddComponent<BattleEventSystemComponent>();
                 BattleRoom.AddComponent<CDComponent>();
+                BattleRoom.AddComponent<B2S_WorldComponent>();
             }
 
             return BattleRoom;

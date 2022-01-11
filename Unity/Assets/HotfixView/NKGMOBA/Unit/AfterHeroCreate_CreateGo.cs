@@ -20,6 +20,7 @@ namespace ET
             args.Unit.AddComponent<EffectComponent>();
             args.Unit.AddComponent<CommonAttackComponent_View>();
             args.Unit.AddComponent<FallingFontComponent>();
+            args.Unit.AddComponent<B2S_DebuggerComponent>();
 
             // 只有本地玩家才会显示技能指示器
             if (args.IsLocalPlayer)

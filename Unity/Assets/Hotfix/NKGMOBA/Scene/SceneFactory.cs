@@ -12,7 +12,6 @@ namespace ET
             zoneScene.AddComponent<NP_TreeDataRepositoryComponent>();
             zoneScene.AddComponent<UnitAttributesDataRepositoryComponent>();
             zoneScene.AddComponent<B2S_ColliderDataRepositoryComponent>();
-            zoneScene.AddComponent<B2S_DebuggerComponent>();
 
             // UI层的初始化
             await Game.EventSystem.Publish(new EventType.AfterCreateZoneScene() {ZoneScene = zoneScene});
