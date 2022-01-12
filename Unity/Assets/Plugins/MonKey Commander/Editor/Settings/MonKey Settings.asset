@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MonKey Settings
   m_EditorClassIdentifier: 
   UseSortedSelection: 1
-  MaxSortedSelectionSize: 1000
+  MaxSortedSelectionSize: 200
   ShowSortedSelectionWarning: 1
   MonkeyConsoleOverrideHotKey: f
   PauseGameOnConsoleOpen: 1
@@ -23,7 +23,7 @@ MonoBehaviour:
   ExcludedAssemblies: Unity.Model;Unity.Hotfix;Unity.ModelView;Unity.HotfixView;MonKey
     Commander
   ExcludedNameSpaces: 
-  IncludedAssemblies: Assembly-CSharp-Editor-firstpass;Unity.Editor;XAsset.Editor
+  IncludedAssemblies: Unity.Editor;XAsset.Editor;Assembly-CSharp-Editor-firstpass;Assembly-CSharp-firstpass
   IncludeModeOnly: 1
   ForceFocusOnDocked: 0
   ShowHelpOnSelectedOnly: 0
