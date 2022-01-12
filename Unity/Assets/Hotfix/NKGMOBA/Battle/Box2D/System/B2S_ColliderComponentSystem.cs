@@ -55,6 +55,12 @@ namespace ET
 
             self.CreateB2S_Collider();
             self.SyncBody();
+            
+#if SERVER
+            Log.Info((Quaternion.QuaternionToEuler(selfUnit.Rotation).y * Settings.Pi / 180).ToString());
+#else
+            Log.Info((selfUnit.Rotation.eulerAngles.y * Mathf.PI / 180).ToString());
+#endif
         }
     }
 
@@ -92,13 +98,13 @@ namespace ET
                     B2S_BoxColliderDataStructure b2SBoxColliderDataStructure =
                         (B2S_BoxColliderDataStructure) self.B2S_ColliderDataStructureBase;
                     self.Body.CreateBoxFixture(b2SBoxColliderDataStructure.hx, b2SBoxColliderDataStructure.hy,
-                        Vector2.Zero, 0, b2SBoxColliderDataStructure.isSensor, self.Parent);
+                        b2SBoxColliderDataStructure.finalOffset, 0, b2SBoxColliderDataStructure.isSensor, self.Parent);
                     break;
                 case B2S_ColliderType.CircleCollider:
                     B2S_CircleColliderDataStructure b2SCircleColliderDataStructure =
                         (B2S_CircleColliderDataStructure) self.B2S_ColliderDataStructureBase;
                     self.Body.CreateCircleFixture(b2SCircleColliderDataStructure.radius,
-                        Vector2.Zero,
+                        b2SCircleColliderDataStructure.finalOffset,
                         b2SCircleColliderDataStructure.isSensor,
                         self.Parent);
                     break;
@@ -170,7 +176,7 @@ namespace ET
             self.SetColliderBodyPos(new Vector2(selfUnit.Position.x, selfUnit.Position.z));
 
 #if SERVER
-            self.SetColliderBodyAngle(Quaternion.QuaternionToEuler(selfUnit.Rotation).y * Settings.Pi / 180);
+            self.SetColliderBodyAngle(-Quaternion.QuaternionToEuler(selfUnit.Rotation).y * Settings.Pi / 180);
 #else
             self.SetColliderBodyAngle(selfUnit.Rotation.eulerAngles.y * Mathf.PI / 180);
 #endif

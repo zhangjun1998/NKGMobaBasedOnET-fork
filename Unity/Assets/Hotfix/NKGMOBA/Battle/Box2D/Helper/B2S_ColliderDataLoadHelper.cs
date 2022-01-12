@@ -43,7 +43,6 @@ namespace ET
                         self.Body.CreatePolygonFixture(verxtPoint, b2SPolygonColliderDataStructure.isSensor,
                             self.Parent);
                     }
-
                     break;
             }
         }

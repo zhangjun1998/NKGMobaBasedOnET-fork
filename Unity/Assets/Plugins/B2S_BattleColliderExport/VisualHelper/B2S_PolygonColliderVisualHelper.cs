@@ -59,21 +59,21 @@ namespace ET
                 {
                     if (i < b2sColliderPoints.Count - 1)
                         Gizmos.DrawLine(GoTranslateMatrix4X4.MultiplyPoint(new Vector3(
-                                b2sColliderPoints[i].X + this.MB2S_PolygonColliderDataStructure.finalOffset.X,
+                                b2sColliderPoints[i].X,
                                 0,
-                                b2sColliderPoints[i].Y + this.MB2S_PolygonColliderDataStructure.finalOffset.Y)),
+                                b2sColliderPoints[i].Y)),
                             GoTranslateMatrix4X4.MultiplyPoint(new Vector3(
-                                b2sColliderPoints[i + 1].X + this.MB2S_PolygonColliderDataStructure.finalOffset.X, 0,
-                                b2sColliderPoints[i + 1].Y + this.MB2S_PolygonColliderDataStructure.finalOffset.Y)));
+                                b2sColliderPoints[i + 1].X, 0,
+                                b2sColliderPoints[i + 1].Y)));
                     else
                     {
                         Gizmos.DrawLine(GoTranslateMatrix4X4.MultiplyPoint(new Vector3(
-                                b2sColliderPoints[i].X + this.MB2S_PolygonColliderDataStructure.finalOffset.X,
+                                b2sColliderPoints[i].X,
                                 0,
-                                b2sColliderPoints[i].Y + this.MB2S_PolygonColliderDataStructure.finalOffset.Y)),
+                                b2sColliderPoints[i].Y)),
                             GoTranslateMatrix4X4.MultiplyPoint(new Vector3(
-                                b2sColliderPoints[0].X + this.MB2S_PolygonColliderDataStructure.finalOffset.X, 0,
-                                b2sColliderPoints[0].Y + this.MB2S_PolygonColliderDataStructure.finalOffset.Y)));
+                                b2sColliderPoints[0].X, 0,
+                                b2sColliderPoints[0].Y)));
                     }
                 }
             }
@@ -126,6 +126,9 @@ namespace ET
                 }
             }
 
+            // 因为Box2d的多边形默认不提供偏移设置，所以这里在存储的时候直接将偏移累加到顶点位置上
+            MB2S_PolygonColliderDataStructure.finalOffset = Vector2.Zero;
+            
             List<List<Vector2>> FinalPolygons = Separator.SplitPolygonUntilLessX(this.MaxPointLimit, tempFinalPolygons);
 
             int pointCount = 0;
@@ -134,18 +137,14 @@ namespace ET
                 this.MB2S_PolygonColliderDataStructure.finalPoints.Add(new List<Vector2>());
                 for (int j = 0; j < FinalPolygons[i].Count; j++, pointCount++)
                 {
-                    Vector3 finalPint = GoScaleAndRotMatrix4X4.MultiplyPoint(new Vector3(FinalPolygons[i][j].X, 0,
-                        FinalPolygons[i][j].Y));
+                    // 因为Box2d的多边形默认不提供偏移设置，所以这里在存储的时候直接将偏移累加到顶点位置上
+                    Vector3 finalPint = GoScaleAndRotMatrix4X4.MultiplyPoint(new Vector3(FinalPolygons[i][j].X + mCollider2D.offset.x, 0,
+                        FinalPolygons[i][j].Y + mCollider2D.offset.y));
                     this.MB2S_PolygonColliderDataStructure.finalPoints[i].Add(new Vector2(finalPint.x, finalPint.z));
                 }
             }
 
             MB2S_PolygonColliderDataStructure.pointCount = pointCount;
-
-            Vector3 finalOffset =
-                GoScaleAndRotMatrix4X4.MultiplyPoint(new Vector3(this.mCollider2D.offset.x, 0,
-                    this.mCollider2D.offset.y));
-            MB2S_PolygonColliderDataStructure.finalOffset = new Vector2(finalOffset.x, finalOffset.z);
         }
 
         [Button("保存所有多边形碰撞体信息", 25), GUIColor(0.2f, 0.9f, 1.0f)]
