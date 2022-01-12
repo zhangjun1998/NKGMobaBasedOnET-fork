@@ -25,6 +25,9 @@ using UnityEngine;
 
 namespace ET
 {
+    /// <summary>
+    /// 需要注意的是，每个带有UnityCollider2D的UnityGo本身Transform的X,Z不能有偏移, 因为对于Offset我们读取的是UnityCollider2D Offset，而不是Go的
+    /// </summary>
     public class B2S_ColliderEditor : OdinEditorWindow
     {
         [LabelText("画线管理者")]
@@ -81,10 +84,11 @@ namespace ET
         private List<string> colliderDataName = new List<string>()
             {"BoxColliderData", "CircleColliderData", "PolygonColliderData"};
 
-        [Command("ETEditor_B2S_BattleColliderExport", "战斗Box2D碰撞数据可视化编辑器", Category = "ETEditor")]
-        private static void OpenWindow()
+        [Command("ETEditor_B2SBattleColliderExport", "战斗Box2D碰撞数据可视化编辑器", Category = "ETEditor")]
+        private static void OpenWindowCCC()
         {
             var window = GetWindow<B2S_ColliderEditor>();
+            
             window.position = GUIHelper.GetEditorWindowRect().AlignCenter(600, 600);
             window.titleContent = new GUIContent("Box2D可视化编辑器");
         }

@@ -8,11 +8,13 @@
 
 
 using System.IO;
+using System.Numerics;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
 namespace ET
 {
@@ -27,7 +29,7 @@ namespace ET
         [DisableInEditorMode] [LabelText("碰撞数据文件名称")]
         public string ColliderDataFileName = "CircleColliderData";
 
-        [InlineEditor][DisableInEditorMode] [Required("需要至少一个Unity2D圆形碰撞器")] [HideLabel] [BsonIgnore]
+        [InlineEditor] [DisableInEditorMode] [Required("需要至少一个Unity2D圆形碰撞器")] [HideLabel] [BsonIgnore]
         public CircleCollider2D mCollider2D;
 
         [LabelText("圆形碰撞体数据")]
@@ -43,36 +45,35 @@ namespace ET
         [Button("重新绘制圆形碰撞体", 25), GUIColor(0.2f, 0.9f, 1.0f)]
         public override void InitPointInfo()
         {
-            matrix4X4 = Matrix4x4.TRS(theObjectWillBeEdited.transform.position,
-                theObjectWillBeEdited.transform.rotation,
-                theObjectWillBeEdited.transform.localScale);
+            base.InitPointInfo();
             this.MB2S_CircleColliderDataStructure.radius =
                 this.mCollider2D.radius * this.theObjectWillBeEdited.transform.localScale.x;
-            MB2S_CircleColliderDataStructure.finalOffset.X = this.mCollider2D.offset.x;
-            MB2S_CircleColliderDataStructure.finalOffset.Y = this.mCollider2D.offset.y;
+
+            var finalOffset = this.GoScaleAndRotMatrix4X4.MultiplyPoint(
+                new Vector3(MB2S_CircleColliderDataStructure.finalOffset.X, 0,
+                    MB2S_CircleColliderDataStructure.finalOffset.Y));
+            MB2S_CircleColliderDataStructure.finalOffset = new System.Numerics.Vector2(finalOffset.x, finalOffset.z);
             this.canDraw = true;
         }
 
         public override void DrawCollider()
         {
-            // 圆上一点相对于正前方的圆心偏移
-            Vector3 oriOffset = Vector3.right * mCollider2D.radius;
-            Vector3 tempVector3 = matrix4X4.MultiplyPoint(new Vector3(oriOffset.x + mCollider2D.offset.x,
-                oriOffset.y + mCollider2D.offset.y, 0));
-            Vector3 originFrom = tempVector3;
+            var step = Mathf.RoundToInt(360f / Segments);
 
-            var step = Mathf.RoundToInt(360 / Segments);
-            for (int i = 0; i <= 360; i += step)
+            Vector3 startPoint = GoTranslateMatrix4X4.MultiplyPoint(new Vector3(
+                MB2S_CircleColliderDataStructure.radius *
+                Mathf.Cos(0 * Mathf.Deg2Rad) + MB2S_CircleColliderDataStructure.finalOffset.X, 1,
+                MB2S_CircleColliderDataStructure.radius *
+                Mathf.Sin(0 * Mathf.Deg2Rad) + MB2S_CircleColliderDataStructure.finalOffset.Y));
+            for (int i = step; i <= 360; i += step)
             {
-                originFrom = tempVector3;
-                tempVector3 = new Vector3(mCollider2D.radius * Mathf.Cos(i * Mathf.Deg2Rad),
-                    mCollider2D.radius * Mathf.Sin(i * Mathf.Deg2Rad), 0);
-
-                var finalTo =
-                    matrix4X4.MultiplyPoint(new Vector3(tempVector3.x, tempVector3.y, 0));
-
-                Gizmos.DrawLine(originFrom, finalTo);
-                tempVector3 = finalTo;
+                var nextPoint = GoTranslateMatrix4X4.MultiplyPoint(new Vector3(
+                    MB2S_CircleColliderDataStructure.radius *
+                    Mathf.Cos(i * 1.0f * Mathf.Deg2Rad) + MB2S_CircleColliderDataStructure.finalOffset.X, 1,
+                    MB2S_CircleColliderDataStructure.radius *
+                    Mathf.Sin(i * 1.0f * Mathf.Deg2Rad) + MB2S_CircleColliderDataStructure.finalOffset.Y));
+                Gizmos.DrawLine(startPoint, nextPoint);
+                startPoint = nextPoint;
             }
         }
 

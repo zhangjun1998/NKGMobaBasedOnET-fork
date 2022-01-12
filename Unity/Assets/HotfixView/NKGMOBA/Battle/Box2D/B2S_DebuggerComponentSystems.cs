@@ -11,6 +11,7 @@ namespace ET
                 GameObject gameObject = new GameObject($"B2S_DebuggerComponent----{self.GetParent<Unit>().Id}");
                 gameObject.transform.SetParent(self.GetParent<Unit>().GetComponent<GameObjectComponent>()
                     .GameObject.transform);
+                gameObject.transform.localPosition = Vector3.zero;
                 self.GoSupportor = gameObject;
             }
         }
