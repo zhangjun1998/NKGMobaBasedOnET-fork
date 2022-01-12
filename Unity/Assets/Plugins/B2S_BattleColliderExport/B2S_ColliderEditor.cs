@@ -30,8 +30,7 @@ namespace ET
     /// </summary>
     public class B2S_ColliderEditor : OdinEditorWindow
     {
-        [LabelText("画线管理者")]
-        [TabGroup("Special", "主持人")]
+        [LabelText("画线管理者")] [TabGroup("Special", "主持人")]
         public B2S_DebuggerHandler MB2SDebuggerHandler;
 
         [TabGroup("Test/矩形", "编辑数据")] [HideLabel]
@@ -66,16 +65,6 @@ namespace ET
 
         [TabGroup("Test", "使用视频教程地址")] public string Teach = "https://www.bilibili.com/video/av61062760";
 
-        /// <summary>
-        /// 名称ID保存地址
-        /// </summary>
-        private string ColliderNameAndIdInflectSavePath = "Assets/Plugins/B2S_BattleColliderExport/Saves";
-
-        /// <summary>
-        /// 名称ID保存地址
-        /// </summary>
-        private string ColliderDataSavePath = "../Config/ColliderDatas/";
-
         private List<string> colliderNameAndIdInflectName = new List<string>()
         {
             "BoxColliderNameAndIdInflect", "CircleColliderNameAndIdInflect", "PolygonColliderNameAndIdInflect"
@@ -88,7 +77,7 @@ namespace ET
         private static void OpenWindowCCC()
         {
             var window = GetWindow<B2S_ColliderEditor>();
-            
+
             window.position = GUIHelper.GetEditorWindowRect().AlignCenter(600, 600);
             window.titleContent = new GUIContent("Box2D可视化编辑器");
         }
@@ -127,6 +116,7 @@ namespace ET
             {
                 UnityEngine.Object.DestroyImmediate(MB2SDebuggerHandler.gameObject);
             }
+
             this.MB2SDebuggerHandler = null;
             this.MB2SBoxColliderVisualHelper = null;
             this.MB2SCircleColliderVisualHelper = null;
@@ -138,32 +128,35 @@ namespace ET
         /// </summary>
         private void ReadcolliderNameAndIdInflect()
         {
-            if (File.Exists($"{this.ColliderNameAndIdInflectSavePath}/{this.colliderNameAndIdInflectName[0]}.bytes"))
+            if (File.Exists(
+                $"{B2S_BattleColliderExportPathDefine.ColliderNameAndIdInflectSavePath}/{this.colliderNameAndIdInflectName[0]}.bytes"))
             {
                 byte[] mfile0 =
                     File.ReadAllBytes(
-                        $"{this.ColliderNameAndIdInflectSavePath}/{this.colliderNameAndIdInflectName[0]}.bytes");
+                        $"{B2S_BattleColliderExportPathDefine.ColliderNameAndIdInflectSavePath}/{this.colliderNameAndIdInflectName[0]}.bytes");
                 //这里不进行长度判断会报错，正在试图访问一个已经关闭的流，咱也不懂，咱也不敢问
                 if (mfile0.Length > 0)
                     this.BoxColliderNameAndIdInflectSupporter =
                         BsonSerializer.Deserialize<ColliderNameAndIdInflectSupporter>(mfile0);
             }
 
-            if (File.Exists($"{this.ColliderNameAndIdInflectSavePath}/{this.colliderNameAndIdInflectName[1]}.bytes"))
+            if (File.Exists(
+                $"{B2S_BattleColliderExportPathDefine.ColliderNameAndIdInflectSavePath}/{this.colliderNameAndIdInflectName[1]}.bytes"))
             {
                 byte[] mfile1 =
                     File.ReadAllBytes(
-                        $"{this.ColliderNameAndIdInflectSavePath}/{this.colliderNameAndIdInflectName[1]}.bytes");
+                        $"{B2S_BattleColliderExportPathDefine.ColliderNameAndIdInflectSavePath}/{this.colliderNameAndIdInflectName[1]}.bytes");
                 if (mfile1.Length > 0)
                     this.CircleColliderNameAndIdInflectSupporter =
                         BsonSerializer.Deserialize<ColliderNameAndIdInflectSupporter>(mfile1);
             }
 
-            if (File.Exists($"{this.ColliderNameAndIdInflectSavePath}/{this.colliderNameAndIdInflectName[2]}.bytes"))
+            if (File.Exists(
+                $"{B2S_BattleColliderExportPathDefine.ColliderNameAndIdInflectSavePath}/{this.colliderNameAndIdInflectName[2]}.bytes"))
             {
                 byte[] mfile2 =
                     File.ReadAllBytes(
-                        $"{this.ColliderNameAndIdInflectSavePath}/{this.colliderNameAndIdInflectName[2]}.bytes");
+                        $"{B2S_BattleColliderExportPathDefine.ColliderNameAndIdInflectSavePath}/{this.colliderNameAndIdInflectName[2]}.bytes");
                 if (mfile2.Length > 0)
                     this.PolygonColliderNameAndIdInflectSupporter =
                         BsonSerializer.Deserialize<ColliderNameAndIdInflectSupporter>(mfile2);
@@ -186,26 +179,35 @@ namespace ET
                 BsonClassMap.LookupClassMap(type);
             }
 
-            if (File.Exists($"{this.ColliderDataSavePath}/{this.colliderDataName[0]}.bytes"))
+            if (File.Exists(
+                $"{B2S_BattleColliderExportPathDefine.ServerColliderDataSavePath}/{this.colliderDataName[0]}.bytes"))
             {
-                byte[] mfile0 = File.ReadAllBytes($"{this.ColliderDataSavePath}/{this.colliderDataName[0]}.bytes");
+                byte[] mfile0 =
+                    File.ReadAllBytes(
+                        $"{B2S_BattleColliderExportPathDefine.ServerColliderDataSavePath}/{this.colliderDataName[0]}.bytes");
                 //这里不进行长度判断会报错，正在试图访问一个已经关闭的流，咱也不懂，咱也不敢问
                 if (mfile0.Length > 0)
                     this.BoxColliderDataSupporter =
                         BsonSerializer.Deserialize<ColliderDataSupporter>(mfile0);
             }
 
-            if (File.Exists($"{this.ColliderDataSavePath}/{this.colliderDataName[1]}.bytes"))
+            if (File.Exists(
+                $"{B2S_BattleColliderExportPathDefine.ServerColliderDataSavePath}/{this.colliderDataName[1]}.bytes"))
             {
-                byte[] mfile1 = File.ReadAllBytes($"{this.ColliderDataSavePath}/{this.colliderDataName[1]}.bytes");
+                byte[] mfile1 =
+                    File.ReadAllBytes(
+                        $"{B2S_BattleColliderExportPathDefine.ServerColliderDataSavePath}/{this.colliderDataName[1]}.bytes");
                 if (mfile1.Length > 0)
                     this.CircleColliderDataSupporter =
                         BsonSerializer.Deserialize<ColliderDataSupporter>(mfile1);
             }
 
-            if (File.Exists($"{this.ColliderDataSavePath}/{this.colliderDataName[2]}.bytes"))
+            if (File.Exists(
+                $"{B2S_BattleColliderExportPathDefine.ServerColliderDataSavePath}/{this.colliderDataName[2]}.bytes"))
             {
-                byte[] mfile2 = File.ReadAllBytes($"{this.ColliderDataSavePath}/{this.colliderDataName[2]}.bytes");
+                byte[] mfile2 =
+                    File.ReadAllBytes(
+                        $"{B2S_BattleColliderExportPathDefine.ServerColliderDataSavePath}/{this.colliderDataName[2]}.bytes");
                 if (mfile2.Length > 0)
                 {
                     this.PolygonColliderDataSupporter =
@@ -214,10 +216,32 @@ namespace ET
             }
         }
 
-        [Button("导出所有碰撞数据", 30), GUIColor(0.5f, 0.5f, 1.0f)]
-        public void ExportAllColliderData()
+        [Button("将导出碰撞配置同步到客户端", 30), GUIColor(0.5f, 0.5f, 1.0f)]
+        public void SyncServerConfigToClientConfig()
         {
+            DirectoryInfo directory = new DirectoryInfo(B2S_BattleColliderExportPathDefine.ServerColliderDataSavePath);
+            if (Directory.Exists(B2S_BattleColliderExportPathDefine.ClientColliderDataSavePath))
+            {
+                DirectoryInfo clientDirectoryInfo =
+                    new DirectoryInfo(B2S_BattleColliderExportPathDefine.ClientColliderDataSavePath);
+
+                foreach (var fileInfo in clientDirectoryInfo.GetFiles())
+                {
+                    File.Delete(fileInfo.FullName);
+                }
+            }
+            else
+            {
+                Directory.CreateDirectory(B2S_BattleColliderExportPathDefine.ClientColliderDataSavePath);
+            }
+
+            foreach (var file in directory.GetFiles())
+            {
+                File.Copy(file.FullName,
+                    $"{B2S_BattleColliderExportPathDefine.ClientColliderDataSavePath}/{file.Name}");
+            }
             
+            AssetDatabase.Refresh();
         }
     }
 }

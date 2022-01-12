@@ -51,14 +51,6 @@ namespace ET
         [HideInEditorMode]
         public bool canDraw;
 
-        [DisableInEditorMode]
-        [LabelText("映射文件保存路径")]
-        public string NameAndIdInflectSavePath = "Assets/Plugins/B2S_BattleColliderExport/Saves/";
-
-        [DisableInEditorMode]
-        [LabelText("碰撞数据文件保存路径")]
-        public string ColliderDataSavePath = "../Config/ColliderDatas/";
-
         [HideInEditorMode]
         public ColliderNameAndIdInflectSupporter MColliderNameAndIdInflectSupporter;
 
