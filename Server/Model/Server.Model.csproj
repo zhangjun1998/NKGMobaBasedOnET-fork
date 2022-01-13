@@ -90,6 +90,10 @@
       <Link>NKGMOBA\Battle\Fsm\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>
 
+    <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Battle\RecastNav\**\*.cs">
+      <Link>NKGMOBA\Battle\RecastNav\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Compile>
+
     <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Battle\UnitAttributeData\**\*.cs">
       <Link>NKGMOBA\Battle\UnitAttributeData\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>

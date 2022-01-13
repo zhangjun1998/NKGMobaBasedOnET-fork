@@ -52,7 +52,6 @@ namespace ET
                 BattleRoom.AddComponent<MouseTargetSelectorComponent>();
                 BattleRoom.AddComponent<MapClickCompoent>();
                 BattleRoom.AddComponent<LSF_TickComponent>();
-                BattleRoom.AddComponent<RecastPathComponent>();
                 BattleRoom.AddComponent<BattleEventSystemComponent>();
                 BattleRoom.AddComponent<CDComponent>();
                 BattleRoom.AddComponent<B2S_WorldComponent>();

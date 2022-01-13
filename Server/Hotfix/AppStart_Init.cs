@@ -35,7 +35,6 @@ namespace ET
             Game.Scene.AddComponent<PlayerComponent>();
 
             // 两个全局的函数处理封装组件
-            Game.Scene.AddComponent<AIDispatcherComponent>();
             Game.Scene.AddComponent<B2S_CollisionDispatcherComponent>();
 
             Game.Scene.AddComponent<LSF_CmdDispatcherComponent>();

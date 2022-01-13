@@ -9,7 +9,7 @@
             room.AddComponent<UnitComponent>();
             room.AddComponent<LSF_Component>();
             room.AddComponent<NP_SyncComponent>();
-            room.AddComponent<RecastPathComponent>();
+            room.AddComponent<RecastNavMeshManagerComponent>();
             room.AddComponent<CDComponent>();
 
             room.AddComponent<BattleEventSystemComponent>();

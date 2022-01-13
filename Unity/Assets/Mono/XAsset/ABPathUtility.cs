@@ -81,6 +81,11 @@ namespace ET
             return $"Assets/Res/Config/UnitAttributeConfig/{fileName}.bytes";
         }
 
+        public static string GetRecastNavDataConfigPath(string fileName)
+        {
+            return $"Assets/Res/Config/RecastNavConfig/{fileName}.bin.bytes";
+        }
+
         public static string GetUnitAvatatIcon(string UnitName, string iconName)
         {
             return GetTexturePath($"Avatars/{UnitName}/{iconName}");

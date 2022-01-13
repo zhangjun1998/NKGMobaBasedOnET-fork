@@ -28,6 +28,7 @@ namespace ET
             unit.AddComponent<NumericComponent>();
             //增加栈式状态机，辅助动画切换
             unit.AddComponent<StackFsmComponent>();
+            unit.AddComponent<RecastNavComponent, string>("solo_navmesh");
             unit.AddComponent<MoveComponent>();
 
             //增加Buff管理组件
@@ -68,6 +69,7 @@ namespace ET
             unit.AddComponent<NumericComponent>();
             //增加栈式状态机，辅助动画切换
             unit.AddComponent<StackFsmComponent>();
+            unit.AddComponent<RecastNavComponent, string>("solo_navmesh");
             unit.AddComponent<MoveComponent>();
 
             //增加Buff管理组件
