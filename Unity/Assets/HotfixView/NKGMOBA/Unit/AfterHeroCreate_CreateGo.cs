@@ -57,9 +57,9 @@ namespace ET
             NP_RuntimeTreeFactory
                 .CreateSkillNpRuntimeTree(args.Unit, unitESkillConfig.NPBehaveId, unitESkillConfig.BelongToSkillId)
                 .Start();
-            NP_RuntimeTreeFactory
-                .CreateSkillNpRuntimeTree(args.Unit, Test.NPBehaveId, unitESkillConfig.BelongToSkillId)
-                .Start();
+            // NP_RuntimeTreeFactory
+            //     .CreateSkillNpRuntimeTree(args.Unit, Test.NPBehaveId, unitESkillConfig.BelongToSkillId)
+            //     .Start();
 
             await ETTask.CompletedTask;
         }

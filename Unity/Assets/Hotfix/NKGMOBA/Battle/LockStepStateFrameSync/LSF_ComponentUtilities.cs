@@ -73,6 +73,7 @@ namespace ET
                         if (!self.CheckConsistencyCompareSpecialFrame(targetFrame, frameCmd))
                         {
                             shouldRollback = true;
+                            Log.Error($"由于{MongoHelper.ToJson(frameCmd)}的不一致，进入回滚流程");
                             break;
                         }
                     }

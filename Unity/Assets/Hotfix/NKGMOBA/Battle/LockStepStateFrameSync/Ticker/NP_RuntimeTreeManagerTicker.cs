@@ -16,6 +16,12 @@ namespace ET
         /// <returns></returns>
         public override bool OnLSF_CheckConsistency(NP_RuntimeTreeManager entity, uint frame, ALSF_Cmd stateToCompare)
         {
+            if (stateToCompare is LSF_PlaySkillInputCmd skillInputCmd)
+            {
+                skillInputCmd.HasHandled = true;
+                return true;
+            }
+            
             LSF_ChangeBBValueCmd changeBbValueCmd = stateToCompare as LSF_ChangeBBValueCmd;
 
             if (changeBbValueCmd == null)

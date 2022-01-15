@@ -111,10 +111,10 @@ namespace ET
                     SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitESkillId).BelongToSkillId)
                 .Start();
 
-            NP_RuntimeTreeFactory.CreateSkillNpRuntimeTree(unit,
-                    SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitRSkillId).NPBehaveId,
-                    SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitRSkillId).BelongToSkillId)
-                .Start();
+            // NP_RuntimeTreeFactory.CreateSkillNpRuntimeTree(unit,
+            //         SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitRSkillId).NPBehaveId,
+            //         SkillCanvasConfigCategory.Instance.Get(serverUnitConfig.UnitRSkillId).BelongToSkillId)
+            //     .Start();
 
 
             unit.AddComponent<LSF_TickComponent>();

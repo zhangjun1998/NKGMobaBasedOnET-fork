@@ -5,6 +5,7 @@
     {
         protected override async ETVoid Run(Unit unit, LSF_PlaySkillInputCmd cmd)
         {
+            Log.Info("-------处理玩家技能输入");
             foreach (var skillTree in unit.GetComponent<NP_RuntimeTreeManager>().RuntimeTrees)
             {
                 skillTree.Value.GetBlackboard().Set(cmd.InputTag, cmd.InputKey);

@@ -15,9 +15,10 @@ namespace ET
             if (npRuntimeTreeManager.RuntimeTrees.TryGetValue(cmd.TargetNPBehaveTreeId, out var npRuntimeTree))
             {
                 Blackboard blackboard = npRuntimeTree.GetBlackboard();
-
+                
                 foreach (var toBeChangedBBValues in cmd.NP_RuntimeTreeBBSnap.NP_FrameBBValues)
                 {
+                    Log.Info($"{toBeChangedBBValues.Key}");
                     if (cmdNPRuntimeTreeBbSnap.NP_FrameBBValueOperations.TryGetValue(toBeChangedBBValues.Key, out var operationType))
                     {
                         switch (operationType)

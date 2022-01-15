@@ -156,8 +156,8 @@ MonoBehaviour:
   exposedParameters: []
   serializedParameterList: []
   stickyNotes: []
-  position: {x: 1128, y: 42, z: 0}
-  scale: {x: 0.375937, y: 0.375937, z: 1}
+  position: {x: 887, y: -32, z: 0}
+  scale: {x: 0.65751624, y: 0.65751624, z: 1}
   Name: Darius_Hemorrhage
   Config: {fileID: 4900000, guid: 17d784476c914a44c88fe493027040e9, type: 3}
   IdInConfig: 10001

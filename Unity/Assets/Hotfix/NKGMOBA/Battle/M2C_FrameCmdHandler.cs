@@ -10,7 +10,7 @@
             lsfComponent.RefreshClientNetInfoByCmdFrameAndHalfRTT(message.ServerTimeSnap, message.CmdContent.Frame);
             //将消息加入待处理列表
             lsfComponent.AddCmdToHandleQueue(message.CmdContent);
-            Log.Info(TimeHelper.ClientNow().ToString());
+            // Log.Info(TimeHelper.ClientNow().ToString());
             await ETTask.CompletedTask;
         }
     }
