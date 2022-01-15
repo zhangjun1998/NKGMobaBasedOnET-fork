@@ -65,7 +65,7 @@ namespace ET
             m_Flag = 0;
             HandlePlayAnim(NodeDataForPlayAnims[this.m_Flag].StateTypes,
                 NodeDataForPlayAnims[this.m_Flag].OccAvatarMaskType, NodeDataForPlayAnims[this.m_Flag].FadeOutTime);
-            Log.Info("这次播放的是Q技能动画");
+            //Log.Info("这次播放的是Q技能动画");
 #endif
         }
 
@@ -95,7 +95,7 @@ namespace ET
             }
             else //说明所有动画都已经播放完毕
             {
-                Log.Info("所有动画播放完毕");
+                //Log.Info("所有动画播放完毕");
                 if (this.BelongToUnit.GetComponent<AnimationComponent>().SkillStateShouldStopImmdiately())
                 {
                     m_AnimancerState.Stop();

@@ -172,6 +172,7 @@ namespace ET
                     if (CommonAnimState.LayerIndex == (int) PlayAnimInfo.AvatarMaskType.None &&
                         afterSkillStateStartFade)
                     {
+                        this.PlayIdelFromStart();
                         return;
                     }
 
