@@ -21,6 +21,7 @@ namespace ET
         private void Awake()
         {
             lineRenderer = this.gameObject.AddComponent<LineRenderer>();
+            lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
 
             this.lineRenderer.SetWidth(0.05f, 0.05f);
             this.lineRenderer.SetColors(Color.red, Color.red);

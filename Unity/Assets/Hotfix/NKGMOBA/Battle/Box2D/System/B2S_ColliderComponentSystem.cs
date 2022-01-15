@@ -55,12 +55,6 @@ namespace ET
 
             self.CreateB2S_Collider();
             self.SyncBody();
-            
-#if SERVER
-            Log.Info((Quaternion.QuaternionToEuler(selfUnit.Rotation).y * Settings.Pi / 180).ToString());
-#else
-            Log.Info((selfUnit.Rotation.eulerAngles.y * Mathf.PI / 180).ToString());
-#endif
         }
     }
 
