@@ -128,7 +128,7 @@ namespace ET
             {
                 entity.MoveForward(deltaTime, false);
 #if !SERVER
-                Log.Info($"寻路完成后：{unit.Position.ToString("#0.0000")}");  
+                //Log.Info($"寻路完成后：{unit.Position.ToString("#0.0000")}");  
 #endif
             }
         }

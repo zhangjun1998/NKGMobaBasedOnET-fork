@@ -18,7 +18,6 @@ namespace ET
                 
                 foreach (var toBeChangedBBValues in cmd.NP_RuntimeTreeBBSnap.NP_FrameBBValues)
                 {
-                    Log.Info($"{toBeChangedBBValues.Key}");
                     if (cmdNPRuntimeTreeBbSnap.NP_FrameBBValueOperations.TryGetValue(toBeChangedBBValues.Key, out var operationType))
                     {
                         switch (operationType)

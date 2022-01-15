@@ -341,7 +341,7 @@ namespace ET
                                           self.HalfRTT);
             self.CurrentAheadOfFrame = (int) (self.CurrentFrame - self.ServerCurrentFrame);
 
-            Log.Info($"刷新服务端CurrentFrame成功：{self.ServerCurrentFrame} ---- {TimeHelper.ClientNow()}");
+            //Log.Info($"刷新服务端CurrentFrame成功：{self.ServerCurrentFrame} ---- {TimeHelper.ClientNow()}");
         }
 
         /// <summary>
