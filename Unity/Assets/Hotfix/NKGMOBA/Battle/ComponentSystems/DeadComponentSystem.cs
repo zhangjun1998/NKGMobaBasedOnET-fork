@@ -7,18 +7,7 @@
             self.ResurrectionTime = resurrectionTime;
 
             Unit unit = self.GetParent<Unit>();
-
-            AIComponent aiComponent = unit.GetComponent<AIComponent>();
-
-            if (aiComponent != null)
-            {
-                TimerComponent.Instance.Remove(ref aiComponent.Timer);
-
-                aiComponent.CancellationToken?.Cancel();
-                aiComponent.CancellationToken = null;
-                aiComponent.Current = 0;
-            }
-
+            
             // 休眠刚体，不再会产生碰撞
             unit.GetComponent<B2S_ColliderComponent>().Body.IsAwake = false;
 

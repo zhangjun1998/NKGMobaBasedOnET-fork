@@ -77,6 +77,7 @@ namespace ET
             unit.AddComponent<ReceiveDamageComponent>();
             unit.AddComponent<CastDamageComponent>();
             unit.AddComponent<DataModifierComponent>();
+            unit.AddComponent<RecastNavComponent, string>("solo_navmesh");
             //增加移动组件
             unit.AddComponent<MoveComponent>();
             //添加栈式状态机组件
@@ -154,6 +155,7 @@ namespace ET
             unit.AddComponent<ReceiveDamageComponent>();
             unit.AddComponent<CastDamageComponent>();
             unit.AddComponent<DataModifierComponent>();
+            unit.AddComponent<RecastNavComponent, string>("solo_navmesh");
             //增加移动组件
             unit.AddComponent<MoveComponent>();
             //添加栈式状态机组件
