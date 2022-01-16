@@ -1,5 +1,7 @@
 ﻿using System;
+using Microsoft.CodeAnalysis;
 using ProtoBuf;
+using UnityEngine;
 
 namespace ET
 {
@@ -17,6 +19,31 @@ namespace ET
         /// 输入的具体指令，比如E，EHold
         /// </summary>
         [ProtoMember(2)] public string InputKey;
+
+        /// <summary>
+        /// 角度
+        /// </summary>
+        [ProtoMember(3)] public float Angle;
+
+        /// <summary>
+        /// 目标位置
+        /// </summary>
+        [ProtoMember(4)] public float TargetPosX;
+        
+        /// <summary>
+        /// 目标位置
+        /// </summary>
+        [ProtoMember(5)] public float TargetPosY;
+        
+        /// <summary>
+        /// 目标位置
+        /// </summary>
+        [ProtoMember(6)] public float TargetPosZ;
+        
+        /// <summary>
+        /// 目标Unit
+        /// </summary>
+        [ProtoMember(7)] public long TargetUnitId;
 
         public override ALSF_Cmd Init(long unitId)
         {

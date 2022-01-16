@@ -45,7 +45,7 @@ namespace ET
         /// 只在不跟随Unit时有效，跟随Unit代表使用BelongToUnit的Transform
         /// </summary>
         [HideIf(nameof(FollowUnitRot))] [LabelText("旋转角度")]
-        public float Angle;
+        public NP_BlackBoardRelationData Angle;
 
         /// <summary>
         /// 只在不跟随Unit时有效，因为不跟随Unit说明是世界空间的碰撞体，
@@ -70,7 +70,7 @@ namespace ET
                 .CreateSpecialColliderUnit(BelongToUnit.BelongToRoom, BelongToUnit, colliderDataConfigId,
                     CollisionsRelationSupportIdInExcel, ColliderNPBehaveTreeIdInExcel, FollowUnitPos, FollowUnitRot,
                     Offset, TargetPos,
-                    Angle);
+                    Angle.GetBlackBoardValue<float>(this.BelongtoRuntimeTree.GetBlackboard()));
 
             // 让客户端创建独特的Unit，用于承载行为树同步
             LSF_CreateColliderCmd lsfCreateColliderCmd =
@@ -79,7 +79,7 @@ namespace ET
             lsfCreateColliderCmd.BelongtoUnitId = BelongToUnit.Id;
             lsfCreateColliderCmd.CollisionsRelationSupportIdInExcel = CollisionsRelationSupportIdInExcel;
             lsfCreateColliderCmd.ColliderNPBehaveTreeIdInExcel = ColliderNPBehaveTreeIdInExcel;
-            lsfCreateColliderCmd.Angle = this.Angle;
+            lsfCreateColliderCmd.Angle = Angle.GetBlackBoardValue<float>(this.BelongtoRuntimeTree.GetBlackboard());
             lsfCreateColliderCmd.OffsetX = Offset.x;
             lsfCreateColliderCmd.OffsetZ = Offset.z;
             lsfCreateColliderCmd.TargetPosX = TargetPos.x;

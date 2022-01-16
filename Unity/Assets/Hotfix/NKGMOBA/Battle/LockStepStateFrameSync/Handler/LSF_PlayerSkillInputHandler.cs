@@ -8,6 +8,7 @@
             foreach (var skillTree in unit.GetComponent<NP_RuntimeTreeManager>().RuntimeTrees)
             {
                 skillTree.Value.GetBlackboard().Set(cmd.InputTag, cmd.InputKey);
+                skillTree.Value.GetBlackboard().Set("SkillTargetAngle", cmd.Angle);
             }
             
 #if SERVER
