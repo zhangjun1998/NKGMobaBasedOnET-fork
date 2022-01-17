@@ -50,7 +50,7 @@ namespace ET
                     lsfPlaySkillInputCmd2.Init(unit.Id);
                     lsfPlaySkillInputCmd2.InputTag = "PlayerInput";
                     lsfPlaySkillInputCmd2.InputKey = "E";
-                    lsfPlaySkillInputCmd2.Angle = cachedConeGo.transform.localEulerAngles.y;
+                    lsfPlaySkillInputCmd2.Angle = cachedConeGo.transform.eulerAngles.y;
                     unit.BelongToRoom.GetComponent<LSF_Component>().AddCmdToSendQueue(lsfPlaySkillInputCmd2);
 
                     GameObjectPoolComponent.Instance.RecycleGameObject("Cone/Fire Blast",

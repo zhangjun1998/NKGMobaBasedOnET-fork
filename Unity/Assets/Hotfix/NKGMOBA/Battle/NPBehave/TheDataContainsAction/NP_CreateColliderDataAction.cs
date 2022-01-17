@@ -45,7 +45,7 @@ namespace ET
         /// 只在不跟随Unit时有效，跟随Unit代表使用BelongToUnit的Transform
         /// </summary>
         [HideIf(nameof(FollowUnitRot))] [LabelText("旋转角度")]
-        public NP_BlackBoardRelationData Angle;
+        public NP_BlackBoardRelationData Angle = new NP_BlackBoardRelationData();
 
         /// <summary>
         /// 只在不跟随Unit时有效，因为不跟随Unit说明是世界空间的碰撞体，
