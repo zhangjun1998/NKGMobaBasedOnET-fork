@@ -330,15 +330,13 @@ namespace ET
         }
 
         /// <summary>
-        /// 根据消息包中服务端帧数 + 半个RTT来计算出服务端当前帧数并且对一些字段和数据进行处理
+        /// 根据消息包中服务端帧数 和 服务端的TimeSnap来计算出服务端当前帧数并且对一些字段和数据进行处理
         /// </summary>
-        public static void RefreshClientNetInfoByCmdFrameAndHalfRTT(this LSF_Component self, long serverTimeSnap,
+        public static void RefreshNetInfo(this LSF_Component self, long serverTimeSnap,
             uint messageFrame)
         {
-            self.ServerCurrentFrame = messageFrame +
-                                      (uint) TimeAndFrameConverter.Frame_Long2FrameWithHalfRTT(
-                                          TimeHelper.ClientNow() - serverTimeSnap,
-                                          self.HalfRTT);
+            self.ServerCurrentFrame = messageFrame + TimeAndFrameConverter.Frame_Long2Frame(
+                                          TimeHelper.ClientNow() - serverTimeSnap);
             self.CurrentAheadOfFrame = (int) (self.CurrentFrame - self.ServerCurrentFrame);
 
             //Log.Info($"刷新服务端CurrentFrame成功：{self.ServerCurrentFrame} ---- {TimeHelper.ClientNow()}");
