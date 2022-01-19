@@ -45,6 +45,7 @@ message M2C_Ping // IActorLocationResponse
   string Message = 92;
   int32 Error = 91;
   int64 TimePoint = 1;
+  uint32 ServerFrame = 93;
 }
 
 //ResponseType M2C_Reload

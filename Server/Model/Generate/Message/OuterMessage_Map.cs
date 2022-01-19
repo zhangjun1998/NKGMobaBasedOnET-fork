@@ -97,6 +97,9 @@ namespace ET
 		[ProtoMember(1)]
 		public long TimePoint { get; set; }
 
+		[ProtoMember(93)]
+		public uint ServerFrame { get; set; }
+
 	}
 
 	[ResponseType(typeof(M2C_Reload))]
@@ -214,6 +217,7 @@ namespace ET
 
 		[ProtoMember(7)]
 		public long RoomId { get; set; }
+
 	}
 
 	[Message(OuterOpcode_Map.M2C_CreateUnits)]

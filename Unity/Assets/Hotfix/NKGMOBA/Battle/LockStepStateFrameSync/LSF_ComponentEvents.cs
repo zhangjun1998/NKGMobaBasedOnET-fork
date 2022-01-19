@@ -26,6 +26,8 @@ namespace ET
                 targetAheadOfFrame > LSF_Component.AheadOfFrameMax
                     ? LSF_Component.AheadOfFrameMax
                     : targetAheadOfFrame;
+            
+            lsfComponent.RefreshNetInfo(a.ServerTimeSnap, a.MessageFrame);
 
             await ETTask.CompletedTask;
         }

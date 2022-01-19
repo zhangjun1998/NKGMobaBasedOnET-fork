@@ -66,6 +66,8 @@ namespace ET
                         {
                             C2GPing = self.C2GPingValue,
                             C2MPing = self.C2MPingValue,
+                            ServerTimeSnap = responseFromMap.TimePoint,
+                            MessageFrame = responseFromMap.ServerFrame,
                             ZoneScene = self.DomainScene()
                         })
                         .Coroutine();
