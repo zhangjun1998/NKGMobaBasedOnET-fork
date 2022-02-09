@@ -147,7 +147,7 @@ namespace ET
                 this.AnimationClips[RuntimeAnimationClips[StateTypes.Idle.GetStateTypeMapedString()]], 0.25f,
                 FadeMode.FromStart);
         }
-        
+
         /// <summary>
         /// 播放默认动画如果在此期间再次播放，则会继续播放
         /// </summary>
@@ -172,7 +172,6 @@ namespace ET
                     if (CommonAnimState.LayerIndex == (int) PlayAnimInfo.AvatarMaskType.None &&
                         afterSkillStateStartFade)
                     {
-                        this.PlayIdelFromStart();
                         return;
                     }
 
@@ -197,7 +196,10 @@ namespace ET
             //否则播放默认动画
             else
             {
-                this.PlayIdelFromStart();
+                if (!SkillAnimState.IsActive || SkillAnimState.IsStopped)
+                {
+                    this.PlayIdelFromStart();
+                }
             }
         }
 
