@@ -28,6 +28,9 @@ namespace ET
 
         private LinkedListNode<IBuffSystem> m_Current, m_Next;
 
+        public Dictionary<uint, BuffSnapInfo> BuffSnapInfos_DeltaOnly = new Dictionary<uint, BuffSnapInfo>();
+        public Dictionary<uint, BuffSnapInfo> BuffSnapInfos_Whole = new Dictionary<uint, BuffSnapInfo>();
+
         public void FixedUpdate(uint currentFrame)
         {
             this.m_Current = m_Buffs.First;
@@ -151,6 +154,26 @@ namespace ET
             }
 
             return null;
+        }
+
+        #endregion
+
+        #region 网络同步相关
+
+        public BuffSnapInfo AcquireCurrentFrameBBValueSnap()
+        {
+            BuffSnapInfo buffSnapInfo = ReferencePool.Acquire<BuffSnapInfo>();
+            foreach (var buffSystem in this.m_Buffs)
+            {
+                BuffInfo buffInfo = ReferencePool.Acquire<BuffInfo>();
+                buffInfo.NP_SupportId = buffSystem.BuffData.BelongToBuffDataSupportorId;
+                buffInfo.BuffId = buffSystem.BuffData.BuffId;
+                buffInfo.BuffLayer = buffSystem.CurrentOverlay;
+                buffInfo.BuffMaxLimitFrame = buffSystem.MaxLimitFrame;
+                buffSnapInfo.FrameBuffChangeSnap[buffSystem.BuffData.BuffId] = buffInfo;
+            }
+
+            return buffSnapInfo;
         }
 
         #endregion
