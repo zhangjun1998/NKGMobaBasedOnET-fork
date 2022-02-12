@@ -2,12 +2,13 @@
 
 namespace ET
 {
+    [ProtoContract]
     public class LSF_SyncBuffCmd: ALSF_Cmd
     {
         public const uint CmdType = LSF_CmdType.SyncBuff;
 
         [ProtoMember(1)]
-        public BuffSnapInfo BuffSnapInfo;
+        public BuffSnapInfoCollection BuffSnapInfoCollection;
         
         public override ALSF_Cmd Init(long unitId)
         {
@@ -19,7 +20,7 @@ namespace ET
 
         public override void Clear()
         {
-            BuffSnapInfo.FrameBuffChangeSnap.Clear();
+            BuffSnapInfoCollection.FrameBuffChangeSnap.Clear();
         }
     }
 }

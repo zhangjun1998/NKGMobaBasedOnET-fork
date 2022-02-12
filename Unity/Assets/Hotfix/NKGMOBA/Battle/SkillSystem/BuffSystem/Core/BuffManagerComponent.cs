@@ -23,13 +23,14 @@ namespace ET
 
         /// <summary>
         /// 用于查找的——基于Buff的Id
+        /// TODO 需要注意的是，Buff的唯一性并不能由这个Id决定，因为这个Id是Buff数据的唯一Id，不能保证运行时唯一的来源性，比如有玩家A B C，B和C都对A添加了Id为1的Buff D，但是Buff D对于B和C都有各自的意义（比如回血不共享，标记不共享等）
         /// </summary>
         private Dictionary<long, IBuffSystem> m_BuffsForFind_BuffId = new Dictionary<long, IBuffSystem>();
 
         private LinkedListNode<IBuffSystem> m_Current, m_Next;
 
-        public Dictionary<uint, BuffSnapInfo> BuffSnapInfos_DeltaOnly = new Dictionary<uint, BuffSnapInfo>();
-        public Dictionary<uint, BuffSnapInfo> BuffSnapInfos_Whole = new Dictionary<uint, BuffSnapInfo>();
+        public Dictionary<uint, BuffSnapInfoCollection> BuffSnapInfos_DeltaOnly = new Dictionary<uint, BuffSnapInfoCollection>();
+        public Dictionary<uint, BuffSnapInfoCollection> BuffSnapInfos_Whole = new Dictionary<uint, BuffSnapInfoCollection>();
 
         public void FixedUpdate(uint currentFrame)
         {
@@ -160,20 +161,28 @@ namespace ET
 
         #region 网络同步相关
 
-        public BuffSnapInfo AcquireCurrentFrameBBValueSnap()
+        public BuffSnapInfoCollection AcquireCurrentFrameBBValueSnap()
         {
-            BuffSnapInfo buffSnapInfo = ReferencePool.Acquire<BuffSnapInfo>();
+            BuffSnapInfoCollection buffSnapInfoCollection = ReferencePool.Acquire<BuffSnapInfoCollection>();
             foreach (var buffSystem in this.m_Buffs)
             {
-                BuffInfo buffInfo = ReferencePool.Acquire<BuffInfo>();
-                buffInfo.NP_SupportId = buffSystem.BuffData.BelongToBuffDataSupportorId;
-                buffInfo.BuffId = buffSystem.BuffData.BuffId;
-                buffInfo.BuffLayer = buffSystem.CurrentOverlay;
-                buffInfo.BuffMaxLimitFrame = buffSystem.MaxLimitFrame;
-                buffSnapInfo.FrameBuffChangeSnap[buffSystem.BuffData.BuffId] = buffInfo;
+                BuffSnapInfo buffSnapInfo = ReferencePool.Acquire<BuffSnapInfo>();
+                buffSnapInfo.NP_SupportId = buffSystem.BuffData.BelongToBuffDataSupportorId;
+                
+                buffSnapInfo.BuffNodeId = buffSystem.BuffNodeId;
+                buffSnapInfo.BuffLayer = buffSystem.CurrentOverlay;
+                buffSnapInfo.BuffMaxLimitFrame = buffSystem.MaxLimitFrame;
+                
+                buffSnapInfo.BelongtoUnitId = buffSystem.GetBuffTarget().Id;
+                buffSnapInfo.FromUnitId = buffSystem.TheUnitFrom.Id;
+                
+                buffSnapInfo.BelongtoNP_RuntimeTreeId = buffSystem.BelongtoRuntimeTree.Id;
+                
+                buffSnapInfo.OperationType = BuffSnapInfo.BuffOperationType.ADD;
+                buffSnapInfoCollection.FrameBuffChangeSnap[buffSystem.BuffData.BuffId] = buffSnapInfo;
             }
 
-            return buffSnapInfo;
+            return buffSnapInfoCollection;
         }
 
         #endregion

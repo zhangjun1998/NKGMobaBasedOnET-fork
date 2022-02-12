@@ -34,6 +34,11 @@ namespace ET
         BuffDataBase BuffData { get; set; }
 
         /// <summary>
+        /// Buff节点Id，用于索引具体的BuffNode
+        /// </summary>
+        long BuffNodeId { get; set; }
+
+        /// <summary>
         /// 来自哪个Unit
         /// </summary>
         Unit TheUnitFrom { get; set; }

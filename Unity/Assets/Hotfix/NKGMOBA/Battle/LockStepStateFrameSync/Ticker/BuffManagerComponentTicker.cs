@@ -27,7 +27,7 @@ namespace ET
 
             if (entity.BuffSnapInfos_DeltaOnly.TryGetValue(frame, out var localDeltaSnaps))
             {
-                return localDeltaSnaps.Check(syncBuffCmd.BuffSnapInfo);
+                return localDeltaSnaps.Check(syncBuffCmd.BuffSnapInfoCollection);
             }
 
             return false;
@@ -46,8 +46,8 @@ namespace ET
 
             entity.BuffSnapInfos_Whole[frame] = entity.AcquireCurrentFrameBBValueSnap();
             
-            BuffSnapInfo currentFrameBuffSnapWhole = entity.BuffSnapInfos_Whole[frame];
-            BuffSnapInfo deltaBuffSnapInfo = null;
+            BuffSnapInfoCollection currentFrameBuffSnapWhole = entity.BuffSnapInfos_Whole[frame];
+            BuffSnapInfoCollection deltaBuffSnapInfoCollection = null;
             
             bool hasPreviousSnapValue = entity.BuffSnapInfos_Whole.ContainsKey(frame - 1);
 
@@ -55,29 +55,25 @@ namespace ET
             if (hasPreviousSnapValue)
             {
                 // 与前一帧快照对比得出脏数据
-                deltaBuffSnapInfo = currentFrameBuffSnapWhole.GetDifference(entity.BuffSnapInfos_Whole[frame - 1]);
+                deltaBuffSnapInfoCollection = currentFrameBuffSnapWhole.GetDifference(entity.BuffSnapInfos_Whole[frame - 1]);
             }
             else
             {
-                deltaBuffSnapInfo = currentFrameBuffSnapWhole;
-                foreach (var snap in deltaBuffSnapInfo.FrameBuffChangeSnap)
-                {
-                    snap.Value.OperationType = BuffInfo.BuffOperationType.ADD;
-                }
+                deltaBuffSnapInfoCollection = currentFrameBuffSnapWhole;
             }
 
             // 如果没有脏数据，就直接返回
-            if (deltaBuffSnapInfo.FrameBuffChangeSnap.Count == 0)
+            if (deltaBuffSnapInfoCollection.FrameBuffChangeSnap.Count == 0)
             {
                 return;
             }
             
-            entity.BuffSnapInfos_DeltaOnly[frame] = deltaBuffSnapInfo;
+            entity.BuffSnapInfos_DeltaOnly[frame] = deltaBuffSnapInfoCollection;
             
             LSF_SyncBuffCmd syncBuffCmd =
                 ReferencePool.Acquire<LSF_SyncBuffCmd>().Init(unit.Id) as LSF_SyncBuffCmd;
 
-            syncBuffCmd.BuffSnapInfo = deltaBuffSnapInfo;
+            syncBuffCmd.BuffSnapInfoCollection = deltaBuffSnapInfoCollection;
             syncBuffCmd.Frame = frame;
 
 #if SERVER

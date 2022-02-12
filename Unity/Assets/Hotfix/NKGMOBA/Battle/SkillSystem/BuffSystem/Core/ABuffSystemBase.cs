@@ -20,6 +20,7 @@ namespace ET
         public uint MaxLimitFrame { get; set; }
 
         public BuffDataBase BuffData { get; set; }
+        public long BuffNodeId { get; set; }
         public Unit TheUnitFrom { get; set; }
         public Unit TheUnitBelongto { get; set; }
 
