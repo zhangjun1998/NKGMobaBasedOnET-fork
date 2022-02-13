@@ -66,7 +66,7 @@ namespace ET
 #else
         public override void OnExecute(uint currentFrame)
         {
-            throw new NotImplementedException();
+            
         }
 #endif
     }

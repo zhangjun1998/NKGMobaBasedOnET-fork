@@ -17,7 +17,7 @@
                         break;
                     case BuffSnapInfo.BuffOperationType.CHANGE:
                         IBuffSystem changedBuffSystem =
-                            unit.GetComponent<BuffManagerComponent>().GetBuffById(snapInfo.Value.BuffNodeId);
+                            unit.GetComponent<BuffManagerComponent>().GetBuffById(snapInfo.Value.BuffId);
                         changedBuffSystem.CurrentOverlay = snapInfo.Value.BuffLayer;
                         // 手动刷新
                         changedBuffSystem.Refresh(cmd.Frame);

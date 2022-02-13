@@ -168,8 +168,9 @@ namespace ET
             {
                 BuffSnapInfo buffSnapInfo = ReferencePool.Acquire<BuffSnapInfo>();
                 buffSnapInfo.NP_SupportId = buffSystem.BuffData.BelongToBuffDataSupportorId;
-                
                 buffSnapInfo.BuffNodeId = buffSystem.BuffNodeId;
+                buffSnapInfo.BuffId = buffSystem.BuffData.BuffId;
+                
                 buffSnapInfo.BuffLayer = buffSystem.CurrentOverlay;
                 buffSnapInfo.BuffMaxLimitFrame = buffSystem.MaxLimitFrame;
                 

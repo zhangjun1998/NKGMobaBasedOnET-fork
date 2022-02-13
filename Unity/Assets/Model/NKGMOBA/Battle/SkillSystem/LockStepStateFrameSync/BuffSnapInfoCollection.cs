@@ -36,47 +36,44 @@ namespace ET
         /// <summary>
         /// Buff归属的NPSupportId
         /// </summary>
-        [ProtoMember(1)]
-        public long NP_SupportId;
+        [ProtoMember(1)] public long NP_SupportId;
 
         /// <summary>
         /// BuffDataNode的Id
         /// </summary>
-        [ProtoMember(2)]
-        public long BuffNodeId;
+        [ProtoMember(2)] public long BuffNodeId;
+
+        /// <summary>
+        /// BuffData的Id
+        /// </summary>
+        [ProtoMember(9)] public long BuffId;
 
         /// <summary>
         /// Buff的层数
         /// </summary>
-        [ProtoMember(3)]
-        public int BuffLayer;
+        [ProtoMember(3)] public int BuffLayer;
 
         /// <summary>
         /// Buff来源UnitId
         /// </summary>
-        [ProtoMember(4)]
-        public long FromUnitId;
+        [ProtoMember(4)] public long FromUnitId;
 
         /// <summary>
         /// Buff归属UnitId
         /// </summary>
-        [ProtoMember(5)]
-        public long BelongtoUnitId;
+        [ProtoMember(5)] public long BelongtoUnitId;
 
         /// <summary>
         /// Buff归属NP_RuntimeTreeId
         /// </summary>
-        [ProtoMember(6)]
-        public long BelongtoNP_RuntimeTreeId;
+        [ProtoMember(6)] public long BelongtoNP_RuntimeTreeId;
 
         /// <summary>
         /// Buff会被移除的目标帧
         /// </summary>
-        [ProtoMember(7)]
-        public uint BuffMaxLimitFrame;
+        [ProtoMember(7)] public uint BuffMaxLimitFrame;
 
-        [ProtoMember(8)]
-        public BuffOperationType OperationType;
+        [ProtoMember(8)] public BuffOperationType OperationType;
 
         public void Clear()
         {
@@ -106,6 +103,7 @@ namespace ET
             // Note that the base class is not invoked because it is
             // System.Object, which defines Equals as reference equality.
             return this.NP_SupportId == other.NP_SupportId && this.BuffNodeId == other.BuffNodeId &&
+                   this.BuffId == other.BuffId &&
                    this.BuffLayer == other.BuffLayer && this.OperationType == other.OperationType &&
                    this.FromUnitId == other.FromUnitId && this.BelongtoUnitId == other.BelongtoUnitId &&
                    this.BelongtoNP_RuntimeTreeId == other.BelongtoNP_RuntimeTreeId;
@@ -162,8 +160,7 @@ namespace ET
         /// <summary>
         /// 单帧内变化的Buff信息
         /// </summary>
-        [ProtoMember(1)]
-        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
+        [ProtoMember(1)] [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
         public Dictionary<long, BuffSnapInfo> FrameBuffChangeSnap = new Dictionary<long, BuffSnapInfo>();
 
         public bool Check(BuffSnapInfoCollection buffSnapInfoCollectionToCompare)
