@@ -3,6 +3,13 @@
     public interface ILSF_TickHandler
     {
         /// <summary>
+        /// 当前帧Tick开始，可用于做数据准备工作
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="deltaTime"></param>
+        void LSF_TickStart(Entity entity, uint frame, long deltaTime);
+        
+        /// <summary>
         /// 正常Tick
         /// </summary>
         /// <param name="entity"></param>

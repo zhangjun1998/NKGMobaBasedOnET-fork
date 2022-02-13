@@ -2,12 +2,21 @@
 {
     public abstract class ALSF_TickHandler<T> : ILSF_TickHandler where T : Entity
     {
+        public virtual void OnLSF_TickStart(T entity, uint frame, long deltaTime)
+        {
+        }
+        
         public abstract void OnLSF_Tick(T entity, uint currentFrame, long deltaTime);
         
         public virtual void OnLSF_TickEnd(T entity, uint frame, long deltaTime)
         {
         }
-
+        
+        public void LSF_TickStart(Entity entity, uint frame, long deltaTime)
+        {
+            OnLSF_TickStart(entity as T, frame, deltaTime);
+        }
+        
         public void LSF_Tick(Entity entity, uint currentFrame, long deltaTime)
         {
             OnLSF_Tick(entity as T, currentFrame, deltaTime);

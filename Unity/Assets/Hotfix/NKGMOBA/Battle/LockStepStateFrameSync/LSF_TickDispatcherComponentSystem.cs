@@ -59,6 +59,13 @@ namespace ET
         }
 #endif
 
+        public static void HandleLSF_TickStart(this LSF_TickDispatcherComponent self, Entity entity, uint frame, long deltaTime)
+        {
+            if (self.LSF_TickHandlers.TryGetValue(entity.GetType(), out var handler))
+            {
+                handler.LSF_TickStart(entity, frame, deltaTime);
+            }
+        }
 
         public static void HandleLSF_Tick(this LSF_TickDispatcherComponent self, Entity entity, uint currentFrame, long deltaTime)
         {
