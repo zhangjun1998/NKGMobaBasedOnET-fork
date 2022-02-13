@@ -315,24 +315,6 @@ namespace ET
 
 	}
 
-	[Message(OuterOpcode_Map.M2C_ChangeProperty)]
-	[ProtoContract]
-	public partial class M2C_ChangeProperty: Object, IActorMessage
-	{
-		[ProtoMember(1)]
-		public int Error { get; set; }
-
-		[ProtoMember(2)]
-		public long UnitId { get; set; }
-
-		[ProtoMember(3)]
-		public int NumicType { get; set; }
-
-		[ProtoMember(4)]
-		public float FinalValue { get; set; }
-
-	}
-
 	[Message(OuterOpcode_Map.C2M_CastHeroSkill)]
 	[ProtoContract]
 	public partial class C2M_CastHeroSkill: Object, IActorLocationMessage

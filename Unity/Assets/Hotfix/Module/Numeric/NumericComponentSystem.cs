@@ -26,6 +26,11 @@ namespace ET
             Game.EventSystem.Publish(new EventType.NumericApplyChangeValue()
                 {ChangedValue = changedValue, NumericType = numericType, Unit = unit}).Coroutine();
             self[numericType] += changedValue;
+            
+#if SERVER
+            uint currentFrame = self.GetParent<Unit>().BelongToRoom.GetComponent<LSF_Component>().CurrentFrame;
+            self.AttributeChangeFrameSnap[currentFrame][(int)numericType] = changedValue;
+#endif
         }
 
         public static void SetValueWithoutBroadCast(this NumericComponent self, NumericType numericType, float value)

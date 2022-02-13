@@ -142,6 +142,7 @@ namespace ET
                 return;
             }
 
+            // TODO 客户端不进行伤害计算，由服务端发回
             DamageData damageData = ReferencePool.Acquire<DamageData>().InitData(
                 BuffDamageTypes.PhysicalSingle | BuffDamageTypes.CommonAttack,
                 heroDataComponent.GetAttribute(NumericType.Attack), unit, self.CachedUnitForAttack);

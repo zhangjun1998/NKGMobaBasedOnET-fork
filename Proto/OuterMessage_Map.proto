@@ -148,15 +148,6 @@ message M2C_ReceiveDamage // IActorMessage
   float FinalValue = 4;
 }
 
-message M2C_ChangeProperty // IActorMessage
-{
-  int32 Error = 1;
-  int64 UnitId = 2;
-
-  int32 NumicType = 3;
-  float FinalValue = 4;
-}
-
 message C2M_CastHeroSkill // IActorLocationMessage
 {
   int32 RpcId = 90;
