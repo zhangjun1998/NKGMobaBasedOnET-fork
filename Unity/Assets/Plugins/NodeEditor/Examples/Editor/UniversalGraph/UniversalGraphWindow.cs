@@ -1,4 +1,5 @@
 ﻿
+using ET;
 using UnityEngine;
 using UnityEditor;
 using GraphProcessor;
@@ -25,12 +26,12 @@ namespace Plugins.NodeEditor
                 AssetDatabase.LoadAssetAtPath<Texture2D>($"{NodeGraphProcessorPathPrefix}/Editor/Icon_Dark.png"));
             m_HasInitGUIStyles = false;
         }
-    
+
         protected override void InitializeWindow(BaseGraph graph)
         {
             graphView = new UniversalGraphView(this);
-    
             m_MiniMap = new MiniMap() {anchored = true};
+            
             graphView.Add(m_MiniMap);
             
             m_ToolbarView = new UniversalToolbarView(graphView, m_MiniMap, graph);
@@ -54,12 +55,6 @@ namespace Plugins.NodeEditor
             InitGUIStyles(ref m_HasInitGUIStyles);
     
             m_MiniMap?.SetPosition(new Rect(this.position.size.x - 205, this.position.size.y - 205, 200, 200));
-        }
-    
-        protected override void InitializeGraphView(BaseGraphView view)
-        {
-            // graphView.OpenPinned< ExposedParameterView >();
-            // toolbarView.UpdateButtonStatus();
         }
     }
 }
