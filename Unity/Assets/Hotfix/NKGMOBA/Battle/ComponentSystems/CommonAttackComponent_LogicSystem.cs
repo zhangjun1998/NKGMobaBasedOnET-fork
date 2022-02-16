@@ -143,9 +143,10 @@ namespace ET
             }
 
             // TODO 客户端不进行伤害计算，由服务端发回
+#if SERVER
             DamageData damageData = ReferencePool.Acquire<DamageData>().InitData(
-                BuffDamageTypes.PhysicalSingle | BuffDamageTypes.CommonAttack,
-                heroDataComponent.GetAttribute(NumericType.Attack), unit, self.CachedUnitForAttack);
+            BuffDamageTypes.PhysicalSingle | BuffDamageTypes.CommonAttack,
+            heroDataComponent.GetAttribute(NumericType.Attack), unit, self.CachedUnitForAttack);
 
             unit.GetComponent<CastDamageComponent>().BaptismDamageData(damageData);
             float finalDamage = self.CachedUnitForAttack.GetComponent<ReceiveDamageComponent>()
@@ -164,19 +165,21 @@ namespace ET
                 //抛出受伤事件，需要监听受伤的Buff（例如反甲）需要监听此事件
                 battleEventSystemComponent.Run($"TakeDamage{self.CachedUnitForAttack.Id}", damageData);
             }
-
+#endif
+            
             CDComponent.Instance.TriggerCD(unit.Id, "CommonAttack");
             CDInfo commonAttackCDInfo = CDComponent.Instance.GetCDData(unit.Id, "CommonAttack");
             commonAttackCDInfo.Interval = (long) (1 / attackSpeed - attackPre) * 1000;
 
-            List<NP_RuntimeTree> targetSkillCanvas =
-                unit.GetComponent<SkillCanvasManagerComponent>().GetSkillCanvas(10001);
+#if SERVER
+            List<NP_RuntimeTree> targetSkillCanvas = unit.GetComponent<SkillCanvasManagerComponent>().GetSkillCanvas(10001);
             foreach (var skillCanva in targetSkillCanvas)
             {
                 skillCanva.GetBlackboard().Set("CastNormalAttack", true);
                 skillCanva.GetBlackboard().Set("NormalAttackUnitIds", new List<long>() {self.CachedUnitForAttack.Id});
             }
-
+      
+#endif
             await TimerComponent.Instance.WaitAsync(commonAttackCDInfo.Interval, self.CancellationTokenSource);
         }
 

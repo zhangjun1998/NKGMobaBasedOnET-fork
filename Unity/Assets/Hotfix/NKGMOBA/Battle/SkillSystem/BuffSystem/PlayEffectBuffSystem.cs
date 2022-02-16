@@ -18,6 +18,7 @@ namespace ET
                 PlayEffectBuffData = GetBuffDataWithTType, Target = this.GetBuffTarget(),
                 CurrentOverlay = this.CurrentOverlay
             }).Coroutine();
+            Log.Info("Execute播放");
             if (this.BuffData.EventIds != null)
             {
                 foreach (var eventId in this.BuffData.EventIds)
@@ -44,6 +45,7 @@ namespace ET
                 PlayEffectBuffData = GetBuffDataWithTType, Target = this.GetBuffTarget(),
                 CurrentOverlay = this.CurrentOverlay
             }).Coroutine();
+            Log.Info("Refresh播放");
             if (this.BuffData.EventIds != null)
             {
                 foreach (var eventId in this.BuffData.EventIds)
@@ -56,7 +58,7 @@ namespace ET
 #else
         public override void OnExecute(uint currentFrame)
         {
-            throw new System.NotImplementedException();
+
         }
 
 #endif

@@ -35,9 +35,17 @@ namespace ET
             this.TheUnitFrom = theUnitFrom;
             this.TheUnitBelongto = theUnitBelongto;
             this.BuffData = buffData as T;
-            BuffTimerAndOverlayHelper.CalculateTimerAndOverlay(this, currentFrame);
-            this.BuffState = BuffState.Waiting;
-            OnInit(buffData, theUnitFrom, theUnitBelongto, currentFrame);
+            
+            // 如果没加入成功，说明已有同一个Buff，需要进入对象池
+            if (BuffTimerAndOverlayHelper.CalculateTimerAndOverlay(this, currentFrame))
+            {
+                this.BuffState = BuffState.Waiting;
+                OnInit(buffData, theUnitFrom, theUnitBelongto, currentFrame);
+            }
+            else
+            {
+                ReferencePool.Release(this);
+            }
         }
 
         public void Excute(uint currentFrame)

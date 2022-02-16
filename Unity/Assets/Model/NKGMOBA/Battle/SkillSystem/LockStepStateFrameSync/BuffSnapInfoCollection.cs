@@ -106,7 +106,8 @@ namespace ET
                    this.BuffId == other.BuffId &&
                    this.BuffLayer == other.BuffLayer && this.OperationType == other.OperationType &&
                    this.FromUnitId == other.FromUnitId && this.BelongtoUnitId == other.BelongtoUnitId &&
-                   this.BelongtoNP_RuntimeTreeId == other.BelongtoNP_RuntimeTreeId;
+                   this.BelongtoNP_RuntimeTreeId == other.BelongtoNP_RuntimeTreeId &&
+                   this.BuffMaxLimitFrame == other.BuffMaxLimitFrame;
         }
 
         public override bool Equals(object obj)
@@ -212,7 +213,7 @@ namespace ET
                 {
                     if (selfSnap.Value != targetSnap)
                     {
-                        BuffSnapInfo buffSnapInfo = targetSnap.DeepCopy();
+                        BuffSnapInfo buffSnapInfo = selfSnap.Value.DeepCopy();
                         buffSnapInfo.OperationType = BuffSnapInfo.BuffOperationType.CHANGE;
                         result.FrameBuffChangeSnap.Add(buffSnapInfo.BuffNodeId, buffSnapInfo);
                     }

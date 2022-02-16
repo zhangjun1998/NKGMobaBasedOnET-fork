@@ -14,13 +14,15 @@
                             snapInfo.Value.NP_SupportId, snapInfo.Value.BuffNodeId,
                             snapInfo.Value.FromUnitId, snapInfo.Value.BelongtoUnitId, snapInfo.Value.BelongtoNP_RuntimeTreeId);
                         addedBuffSystem.CurrentOverlay = snapInfo.Value.BuffLayer;
+                        if (addedBuffSystem.CurrentOverlay != 1)
+                        {
+                            addedBuffSystem.Refresh(cmd.Frame);
+                        }
                         break;
                     case BuffSnapInfo.BuffOperationType.CHANGE:
                         IBuffSystem changedBuffSystem =
                             unit.GetComponent<BuffManagerComponent>().GetBuffById(snapInfo.Value.BuffId);
-                        changedBuffSystem.CurrentOverlay = snapInfo.Value.BuffLayer;
-                        // 手动刷新
-                        changedBuffSystem.Refresh(cmd.Frame);
+                        BuffTimerAndOverlayHelper.CalculateTimerAndOverlay(changedBuffSystem, cmd.Frame, snapInfo.Value.BuffLayer);
                         break;
                     case BuffSnapInfo.BuffOperationType.REMOVE:
                         unit.BelongToRoom.GetComponent<UnitComponent>().Get(snapInfo.Value.BelongtoUnitId)

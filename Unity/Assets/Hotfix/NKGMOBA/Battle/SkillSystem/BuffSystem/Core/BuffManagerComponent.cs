@@ -9,7 +9,7 @@ using ET;
 
 namespace ET
 {
-    public class BuffManagerComponent: Entity
+    public class BuffManagerComponent : Entity
     {
         /// <summary>
         /// Buff链表
@@ -19,7 +19,8 @@ namespace ET
         /// <summary>
         /// 用于查找的——基于Buff生效方式
         /// </summary>
-        private Dictionary<BuffWorkTypes, IBuffSystem> m_BuffsForFind_BuffWorkType = new Dictionary<BuffWorkTypes, IBuffSystem>();
+        private Dictionary<BuffWorkTypes, IBuffSystem> m_BuffsForFind_BuffWorkType =
+            new Dictionary<BuffWorkTypes, IBuffSystem>();
 
         /// <summary>
         /// 用于查找的——基于Buff的Id
@@ -29,8 +30,11 @@ namespace ET
 
         private LinkedListNode<IBuffSystem> m_Current, m_Next;
 
-        public Dictionary<uint, BuffSnapInfoCollection> BuffSnapInfos_DeltaOnly = new Dictionary<uint, BuffSnapInfoCollection>();
-        public Dictionary<uint, BuffSnapInfoCollection> BuffSnapInfos_Whole = new Dictionary<uint, BuffSnapInfoCollection>();
+        public Dictionary<uint, BuffSnapInfoCollection> BuffSnapInfos_DeltaOnly =
+            new Dictionary<uint, BuffSnapInfoCollection>();
+
+        public Dictionary<uint, BuffSnapInfoCollection> BuffSnapInfos_Whole =
+            new Dictionary<uint, BuffSnapInfoCollection>();
 
         public void FixedUpdate(uint currentFrame)
         {
@@ -166,19 +170,24 @@ namespace ET
             BuffSnapInfoCollection buffSnapInfoCollection = ReferencePool.Acquire<BuffSnapInfoCollection>();
             foreach (var buffSystem in this.m_Buffs)
             {
+                if (!buffSystem.BuffData.NetSyncSpecial)
+                {
+                    continue;
+                }
+
                 BuffSnapInfo buffSnapInfo = ReferencePool.Acquire<BuffSnapInfo>();
                 buffSnapInfo.NP_SupportId = buffSystem.BuffData.BelongToBuffDataSupportorId;
                 buffSnapInfo.BuffNodeId = buffSystem.BuffNodeId;
                 buffSnapInfo.BuffId = buffSystem.BuffData.BuffId;
-                
+
                 buffSnapInfo.BuffLayer = buffSystem.CurrentOverlay;
                 buffSnapInfo.BuffMaxLimitFrame = buffSystem.MaxLimitFrame;
-                
+
                 buffSnapInfo.BelongtoUnitId = buffSystem.GetBuffTarget().Id;
                 buffSnapInfo.FromUnitId = buffSystem.TheUnitFrom.Id;
-                
+
                 buffSnapInfo.BelongtoNP_RuntimeTreeId = buffSystem.BelongtoRuntimeTree.Id;
-                
+
                 buffSnapInfo.OperationType = BuffSnapInfo.BuffOperationType.ADD;
                 buffSnapInfoCollection.FrameBuffChangeSnap[buffSystem.BuffData.BuffId] = buffSnapInfo;
             }
