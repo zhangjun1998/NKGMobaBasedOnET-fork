@@ -7,12 +7,12 @@ namespace ET
     {
         public override bool OnLSF_CheckConsistency(NumericComponent entity, uint frame, ALSF_Cmd stateToCompare)
         {
-            // // 默认本地不进行属性计算，所以每一条属性同步信息都属于不一致的数据
-            // if (stateToCompare is LSF_SyncAttributeCmd)
-            // {
-            //     return false;
-            // }
-            //
+            // 默认本地不进行属性计算，所以每一条属性同步信息都属于不一致的数据
+            if (stateToCompare is LSF_SyncAttributeCmd)
+            {
+                return false;
+            }
+            
             return true;
         }
 

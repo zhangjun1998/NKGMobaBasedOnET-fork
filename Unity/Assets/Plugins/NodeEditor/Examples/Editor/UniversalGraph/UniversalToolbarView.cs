@@ -90,7 +90,7 @@ namespace Plugins.NodeEditor
             AddCustom(() =>
             {
                 GUI.color = new Color(128 / 255f, 128 / 255f, 128 / 255f);
-                GUILayout.Label(m_BaseGraph.GetType().Name,
+                GUILayout.Label($"{m_BaseGraph.GetType().Name}-{m_BaseGraph.name}",
                     EditorGUIStyleHelper.GetGUIStyleByName(nameof(EditorStyles.toolbarButton)));
                 GUI.color = Color.white;
             });
