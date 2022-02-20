@@ -81,8 +81,8 @@ namespace ET
                             -b2SBoxColliderDataStructure.hy + b2SBoxColliderDataStructure.finalOffset.Y));
                         break;
                     case B2S_CircleColliderDataStructure b2SCircleColliderDataStructure:
-                        var step = Mathf.RoundToInt(360 / 12f);
-                        finalVexs = new Vector3[12];
+                        var step = Mathf.RoundToInt(360f / B2S_DebuggerComponent.CircleDrawPointCount);
+                        finalVexs = new Vector3[B2S_DebuggerComponent.CircleDrawPointCount + 1];
                         for (int i = 0; i <= 360; i += step)
                         {
                             finalVexs[i / step] = transformMatrix4X4.MultiplyPoint(new Vector3(
@@ -153,7 +153,7 @@ namespace ET
                         -b2SBoxColliderDataStructure.hy + b2SBoxColliderDataStructure.finalOffset.Y));
                     break;
                 case B2S_CircleColliderDataStructure b2SCircleColliderDataStructure:
-                    var step = Mathf.RoundToInt(360 / 12f);
+                    var step = Mathf.RoundToInt(360f / B2S_DebuggerComponent.CircleDrawPointCount);
                     for (int i = 0; i <= 360; i += step)
                     {
                         finalVexs[i / step] = transformMatrix4X4.MultiplyPoint(new Vector3(

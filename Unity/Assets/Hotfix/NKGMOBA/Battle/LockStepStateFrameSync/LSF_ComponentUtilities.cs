@@ -78,7 +78,7 @@ namespace ET
                         }
                     }
                 }
-
+                
                 if (shouldRollback)
                 {
                     self.IsInChaseFrameState = true;
@@ -101,7 +101,7 @@ namespace ET
                     //Log.Error("收到服务器回包后发现模拟的结果与服务器不一致，即需要强行回滚，则回滚，然后开始追帧");
                     // 注意这里追帧到当前已抵达帧的前一帧，因为最后有一步self.LSF_TickManually();用于当前帧Tick，不属于追帧的范围
                     int count = (int) self.CurrentArrivedFrame - 1 - (int) self.CurrentFrame;
-
+                    
                     while (count-- >= 0)
                     {
                         self.LSF_TickManually();
@@ -123,9 +123,7 @@ namespace ET
                         }
                     }
                 }
-
-                // TODO 不能直接清，因为类似寻路这种指令，并不是每帧都在发起，比如在70帧发起了一次寻路，这个寻路过程一直持续到90帧，在此期间的不同步都需要使用这个70帧发起的指令
-                // TODO 清空这一帧的玩家输入缓冲区，因为这一帧我们已经确保本地与服务器状态一致了
+                
                 // self.PlayerInputCmdsBuffer.Remove(targetFrame);
                 // Log.Info($"rrrrrrrrrrr 移除第{targetFrame}本地数据");
             }
@@ -153,20 +151,13 @@ namespace ET
         private static void LSF_TickManually(this LSF_Component self)
         {
 #if !SERVER
-            Queue<ALSF_Cmd> lastValidCmds = null;
+            Queue<ALSF_Cmd> validCmds = null;
+            
+            self.PlayerInputCmdsBuffer.TryGetValue(self.CurrentFrame, out validCmds);
 
-            if (self.IsInChaseFrameState)
+            if (validCmds != null)
             {
-                lastValidCmds = self.GetLastPlayerInputValidCmd();
-            }
-            else
-            {
-                self.PlayerInputCmdsBuffer.TryGetValue(self.CurrentFrame, out lastValidCmds);
-            }
-
-            if (lastValidCmds != null)
-            {
-                foreach (var cmd in lastValidCmds)
+                foreach (var cmd in validCmds)
                 {
                     //处理用户输入缓冲区中的指令，用于预测
                     //Log.Info($"------------第{self.CurrentFrame}帧处理用户输入缓冲区指令");
@@ -178,11 +169,11 @@ namespace ET
             // LSFTick Room，tick room的相关组件, 然后由Room去Tick其子组件，即此处是战斗的Tick起点
             self.GetParent<Room>().GetComponent<LSF_TickComponent>()
                 ?.TickStart(self.CurrentFrame, GlobalDefine.FixedUpdateTargetDTTime_Long);
-            
+
             // LSFTick Room，tick room的相关组件, 然后由Room去Tick其子组件，即此处是战斗的Tick起点
             self.GetParent<Room>().GetComponent<LSF_TickComponent>()
                 ?.Tick(self.CurrentFrame, GlobalDefine.FixedUpdateTargetDTTime_Long);
-            
+
             // 所有Tick结束后，一些数据收集工作，比如收集快照信息（对于服务端来说，每个玩家都要记录，而对于客户端来说，只需要记录本地玩家即可，因为只有本地玩家进行了预测）
             self.GetParent<Room>().GetComponent<LSF_TickComponent>()
                 ?.TickEnd(self.CurrentFrame, GlobalDefine.FixedUpdateTargetDTTime_Long);
@@ -340,7 +331,7 @@ namespace ET
             uint messageFrame)
         {
             self.ServerCurrentFrame = messageFrame + TimeAndFrameConverter.Frame_Long2Frame(
-                                          TimeHelper.ClientNow() - serverTimeSnap);
+                TimeHelper.ClientNow() - serverTimeSnap);
             self.CurrentAheadOfFrame = (int) (self.CurrentFrame - self.ServerCurrentFrame);
 
             //Log.Info($"刷新服务端CurrentFrame成功：{self.ServerCurrentFrame} ---- {TimeHelper.ClientNow()}");
@@ -369,28 +360,6 @@ namespace ET
         }
 
         /// <summary>
-        /// 获取最近的有效输入
-        /// </summary>
-        /// <returns></returns>
-        public static Queue<ALSF_Cmd> GetLastPlayerInputValidCmd(this LSF_Component self)
-        {
-            uint frame = self.CurrentFrame;
-            while (frame >= 1 && self.PlayerInputCmdsBuffer.Count > 0 && !self.PlayerInputCmdsBuffer.ContainsKey(frame))
-            {
-                frame--;
-            }
-
-            if (self.PlayerInputCmdsBuffer.TryGetValue(frame, out var queue))
-            {
-                //Log.Info($"在第{self.CurrentFrame}帧从用户输入缓冲区获取第{frame}帧数据");
-                return queue;
-            }
-            //Log.Info($"在第{self.CurrentFrame}帧从用户输入缓冲区获取第{frame}帧数据, 失败");
-
-            return null;
-        }
-        
-        /// <summary>
         /// 在本地玩家的输入缓冲区寻找某个指令
         /// </summary>
         /// <returns></returns>
@@ -400,9 +369,9 @@ namespace ET
             {
                 return queue.Contains(cmd);
             }
+
             return false;
         }
-
 
         /// <summary>
         /// 客户端处理异常的网络状况

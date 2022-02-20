@@ -35,7 +35,8 @@ namespace ET
         {
 #if SERVER 
             Vector3 randomTarget = new Vector3(RandomHelper.RandomNumber(this.XMin, this.XMax), 0, RandomHelper.RandomNumber(this.YMin, this.YMax));
-            LSF_PathFindCmd lsfPathFindCmd = ReferencePool.Acquire<LSF_PathFindCmd>().Init(this.BelongToUnit.Id) as LSF_PathFindCmd;
+            LSF_MoveCmd lsfPathFindCmd = ReferencePool.Acquire<LSF_MoveCmd>().Init(this.BelongToUnit.Id) as LSF_MoveCmd;
+            lsfPathFindCmd.IsMoveStartCmd = true;
             lsfPathFindCmd.PosX = randomTarget.x;
             lsfPathFindCmd.PosY = randomTarget.y;
             lsfPathFindCmd.PosZ = randomTarget.z;

@@ -18,12 +18,6 @@ namespace ET
     {
         public override bool OnLSF_CheckConsistency(MoveComponent entity, uint frame, ALSF_Cmd stateToCompare)
         {
-            if (stateToCompare is LSF_PathFindCmd pathFindCmd)
-            {
-                pathFindCmd.HasHandled = true;
-                return true;
-            }
-            
             LSF_MoveCmd serverMoveState = stateToCompare as LSF_MoveCmd;
 
             if (serverMoveState == null)
@@ -52,7 +46,7 @@ namespace ET
 
             return false;
         }
-        
+
         public override void OnLSF_TickEnd(MoveComponent entity, uint frame, long deltaTime)
         {
             Unit unit = entity.GetParent<Unit>();
@@ -76,7 +70,7 @@ namespace ET
 
             entity.HistroyMoveStates[lsfComponent.CurrentFrame] = lsfMoveCmd;
 
-#if SERVER 
+#if SERVER
             // 只有数据脏了才进行发送
             if (!this.OnLSF_CheckConsistency(entity, lsfComponent.CurrentFrame - 1, lsfMoveCmd))
             {
@@ -85,7 +79,7 @@ namespace ET
             else
             {
                 lsfComponent.AddCmdsToWholeCmdsBuffer(ref lsfMoveCmd);
-            }  
+            }
 #endif
         }
 
@@ -99,7 +93,7 @@ namespace ET
             {
                 return;
             }
-            
+
             Unit unit = entity.GetParent<Unit>();
 
             entity.Stop();
@@ -123,6 +117,30 @@ namespace ET
         public override void OnLSF_Tick(MoveComponent entity, uint currentFrame, long deltaTime)
         {
             Unit unit = entity.GetParent<Unit>();
+
+#if !SERVER
+            // 如果发现当前帧已经有记录，说明这次Tick正在追帧，进行特殊处理
+            if (entity.HistroyMoveStates.TryGetValue(currentFrame, out var histroy))
+            {
+                uint currentFrameTemp = currentFrame;
+                
+                while (currentFrameTemp > 0)
+                {
+                    if (entity.HistroyMoveStates.TryGetValue(currentFrameTemp, out var histroyResult))
+                    {
+                        if (histroyResult.IsMoveStartCmd)
+                        {
+                            IdleState idleState = ReferencePool.Acquire<IdleState>();
+                            idleState.SetData(StateTypes.Idle, "Idle", 1);
+                            unit.NavigateTodoSomething(new Vector3(histroy.PosX, histroy.PosY, histroy.PosZ), 0, idleState).Coroutine();
+                            break;
+                        }
+                    }
+                    
+                    currentFrameTemp--;
+                }
+            }
+#endif
 
             if (entity.ShouldMove)
             {

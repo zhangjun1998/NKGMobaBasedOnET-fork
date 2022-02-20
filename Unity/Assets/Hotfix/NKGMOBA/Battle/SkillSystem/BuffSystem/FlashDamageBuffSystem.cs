@@ -27,7 +27,7 @@ namespace ET
             this.TheUnitFrom.GetComponent<CastDamageComponent>().BaptismDamageData(damageData);
 
             float finalDamage =
-                this.TheUnitBelongto.GetComponent<ReceiveDamageComponent>().BaptismDamageData(damageData);
+                this.GetBuffTarget().GetComponent<ReceiveDamageComponent>().BaptismDamageData(damageData);
             
             if (finalDamage >= 0)
             {
@@ -52,7 +52,7 @@ namespace ET
 #else
         public override void OnExecute(uint currentFrame)
         {
-            throw new NotImplementedException();
+
         }
 #endif
     }

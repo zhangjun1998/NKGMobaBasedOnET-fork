@@ -7,13 +7,21 @@ namespace ET
     {
         protected override async ETVoid Run(Unit unit, LSF_MoveCmd cmd)
         {
-            Vector3 pos = new Vector3(cmd.PosX, cmd.PosY, cmd.PosZ);
+            Vector3 target = new Vector3(cmd.PosX, cmd.PosY, cmd.PosZ);
+
+            if (cmd.IsMoveStartCmd)
+            {
+                IdleState idleState = ReferencePool.Acquire<IdleState>();
+                idleState.SetData(StateTypes.Idle, "Idle", 1);
+                unit.NavigateTodoSomething(target, 0, idleState).Coroutine();
+            }
+
 #if !SERVER
-            Log.Info($"Current : {unit.Position.ToString("#0.0000")} Server : {pos.ToString("#0.0000")} ServerFrame: {unit.BelongToRoom.GetComponent<LSF_Component>().ServerCurrentFrame}");
+            Log.Info($"Current : {unit.Position.ToString("#0.0000")} Server : {target.ToString("#0.0000")} ServerFrame: {unit.BelongToRoom.GetComponent<LSF_Component>().ServerCurrentFrame}");
 #endif
 
             Quaternion rotation = new Quaternion(cmd.RotA, cmd.RotB, cmd.RotC, cmd.RotW);
-            unit.Position = pos;
+            unit.Position = target;
 
             unit.Rotation = rotation;
 

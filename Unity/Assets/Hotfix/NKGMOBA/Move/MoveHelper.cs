@@ -38,9 +38,10 @@ namespace ET
         
         public static void SendPathFindCmd(this Unit unit, Vector3 targetPoint)
         {
-            LSF_PathFindCmd pathFindCmd =
-                ReferencePool.Acquire<LSF_PathFindCmd>().Init(unit.Id) as LSF_PathFindCmd;
+            LSF_MoveCmd pathFindCmd =
+                ReferencePool.Acquire<LSF_MoveCmd>().Init(unit.Id) as LSF_MoveCmd;
 
+            pathFindCmd.IsMoveStartCmd = true;
             pathFindCmd.PosX = targetPoint.x;
             pathFindCmd.PosY = targetPoint.y;
             pathFindCmd.PosZ = targetPoint.z;

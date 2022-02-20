@@ -24,6 +24,11 @@ namespace ET
         public GameObject GoSupportor;
 
         public List<Unit> TobeRemovedProcessors = new List<Unit>();
+
+        /// <summary>
+        /// 用于绘制圆形的点数量
+        /// </summary>
+        public static int CircleDrawPointCount = 30;
     }
 #endif
 }

@@ -8,6 +8,10 @@ namespace ET
     {
         public const uint CmdType = LSF_CmdType.Move;
 
+        /// <summary>
+        /// 这个指令是否为寻路开始的指令
+        /// </summary>
+        [ProtoMember(1)] public bool IsMoveStartCmd;
         [ProtoMember(2)] public float PosX;
         [ProtoMember(3)] public float PosY;
         [ProtoMember(4)] public float PosZ;
@@ -19,7 +23,7 @@ namespace ET
 
         [ProtoMember(9)] public float Speed;
         [ProtoMember(10)] public bool IsStopped;
-        
+
         public override ALSF_Cmd Init(long unitId)
         {
             this.LockStepStateFrameSyncDataType = CmdType;
@@ -38,6 +42,11 @@ namespace ET
             }
             
             if (Mathf.Abs(lsfMoveCmd.PosZ - this.PosZ) > 0.001f)
+            {
+                return false;
+            }
+            
+            if (lsfMoveCmd.IsMoveStartCmd != this.IsMoveStartCmd)
             {
                 return false;
             }
@@ -62,6 +71,7 @@ namespace ET
             RotW = 0;
             Speed = 0;
             IsStopped = false;
+            IsMoveStartCmd = false;
             Frame = 0;
         }
     }

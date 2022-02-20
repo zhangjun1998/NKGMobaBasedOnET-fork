@@ -66,11 +66,14 @@ namespace ET
                 .Get(CollisionsRelationSupportIdInExcel)
                 .B2S_ColliderConfigId;
 
+            float angle = !this.FollowUnitRot
+                ? Angle.GetBlackBoardValue<float>(this.BelongtoRuntimeTree.GetBlackboard())
+                : 0;
+
             Unit colliderUnit = UnitFactory
                 .CreateSpecialColliderUnit(BelongToUnit.BelongToRoom, BelongToUnit, colliderDataConfigId,
                     CollisionsRelationSupportIdInExcel, ColliderNPBehaveTreeIdInExcel, FollowUnitPos, FollowUnitRot,
-                    Offset, TargetPos,
-                    Angle.GetBlackBoardValue<float>(this.BelongtoRuntimeTree.GetBlackboard()));
+                    Offset, TargetPos, angle);
 
             // 让客户端创建独特的Unit，用于承载行为树同步
             LSF_CreateColliderCmd lsfCreateColliderCmd =
@@ -79,7 +82,7 @@ namespace ET
             lsfCreateColliderCmd.BelongtoUnitId = BelongToUnit.Id;
             lsfCreateColliderCmd.CollisionsRelationSupportIdInExcel = CollisionsRelationSupportIdInExcel;
             lsfCreateColliderCmd.ColliderNPBehaveTreeIdInExcel = ColliderNPBehaveTreeIdInExcel;
-            lsfCreateColliderCmd.Angle = Angle.GetBlackBoardValue<float>(this.BelongtoRuntimeTree.GetBlackboard());
+            lsfCreateColliderCmd.Angle = angle;
             lsfCreateColliderCmd.OffsetX = Offset.x;
             lsfCreateColliderCmd.OffsetZ = Offset.z;
             lsfCreateColliderCmd.TargetPosX = TargetPos.x;

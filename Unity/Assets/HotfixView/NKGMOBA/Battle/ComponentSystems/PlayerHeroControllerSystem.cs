@@ -13,6 +13,7 @@ namespace ET
                 Unit unit = self.GetParent<Unit>();
                 LSF_PlaySkillInputCmd lsfPlaySkillInputCmd = ReferencePool.Acquire<LSF_PlaySkillInputCmd>();
                 lsfPlaySkillInputCmd.Init(unit.Id);
+                lsfPlaySkillInputCmd.InputTag = "PlayerInput";
                 lsfPlaySkillInputCmd.InputKey = "Q";
                 unit.BelongToRoom.GetComponent<LSF_Component>().AddCmdToSendQueue(lsfPlaySkillInputCmd);
             }
@@ -22,6 +23,7 @@ namespace ET
                 Unit unit = self.GetParent<Unit>();
                 LSF_PlaySkillInputCmd lsfPlaySkillInputCmd = ReferencePool.Acquire<LSF_PlaySkillInputCmd>();
                 lsfPlaySkillInputCmd.Init(unit.Id);
+                lsfPlaySkillInputCmd.InputTag = "PlayerInput";
                 lsfPlaySkillInputCmd.InputKey = "W";
                 unit.BelongToRoom.GetComponent<LSF_Component>().AddCmdToSendQueue(lsfPlaySkillInputCmd);
             }

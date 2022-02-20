@@ -4,7 +4,7 @@
     {
         //----------通用模块，1~100
         public const uint Move = 1;
-        public const uint PathFind = 2;
+        //public const uint PathFind = 2;
         public const uint CreateSpiling = 3;
         public const uint CommonAttack = 4;
         public const uint SyncFSMState = 5;

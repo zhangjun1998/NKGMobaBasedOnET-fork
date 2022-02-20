@@ -62,6 +62,12 @@ namespace ET
         private void PlayAnimation()
         {
 #if !SERVER
+            // TODO 说明上次动画节点的动画尚未播放完毕，所以就忽略这次重复的播放，这块逻辑应当放在Timeline中处理
+            if (m_Flag != 0)
+            {
+                return;
+            }
+
             m_Flag = 0;
             HandlePlayAnim(NodeDataForPlayAnims[this.m_Flag].StateTypes,
                 NodeDataForPlayAnims[this.m_Flag].OccAvatarMaskType, NodeDataForPlayAnims[this.m_Flag].FadeOutTime);
