@@ -108,7 +108,8 @@ namespace ET
                 blackboard.Set("NormalAttackUnitIds", new List<long>() {self.CachedUnitForAttack.Id});
 
                 CDInfo commonAttackCDInfo = CDComponent.Instance.GetCDData(unit.Id, "CommonAttack");
-                await TimerComponent.Instance.WaitAsync(commonAttackCDInfo.Interval, self.CancellationTokenSource);
+                await self.GetParent<Unit>().BelongToRoom.GetComponent<LSF_TimerComponent>()
+                    .WaitAsync(commonAttackCDInfo.Interval, self.CancellationTokenSource);
             }
             else
             {
@@ -137,7 +138,8 @@ namespace ET
 #endif
 
             //播放动画，如果动画播放完成还不能进行下一次普攻，则播放空闲动画
-            if (!await TimerComponent.Instance.WaitAsync((long) (attackPre * 1000), self.CancellationTokenSource))
+            if (!await self.GetParent<Unit>().BelongToRoom.GetComponent<LSF_TimerComponent>()
+                .WaitAsync((long) (attackPre * 1000), self.CancellationTokenSource))
             {
                 return;
             }
@@ -166,21 +168,23 @@ namespace ET
                 battleEventSystemComponent.Run($"TakeDamage{self.CachedUnitForAttack.Id}", damageData);
             }
 #endif
-            
+
             CDComponent.Instance.TriggerCD(unit.Id, "CommonAttack");
             CDInfo commonAttackCDInfo = CDComponent.Instance.GetCDData(unit.Id, "CommonAttack");
             commonAttackCDInfo.Interval = (long) (1 / attackSpeed - attackPre) * 1000;
 
 #if SERVER
-            List<NP_RuntimeTree> targetSkillCanvas = unit.GetComponent<SkillCanvasManagerComponent>().GetSkillCanvas(10001);
+            List<NP_RuntimeTree> targetSkillCanvas =
+ unit.GetComponent<SkillCanvasManagerComponent>().GetSkillCanvas(10001);
             foreach (var skillCanva in targetSkillCanvas)
             {
                 skillCanva.GetBlackboard().Set("CastNormalAttack", true);
                 skillCanva.GetBlackboard().Set("NormalAttackUnitIds", new List<long>() {self.CachedUnitForAttack.Id});
             }
-      
+
 #endif
-            await TimerComponent.Instance.WaitAsync(commonAttackCDInfo.Interval, self.CancellationTokenSource);
+            await self.GetParent<Unit>().BelongToRoom.GetComponent<LSF_TimerComponent>()
+                .WaitAsync(commonAttackCDInfo.Interval, self.CancellationTokenSource);
         }
 
         public static void FixedUpdate(this CommonAttackComponent_Logic self)
