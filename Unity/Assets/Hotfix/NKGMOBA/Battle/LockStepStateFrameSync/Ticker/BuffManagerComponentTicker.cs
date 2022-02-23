@@ -23,7 +23,7 @@ namespace ET
                 return true;
             }
 
-            stateToCompare.HasHandled = true;
+            stateToCompare.HasCheckConsistency = true;
 
             if (entity.BuffSnapInfos_DeltaOnly.TryGetValue(frame, out var localDeltaSnaps))
             {
