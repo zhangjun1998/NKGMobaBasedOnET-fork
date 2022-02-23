@@ -18,7 +18,7 @@ namespace ET
         {
             if (stateToCompare is LSF_PlaySkillInputCmd skillInputCmd)
             {
-                skillInputCmd.HasHandled = true;
+                skillInputCmd.HasCheckConsistency = true;
                 return true;
             }
             
@@ -29,7 +29,7 @@ namespace ET
                 return true;
             }
 
-            stateToCompare.HasHandled = true;
+            stateToCompare.HasCheckConsistency = true;
 
             if (entity.FrameSnaps_DeltaOnly.TryGetValue(frame, out var localDeltaSnaps))
             {

@@ -47,6 +47,14 @@ namespace ET
         /// <returns></returns>
         public Blackboard GetBlackboard()
         {
+            if (m_RootNode == null)
+            {
+                Log.Error($"行为树{this.Id}的根节点为空");
+            }
+            if (m_RootNode.blackboard == null)
+            {
+                Log.Error($"行为树{this.Id}的黑板实例为空");
+            }
             return this.m_RootNode.Blackboard;
         }
 

@@ -18,25 +18,34 @@ namespace Plugins.NodeEditor
 {
     public class SkillGraph : NPBehaveGraph
     {
-        [BoxGroup("此技能树数据载体")] [DisableInEditorMode]
-        public NP_DataSupportor SkillDataSupportor = new NP_DataSupportor();
+        [BoxGroup("此技能树数据载体(客户端)")] [DisableInEditorMode]
+        public NP_DataSupportor SkillDataSupportor_Client = new NP_DataSupportor();
 
-        [BoxGroup("技能树反序列化测试")] [DisableInEditorMode]
-        public NP_DataSupportor SkillDataSupportor1 = new NP_DataSupportor();
+        [BoxGroup("技能树反序列化测试(客户端)")] [DisableInEditorMode]
+        public NP_DataSupportor SkillDataSupportor_Client_Des = new NP_DataSupportor();
+
+        [BoxGroup("此技能树数据载体(服务端)")] [DisableInEditorMode]
+        public NP_DataSupportor SkillDataSupportor_Server = new NP_DataSupportor();
+
+        [BoxGroup("技能树反序列化测试(服务端)")] [DisableInEditorMode]
+        public NP_DataSupportor SkillDataSupportor_ServerDes = new NP_DataSupportor();
 
         [Button("自动配置所有技能结点数据", 25), GUIColor(0.4f, 0.8f, 1)]
         public void AutoSetCanvasDatas()
         {
             this.OnGraphEnable();
             base.AutoSetCanvasDatas();
-            SkillDataSupportor.NpDataSupportorBase = this.NpDataSupportor;
-            this.AutoSetSkillData_NodeData();
+            SkillDataSupportor_Server.NpDataSupportorBase = this.NpDataSupportor_Server;
+            SkillDataSupportor_Client.NpDataSupportorBase = this.NpDataSupportor_Client;
+            this.AutoSetSkillData_NodeData(SkillDataSupportor_Server);
+            this.AutoSetSkillData_NodeData(SkillDataSupportor_Client);
         }
 
         [Button("保存技能树信息为二进制文件", 25), GUIColor(0.4f, 0.8f, 1)]
         public void Save()
         {
-            if (string.IsNullOrEmpty(SavePathServer) || string.IsNullOrEmpty(SavePathClient) || string.IsNullOrEmpty(Name))
+            if (string.IsNullOrEmpty(SavePathServer) || string.IsNullOrEmpty(SavePathClient) ||
+                string.IsNullOrEmpty(Name))
             {
                 Log.Error($"保存路径或文件名不能为空，请检查配置");
                 return;
@@ -44,28 +53,31 @@ namespace Plugins.NodeEditor
 
             using (FileStream file = File.Create($"{SavePathServer}/{this.Name}.bytes"))
             {
-                BsonSerializer.Serialize(new BsonBinaryWriter(file), SkillDataSupportor);
+                BsonSerializer.Serialize(new BsonBinaryWriter(file), SkillDataSupportor_Server);
             }
-            
-            if (File.Exists($"{SavePathClient}/{this.Name}.bytes"))
+
+            using (FileStream file = File.Create($"{SavePathClient}/{this.Name}.bytes"))
             {
-                File.Delete($"{SavePathClient}/{this.Name}.bytes");
+                BsonSerializer.Serialize(new BsonBinaryWriter(file), SkillDataSupportor_Client);
             }
-            
-            File.Copy($"{SavePathServer}/{this.Name}.bytes", $"{SavePathClient}/{this.Name}.bytes", true);
+
             Log.Info($"保存 {SavePathServer}/{this.Name}.bytes {SavePathClient}/{this.Name}.bytes 成功");
         }
 
         [Button("测试技能树反序列化", 25), GUIColor(0.4f, 0.8f, 1)]
         public void TestDe()
         {
-            byte[] mfile = File.ReadAllBytes($"{SavePathServer}/{this.Name}.bytes");
-
-            if (mfile.Length == 0) Log.Info("没有读取到文件");
             try
             {
-                SkillDataSupportor1 = BsonSerializer.Deserialize<NP_DataSupportor>(mfile);
-                this.NpDataSupportor1 = SkillDataSupportor1.NpDataSupportorBase;
+                byte[] mServerfile = File.ReadAllBytes($"{SavePathServer}/{this.Name}.bytes");
+                if (mServerfile.Length == 0) Log.Info("没有读取到文件");
+                SkillDataSupportor_ServerDes = BsonSerializer.Deserialize<NP_DataSupportor>(mServerfile);
+                Log.Info($"反序列化 {SavePathServer}/{this.Name}.bytes 成功");
+
+                byte[] mClientfile = File.ReadAllBytes($"{SavePathClient}/{this.Name}.bytes");
+                if (mClientfile.Length == 0) Log.Info("没有读取到文件");
+                SkillDataSupportor_Client_Des = BsonSerializer.Deserialize<NP_DataSupportor>(mClientfile);
+                Log.Info($"反序列化 {SavePathClient}/{this.Name}.bytes 成功");
             }
             catch (Exception e)
             {
@@ -74,10 +86,10 @@ namespace Plugins.NodeEditor
             }
         }
 
-        private void AutoSetSkillData_NodeData()
+        private void AutoSetSkillData_NodeData(NP_DataSupportor npDataSupportor)
         {
-            if (SkillDataSupportor.BuffNodeDataDic == null) return;
-            SkillDataSupportor.BuffNodeDataDic.Clear();
+            if (npDataSupportor.BuffNodeDataDic == null) return;
+            npDataSupportor.BuffNodeDataDic.Clear();
 
             foreach (var node in this.nodes)
             {
@@ -88,10 +100,10 @@ namespace Plugins.NodeEditor
                     if (buffNodeDataBase is NormalBuffNodeData normalBuffNodeData)
                     {
                         normalBuffNodeData.BuffData.BelongToBuffDataSupportorId =
-                            this.SkillDataSupportor.NpDataSupportorBase.NPBehaveTreeDataId;
+                            npDataSupportor.NpDataSupportorBase.NPBehaveTreeDataId;
                     }
 
-                    this.SkillDataSupportor.BuffNodeDataDic.Add(buffNodeDataBase.NodeId.Value, buffNodeDataBase);
+                    npDataSupportor.BuffNodeDataDic.Add(buffNodeDataBase.NodeId.Value, buffNodeDataBase);
                 }
             }
         }
