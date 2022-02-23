@@ -16,9 +16,9 @@ namespace ET
         public long UnitId;
 
         /// <summary>
-        /// 这条指令是否已经被处理过了
+        /// 这条指令是否已经被检测过一致性
         /// </summary>
-        public bool HasHandled;
+        public bool HasCheckConsistency;
 
         public abstract ALSF_Cmd Init(long unitId);
         

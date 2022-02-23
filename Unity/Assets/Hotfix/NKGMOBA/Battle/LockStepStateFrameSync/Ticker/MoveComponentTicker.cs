@@ -25,7 +25,7 @@ namespace ET
                 return true;
             }
 
-            stateToCompare.HasHandled = true;
+            stateToCompare.HasCheckConsistency = true;
             if (entity.HistroyMoveStates.TryGetValue(frame, out var histroyState))
             {
                 bool result = serverMoveState.CheckConsistency(histroyState);

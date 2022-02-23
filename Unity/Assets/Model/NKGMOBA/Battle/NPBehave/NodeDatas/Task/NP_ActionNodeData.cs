@@ -14,7 +14,7 @@ namespace ET
     public class NP_ActionNodeData : NP_NodeDataBase
     {
         [HideInEditorMode] private Action m_ActionNode;
-        
+
         public NP_ClassForStoreAction NpClassForStoreAction;
 
         public override Task CreateTask(Unit unit, NP_RuntimeTree runtimeTree)
