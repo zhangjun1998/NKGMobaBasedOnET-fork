@@ -32,8 +32,8 @@ namespace ET
 
                 if (!result)
                 {
-                    // Log.Error(
-                    //     $"---来自MoveComponent的不一致：服务端 {serverMoveState.Frame} X：{serverMoveState.PosX} Y: {serverMoveState.PosY} Z: {serverMoveState.PosZ}\n客户端：{frame} X：{histroyState.PosX} Y: {histroyState.PosY} Z: {histroyState.PosZ}");
+                    Log.Error(
+                        $"---来自MoveComponent的不一致：服务端 {serverMoveState.Frame} X：{serverMoveState.PosX} Y: {serverMoveState.PosY} Z: {serverMoveState.PosZ}\n客户端：{frame} X：{histroyState.PosX} Y: {histroyState.PosY} Z: {histroyState.PosZ}");
                 }
                 else
                 {
@@ -119,24 +119,35 @@ namespace ET
             Unit unit = entity.GetParent<Unit>();
 
 #if !SERVER
-            // 如果发现当前帧已经有记录，说明这次Tick正在追帧，进行特殊处理
-            if (entity.HistroyMoveStates.TryGetValue(currentFrame, out var histroy))
+            LSF_Component lsfComponent = entity.GetParent<Unit>().BelongToRoom.GetComponent<LSF_Component>();
+            // 如果Tick正在追帧，进行特殊处理
+            if (lsfComponent.IsInChaseFrameState)
             {
                 uint currentFrameTemp = currentFrame;
-                
+
                 while (currentFrameTemp > 0)
                 {
-                    if (entity.HistroyMoveStates.TryGetValue(currentFrameTemp, out var histroyResult))
+                    bool hasHandled = false;
+                    if (lsfComponent.PlayerInputCmdsBuffer.TryGetValue(currentFrameTemp, out var cmds))
                     {
-                        if (histroyResult.IsMoveStartCmd)
+                        foreach (var cmd in cmds)
                         {
-                            IdleState idleState = ReferencePool.Acquire<IdleState>();
-                            idleState.SetData(StateTypes.Idle, "Idle", 1);
-                            unit.NavigateTodoSomething(new Vector3(histroy.PosX, histroy.PosY, histroy.PosZ), 0, idleState).Coroutine();
-                            break;
+                            if (cmd is LSF_MoveCmd lsfMoveCmd && lsfMoveCmd.IsMoveStartCmd)
+                            {
+                                IdleState idleState = ReferencePool.Acquire<IdleState>();
+                                idleState.SetData(StateTypes.Idle, "Idle", 1);
+                                unit.NavigateTodoSomething(new Vector3(lsfMoveCmd.PosX, lsfMoveCmd.PosY, lsfMoveCmd.PosZ), 0,
+                                    idleState).Coroutine();
+                                hasHandled = true;
+                                break;
+                            }
                         }
                     }
-                    
+
+                    if (hasHandled)
+                    {
+                        break;
+                    }
                     currentFrameTemp--;
                 }
             }
