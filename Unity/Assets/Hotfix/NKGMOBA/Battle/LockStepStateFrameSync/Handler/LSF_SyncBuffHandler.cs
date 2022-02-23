@@ -10,19 +10,32 @@
                 switch (snapInfo.Value.OperationType)
                 {
                     case BuffSnapInfo.BuffOperationType.ADD:
-                        IBuffSystem addedBuffSystem = BuffFactory.AcquireBuff(unit.BelongToRoom,
-                            snapInfo.Value.NP_SupportId, snapInfo.Value.BuffNodeId,
-                            snapInfo.Value.FromUnitId, snapInfo.Value.BelongtoUnitId, snapInfo.Value.BelongtoNP_RuntimeTreeId);
-                        addedBuffSystem.CurrentOverlay = snapInfo.Value.BuffLayer;
-                        if (addedBuffSystem.CurrentOverlay != 1)
+                        // 有可能同步的Buff信息来自远程玩家，即本地可能已经对其进行了Buff添加操作
+                        IBuffSystem tobeAddedBuffSystem =
+                            unit.GetComponent<BuffManagerComponent>().GetBuffById(snapInfo.Value.BuffId);
+                        if (tobeAddedBuffSystem == null)
                         {
-                            addedBuffSystem.Refresh(cmd.Frame);
+                            tobeAddedBuffSystem = BuffFactory.AcquireBuff(unit.BelongToRoom,
+                                snapInfo.Value.NP_SupportId, snapInfo.Value.BuffNodeId,
+                                snapInfo.Value.FromUnitId, snapInfo.Value.BelongtoUnitId,
+                                snapInfo.Value.BelongtoNP_RuntimeTreeId);
                         }
+
+                        tobeAddedBuffSystem.CurrentOverlay = snapInfo.Value.BuffLayer;
+                        if (tobeAddedBuffSystem.CurrentOverlay != 1)
+                        {
+                            tobeAddedBuffSystem.Refresh(cmd.Frame);
+                        }
+
                         break;
                     case BuffSnapInfo.BuffOperationType.CHANGE:
                         IBuffSystem changedBuffSystem =
                             unit.GetComponent<BuffManagerComponent>().GetBuffById(snapInfo.Value.BuffId);
-                        BuffTimerAndOverlayHelper.CalculateTimerAndOverlay(changedBuffSystem, cmd.Frame, snapInfo.Value.BuffLayer);
+                        if (changedBuffSystem.CurrentOverlay != snapInfo.Value.BuffLayer || changedBuffSystem.MaxLimitFrame != snapInfo.Value.BuffMaxLimitFrame)
+                        {
+                            BuffTimerAndOverlayHelper.CalculateTimerAndOverlay(changedBuffSystem, cmd.Frame,
+                                snapInfo.Value.BuffLayer);
+                        }
                         break;
                     case BuffSnapInfo.BuffOperationType.REMOVE:
                         unit.BelongToRoom.GetComponent<UnitComponent>().Get(snapInfo.Value.BelongtoUnitId)
