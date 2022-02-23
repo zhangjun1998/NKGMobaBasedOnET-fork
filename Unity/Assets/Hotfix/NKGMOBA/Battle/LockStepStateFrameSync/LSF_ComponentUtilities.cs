@@ -73,12 +73,18 @@ namespace ET
                         if (!self.CheckConsistencyCompareSpecialFrame(targetFrame, frameCmd))
                         {
                             shouldRollback = true;
-                            Log.Error($"由于{MongoHelper.ToJson(frameCmd)}的不一致，进入回滚流程");
-                            break;
+                            Log.Error($"由于{MongoHelper.ToJson(frameCmd)}的不一致，准备进入回滚流程");
+                        }
+
+                        // 如果指令没有被检测一致性，则直接进入回滚流程进行处理（说明是类似RPC调用或者在本地无记录的本地玩家命令）
+                        if (!frameCmd.HasCheckConsistency)
+                        {
+                            Log.Error($"由于{MongoHelper.ToJson(frameCmd)}未被处理，强行进入回滚流程");
+                            shouldRollback = true;
                         }
                     }
                 }
-                
+
                 if (shouldRollback)
                 {
                     self.IsInChaseFrameState = true;
@@ -89,9 +95,14 @@ namespace ET
                         // 本地玩家的的指令才会回滚
                         if (frameCmd.UnitId == playerUnit.Id)
                         {
+                            if (!frameCmd.HasCheckConsistency)
+                            {
+                                LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), frameCmd);
+                            }
+
                             //回滚处理
                             self.RollBack(self.CurrentFrame, frameCmd);
-                            frameCmd.HasHandled = true;
+                            frameCmd.HasCheckConsistency = true;
                         }
                     }
 
@@ -101,7 +112,7 @@ namespace ET
                     //Log.Error("收到服务器回包后发现模拟的结果与服务器不一致，即需要强行回滚，则回滚，然后开始追帧");
                     // 注意这里追帧到当前已抵达帧的前一帧，因为最后有一步self.LSF_TickManually();用于当前帧Tick，不属于追帧的范围
                     int count = (int) self.CurrentArrivedFrame - 1 - (int) self.CurrentFrame;
-                    
+
                     while (count-- >= 0)
                     {
                         self.LSF_TickManually();
@@ -111,21 +122,22 @@ namespace ET
                     self.IsInChaseFrameState = false;
                 }
 
-                // 因为其他玩家以及本地玩家的非预测指令严格根据服务端Tick指令做表现，所以要限制帧数
-                if (frameCmdsQueuePair.Key <= self.ServerCurrentFrame)
+                #region //随后处理其他玩家的指令，这一部分的处理其实相当反直觉，因为我们本地没有远程玩家的历史信息，所以需要强行把帧数拉到命令的帧数进行Handle
+
+                uint originFrame = self.CurrentFrame;
+                self.CurrentFrame = frameCmdsQueuePair.Key;
+                foreach (var frameCmd in frameCmdsQueue)
                 {
-                    foreach (var frameCmd in frameCmdsQueue)
+
+                    if (!frameCmd.HasCheckConsistency && frameCmd.UnitId != playerUnit.Id)
                     {
-                        //随后处理所有未被处理的指令，可能是其他玩家的指令，也可能是本地玩家未被处理的指令（比如非预测指令）
-                        if (!frameCmd.HasHandled)
-                        {
-                            LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), frameCmd);
-                        }
+                        LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), frameCmd);
                     }
                 }
-                
-                // self.PlayerInputCmdsBuffer.Remove(targetFrame);
-                // Log.Info($"rrrrrrrrrrr 移除第{targetFrame}本地数据");
+
+                self.CurrentFrame = originFrame;
+
+                #endregion
             }
 
             self.FrameCmdsToHandle.Clear();
@@ -152,7 +164,7 @@ namespace ET
         {
 #if !SERVER
             Queue<ALSF_Cmd> validCmds = null;
-            
+
             self.PlayerInputCmdsBuffer.TryGetValue(self.CurrentFrame, out validCmds);
 
             if (validCmds != null)
