@@ -27,11 +27,11 @@ namespace NPBehave
         /// </summary>
         private Dictionary<long, FrameAction> AllFrameActions = new Dictionary<long, FrameAction>();
 
-        /// <summary>Register a timer function</summary>
+        /// <summary>Register a timer function, 因为这个函数可能会在回滚的时候调用，所以要强行传递一个currentFrame</summary>
         /// <param name="intervalFrame">time in Frame</param>
         /// <param name="repeat">number of times to repeat, set to -1 to repeat until unregistered.</param>
         /// <param name="action">method to invoke</param>
-        public long AddTimer(uint intervalFrame, System.Action action, int repeat = 1)
+        public long AddTimer(uint intervalFrame, System.Action action, int repeat = 1, uint currentFrame = 0)
         {
             FrameAction frameAction = ReferencePool.Acquire<FrameAction>();
             frameAction.Id = IdGenerater.Instance.GenerateId();
@@ -39,14 +39,19 @@ namespace NPBehave
             frameAction.RepeatTime = repeat;
             frameAction.IntervalFrame = intervalFrame;
 
-            AddTimer(frameAction);
+            AddTimer(frameAction, currentFrame);
 
             return frameAction.Id;
         }
 
-        private void AddTimer(FrameAction frameAction)
+        /// <summary>
+        /// 因为这个函数可能会在回滚的时候调用，所以要强行传递一个currentFrame
+        /// </summary>
+        /// <param name="frameAction"></param>
+        /// <param name="currentFrame"></param>
+        private void AddTimer(FrameAction frameAction, uint currentFrame = 0)
         {
-            CalculateTimerFrame(frameAction);
+            CalculateTimerFrame(frameAction, currentFrame);
             if (!isInUpdate)
             {
                 if (!this.AllFrameActions.ContainsKey(frameAction.Id))
@@ -87,7 +92,7 @@ namespace NPBehave
                 if (frameAction.TargetTickFrame <= CurrentFrame)
                 {
                     frameAction.Action.Invoke();
-                    
+
                     if (frameAction.RepeatTime != -1 && --frameAction.RepeatTime <= 0)
                     {
                         RemoveTimer(frameAction.Id);
@@ -119,9 +124,21 @@ namespace NPBehave
             this.ToBeRemovedFrameActions.Clear();
         }
 
-        private void CalculateTimerFrame(FrameAction frameAction)
+        /// <summary>
+        /// 支持传递一个自定义currentFrame进来，用于回滚时精确调用
+        /// </summary>
+        /// <param name="frameAction"></param>
+        /// <param name="currentFrame"></param>
+        private void CalculateTimerFrame(FrameAction frameAction, uint currentFrame = 0)
         {
-            frameAction.TargetTickFrame = CurrentFrame + frameAction.IntervalFrame;;
+            if (currentFrame == 0)
+            {
+                frameAction.TargetTickFrame = CurrentFrame + frameAction.IntervalFrame;
+            }
+            else
+            {
+                frameAction.TargetTickFrame = currentFrame + frameAction.IntervalFrame;
+            }
         }
     }
 }

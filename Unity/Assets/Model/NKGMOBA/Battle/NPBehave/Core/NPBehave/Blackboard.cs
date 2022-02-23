@@ -102,7 +102,7 @@ namespace NPBehave
         /// <param name="value"></param>
         /// <typeparam name="T"></typeparam>
         /// <param name="addIfNotExit">如果不存在这个键值的话，就添加一个</param>
-        public void Set<T>(string key, T value, bool addIfNotExit = false)
+        public void Set<T>(string key, T value, bool addIfNotExit = false, uint currentFrame = 0)
         {
             if (this.m_ParentBlackboard != null && this.m_ParentBlackboard.Isset(key))
             {
@@ -116,7 +116,7 @@ namespace NPBehave
                     ANP_BBValue newBBValue = NP_BBValueHelper.AutoCreateNPBBValueFromTValue(value);
                     this.m_Data.Add(key, newBBValue);
                     this.m_Notifications.Add(new Notification(key, Type.ADD, newBBValue));
-                    this.m_Clock.AddTimer(0, NotifiyObserversActionCache);
+                    this.m_Clock.AddTimer(0, NotifiyObserversActionCache, 1, currentFrame);
                 }
                 else
                 {
@@ -127,7 +127,7 @@ namespace NPBehave
                     {
                         targetBBValue.SetValueFrom(value);
                         this.m_Notifications.Add(new Notification(key, Type.CHANGE, targetBBValue));
-                        TimerId = this.m_Clock.AddTimer(0, NotifiyObserversActionCache);
+                        TimerId = this.m_Clock.AddTimer(0, NotifiyObserversActionCache, 1, currentFrame);
                     }
                 }
             }

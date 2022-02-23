@@ -25,7 +25,7 @@ namespace ET
                             case NP_RuntimeTreeBBOperationType.ADD:
                             case NP_RuntimeTreeBBOperationType.CHANGE:
                                 NP_BBValueHelper.SetTargetBlackboardUseANP_BBValue(toBeChangedBBValues.Value, blackboard,
-                                    toBeChangedBBValues.Key);
+                                    toBeChangedBBValues.Key, cmd.Frame);
                                 break;
                             case NP_RuntimeTreeBBOperationType.REMOVE:
                                 blackboard.Unset(toBeChangedBBValues.Key);
