@@ -54,8 +54,8 @@ namespace ET
             self.AnimationClips.Clear();
             self.RuntimeAnimationClips.Clear();
 
-            self.CommonAnimState = null;
-            self.SkillAnimState = null;
+            self.Avatar_DownOnlyAnimState = null;
+            self.Avatar_UpOnlyAnimState = null;
         }
     }
 
@@ -64,6 +64,12 @@ namespace ET
     /// </summary>
     public class AnimationComponent : Entity
     {
+        public class SkillAnimInfo
+        {
+            public AnimancerState SkillAnimancerState;
+            public int LayerIndex;
+        }
+
         /// <summary>
         /// Animacner的组件
         /// </summary>
@@ -82,14 +88,24 @@ namespace ET
         public Dictionary<string, AnimationClip> AnimationClips = new Dictionary<string, AnimationClip>();
 
         /// <summary>
-        /// 通常的动画状态，例如默认，行走，攻击等
+        /// 全身播放动画
         /// </summary>
-        public AnimancerState CommonAnimState;
+        public AnimancerState Avatar_NoneAnimState;
 
         /// <summary>
-        /// 技能动画状态，例如诺手Q技能动画
+        /// 仅仅在下半身播放目标动画
         /// </summary>
-        public AnimancerState SkillAnimState;
+        public AnimancerState Avatar_DownOnlyAnimState;
+
+        /// <summary>
+        /// 仅仅在上半身播放目标动画
+        /// </summary>
+        public AnimancerState Avatar_UpOnlyAnimState;
+
+        /// <summary>
+        /// 用于记录技能Anim的State
+        /// </summary>
+        private SkillAnimInfo m_SkillAnimInfo = new SkillAnimInfo();
 
         /// <summary>
         /// 运行时所播放的动画文件，会动态变化
@@ -104,24 +120,44 @@ namespace ET
             {StateTypes.CommonAttack.GetStateTypeMapedString(), "Anim_Attack1"}
         };
 
+        /// <summary>
+        /// 播放技能的特定接口
+        /// </summary>
+        /// <param name="stateTypes"></param>
+        /// <param name="avatarMaskType"></param>
+        /// <param name="fadeDuration"></param>
+        /// <param name="speed"></param>
+        /// <param name="fadeMode"></param>
+        /// <returns></returns>
         public AnimancerState PlaySkillAnim(string stateTypes,
             PlayAnimInfo.AvatarMaskType avatarMaskType = PlayAnimInfo.AvatarMaskType.None,
             float fadeDuration = 0.25f, float speed = 1.0f, FadeMode fadeMode = FadeMode.FixedDuration)
         {
             AnimancerState animancerState = null;
 
+            // 当目前的状态为Run时才会考虑Avatar混合
             if (avatarMaskType == PlayAnimInfo.AvatarMaskType.AnimMask_DownNotAffect &&
                 this.StackFsmComponent.GetCurrentFsmState().StateTypes == StateTypes.Run)
             {
                 animancerState = AnimancerComponent.Layers[(int) avatarMaskType]
                     .Play(this.AnimationClips[RuntimeAnimationClips[stateTypes]], fadeDuration, fadeMode);
+
+                this.Avatar_UpOnlyAnimState = animancerState;
             }
-            else
+            else // 否则直接按无AvatarMask播放
             {
-                animancerState = PlayCommonAnim_Internal(stateTypes, avatarMaskType, fadeDuration, speed, fadeMode);
+                animancerState = PlayCommonAnim_Internal(stateTypes, PlayAnimInfo.AvatarMaskType.None, fadeDuration,
+                    speed, fadeMode);
+
+                this.Avatar_NoneAnimState = animancerState;
             }
 
-            this.SkillAnimState = animancerState;
+            m_SkillAnimInfo.LayerIndex = (int) avatarMaskType;
+            m_SkillAnimInfo.SkillAnimancerState = animancerState;
+            m_SkillAnimInfo.SkillAnimancerState.Events.OnEnd = () =>
+            {
+                m_SkillAnimInfo.SkillAnimancerState.StartFade(0, 0.1f);
+            };
             return animancerState;
         }
 
@@ -133,7 +169,7 @@ namespace ET
         public void PlayAnimAndReturnIdelFromStart(StateTypes stateTypes, float fadeDuration = 0.25f,
             float speed = 1.0f, FadeMode fadeMode = FadeMode.FixedDuration)
         {
-            PlayCommonAnim(stateTypes, SkillAnimState is {IsPlaying: true}
+            PlayCommonAnim(stateTypes, Avatar_UpOnlyAnimState is {IsPlaying: true}
                 ? PlayAnimInfo.AvatarMaskType.AnimMask_UpNotAffect
                 : PlayAnimInfo.AvatarMaskType.None, fadeDuration, speed, fadeMode).Events.OnEnd = PlayIdelFromStart;
         }
@@ -143,7 +179,7 @@ namespace ET
         /// </summary>
         public void PlayIdelFromStart()
         {
-            this.CommonAnimState = AnimancerComponent.Play(
+            this.Avatar_DownOnlyAnimState = AnimancerComponent.Play(
                 this.AnimationClips[RuntimeAnimationClips[StateTypes.Idle.GetStateTypeMapedString()]], 0.25f,
                 FadeMode.FromStart);
         }
@@ -153,63 +189,41 @@ namespace ET
         /// </summary>
         public void PlayIdel()
         {
-            this.CommonAnimState = AnimancerComponent.Play(
+            this.Avatar_DownOnlyAnimState = AnimancerComponent.Play(
                 this.AnimationClips[RuntimeAnimationClips[StateTypes.Idle.GetStateTypeMapedString()]], 0.25f);
         }
 
         /// <summary>
         /// 根据栈式状态机来自动播放动画
+        /// 这里播放的动画都默认是常规动画，比如Idle，Run，Attack等，技能动画不在此范围内（因为技能动画不会附加状态）
         /// </summary>
-        public void PlayAnimByStackFsmCurrent(float fadeDuration = 0.25f, float speed = 1.0f,
-            bool afterSkillStateStartFade = false)
+        public void PlayAnimByStackFsmCurrent(float fadeDuration = 0.25f, float speed = 1.0f)
         {
+            StateTypes currentStateType = this.StackFsmComponent.GetCurrentFsmState().StateTypes;
             //先根据StateType进行动画播放
-            if (this.RuntimeAnimationClips.ContainsKey(
-                this.StackFsmComponent.GetCurrentFsmState().StateTypes.ToString()))
+            if (this.RuntimeAnimationClips.ContainsKey(currentStateType.ToString()))
             {
-                if (SkillAnimState is {IsPlaying: true})
+                // 如果正在播放技能
+                if (m_SkillAnimInfo.SkillAnimancerState is {IsPlaying: true})
                 {
-                    if (CommonAnimState.LayerIndex == (int) PlayAnimInfo.AvatarMaskType.None &&
-                        afterSkillStateStartFade)
+                    // 技能的LayerMask如果为只影响上半身，且要播放的为行走动画
+                    if (m_SkillAnimInfo.LayerIndex == (int) PlayAnimInfo.AvatarMaskType.AnimMask_DownNotAffect &&
+                        currentStateType == StateTypes.Run)
                     {
-                        return;
+                        // 如果先释放技能再寻路，且技能尚未播放完成，就会保持上半身不变
+                        Avatar_DownOnlyAnimState = PlayCommonAnim(currentStateType,
+                            PlayAnimInfo.AvatarMaskType.AnimMask_UpNotAffect,
+                            fadeDuration, speed);
+                        Avatar_DownOnlyAnimState.Events.OnEnd = () => { Avatar_DownOnlyAnimState.StartFade(0, 0.1f); };
                     }
-
-                    // 如果先释放技能再寻路，且技能尚未播放完成，就会保持上半身不变
-                    CommonAnimState = PlayCommonAnim(this.StackFsmComponent.GetCurrentFsmState().StateTypes,
-                        PlayAnimInfo.AvatarMaskType.AnimMask_UpNotAffect,
-                        fadeDuration, speed);
                 }
                 else
                 {
-                    // 因为先释放技能再寻路，且技能尚未播放完成，就会保持上半身不变，走的是另一个Layer，所以要先停掉
-                    if (CommonAnimState.LayerIndex == (int) PlayAnimInfo.AvatarMaskType.AnimMask_UpNotAffect)
-                    {
-                        CommonAnimState.Stop();
-                    }
-
-                    CommonAnimState = PlayCommonAnim(this.StackFsmComponent.GetCurrentFsmState().StateTypes,
-                        PlayAnimInfo.AvatarMaskType.None,
+                    // 否则就直接在无AvatarMask的Layer播放
+                    Avatar_NoneAnimState = PlayCommonAnim(currentStateType, PlayAnimInfo.AvatarMaskType.None,
                         fadeDuration, speed);
                 }
             }
-            //否则播放默认动画
-            else
-            {
-                if (!SkillAnimState.IsActive || SkillAnimState.IsStopped)
-                {
-                    this.PlayIdelFromStart();
-                }
-            }
-        }
-
-        /// <summary>
-        /// 技能动画的Layer是否应当立即Stop，这种情况发生在先释放技能，后进行移动的时候
-        /// </summary>
-        /// <returns></returns>
-        public bool SkillStateShouldStopImmdiately()
-        {
-            return CommonAnimState.LayerIndex == (int) PlayAnimInfo.AvatarMaskType.AnimMask_UpNotAffect;
         }
 
         #region PRIVATE
@@ -225,7 +239,6 @@ namespace ET
             float fadeDuration = 0.25f, float speed = 1.0f, FadeMode fadeMode = FadeMode.FixedDuration)
         {
             AnimancerState animancerState = null;
-
             animancerState = AnimancerComponent.Layers[(int) avatarMaskType]
                 .Play(this.AnimationClips[RuntimeAnimationClips[stateTypes]], fadeDuration, fadeMode);
             animancerState.Speed = speed;

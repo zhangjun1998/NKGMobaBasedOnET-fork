@@ -94,6 +94,7 @@ namespace ET
         /// </summary>
         private void OnAnimFinished()
         {
+            m_AnimancerState.Stop();
             if (++m_Flag <= NodeDataForPlayAnims.Count - 1)
             {
                 HandlePlayAnim(NodeDataForPlayAnims[m_Flag].StateTypes,
@@ -101,17 +102,9 @@ namespace ET
             }
             else //说明所有动画都已经播放完毕
             {
-                //Log.Info("所有动画播放完毕");
-                if (this.BelongToUnit.GetComponent<AnimationComponent>().SkillStateShouldStopImmdiately())
-                {
-                    m_AnimancerState.Stop();
-                }
-                else
-                {
-                    m_AnimancerState.StartFade(0, 0.1f);
-                }
+                this.BelongToUnit.GetComponent<AnimationComponent>().PlayAnimByStackFsmCurrent();
 
-                this.BelongToUnit.GetComponent<AnimationComponent>().PlayAnimByStackFsmCurrent(0.25f, 1, true);
+                //Log.Error("--------------------------");
                 this.m_Flag = 0;
             }
         }
