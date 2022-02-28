@@ -15,16 +15,17 @@ namespace ET
                 idleState.SetData(StateTypes.Idle, "Idle", 1);
                 unit.NavigateTodoSomething(target, 0, idleState).Coroutine();
             }
+            else
+            {
+                Quaternion rotation = new Quaternion(cmd.RotA, cmd.RotB, cmd.RotC, cmd.RotW);
+                unit.Position = target;
+                unit.Rotation = rotation;
+            }
 
 #if !SERVER
             Log.Info($"Current : {unit.Position.ToString("#0.0000")} Server : {target.ToString("#0.0000")} ServerFrame: {unit.BelongToRoom.GetComponent<LSF_Component>().ServerCurrentFrame}");
 #endif
-
-            Quaternion rotation = new Quaternion(cmd.RotA, cmd.RotB, cmd.RotC, cmd.RotW);
-            unit.Position = target;
-
-            unit.Rotation = rotation;
-
+            
             if (cmd.IsStopped)
             {
                 MoveComponent moveComponent = unit.GetComponent<MoveComponent>();

@@ -121,59 +121,66 @@ namespace ET
 #if !SERVER
             LSF_Component lsfComponent = entity.GetParent<Unit>().BelongToRoom.GetComponent<LSF_Component>();
 
-            if (entity.GetParent<Unit>().BelongToRoom.GetComponent<UnitComponent>().MyUnit == unit)
+            if (lsfComponent.IsInChaseFrameState)
             {
-                // 如果Tick正在追帧，进行特殊处理
-                if (lsfComponent.IsInChaseFrameState)
+                if (entity.GetParent<Unit>().BelongToRoom.GetComponent<UnitComponent>().MyUnit == unit)
                 {
-                    uint currentFrameTemp = currentFrame;
+                    // 如果Tick正在追帧，进行特殊处理
+                    if (lsfComponent.IsInChaseFrameState)
+                    {
+                        uint currentFrameTemp = currentFrame;
 
-                    LSF_MoveCmd targetFrameMoveCmd = entity.HistroyMoveStates[currentFrameTemp];
-                    if (targetFrameMoveCmd != null && Mathf.Abs(targetFrameMoveCmd.PosX - unit.Position.x) <= 0.001f &&
-                        Mathf.Abs(targetFrameMoveCmd.PosZ - unit.Position.z) <= 0.001f &&
-                        Mathf.Abs(targetFrameMoveCmd.PosX - unit.Position.x) <= 0.001f &&
-                        Mathf.Abs(targetFrameMoveCmd.RotA - unit.Rotation.x) <= 0.001f
-                        &&
-                        Mathf.Abs(targetFrameMoveCmd.RotB - unit.Rotation.y) <= 0.001f
-                        &&
-                        Mathf.Abs(targetFrameMoveCmd.RotC - unit.Rotation.z) <= 0.001f
-                        &&
-                        Mathf.Abs(targetFrameMoveCmd.RotW - unit.Rotation.w) <= 0.001f)
-                    {
-                    }
-                    else
-                    {
-                        while (currentFrameTemp > 0)
+                        LSF_MoveCmd targetFrameMoveCmd = entity.HistroyMoveStates[currentFrameTemp];
+                        if (targetFrameMoveCmd != null &&
+                            Mathf.Abs(targetFrameMoveCmd.PosX - unit.Position.x) <= 0.001f &&
+                            Mathf.Abs(targetFrameMoveCmd.PosZ - unit.Position.z) <= 0.001f &&
+                            Mathf.Abs(targetFrameMoveCmd.PosX - unit.Position.x) <= 0.001f &&
+                            Mathf.Abs(targetFrameMoveCmd.RotA - unit.Rotation.x) <= 0.001f
+                            &&
+                            Mathf.Abs(targetFrameMoveCmd.RotB - unit.Rotation.y) <= 0.001f
+                            &&
+                            Mathf.Abs(targetFrameMoveCmd.RotC - unit.Rotation.z) <= 0.001f
+                            &&
+                            Mathf.Abs(targetFrameMoveCmd.RotW - unit.Rotation.w) <= 0.001f)
                         {
-                            bool hasHandled = false;
-                            if (lsfComponent.PlayerInputCmdsBuffer.TryGetValue(currentFrameTemp, out var cmds))
+                        }
+                        else
+                        {
+                            while (currentFrameTemp > 0)
                             {
-                                foreach (var cmd in cmds)
+                                bool hasHandled = false;
+                                if (lsfComponent.PlayerInputCmdsBuffer.TryGetValue(currentFrameTemp, out var cmds))
                                 {
-                                    if (cmd is LSF_MoveCmd lsfMoveCmd && lsfMoveCmd.IsMoveStartCmd)
+                                    foreach (var cmd in cmds)
                                     {
-                                        IdleState idleState = ReferencePool.Acquire<IdleState>();
-                                        idleState.SetData(StateTypes.Idle, "Idle", 1);
-                                        unit.NavigateTodoSomething(
-                                            new Vector3(lsfMoveCmd.PosX, lsfMoveCmd.PosY, lsfMoveCmd.PosZ), 0,
-                                            idleState).Coroutine();
-                                        hasHandled = true;
-                                        break;
+                                        if (cmd is LSF_MoveCmd lsfMoveCmd && lsfMoveCmd.IsMoveStartCmd)
+                                        {
+                                            IdleState idleState = ReferencePool.Acquire<IdleState>();
+                                            idleState.SetData(StateTypes.Idle, "Idle", 1);
+                                            unit.NavigateTodoSomething(
+                                                new Vector3(lsfMoveCmd.PosX, lsfMoveCmd.PosY, lsfMoveCmd.PosZ), 0,
+                                                idleState).Coroutine();
+                                            hasHandled = true;
+                                            break;
+                                        }
                                     }
                                 }
-                            }
 
-                            if (hasHandled)
-                            {
-                                break;
-                            }
+                                if (hasHandled)
+                                {
+                                    break;
+                                }
 
-                            currentFrameTemp--;
+                                currentFrameTemp--;
+                            }
                         }
                     }
                 }
+                else
+                {
+                    return;
+                }
             }
-
 #endif
 
             if (entity.ShouldMove)
@@ -183,6 +190,13 @@ namespace ET
                 //Log.Info($"寻路完成后：{unit.Position.ToString("#0.0000")}");  
 #endif
             }
+
+// #if !SERVER
+//             if (entity.GetParent<Unit>().BelongToRoom.GetComponent<UnitComponent>().MyUnit != unit)
+//             {
+//                 Log.Error($"----------------{entity.GetParent<Unit>().Position.ToString("#0.0000")}");
+//             }
+// #endif
         }
     }
 }

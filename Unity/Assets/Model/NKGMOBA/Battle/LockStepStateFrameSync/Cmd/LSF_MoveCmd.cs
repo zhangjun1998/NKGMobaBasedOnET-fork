@@ -35,6 +35,15 @@ namespace ET
         public override bool CheckConsistency(ALSF_Cmd alsfCmd)
         {
             LSF_MoveCmd lsfMoveCmd = alsfCmd as LSF_MoveCmd;
+            
+            // 当为开始寻路指令时，直接忽略目标点对比
+            if (lsfMoveCmd.IsMoveStartCmd == this.IsMoveStartCmd)
+            {
+                if (lsfMoveCmd.IsStopped == this.IsStopped)
+                {
+                    return true;
+                }
+            }
 
             if (Mathf.Abs(lsfMoveCmd.PosX - this.PosX) > 0.001f)
             {
@@ -50,7 +59,7 @@ namespace ET
             {
                 return false;
             }
-            
+
             if (lsfMoveCmd.IsMoveStartCmd != this.IsMoveStartCmd)
             {
                 return false;
