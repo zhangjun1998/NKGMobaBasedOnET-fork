@@ -40,6 +40,7 @@ namespace ET
             lsfPathFindCmd.PosX = randomTarget.x;
             lsfPathFindCmd.PosY = randomTarget.y;
             lsfPathFindCmd.PosZ = randomTarget.z;
+            lsfPathFindCmd.Speed = this.BelongToUnit.GetComponent<NumericComponent>()[NumericType.Speed] / 100f;
 
             LSF_Component lsfComponent = this.BelongToUnit.BelongToRoom.GetComponent<LSF_Component>();
             

@@ -51,14 +51,12 @@ namespace ET
             Unit unit = self.GetParent<Unit>();
             using (MonoListComponent<Vector3> path = MonoListComponent<Vector3>.Create())
             {
-                self.Stop();
-
                 path.List.Add(unit.Position); // 第一个是Unit的pos
                 for (int i = self.NextPointIndex; i < self.Targets.Count; ++i)
                 {
                     path.List.Add(self.Targets[i]);
                 }
-
+                self.Stop();
                 self.MoveToAsync(path.List, speed).Coroutine();
             }
 

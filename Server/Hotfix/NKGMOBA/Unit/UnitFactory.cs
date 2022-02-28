@@ -168,9 +168,9 @@ namespace ET
             unit.AddComponent<NP_RuntimeTreeManager>();
             unit.AddComponent<SkillCanvasManagerComponent>();
 
-            // NP_RuntimeTreeFactory
-            //     .CreateNpRuntimeTree(unit, Server_AICanvasConfigCategory.Instance.Get(10001).NPBehaveId)
-            //     .Start();
+            NP_RuntimeTreeFactory
+                .CreateNpRuntimeTree(unit, Server_AICanvasConfigCategory.Instance.Get(10001).NPBehaveId)
+                .Start();
 
             unit.AddComponent<LSF_TickComponent>();
 

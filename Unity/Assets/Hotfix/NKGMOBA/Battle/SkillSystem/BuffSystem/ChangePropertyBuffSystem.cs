@@ -6,8 +6,9 @@
 
 namespace ET
 {
-    public class ChangePropertyBuffSystem: ABuffSystemBase<ChangePropertyBuffData>
+    public class ChangePropertyBuffSystem : ABuffSystemBase<ChangePropertyBuffData>
     {
+#if SERVER
         /// <summary>
         /// 之所以要缓存一下是因为某些修改器比较特殊
         /// 比如狗头的枯萎
@@ -25,7 +26,7 @@ namespace ET
                     dataModifier = constantModifier_AttackValue;
 
                     this.GetBuffTarget().GetComponent<DataModifierComponent>()
-                            .AddDataModifier(NumericType.AttackAdd.ToString(), dataModifier, NumericType.AttackAdd);
+                        .AddDataModifier(NumericType.AttackAdd.ToString(), dataModifier, NumericType.AttackAdd);
                     break;
                 case BuffWorkTypes.ChangeMagic:
                     PercentageModifier constantModifier_Magic = ReferencePool.Acquire<PercentageModifier>();
@@ -33,7 +34,7 @@ namespace ET
                     this.dataModifier = constantModifier_Magic;
 
                     this.GetBuffTarget().GetComponent<DataModifierComponent>()
-                            .AddDataModifier(NumericType.Mp.ToString(), this.dataModifier, NumericType.Mp);
+                        .AddDataModifier(NumericType.Mp.ToString(), this.dataModifier, NumericType.Mp);
                     break;
                 case BuffWorkTypes.ChangeSpeed:
                     PercentageModifier percentageModifier_Speed = ReferencePool.Acquire<PercentageModifier>();
@@ -41,7 +42,7 @@ namespace ET
                     this.dataModifier = percentageModifier_Speed;
 
                     this.GetBuffTarget().GetComponent<DataModifierComponent>()
-                            .AddDataModifier(NumericType.Speed.ToString(), this.dataModifier, NumericType.Speed);
+                        .AddDataModifier(NumericType.Speed.ToString(), this.dataModifier, NumericType.Speed);
                     break;
             }
         }
@@ -52,15 +53,15 @@ namespace ET
             {
                 case BuffWorkTypes.ChangeAttackValue:
                     this.GetBuffTarget().GetComponent<DataModifierComponent>()
-                            .RemoveDataModifier(NumericType.AttackAdd.ToString(), dataModifier, NumericType.AttackAdd);
+                        .RemoveDataModifier(NumericType.AttackAdd.ToString(), dataModifier, NumericType.AttackAdd);
                     break;
                 case BuffWorkTypes.ChangeMagic:
                     this.GetBuffTarget().GetComponent<DataModifierComponent>()
-                            .RemoveDataModifier(NumericType.Mp.ToString(), dataModifier, NumericType.Mp);
+                        .RemoveDataModifier(NumericType.Mp.ToString(), dataModifier, NumericType.Mp);
                     break;
                 case BuffWorkTypes.ChangeSpeed:
                     this.GetBuffTarget().GetComponent<DataModifierComponent>()
-                            .RemoveDataModifier(NumericType.Speed.ToString(), dataModifier, NumericType.Speed);
+                        .RemoveDataModifier(NumericType.Speed.ToString(), dataModifier, NumericType.Speed);
                     break;
             }
 
@@ -68,8 +69,14 @@ namespace ET
             {
                 return;
             }
+
             ReferencePool.Release(dataModifier);
             dataModifier = null;
         }
+#else
+        public override void OnExecute(uint currentFrame)
+        {
+        }
+#endif
     }
 }

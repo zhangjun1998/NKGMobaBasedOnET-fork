@@ -46,6 +46,11 @@ namespace ET
                 return false;
             }
             
+            if (Mathf.Abs(lsfMoveCmd.Speed - this.Speed) > 0.001f)
+            {
+                return false;
+            }
+            
             if (lsfMoveCmd.IsMoveStartCmd != this.IsMoveStartCmd)
             {
                 return false;
