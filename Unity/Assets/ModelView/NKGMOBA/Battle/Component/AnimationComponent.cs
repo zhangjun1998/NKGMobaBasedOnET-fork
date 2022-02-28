@@ -219,6 +219,7 @@ namespace ET
                 }
                 else
                 {
+                    // TODO 这里会有一个问题，如果一个技能动画不使用任何Avatar混合，并且在技能动画播放时想融合播放一个常规动画，那么这种情况下就播放不出动画
                     // 否则就直接在无AvatarMask的Layer播放
                     Avatar_NoneAnimState = PlayCommonAnim(currentStateType, PlayAnimInfo.AvatarMaskType.None,
                         fadeDuration, speed);
