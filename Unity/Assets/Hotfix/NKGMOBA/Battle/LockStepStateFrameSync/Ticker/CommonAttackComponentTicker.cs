@@ -7,7 +7,7 @@
         {
             if (stateToCompare is LSF_CommonAttackCmd commonAttackCmd)
             {
-                commonAttackCmd.HasCheckConsistency = true;
+                commonAttackCmd.PassingConsistencyCheck = true;
             }
 
             return true;

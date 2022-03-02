@@ -75,12 +75,11 @@ namespace ET
                             shouldRollback = true;
                             Log.Error($"由于{MongoHelper.ToJson(frameCmd)}的不一致，准备进入回滚流程");
                         }
-
-                        // 如果指令没有被检测一致性，则直接进入回滚流程进行处理（说明是类似RPC调用或者在本地无记录的本地玩家命令）
-                        if (!frameCmd.HasCheckConsistency)
+                        // 如果指令已经经历过一致性检查，但frameCmd.PassingConsistencyCheck标记依旧为false，说明一致性检查未通过，则直接进入回滚流程进行处理（说明是类似RPC调用或者在本地无记录的本地玩家命令）
+                        else if (!frameCmd.PassingConsistencyCheck)
                         {
-                            Log.Error($"由于{MongoHelper.ToJson(frameCmd)}未被处理，强行进入回滚流程");
                             shouldRollback = true;
+                            Log.Error($"由于{MongoHelper.ToJson(frameCmd)}未被处理，准备进入回滚流程");
                         }
                     }
                 }
@@ -95,14 +94,14 @@ namespace ET
                         // 本地玩家的的指令才会回滚
                         if (frameCmd.UnitId == playerUnit.Id)
                         {
-                            if (!frameCmd.HasCheckConsistency)
+                            if (!frameCmd.PassingConsistencyCheck)
                             {
                                 LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), frameCmd);
                             }
 
                             //回滚处理
                             self.RollBack(self.CurrentFrame, frameCmd);
-                            frameCmd.HasCheckConsistency = true;
+                            frameCmd.PassingConsistencyCheck = true;
                         }
                     }
 
@@ -128,7 +127,7 @@ namespace ET
                 self.CurrentFrame = frameCmdsQueuePair.Key;
                 foreach (var frameCmd in frameCmdsQueue)
                 {
-                    if (!frameCmd.HasCheckConsistency && frameCmd.UnitId != playerUnit.Id)
+                    if (frameCmd.UnitId != playerUnit.Id)
                     {
                         LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), frameCmd);
                     }

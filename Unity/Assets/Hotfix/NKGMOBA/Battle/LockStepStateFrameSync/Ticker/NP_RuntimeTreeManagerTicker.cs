@@ -18,7 +18,7 @@ namespace ET
         {
             if (stateToCompare is LSF_PlaySkillInputCmd skillInputCmd)
             {
-                skillInputCmd.HasCheckConsistency = true;
+                skillInputCmd.PassingConsistencyCheck = true;
                 return true;
             }
             
@@ -29,13 +29,15 @@ namespace ET
                 return true;
             }
 
-            stateToCompare.HasCheckConsistency = true;
+            stateToCompare.PassingConsistencyCheck = true;
 
             if (entity.FrameSnaps_DeltaOnly.TryGetValue(frame, out var localDeltaSnaps))
             {
                 if (localDeltaSnaps.TryGetValue(changeBbValueCmd.TargetNPBehaveTreeId, out var localDeltaSnap))
                 {
-                    return localDeltaSnap.NP_RuntimeTreeBBSnap.Check(changeBbValueCmd.NP_RuntimeTreeBBSnap);
+                    stateToCompare.PassingConsistencyCheck =
+                        localDeltaSnap.NP_RuntimeTreeBBSnap.Check(changeBbValueCmd.NP_RuntimeTreeBBSnap);
+                    return stateToCompare.PassingConsistencyCheck;
                 }
             }
 

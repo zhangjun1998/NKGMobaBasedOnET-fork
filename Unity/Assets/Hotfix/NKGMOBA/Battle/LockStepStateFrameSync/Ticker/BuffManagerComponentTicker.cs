@@ -23,11 +23,10 @@ namespace ET
                 return true;
             }
 
-            stateToCompare.HasCheckConsistency = true;
-
             if (entity.BuffSnapInfos_DeltaOnly.TryGetValue(frame, out var localDeltaSnaps))
             {
-                return localDeltaSnaps.Check(syncBuffCmd.BuffSnapInfoCollection);
+                stateToCompare.PassingConsistencyCheck = localDeltaSnaps.Check(syncBuffCmd.BuffSnapInfoCollection);
+                return stateToCompare.PassingConsistencyCheck;
             }
 
             return false;

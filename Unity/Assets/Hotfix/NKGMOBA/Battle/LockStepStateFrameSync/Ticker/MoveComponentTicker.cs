@@ -24,12 +24,11 @@ namespace ET
             {
                 return true;
             }
-
-            stateToCompare.HasCheckConsistency = true;
+            
             if (entity.HistroyMoveStates.TryGetValue(frame, out var histroyState))
             {
                 bool result = serverMoveState.CheckConsistency(histroyState);
-
+                stateToCompare.PassingConsistencyCheck = result;
                 if (!result)
                 {
                     // Log.Error(
@@ -43,7 +42,7 @@ namespace ET
 
                 return result;
             }
-
+            
             return false;
         }
 
