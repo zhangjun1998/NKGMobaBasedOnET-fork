@@ -128,7 +128,6 @@ namespace ET
                 self.CurrentFrame = frameCmdsQueuePair.Key;
                 foreach (var frameCmd in frameCmdsQueue)
                 {
-
                     if (!frameCmd.HasCheckConsistency && frameCmd.UnitId != playerUnit.Id)
                     {
                         LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), frameCmd);
