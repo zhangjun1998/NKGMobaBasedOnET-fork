@@ -86,6 +86,8 @@ namespace Plugins.NodeEditor
         // 准备所有节点的数据
         private void PrepareAllNodeData()
         {
+            m_AllNodes.Clear();
+            
             foreach (var node in this.nodes)
             {
                 if (node is NP_NodeBase mNode)
