@@ -54,7 +54,7 @@ namespace ET
             LSF_Component lsfComponent = unit.BelongToRoom.GetComponent<LSF_Component>();
 
             LSF_MoveCmd lsfMoveCmd = null;
-            
+
             if (!entity.StartMoveCurrentFrame)
             {
                 lsfMoveCmd = ReferencePool.Acquire<LSF_MoveCmd>().Init(unit.Id) as LSF_MoveCmd;
@@ -78,11 +78,7 @@ namespace ET
             else
             {
                 entity.StartMoveCurrentFrame = false;
-                // 如果是开始移动的指令，那么直接从历史记录中获取即可
-                if (entity.HistroyMoveStates.TryGetValue(lsfComponent.CurrentFrame, out var moveCmd))
-                {
-                    lsfMoveCmd = moveCmd;
-                }
+                lsfMoveCmd = entity.HistroyMoveStates[lsfComponent.CurrentFrame];
             }
 
 #if SERVER
@@ -110,6 +106,8 @@ namespace ET
 
             Unit unit = entity.GetParent<Unit>();
 
+            Vector3 previousTarget = entity.FinalTarget;
+            
             entity.Stop();
             Game.EventSystem.Publish(new EventType.MoveStop() {Unit = unit}).Coroutine();
 
@@ -117,6 +115,14 @@ namespace ET
             Quaternion rotation = new Quaternion(lsfMoveCmd.RotA, lsfMoveCmd.RotB, lsfMoveCmd.RotC, lsfMoveCmd.RotW);
             unit.Position = pos;
             unit.Rotation = rotation;
+            
+            if (previousTarget != Vector3.zero)
+            {
+                IdleState idleState = ReferencePool.Acquire<IdleState>();
+                idleState.SetData(StateTypes.Idle, "Idle", 1);
+                unit.NavigateTodoSomething(previousTarget, 0,
+                    idleState).Coroutine();
+            }
         }
 
         public override void OnLSF_ViewTick(MoveComponent entity, long deltaTime)
@@ -130,69 +136,6 @@ namespace ET
 
         public override void OnLSF_Tick(MoveComponent entity, uint currentFrame, long deltaTime)
         {
-            Unit unit = entity.GetParent<Unit>();
-
-#if !SERVER
-            LSF_Component lsfComponent = entity.GetParent<Unit>().BelongToRoom.GetComponent<LSF_Component>();
-
-            if (lsfComponent.IsInChaseFrameState)
-            {
-                if (entity.GetParent<Unit>().BelongToRoom.GetComponent<UnitComponent>().MyUnit == unit)
-                {
-                    // 如果Tick正在追帧，进行特殊处理
-                    if (lsfComponent.IsInChaseFrameState)
-                    {
-                        uint currentFrameTemp = currentFrame;
-
-                        LSF_MoveCmd targetFrameMoveCmd = entity.HistroyMoveStates[currentFrameTemp];
-                        if (targetFrameMoveCmd != null &&
-                            Mathf.Abs(targetFrameMoveCmd.PosX - unit.Position.x) <= 0.001f &&
-                            Mathf.Abs(targetFrameMoveCmd.PosZ - unit.Position.z) <= 0.001f &&
-                            Mathf.Abs(targetFrameMoveCmd.PosX - unit.Position.x) <= 0.001f &&
-                            Mathf.Abs(targetFrameMoveCmd.RotA - unit.Rotation.x) <= 0.001f
-                            &&
-                            Mathf.Abs(targetFrameMoveCmd.RotB - unit.Rotation.y) <= 0.001f
-                            &&
-                            Mathf.Abs(targetFrameMoveCmd.RotC - unit.Rotation.z) <= 0.001f
-                            &&
-                            Mathf.Abs(targetFrameMoveCmd.RotW - unit.Rotation.w) <= 0.001f)
-                        {
-                        }
-                        else
-                        {
-                            while (currentFrameTemp > 0)
-                            {
-                                bool hasHandled = false;
-                                if (lsfComponent.PlayerInputCmdsBuffer.TryGetValue(currentFrameTemp, out var cmds))
-                                {
-                                    foreach (var cmd in cmds)
-                                    {
-                                        if (cmd is LSF_MoveCmd lsfMoveCmd && lsfMoveCmd.IsMoveStartCmd)
-                                        {
-                                            IdleState idleState = ReferencePool.Acquire<IdleState>();
-                                            idleState.SetData(StateTypes.Idle, "Idle", 1);
-                                            unit.NavigateTodoSomething(
-                                                new Vector3(lsfMoveCmd.PosX, lsfMoveCmd.PosY, lsfMoveCmd.PosZ), 0,
-                                                idleState).Coroutine();
-                                            hasHandled = true;
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                if (hasHandled)
-                                {
-                                    break;
-                                }
-
-                                currentFrameTemp--;
-                            }
-                        }
-                    }
-                }
-            }
-#endif
-
             if (entity.ShouldMove)
             {
                 entity.MoveForward(deltaTime, false);

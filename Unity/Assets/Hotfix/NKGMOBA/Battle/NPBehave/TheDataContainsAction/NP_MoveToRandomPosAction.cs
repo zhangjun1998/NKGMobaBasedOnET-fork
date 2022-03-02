@@ -37,18 +37,27 @@ namespace ET
             Vector3 randomTarget = new Vector3(RandomHelper.RandomNumber(this.XMin, this.XMax), 0, RandomHelper.RandomNumber(this.YMin, this.YMax));
             LSF_MoveCmd lsfPathFindCmd = ReferencePool.Acquire<LSF_MoveCmd>().Init(this.BelongToUnit.Id) as LSF_MoveCmd;
             lsfPathFindCmd.IsMoveStartCmd = true;
-            lsfPathFindCmd.PosX = randomTarget.x;
-            lsfPathFindCmd.PosY = randomTarget.y;
-            lsfPathFindCmd.PosZ = randomTarget.z;
+            
+            lsfPathFindCmd.TargetPosX = randomTarget.x;
+            lsfPathFindCmd.TargetPosY = randomTarget.y;
+            lsfPathFindCmd.TargetPosZ = randomTarget.z;
+
+            lsfPathFindCmd.PosX = BelongToUnit.Position.x;
+            lsfPathFindCmd.PosY = BelongToUnit.Position.y;
+            lsfPathFindCmd.PosZ = BelongToUnit.Position.z;
+
             lsfPathFindCmd.Speed = this.BelongToUnit.GetComponent<NumericComponent>()[NumericType.Speed] / 100f;
 
             LSF_Component lsfComponent = this.BelongToUnit.BelongToRoom.GetComponent<LSF_Component>();
             
-            Vector3 target = new Vector3(lsfPathFindCmd.PosX, lsfPathFindCmd.PosY, lsfPathFindCmd.PosZ);
+            Vector3 target = new Vector3(lsfPathFindCmd.TargetPosX, lsfPathFindCmd.TargetPosY, lsfPathFindCmd.TargetPosZ);
 
             IdleState idleState = ReferencePool.Acquire<IdleState>();
             idleState.SetData(StateTypes.Idle, "Idle", 1);
             this.BelongToUnit.NavigateTodoSomething(target, 0, idleState).Coroutine();
+
+            this.BelongToUnit.GetComponent<MoveComponent>().HistroyMoveStates[lsfComponent.CurrentFrame] =
+                lsfPathFindCmd;
             
             lsfComponent.AddCmdToSendQueue(lsfPathFindCmd);
 #endif

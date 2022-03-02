@@ -71,6 +71,7 @@ namespace ET
 
             self.Stop();
 
+            self.StartMoveCurrentFrame = true;
             self.TargetRange = targetRange;
 
             foreach (Vector3 v in target)

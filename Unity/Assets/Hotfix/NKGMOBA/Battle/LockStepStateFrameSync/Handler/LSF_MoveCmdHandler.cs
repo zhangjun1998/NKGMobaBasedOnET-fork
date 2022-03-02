@@ -7,26 +7,24 @@ namespace ET
     {
         protected override async ETVoid Run(Unit unit, LSF_MoveCmd cmd)
         {
+#if !SERVER
+            Vector3 pos = new Vector3(cmd.PosX, cmd.PosY, cmd.PosZ);
+            Quaternion rotation = new Quaternion(cmd.RotA, cmd.RotB, cmd.RotC, cmd.RotW);
+            unit.Position = pos;
+            unit.Rotation = rotation;
+            Log.Info(
+                $"Current : {unit.Position.ToString("#0.0000")} Server : {pos.ToString("#0.0000")} ServerFrame: {unit.BelongToRoom.GetComponent<LSF_Component>().ServerCurrentFrame}");
+#endif
+            
             if (cmd.IsMoveStartCmd)
             {
                 Vector3 target = new Vector3(cmd.TargetPosX, cmd.TargetPosY, cmd.TargetPosZ);
                 IdleState idleState = ReferencePool.Acquire<IdleState>();
                 idleState.SetData(StateTypes.Idle, "Idle", 1);
                 unit.NavigateTodoSomething(target, 0, idleState).Coroutine();
-                unit.GetComponent<MoveComponent>().StartMoveCurrentFrame = true;
                 unit.GetComponent<MoveComponent>().HistroyMoveStates[cmd.Frame] = cmd;
             }
-
-            Vector3 pos = new Vector3(cmd.PosX, cmd.PosY, cmd.PosZ);
-            Quaternion rotation = new Quaternion(cmd.RotA, cmd.RotB, cmd.RotC, cmd.RotW);
-            unit.Position = pos;
-            unit.Rotation = rotation;
-
-#if !SERVER
-            Log.Info(
-                $"Current : {unit.Position.ToString("#0.0000")} Server : {pos.ToString("#0.0000")} ServerFrame: {unit.BelongToRoom.GetComponent<LSF_Component>().ServerCurrentFrame}");
-#endif
-
+            
             if (cmd.IsStopped)
             {
                 MoveComponent moveComponent = unit.GetComponent<MoveComponent>();
@@ -39,7 +37,7 @@ namespace ET
             LSF_Component lsfComponent = unit.BelongToRoom.GetComponent<LSF_Component>();
             lsfComponent.AddCmdToSendQueue(cmd);
 #endif
-
+            
             await ETTask.CompletedTask;
         }
     }
