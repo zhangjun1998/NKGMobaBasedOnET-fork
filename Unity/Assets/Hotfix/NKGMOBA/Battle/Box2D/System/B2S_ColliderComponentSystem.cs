@@ -72,47 +72,11 @@ namespace ET
             self.SyncPosToBelongUnit = args.FollowUnit;
             self.CollisionHandlerName = args.CollisionHandler;
             self.B2S_ColliderDataStructureBase = args.B2SColliderDataStructureBase;
-            LoadMapColliderDependenceRes(self);
-
-            self.SyncBody();
-        }
-
-        /// <summary>
-        /// 加载依赖数据，并且进行碰撞体的生成，注意这里是特殊的处理，因为我们将场景碰撞的位置存在了finalOffset中，而这个finalOffset是用于控制碰撞图形相对于刚体的位置的，会影响旋转行为
-        /// 所以这里finalOffset被用在了外部Unit.Pos赋值上，这里传0
-        /// </summary>
-        /// <param name="self"></param>
-        private void LoadMapColliderDependenceRes(B2S_ColliderComponent self)
-        {
             self.Body = self.WorldComponent.CreateDynamicBody();
 
-            switch (self.B2S_ColliderDataStructureBase.b2SColliderType)
-            {
-                case B2S_ColliderType.BoxColllider:
-                    B2S_BoxColliderDataStructure b2SBoxColliderDataStructure =
-                        (B2S_BoxColliderDataStructure) self.B2S_ColliderDataStructureBase;
-                    self.Body.CreateBoxFixture(b2SBoxColliderDataStructure.hx, b2SBoxColliderDataStructure.hy,
-                        b2SBoxColliderDataStructure.finalOffset, 0, b2SBoxColliderDataStructure.isSensor, self.Parent);
-                    break;
-                case B2S_ColliderType.CircleCollider:
-                    B2S_CircleColliderDataStructure b2SCircleColliderDataStructure =
-                        (B2S_CircleColliderDataStructure) self.B2S_ColliderDataStructureBase;
-                    self.Body.CreateCircleFixture(b2SCircleColliderDataStructure.radius,
-                        b2SCircleColliderDataStructure.finalOffset,
-                        b2SCircleColliderDataStructure.isSensor,
-                        self.Parent);
-                    break;
-                case B2S_ColliderType.PolygonCollider:
-                    B2S_PolygonColliderDataStructure b2SPolygonColliderDataStructure =
-                        (B2S_PolygonColliderDataStructure) self.B2S_ColliderDataStructureBase;
-                    foreach (var verxtPoint in b2SPolygonColliderDataStructure.finalPoints)
-                    {
-                        self.Body.CreatePolygonFixture(verxtPoint, b2SPolygonColliderDataStructure.isSensor,
-                            self.Parent);
-                    }
-
-                    break;
-            }
+            B2S_ColliderDataLoadHelper.ApplyFixture(self.B2S_ColliderDataStructureBase, self.Body,
+                self.GetParent<Unit>());
+            self.SyncBody();
         }
     }
 
@@ -124,6 +88,18 @@ namespace ET
             if (self.Body.IsEnabled && !self.WorldComponent.GetWorld().IsLocked)
             {
                 Unit unit = self.GetParent<Unit>();
+
+#if SERVER
+                if (self.BelongToUnit.GetComponent<MailBoxComponent>() == null)
+                {
+                    if (unit.Position!=self.BelongToUnit.Position)
+                    {
+                        Log.Info($"进行了位置移动");
+                    }
+                }  
+#endif
+
+
                 if (self.SyncPosToBelongUnit)
                 {
                     unit.Position = self.BelongToUnit.Position;
@@ -139,7 +115,8 @@ namespace ET
 #if !SERVER
                 Game.EventSystem.Publish(new DebugVisualBox2D() {Unit = unit}).Coroutine();
 #endif
-                //Log.Info($"进行了位置移动");
+
+
             }
         }
     }

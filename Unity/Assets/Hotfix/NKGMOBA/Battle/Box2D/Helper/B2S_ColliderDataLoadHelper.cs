@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Box2DSharp.Dynamics;
 using UnityEngine;
 
 namespace ET
@@ -19,30 +20,37 @@ namespace ET
 
             self.Body = self.WorldComponent.CreateDynamicBody();
 
-            switch (self.B2S_ColliderDataStructureBase.b2SColliderType)
+            ApplyFixture(self.B2S_ColliderDataStructureBase, self.Body, self.GetParent<Unit>());
+        }
+
+        public static void ApplyFixture(B2S_ColliderDataStructureBase b2SColliderDataStructureBase, Body body,
+            Unit unit)
+        {
+            switch (b2SColliderDataStructureBase.b2SColliderType)
             {
                 case B2S_ColliderType.BoxColllider:
                     B2S_BoxColliderDataStructure b2SBoxColliderDataStructure =
-                        (B2S_BoxColliderDataStructure) self.B2S_ColliderDataStructureBase;
-                    self.Body.CreateBoxFixture(b2SBoxColliderDataStructure.hx, b2SBoxColliderDataStructure.hy,
-                        b2SBoxColliderDataStructure.finalOffset, 0, b2SBoxColliderDataStructure.isSensor, self.Parent);
+                        (B2S_BoxColliderDataStructure) b2SColliderDataStructureBase;
+                    body.CreateBoxFixture(b2SBoxColliderDataStructure.hx, b2SBoxColliderDataStructure.hy,
+                        b2SBoxColliderDataStructure.finalOffset, 0, b2SBoxColliderDataStructure.isSensor, unit);
                     break;
                 case B2S_ColliderType.CircleCollider:
                     B2S_CircleColliderDataStructure b2SCircleColliderDataStructure =
-                        (B2S_CircleColliderDataStructure) self.B2S_ColliderDataStructureBase;
-                    self.Body.CreateCircleFixture(b2SCircleColliderDataStructure.radius,
+                        (B2S_CircleColliderDataStructure) b2SColliderDataStructureBase;
+                    body.CreateCircleFixture(b2SCircleColliderDataStructure.radius,
                         b2SCircleColliderDataStructure.finalOffset,
                         b2SCircleColliderDataStructure.isSensor,
-                        self.Parent);
+                        unit);
                     break;
                 case B2S_ColliderType.PolygonCollider:
                     B2S_PolygonColliderDataStructure b2SPolygonColliderDataStructure =
-                        (B2S_PolygonColliderDataStructure) self.B2S_ColliderDataStructureBase;
+                        (B2S_PolygonColliderDataStructure) b2SColliderDataStructureBase;
                     foreach (var verxtPoint in b2SPolygonColliderDataStructure.finalPoints)
                     {
-                        self.Body.CreatePolygonFixture(verxtPoint, b2SPolygonColliderDataStructure.isSensor,
-                            self.Parent);
+                        body.CreatePolygonFixture(verxtPoint, b2SPolygonColliderDataStructure.isSensor,
+                            unit);
                     }
+
                     break;
             }
         }
