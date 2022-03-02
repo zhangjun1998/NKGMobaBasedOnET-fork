@@ -20,7 +20,7 @@ MonoBehaviour:
   searchPatternPrefab: '*.prefab'
   searchPatternScene: '*.unity'
   searchPatternText: '*.txt,*.bytes,*.json,*.csv,*.xml,*htm,*.html,*.yaml,*.fnt,*.bin'
-  version: 98
+  version: 101
   scenesInBuild:
   - {fileID: 102900000, guid: e0d691ac8c1d0454ba07089ea820e18a, type: 3}
   - {fileID: 102900000, guid: d1f6e76af288a614586be7868b6ddd96, type: 3}
@@ -94,18 +94,16 @@ MonoBehaviour:
     path: Assets/Res/Code/ModelView.dll.bytes
   - bundle: 647fd131331f17390d20e9e0c3fb0c2f.unity3d
     path: Assets/Res/Code/ModelView.pdb.bytes
-  - bundle: 6fa5c9cbaf6e745f85177f09a36a1878.unity3d
-    path: Assets/Res/Config/AIConfigCategory.bytes
-  - bundle: 3b7875507fdaecc3aea309d97b6084c1.unity3d
-    path: Assets/Res/Config/AttackConfigCategory.bytes
-  - bundle: 83af947d1300194c9f96375731960320.unity3d
-    path: Assets/Res/Config/BuffConfigCategory.bytes
+  - bundle: 16049b64908a94a165974d4b7e52255f.unity3d
+    path: Assets/Res/Config/B2SColliderConfig/CircleColliderData.bytes
+  - bundle: 4621e39a89752723875c3e0029964790.unity3d
+    path: Assets/Res/Config/B2SColliderConfig/PolygonColliderData.bytes
   - bundle: 6820dd984ce85cda122211d6e8a7d5f3.unity3d
     path: Assets/Res/Config/Client_UnitConfigCategory.bytes
-  - bundle: c4762cb687cc28f3c9bc01978cf97144.unity3d
-    path: Assets/Res/Config/DopaConfigCategory.bytes
-  - bundle: dc8e15db3f2dd3c570733567753aaf7f.unity3d
-    path: Assets/Res/Config/ParameterConfigCategory.bytes
+  - bundle: 3b81683943bb09097a6e94315ebf14fc.unity3d
+    path: Assets/Res/Config/RecastNavConfig/solo_navmesh.bin.bytes
+  - bundle: e6089b29f262a898abb5fa12c217e3af.unity3d
+    path: Assets/Res/Config/RecastNavDataConfigCategory.bytes
   - bundle: c43788c5a24010b608900a470f43c6da.unity3d
     path: Assets/Res/Config/Server_AICanvasConfigCategory.bytes
   - bundle: 205fcb2f4db22b8927bc8344a8c9a01e.unity3d
@@ -208,6 +206,126 @@ MonoBehaviour:
     path: Assets/Res/Material/Mat_Map.mat
   - bundle: dec0ed705bb623f9164f4427cbddc678.unity3d
     path: Assets/Res/Material/Mat_Shadow.mat
+  - bundle: 222944fdfcf027de6abc2acf28f6374c.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/AngleMissile/AngleMissileBasic/MissileBody.mat
+  - bundle: 3cf9411347a0525cfed2e668703c4bd0.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/AngleMissile/FireMissile/MissileBody.mat
+  - bundle: 5d0ee61b36ed3cb53a835dc88125b90a.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/AngleMissile/MagicCrossbow/Crossbow.mat
+  - bundle: 5d0ee61b36ed3cb53a835dc88125b90a.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/AngleMissile/MagicCrossbow/Crossbow2.mat
+  - bundle: 52a5062e489979b8bed22f4bf0f29ceb.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Cone/ChaosBlast/ConeBase.mat
+  - bundle: 52a5062e489979b8bed22f4bf0f29ceb.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Cone/ChaosBlast/ConeCenter.mat
+  - bundle: 52a5062e489979b8bed22f4bf0f29ceb.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Cone/ChaosBlast/ConeDeco.mat
+  - bundle: 52a5062e489979b8bed22f4bf0f29ceb.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Cone/ChaosBlast/ConeLBorder.mat
+  - bundle: 52a5062e489979b8bed22f4bf0f29ceb.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Cone/ChaosBlast/ConeRBorder.mat
+  - bundle: 4248ded4cdd91dd127a9ae96cfd04c4a.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Cone/ConeBasic/ConeBase.mat
+  - bundle: 4248ded4cdd91dd127a9ae96cfd04c4a.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Cone/ConeBasic/ConeCenter.mat
+  - bundle: 4248ded4cdd91dd127a9ae96cfd04c4a.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Cone/ConeBasic/ConeDeco.mat
+  - bundle: 4248ded4cdd91dd127a9ae96cfd04c4a.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Cone/ConeBasic/ConeLBorder.mat
+  - bundle: 4248ded4cdd91dd127a9ae96cfd04c4a.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Cone/ConeBasic/ConeRBorder.mat
+  - bundle: 9d15a9cbd255848ce7bd0af900611ca3.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Cone/FireBlast/ConeBase.mat
+  - bundle: 9d15a9cbd255848ce7bd0af900611ca3.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Cone/FireBlast/ConeCenter.mat
+  - bundle: 9d15a9cbd255848ce7bd0af900611ca3.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Cone/FireBlast/ConeDeco.mat
+  - bundle: 9d15a9cbd255848ce7bd0af900611ca3.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Cone/FireBlast/ConeLBorder.mat
+  - bundle: 9d15a9cbd255848ce7bd0af900611ca3.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Cone/FireBlast/ConeRBorder.mat
+  - bundle: 99d9eac798c5484c64315aee39cab6ad.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Cone/FrostBlast/ConeBase.mat
+  - bundle: 99d9eac798c5484c64315aee39cab6ad.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Cone/FrostBlast/ConeCenter.mat
+  - bundle: 99d9eac798c5484c64315aee39cab6ad.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Cone/FrostBlast/ConeDeco1.mat
+  - bundle: 99d9eac798c5484c64315aee39cab6ad.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Cone/FrostBlast/ConeLBorder1.mat
+  - bundle: 99d9eac798c5484c64315aee39cab6ad.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Cone/FrostBlast/ConeRBorder1.mat
+  - bundle: abce6e7b93229969a88273bf06ba827f.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/LineMissile/LineMissileBasic1/MissileBody.mat
+  - bundle: abce6e7b93229969a88273bf06ba827f.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/LineMissile/LineMissileBasic1/MissileHead.mat
+  - bundle: ff2c7fc6576a7657793b32f750308ed8.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/LineMissile/LineMissileBasic2/MissileBody.mat
+  - bundle: ff2c7fc6576a7657793b32f750308ed8.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/LineMissile/LineMissileBasic2/MissileHead.mat
+  - bundle: 2c8680049daa11dff0db79992da69961.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/LineMissile/LineMissileBasic3/MissileBody.mat
+  - bundle: 2c8680049daa11dff0db79992da69961.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/LineMissile/LineMissileBasic3/MissileHead.mat
+  - bundle: 852ae21fbb8ea3d857d5fc55568d65a5.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/LineMissile/LineMissileBasic4/MissileBody.mat
+  - bundle: 852ae21fbb8ea3d857d5fc55568d65a5.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/LineMissile/LineMissileBasic4/MissileHead.mat
+  - bundle: 711f5a61f34e6df2416a8829045eb3ec.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Point/Chaos Aura/PointBase.mat
+  - bundle: 711f5a61f34e6df2416a8829045eb3ec.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Point/Chaos Aura/PointCrosshair.mat
+  - bundle: 711f5a61f34e6df2416a8829045eb3ec.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Point/Chaos Aura/PointDeco.mat
+  - bundle: a3fe6dd4d4caedb7d47264bbeca874cc.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Point/Fireball/PointBase.mat
+  - bundle: a3fe6dd4d4caedb7d47264bbeca874cc.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Point/Fireball/PointCharge1.mat
+  - bundle: a3fe6dd4d4caedb7d47264bbeca874cc.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Point/Fireball/PointCrosshair.mat
+  - bundle: a3fe6dd4d4caedb7d47264bbeca874cc.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Point/Fireball/PointDeco1.mat
+  - bundle: 5779e5afb60015fbe862d7dc16e7e813.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Point/TargetBasic/PointBase.mat
+  - bundle: 5779e5afb60015fbe862d7dc16e7e813.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Point/TargetBasic/PointCharge.mat
+  - bundle: 5779e5afb60015fbe862d7dc16e7e813.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Point/TargetBasic/PointCrosshair.mat
+  - bundle: 5779e5afb60015fbe862d7dc16e7e813.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Point/TargetBasic/PointDeco.mat
+  - bundle: d66c5041d8fabf525381235e76865c8e.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Range/FrostNova/PointBase2.mat
+  - bundle: d66c5041d8fabf525381235e76865c8e.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Range/FrostNova/PointCharge2.mat
+  - bundle: d66c5041d8fabf525381235e76865c8e.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Range/FrostNova/PointCrosshair2.mat
+  - bundle: d66c5041d8fabf525381235e76865c8e.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Range/FrostNova/PointDeco2.mat
+  - bundle: 86caa3bc483f89055fdb2272d422c008.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Range/Range1.mat
+  - bundle: 86caa3bc483f89055fdb2272d422c008.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Range/Range2.mat
+  - bundle: 86caa3bc483f89055fdb2272d422c008.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Range/Range3.mat
+  - bundle: 86caa3bc483f89055fdb2272d422c008.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Range/RangeBasic.mat
+  - bundle: 86caa3bc483f89055fdb2272d422c008.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Range/RangeSmall.mat
+  - bundle: cf7c1d599c1dca5b3e24f81e1c51a22b.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Status/Status6Bar.mat
+  - bundle: cf7c1d599c1dca5b3e24f81e1c51a22b.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Status/StatusBasic.mat
+  - bundle: cf7c1d599c1dca5b3e24f81e1c51a22b.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Status/StatusBasic2.mat
+  - bundle: cf7c1d599c1dca5b3e24f81e1c51a22b.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Status/StatusChargeExample.mat
+  - bundle: cf7c1d599c1dca5b3e24f81e1c51a22b.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Status/StatusDots.mat
+  - bundle: cf7c1d599c1dca5b3e24f81e1c51a22b.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Status/StatusGradient.mat
+  - bundle: cf7c1d599c1dca5b3e24f81e1c51a22b.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Status/StatusGradientDotted.mat
+  - bundle: cf7c1d599c1dca5b3e24f81e1c51a22b.unity3d
+    path: Assets/Res/Material/Mat_SkillIndicator/Status/StatusManaExample.mat
   - bundle: dec0ed705bb623f9164f4427cbddc678.unity3d
     path: Assets/Res/Material/Mat_Storke.mat
   - bundle: dec0ed705bb623f9164f4427cbddc678.unity3d
@@ -330,24 +448,12 @@ MonoBehaviour:
     - Assets/Res/FGUI/Login_fui.bytes
     - Assets/Res/FGUI/Room_atlas0.png
     - Assets/Res/FGUI/Room_fui.bytes
-  - name: 6fa5c9cbaf6e745f85177f09a36a1878.unity3d
-    assets:
-    - Assets/Res/Config/AIConfigCategory.bytes
-  - name: 3b7875507fdaecc3aea309d97b6084c1.unity3d
-    assets:
-    - Assets/Res/Config/AttackConfigCategory.bytes
-  - name: 83af947d1300194c9f96375731960320.unity3d
-    assets:
-    - Assets/Res/Config/BuffConfigCategory.bytes
   - name: 6820dd984ce85cda122211d6e8a7d5f3.unity3d
     assets:
     - Assets/Res/Config/Client_UnitConfigCategory.bytes
-  - name: c4762cb687cc28f3c9bc01978cf97144.unity3d
+  - name: e6089b29f262a898abb5fa12c217e3af.unity3d
     assets:
-    - Assets/Res/Config/DopaConfigCategory.bytes
-  - name: dc8e15db3f2dd3c570733567753aaf7f.unity3d
-    assets:
-    - Assets/Res/Config/ParameterConfigCategory.bytes
+    - Assets/Res/Config/RecastNavDataConfigCategory.bytes
   - name: c43788c5a24010b608900a470f43c6da.unity3d
     assets:
     - Assets/Res/Config/Server_AICanvasConfigCategory.bytes
@@ -384,6 +490,15 @@ MonoBehaviour:
   - name: 753fb261766d8dffa79c45a2851f3e39.unity3d
     assets:
     - Assets/Res/Config/UnitConfigCategory.bytes
+  - name: 16049b64908a94a165974d4b7e52255f.unity3d
+    assets:
+    - Assets/Res/Config/B2SColliderConfig/CircleColliderData.bytes
+  - name: 4621e39a89752723875c3e0029964790.unity3d
+    assets:
+    - Assets/Res/Config/B2SColliderConfig/PolygonColliderData.bytes
+  - name: 3b81683943bb09097a6e94315ebf14fc.unity3d
+    assets:
+    - Assets/Res/Config/RecastNavConfig/solo_navmesh.bin.bytes
   - name: 3b9af3835c3b671d76b8240f540fa522.unity3d
     assets:
     - Assets/Res/Config/SkillConfig/Darius_E.bytes
@@ -453,6 +568,100 @@ MonoBehaviour:
     - Assets/Res/Material/Mat_Shadow.mat
     - Assets/Res/Material/Mat_Storke.mat
     - Assets/Res/Material/Mat_Unit.mat
+  - name: 222944fdfcf027de6abc2acf28f6374c.unity3d
+    assets:
+    - Assets/Res/Material/Mat_SkillIndicator/AngleMissile/AngleMissileBasic/MissileBody.mat
+  - name: 3cf9411347a0525cfed2e668703c4bd0.unity3d
+    assets:
+    - Assets/Res/Material/Mat_SkillIndicator/AngleMissile/FireMissile/MissileBody.mat
+  - name: 5d0ee61b36ed3cb53a835dc88125b90a.unity3d
+    assets:
+    - Assets/Res/Material/Mat_SkillIndicator/AngleMissile/MagicCrossbow/Crossbow.mat
+    - Assets/Res/Material/Mat_SkillIndicator/AngleMissile/MagicCrossbow/Crossbow2.mat
+  - name: 52a5062e489979b8bed22f4bf0f29ceb.unity3d
+    assets:
+    - Assets/Res/Material/Mat_SkillIndicator/Cone/ChaosBlast/ConeBase.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Cone/ChaosBlast/ConeCenter.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Cone/ChaosBlast/ConeDeco.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Cone/ChaosBlast/ConeLBorder.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Cone/ChaosBlast/ConeRBorder.mat
+  - name: 4248ded4cdd91dd127a9ae96cfd04c4a.unity3d
+    assets:
+    - Assets/Res/Material/Mat_SkillIndicator/Cone/ConeBasic/ConeBase.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Cone/ConeBasic/ConeCenter.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Cone/ConeBasic/ConeDeco.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Cone/ConeBasic/ConeLBorder.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Cone/ConeBasic/ConeRBorder.mat
+  - name: 9d15a9cbd255848ce7bd0af900611ca3.unity3d
+    assets:
+    - Assets/Res/Material/Mat_SkillIndicator/Cone/FireBlast/ConeBase.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Cone/FireBlast/ConeCenter.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Cone/FireBlast/ConeDeco.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Cone/FireBlast/ConeLBorder.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Cone/FireBlast/ConeRBorder.mat
+  - name: 99d9eac798c5484c64315aee39cab6ad.unity3d
+    assets:
+    - Assets/Res/Material/Mat_SkillIndicator/Cone/FrostBlast/ConeBase.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Cone/FrostBlast/ConeCenter.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Cone/FrostBlast/ConeDeco1.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Cone/FrostBlast/ConeLBorder1.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Cone/FrostBlast/ConeRBorder1.mat
+  - name: abce6e7b93229969a88273bf06ba827f.unity3d
+    assets:
+    - Assets/Res/Material/Mat_SkillIndicator/LineMissile/LineMissileBasic1/MissileBody.mat
+    - Assets/Res/Material/Mat_SkillIndicator/LineMissile/LineMissileBasic1/MissileHead.mat
+  - name: ff2c7fc6576a7657793b32f750308ed8.unity3d
+    assets:
+    - Assets/Res/Material/Mat_SkillIndicator/LineMissile/LineMissileBasic2/MissileBody.mat
+    - Assets/Res/Material/Mat_SkillIndicator/LineMissile/LineMissileBasic2/MissileHead.mat
+  - name: 2c8680049daa11dff0db79992da69961.unity3d
+    assets:
+    - Assets/Res/Material/Mat_SkillIndicator/LineMissile/LineMissileBasic3/MissileBody.mat
+    - Assets/Res/Material/Mat_SkillIndicator/LineMissile/LineMissileBasic3/MissileHead.mat
+  - name: 852ae21fbb8ea3d857d5fc55568d65a5.unity3d
+    assets:
+    - Assets/Res/Material/Mat_SkillIndicator/LineMissile/LineMissileBasic4/MissileBody.mat
+    - Assets/Res/Material/Mat_SkillIndicator/LineMissile/LineMissileBasic4/MissileHead.mat
+  - name: 711f5a61f34e6df2416a8829045eb3ec.unity3d
+    assets:
+    - Assets/Res/Material/Mat_SkillIndicator/Point/Chaos Aura/PointBase.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Point/Chaos Aura/PointCrosshair.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Point/Chaos Aura/PointDeco.mat
+  - name: a3fe6dd4d4caedb7d47264bbeca874cc.unity3d
+    assets:
+    - Assets/Res/Material/Mat_SkillIndicator/Point/Fireball/PointBase.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Point/Fireball/PointCharge1.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Point/Fireball/PointCrosshair.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Point/Fireball/PointDeco1.mat
+  - name: 5779e5afb60015fbe862d7dc16e7e813.unity3d
+    assets:
+    - Assets/Res/Material/Mat_SkillIndicator/Point/TargetBasic/PointBase.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Point/TargetBasic/PointCharge.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Point/TargetBasic/PointCrosshair.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Point/TargetBasic/PointDeco.mat
+  - name: 86caa3bc483f89055fdb2272d422c008.unity3d
+    assets:
+    - Assets/Res/Material/Mat_SkillIndicator/Range/Range1.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Range/Range2.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Range/Range3.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Range/RangeBasic.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Range/RangeSmall.mat
+  - name: d66c5041d8fabf525381235e76865c8e.unity3d
+    assets:
+    - Assets/Res/Material/Mat_SkillIndicator/Range/FrostNova/PointBase2.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Range/FrostNova/PointCharge2.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Range/FrostNova/PointCrosshair2.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Range/FrostNova/PointDeco2.mat
+  - name: cf7c1d599c1dca5b3e24f81e1c51a22b.unity3d
+    assets:
+    - Assets/Res/Material/Mat_SkillIndicator/Status/Status6Bar.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Status/StatusBasic.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Status/StatusBasic2.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Status/StatusChargeExample.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Status/StatusDots.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Status/StatusGradient.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Status/StatusGradientDotted.mat
+    - Assets/Res/Material/Mat_SkillIndicator/Status/StatusManaExample.mat
   - name: 25ff4447d30e63109423d044aea84212.unity3d
     assets:
     - Assets/Res/Effect/Darius/Darius_FullAngry_Effect.prefab
@@ -496,6 +705,56 @@ MonoBehaviour:
   - name: e6163112a8fc99941e68f46f40e38aa3.unity3d
     assets:
     - Assets/Res/Texture/DDS/Darius/Passive_1/darius_color-bloodfluid32.dds
+  - name: ae8d7f5a871168a4d832707ace51aa4b.unity3d
+    assets:
+    - Assets/Res/Texture/SkillIndicator/SplatTextures/Range/Range.png
+  - name: d81a31b007a512f800a939b02ecae5e8.unity3d
+    assets:
+    - Assets/Res/Texture/SkillIndicator/SplatTextures/LineMissile/MissileTail1.png
+  - name: 1aa355706e1767666124331a716c7890.unity3d
+    assets:
+    - Assets/Plugins/Werewolf/StatusIndicators/Scripts/Shaders/ProjectorHoloLinear.shader
+    - Assets/Plugins/Werewolf/StatusIndicators/Scripts/Shaders/ProjectorLinearDistortColor.shader
+    - Assets/Plugins/Werewolf/StatusIndicators/Scripts/Shaders/ProjectorHoloCone.shader
+    - Assets/Plugins/Werewolf/StatusIndicators/Scripts/Shaders/ProjectorBasic.shader
+    - Assets/Plugins/Werewolf/StatusIndicators/Scripts/Shaders/ProjectorFillRadial.shader
+    - Assets/Plugins/Werewolf/StatusIndicators/Scripts/Shaders/ProjectorRadialDistortColor.shader
+  - name: 4f1bc69e6aca73663fbe7e597826bec0.unity3d
+    assets:
+    - Assets/Res/Texture/SkillIndicator/DistortTextures/Noise4.png
+  - name: c7746170403d87dcd67c2dca3e757a20.unity3d
+    assets:
+    - Assets/Res/Texture/SkillIndicator/SplatTextures/Cone/ConeBase.png
+  - name: 773d03139a78e4419aa34e5fa35b843a.unity3d
+    assets:
+    - Assets/Res/Texture/SkillIndicator/SplatTextures/Circle/CircleDeco2.png
+  - name: f7772e1ce208ac95b580794a77596846.unity3d
+    assets:
+    - Assets/Res/Texture/SkillIndicator/SplatTextures/Cone/ConeBorderL.png
+  - name: 8513532b770236d29fb09ff6eaeebf73.unity3d
+    assets:
+    - Assets/Res/Texture/SkillIndicator/SplatTextures/Cone/ConeCenter.png
+  - name: 1e8bcd2f3378f6096cd5bbde788e3111.unity3d
+    assets:
+    - Assets/Res/Texture/SkillIndicator/SplatTextures/Cone/ConeBorderR.png
+  - name: ac90db84fcca978913a87eae7a793f2a.unity3d
+    assets:
+    - Assets/Res/Texture/SkillIndicator/SplatTextures/LineMissile/MissileHead1.png
+  - name: fc55258d7fc63bb0514db93db5dddde0.unity3d
+    assets:
+    - Assets/Res/Texture/SkillIndicator/SplatTextures/Circle/CircleDeco3.png
+  - name: 067f7cca6f69c37c6bb8d6b83b7304bc.unity3d
+    assets:
+    - Assets/Res/Texture/SkillIndicator/SplatTextures/Circle/CircleCrosshair.png
+  - name: 06cc66a2558a12ac170f71a382ddebb3.unity3d
+    assets:
+    - Assets/Res/Texture/SkillIndicator/SplatTextures/Circle/CircleBase.png
+  - name: 33753b7b4f190771119eefcc4cf8b703.unity3d
+    assets:
+    - Assets/Res/Texture/SkillIndicator/DistortTextures/Noise1.png
+  - name: a17b9982764b36afead6608debe0b51c.unity3d
+    assets:
+    - Assets/Res/Texture/SkillIndicator/SplatTextures/Circle/CircleCharge2.png
   - name: a39e462e0bd2ee22c929667006a9da77.unity3d
     assets:
     - Assets/Res/Texture/DDS/Darius/Passive_1/bleed_blood_drop.png
