@@ -53,22 +53,37 @@ namespace ET
 
             LSF_Component lsfComponent = unit.BelongToRoom.GetComponent<LSF_Component>();
 
-            LSF_MoveCmd lsfMoveCmd = ReferencePool.Acquire<LSF_MoveCmd>().Init(unit.Id) as LSF_MoveCmd;
+            LSF_MoveCmd lsfMoveCmd = null;
+            
+            if (!entity.StartMoveCurrentFrame)
+            {
+                lsfMoveCmd = ReferencePool.Acquire<LSF_MoveCmd>().Init(unit.Id) as LSF_MoveCmd;
 
-            lsfMoveCmd.Speed = entity.Speed;
-            lsfMoveCmd.PosX = unit.Position.x;
-            lsfMoveCmd.PosY = unit.Position.y;
-            lsfMoveCmd.PosZ = unit.Position.z;
+                lsfMoveCmd.Speed = entity.Speed;
+                lsfMoveCmd.PosX = unit.Position.x;
+                lsfMoveCmd.PosY = unit.Position.y;
+                lsfMoveCmd.PosZ = unit.Position.z;
 
-            lsfMoveCmd.RotA = unit.Rotation.x;
-            lsfMoveCmd.RotB = unit.Rotation.y;
-            lsfMoveCmd.RotC = unit.Rotation.z;
-            lsfMoveCmd.RotW = unit.Rotation.w;
+                lsfMoveCmd.RotA = unit.Rotation.x;
+                lsfMoveCmd.RotB = unit.Rotation.y;
+                lsfMoveCmd.RotC = unit.Rotation.z;
+                lsfMoveCmd.RotW = unit.Rotation.w;
 
-            lsfMoveCmd.IsStopped = !entity.ShouldMove;
-            lsfMoveCmd.Frame = lsfComponent.CurrentFrame;
+                lsfMoveCmd.IsMoveStartCmd = false;
+                lsfMoveCmd.IsStopped = !entity.ShouldMove;
+                lsfMoveCmd.Frame = lsfComponent.CurrentFrame;
 
-            entity.HistroyMoveStates[lsfComponent.CurrentFrame] = lsfMoveCmd;
+                entity.HistroyMoveStates[lsfComponent.CurrentFrame] = lsfMoveCmd;
+            }
+            else
+            {
+                entity.StartMoveCurrentFrame = false;
+                // 如果是开始移动的指令，那么直接从历史记录中获取即可
+                if (entity.HistroyMoveStates.TryGetValue(lsfComponent.CurrentFrame, out var moveCmd))
+                {
+                    lsfMoveCmd = moveCmd;
+                }
+            }
 
 #if SERVER
             // 只有数据脏了才进行发送
@@ -84,7 +99,6 @@ namespace ET
         }
 
 #if !SERVER
-
         public override void OnLSF_RollBackTick(MoveComponent entity, uint frame, ALSF_Cmd stateToCompare)
         {
             LSF_MoveCmd lsfMoveCmd = stateToCompare as LSF_MoveCmd;
@@ -175,10 +189,6 @@ namespace ET
                             }
                         }
                     }
-                }
-                else
-                {
-                    return;
                 }
             }
 #endif

@@ -76,6 +76,8 @@ namespace ET
         }
 
         public bool ShouldMove = false;
+        public bool StartMoveCurrentFrame = false;
+        
         /// <summary>
         /// 下一个路径点的索引值
         /// </summary>

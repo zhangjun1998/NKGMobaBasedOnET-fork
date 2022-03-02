@@ -12,6 +12,7 @@ namespace ET
         /// 这个指令是否为寻路开始的指令
         /// </summary>
         [ProtoMember(1)] public bool IsMoveStartCmd;
+        
         [ProtoMember(2)] public float PosX;
         [ProtoMember(3)] public float PosY;
         [ProtoMember(4)] public float PosZ;
@@ -23,6 +24,10 @@ namespace ET
 
         [ProtoMember(9)] public float Speed;
         [ProtoMember(10)] public bool IsStopped;
+        
+        [ProtoMember(11)] public float TargetPosX;
+        [ProtoMember(12)] public float TargetPosY;
+        [ProtoMember(13)] public float TargetPosZ;
 
         public override ALSF_Cmd Init(long unitId)
         {
@@ -39,10 +44,19 @@ namespace ET
             // 当为开始寻路指令时，直接忽略目标点对比
             if (lsfMoveCmd.IsMoveStartCmd == this.IsMoveStartCmd)
             {
-                if (lsfMoveCmd.IsStopped == this.IsStopped)
+                if (Mathf.Abs(lsfMoveCmd.TargetPosX - this.TargetPosX) > 0.001f)
                 {
-                    return true;
+                    return false;
                 }
+            
+                if (Mathf.Abs(lsfMoveCmd.TargetPosZ - this.TargetPosZ) > 0.001f)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
             }
 
             if (Mathf.Abs(lsfMoveCmd.PosX - this.PosX) > 0.001f)
@@ -56,11 +70,6 @@ namespace ET
             }
             
             if (Mathf.Abs(lsfMoveCmd.Speed - this.Speed) > 0.001f)
-            {
-                return false;
-            }
-
-            if (lsfMoveCmd.IsMoveStartCmd != this.IsMoveStartCmd)
             {
                 return false;
             }

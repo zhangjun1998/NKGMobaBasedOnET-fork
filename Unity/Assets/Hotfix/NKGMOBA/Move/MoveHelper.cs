@@ -42,9 +42,21 @@ namespace ET
                 ReferencePool.Acquire<LSF_MoveCmd>().Init(unit.Id) as LSF_MoveCmd;
 
             pathFindCmd.IsMoveStartCmd = true;
-            pathFindCmd.PosX = targetPoint.x;
-            pathFindCmd.PosY = targetPoint.y;
-            pathFindCmd.PosZ = targetPoint.z;
+
+            pathFindCmd.PosX = unit.Position.x;
+            pathFindCmd.PosY = unit.Position.y;
+            pathFindCmd.PosZ = unit.Position.z;
+
+            pathFindCmd.RotA = unit.Rotation.x;
+            pathFindCmd.RotB = unit.Rotation.y;
+            pathFindCmd.RotC = unit.Rotation.z;
+            pathFindCmd.RotW = unit.Rotation.w;
+            
+            pathFindCmd.TargetPosX = targetPoint.x;
+            pathFindCmd.TargetPosY = targetPoint.y;
+            pathFindCmd.TargetPosZ = targetPoint.z;
+            
+            pathFindCmd.Speed = unit.GetComponent<MoveComponent>().Speed;
 
             unit.BelongToRoom.GetComponent<LSF_Component>().AddCmdToSendQueue(pathFindCmd);
         }

@@ -7,31 +7,38 @@ namespace ET
     {
         protected override async ETVoid Run(Unit unit, LSF_MoveCmd cmd)
         {
-            Vector3 target = new Vector3(cmd.PosX, cmd.PosY, cmd.PosZ);
-
             if (cmd.IsMoveStartCmd)
             {
+                Vector3 target = new Vector3(cmd.TargetPosX, cmd.TargetPosY, cmd.TargetPosZ);
                 IdleState idleState = ReferencePool.Acquire<IdleState>();
                 idleState.SetData(StateTypes.Idle, "Idle", 1);
                 unit.NavigateTodoSomething(target, 0, idleState).Coroutine();
-            }
-            else
-            {
-                Quaternion rotation = new Quaternion(cmd.RotA, cmd.RotB, cmd.RotC, cmd.RotW);
-                unit.Position = target;
-                unit.Rotation = rotation;
+                unit.GetComponent<MoveComponent>().StartMoveCurrentFrame = true;
+                unit.GetComponent<MoveComponent>().HistroyMoveStates[cmd.Frame] = cmd;
             }
 
+            Vector3 pos = new Vector3(cmd.PosX, cmd.PosY, cmd.PosZ);
+            Quaternion rotation = new Quaternion(cmd.RotA, cmd.RotB, cmd.RotC, cmd.RotW);
+            unit.Position = pos;
+            unit.Rotation = rotation;
+
 #if !SERVER
-            Log.Info($"Current : {unit.Position.ToString("#0.0000")} Server : {target.ToString("#0.0000")} ServerFrame: {unit.BelongToRoom.GetComponent<LSF_Component>().ServerCurrentFrame}");
+            Log.Info(
+                $"Current : {unit.Position.ToString("#0.0000")} Server : {pos.ToString("#0.0000")} ServerFrame: {unit.BelongToRoom.GetComponent<LSF_Component>().ServerCurrentFrame}");
 #endif
-            
+
             if (cmd.IsStopped)
             {
                 MoveComponent moveComponent = unit.GetComponent<MoveComponent>();
                 moveComponent.Stop(true);
                 Game.EventSystem.Publish(new EventType.MoveStop() {Unit = unit}).Coroutine();
             }
+
+#if SERVER
+            // 对于客户端发来的每一条指令，都要进行一次广播，因为多人模式需要进行同步，
+            LSF_Component lsfComponent = unit.BelongToRoom.GetComponent<LSF_Component>();
+            lsfComponent.AddCmdToSendQueue(cmd);
+#endif
 
             await ETTask.CompletedTask;
         }
