@@ -32,7 +32,7 @@ namespace ET
                 if (!result)
                 {
                     // Log.Error(
-                    //     $"---来自MoveComponent的不一致：服务端 {serverMoveState.Frame} X：{serverMoveState.PosX} Y: {serverMoveState.PosY} Z: {serverMoveState.PosZ}\n客户端：{frame} X：{histroyState.PosX} Y: {histroyState.PosY} Z: {histroyState.PosZ}");
+                    //      $"---来自MoveComponent的不一致：服务端 {MongoHelper.ToJson(serverMoveState)}\n客户端：{MongoHelper.ToJson(histroyState)}");
                 }
                 else
                 {
@@ -52,32 +52,31 @@ namespace ET
 
             LSF_Component lsfComponent = unit.BelongToRoom.GetComponent<LSF_Component>();
 
-            LSF_MoveCmd lsfMoveCmd = null;
+            LSF_MoveCmd lsfMoveCmd = ReferencePool.Acquire<LSF_MoveCmd>().Init(unit.Id) as LSF_MoveCmd;
 
-            if (!entity.StartMoveCurrentFrame)
-            {
-                lsfMoveCmd = ReferencePool.Acquire<LSF_MoveCmd>().Init(unit.Id) as LSF_MoveCmd;
+            lsfMoveCmd.Speed = entity.Speed;
+            lsfMoveCmd.PosX = unit.Position.x;
+            lsfMoveCmd.PosY = unit.Position.y;
+            lsfMoveCmd.PosZ = unit.Position.z;
 
-                lsfMoveCmd.Speed = entity.Speed;
-                lsfMoveCmd.PosX = unit.Position.x;
-                lsfMoveCmd.PosY = unit.Position.y;
-                lsfMoveCmd.PosZ = unit.Position.z;
+            lsfMoveCmd.RotA = unit.Rotation.x;
+            lsfMoveCmd.RotB = unit.Rotation.y;
+            lsfMoveCmd.RotC = unit.Rotation.z;
+            lsfMoveCmd.RotW = unit.Rotation.w;
 
-                lsfMoveCmd.RotA = unit.Rotation.x;
-                lsfMoveCmd.RotB = unit.Rotation.y;
-                lsfMoveCmd.RotC = unit.Rotation.z;
-                lsfMoveCmd.RotW = unit.Rotation.w;
+            lsfMoveCmd.IsMoveStartCmd = false;
+            lsfMoveCmd.IsStopped = !entity.ShouldMove;
+            lsfMoveCmd.Frame = lsfComponent.CurrentFrame;
 
-                lsfMoveCmd.IsMoveStartCmd = false;
-                lsfMoveCmd.IsStopped = !entity.ShouldMove;
-                lsfMoveCmd.Frame = lsfComponent.CurrentFrame;
+            entity.HistroyMoveStates[lsfComponent.CurrentFrame] = lsfMoveCmd;
 
-                entity.HistroyMoveStates[lsfComponent.CurrentFrame] = lsfMoveCmd;
-            }
-            else
+            if (entity.StartMoveCurrentFrame)
             {
                 entity.StartMoveCurrentFrame = false;
-                lsfMoveCmd = entity.HistroyMoveStates[lsfComponent.CurrentFrame];
+                lsfMoveCmd.IsMoveStartCmd = true;
+                lsfMoveCmd.TargetPosX = entity.FinalTarget.x;
+                lsfMoveCmd.TargetPosY = entity.FinalTarget.y;
+                lsfMoveCmd.TargetPosZ = entity.FinalTarget.z;
             }
 
 #if SERVER

@@ -70,8 +70,6 @@ namespace ET
                 .ChangeState<NavigateState>(StateTypes.Run, "Navigate", 1)) return false;
 
             self.Stop();
-
-            self.StartMoveCurrentFrame = true;
             self.TargetRange = targetRange;
 
             foreach (Vector3 v in target)
