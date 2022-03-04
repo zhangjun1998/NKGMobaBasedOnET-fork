@@ -5,22 +5,22 @@ using UnityEngine;
 namespace ET
 {
     [BsonIgnoreExtraElements]
-    public sealed class Unit: Entity
+    public sealed class Unit : Entity
     {
         public int ConfigId; //配置表id
+
         /// <summary>
         /// 归属的房间
         /// </summary>
         public Room BelongToRoom;
+
+        public LSF_Component LsfComponent => BelongToRoom.GetComponent<LSF_Component>();
         private Vector3 position; //坐标
 
         public Vector3 Position
         {
             get => this.position;
-            set
-            {
-                this.position = value;
-            }
+            set { this.position = value; }
         }
 
         [BsonIgnore]
@@ -31,17 +31,15 @@ namespace ET
         }
 
         private Quaternion rotation = Quaternion.identity;
+
         public Quaternion Rotation
         {
             get => this.rotation;
-            set
-            {
-                this.rotation = value;
-            }
+            set { this.rotation = value; }
         }
 
 #if !SERVER
-        
+
         private Vector3 viewPosition; //坐标
 
         public Vector3 ViewPosition
@@ -50,11 +48,12 @@ namespace ET
             set
             {
                 this.viewPosition = value;
-                Game.EventSystem.Publish(new EventType.ChangePosition() { Unit = this }).Coroutine();
+                Game.EventSystem.Publish(new EventType.ChangePosition() {Unit = this}).Coroutine();
             }
         }
 
         private Quaternion viewRotation = Quaternion.identity;
+
         public Quaternion ViewRotation
         {
             get => this.viewRotation;
@@ -64,7 +63,7 @@ namespace ET
                 Game.EventSystem.Publish(new EventType.ChangeRotation() {Unit = this}).Coroutine();
             }
         }
-        
+
 #endif
     }
 }

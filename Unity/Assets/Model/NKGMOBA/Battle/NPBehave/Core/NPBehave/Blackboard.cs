@@ -102,7 +102,7 @@ namespace NPBehave
         /// <param name="value"></param>
         /// <typeparam name="T"></typeparam>
         /// <param name="addIfNotExit">如果不存在这个键值的话，就添加一个</param>
-        public void Set<T>(string key, T value, bool addIfNotExit = false, uint currentFrame = 0)
+        public void Set<T>(string key, T value, bool addIfNotExit = false)
         {
             if (this.m_ParentBlackboard != null && this.m_ParentBlackboard.Isset(key))
             {
@@ -116,7 +116,7 @@ namespace NPBehave
                     ANP_BBValue newBBValue = NP_BBValueHelper.AutoCreateNPBBValueFromTValue(value);
                     this.m_Data.Add(key, newBBValue);
                     this.m_Notifications.Add(new Notification(key, Type.ADD, newBBValue));
-                    this.m_Clock.AddTimer(0, NotifiyObserversActionCache, 1, currentFrame);
+                    this.m_Clock.AddTimer(1, NotifiyObserversActionCache);
                 }
                 else
                 {
@@ -127,7 +127,7 @@ namespace NPBehave
                     {
                         targetBBValue.SetValueFrom(value);
                         this.m_Notifications.Add(new Notification(key, Type.CHANGE, targetBBValue));
-                        TimerId = this.m_Clock.AddTimer(0, NotifiyObserversActionCache, 1, currentFrame);
+                        TimerId = this.m_Clock.AddTimer(1, NotifiyObserversActionCache);
                     }
                 }
             }
@@ -139,7 +139,7 @@ namespace NPBehave
             {
                 this.m_Data.Remove(key);
                 this.m_Notifications.Add(new Notification(key, Type.REMOVE, null));
-                TimerId = this.m_Clock.AddTimer(0, NotifiyObserversActionCache);
+                TimerId = this.m_Clock.AddTimer(1, NotifiyObserversActionCache);
             }
         }
 
@@ -255,7 +255,7 @@ namespace NPBehave
             foreach (Blackboard child in this.m_Children)
             {
                 child.m_Notifications.AddRange(this.m_Notifications);
-                child.m_Clock.AddTimer(0, child.NotifiyObservers);
+                child.m_Clock.AddTimer(1, child.NotifiyObservers);
             }
 
             this.m_Notifications.Clear();

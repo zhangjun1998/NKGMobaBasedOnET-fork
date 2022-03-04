@@ -35,7 +35,7 @@ namespace NPBehave
         {
             if (this.interval <= 0f)
             {
-                TimerId = this.Clock.AddTimer(0, serviceMethod, -1);
+                TimerId = this.Clock.AddTimer(1, serviceMethod, -1);
                 serviceMethod();
             }
             else

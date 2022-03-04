@@ -18,28 +18,28 @@ namespace ET
             switch (anpBbValue.NP_BBValueType.ToString())
             {
                 case "System.String":
-                    blackboard.Set(key, (anpBbValue as NP_BBValue_String).GetValue(),false, currentFrame);
+                    blackboard.Set(key, (anpBbValue as NP_BBValue_String).GetValue());
                     break;
                 case "System.Single":
-                    blackboard.Set(key, (anpBbValue as NP_BBValue_Float).GetValue(),false, currentFrame);
+                    blackboard.Set(key, (anpBbValue as NP_BBValue_Float).GetValue());
                     break;
                 case "System.Int32":
-                    blackboard.Set(key, (anpBbValue as NP_BBValue_Int).GetValue(),false, currentFrame);
+                    blackboard.Set(key, (anpBbValue as NP_BBValue_Int).GetValue());
                     break;
                 case "System.Int64":
-                    blackboard.Set(key, (anpBbValue as NP_BBValue_Long).GetValue(),false, currentFrame);
+                    blackboard.Set(key, (anpBbValue as NP_BBValue_Long).GetValue());
                     break;
                 case "System.UInt32":
-                    blackboard.Set(key, (anpBbValue as NP_BBValue_UInt).GetValue(),false, currentFrame);
+                    blackboard.Set(key, (anpBbValue as NP_BBValue_UInt).GetValue());
                     break;
                 case "System.Boolean":
-                    blackboard.Set(key, (anpBbValue as NP_BBValue_Bool).GetValue(),false, currentFrame);
+                    blackboard.Set(key, (anpBbValue as NP_BBValue_Bool).GetValue());
                     break;
                 case "System.Collections.Generic.List`1[System.Int64]":
-                    blackboard.Set(key, (anpBbValue as NP_BBValue_List_Long).GetValue(),false, currentFrame);
+                    blackboard.Set(key, (anpBbValue as NP_BBValue_List_Long).GetValue());
                     break;
                 case "System.Numerics.Vector3":
-                    blackboard.Set(key, (anpBbValue as NP_BBValue_Vector3).GetValue(),false, currentFrame);
+                    blackboard.Set(key, (anpBbValue as NP_BBValue_Vector3).GetValue());
                     break;
             }
         }

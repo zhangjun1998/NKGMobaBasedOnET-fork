@@ -46,7 +46,6 @@ namespace NPBehave
 
         private void onTimer()
         {
-            Clock.RemoveTimer(TimerId);
             this.Stopped(true);
         }
     }

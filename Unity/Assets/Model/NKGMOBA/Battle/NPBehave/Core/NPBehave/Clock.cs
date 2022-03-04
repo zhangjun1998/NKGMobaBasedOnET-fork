@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using ET;
 using NPBehave_Core;
+using Log = ET.Log;
 
 namespace NPBehave
 {
@@ -10,7 +11,12 @@ namespace NPBehave
     {
         private bool isInUpdate = false;
 
-        public uint CurrentFrame;
+        public LSF_Component LsfComponent;
+
+        public Clock(LSF_Component lsfComponent)
+        {
+            LsfComponent = lsfComponent;
+        }
 
         /// <summary>
         /// 将要被添加的帧事件
@@ -31,33 +37,25 @@ namespace NPBehave
         /// <param name="intervalFrame">time in Frame</param>
         /// <param name="repeat">number of times to repeat, set to -1 to repeat until unregistered.</param>
         /// <param name="action">method to invoke</param>
-        public long AddTimer(uint intervalFrame, System.Action action, int repeat = 1, uint currentFrame = 0)
+        public long AddTimer(uint intervalFrame, System.Action action, int repeat = 1)
         {
             FrameAction frameAction = ReferencePool.Acquire<FrameAction>();
-            frameAction.Id = IdGenerater.Instance.GenerateId();
+            frameAction.Id = action.GetHashCode();
             frameAction.Action = action;
             frameAction.RepeatTime = repeat;
             frameAction.IntervalFrame = intervalFrame;
 
-            AddTimer(frameAction, currentFrame);
+            AddTimer(frameAction);
 
             return frameAction.Id;
         }
-
-        /// <summary>
-        /// 因为这个函数可能会在回滚的时候调用，所以要强行传递一个currentFrame
-        /// </summary>
-        /// <param name="frameAction"></param>
-        /// <param name="currentFrame"></param>
-        private void AddTimer(FrameAction frameAction, uint currentFrame = 0)
+        
+        private void AddTimer(FrameAction frameAction)
         {
-            CalculateTimerFrame(frameAction, currentFrame);
+            CalculateTimerFrame(frameAction);
             if (!isInUpdate)
             {
-                if (!this.AllFrameActions.ContainsKey(frameAction.Id))
-                {
-                    AllFrameActions.Add(frameAction.Id, frameAction);
-                }
+                AllFrameActions[frameAction.Id] = frameAction;
             }
             else
             {
@@ -81,15 +79,14 @@ namespace NPBehave
             }
         }
 
-        public void Update(uint currentFrame)
+        public void Update()
         {
             this.isInUpdate = true;
-            this.CurrentFrame = currentFrame;
 
             foreach (var frameActionPair in AllFrameActions)
             {
                 FrameAction frameAction = frameActionPair.Value;
-                if (frameAction.TargetTickFrame <= CurrentFrame)
+                if (frameAction.TargetTickFrame <= LsfComponent.CurrentFrame)
                 {
                     frameAction.Action.Invoke();
 
@@ -108,11 +105,7 @@ namespace NPBehave
 
             foreach (var frameActionId in this.ToBeRemovedFrameActions)
             {
-                // 如果ToBeAddedFrameActions中也有这个FrameAction，说明是一帧内移除并添加的，不作真正的移除，跳过
-                if (!ToBeAddedFrameActions.ContainsKey(frameActionId))
-                {
-                    RemoveTimer(frameActionId);
-                }
+                RemoveTimer(frameActionId);
             }
 
             foreach (var frameActionPair in this.ToBeAddedFrameActions)
@@ -129,16 +122,9 @@ namespace NPBehave
         /// </summary>
         /// <param name="frameAction"></param>
         /// <param name="currentFrame"></param>
-        private void CalculateTimerFrame(FrameAction frameAction, uint currentFrame = 0)
+        private void CalculateTimerFrame(FrameAction frameAction)
         {
-            if (currentFrame == 0)
-            {
-                frameAction.TargetTickFrame = CurrentFrame + frameAction.IntervalFrame;
-            }
-            else
-            {
-                frameAction.TargetTickFrame = currentFrame + frameAction.IntervalFrame;
-            }
+            frameAction.TargetTickFrame = LsfComponent.CurrentFrame + frameAction.IntervalFrame;
         }
     }
 }

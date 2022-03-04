@@ -6,7 +6,7 @@ namespace ET
     {
         public override void Awake(NP_SyncComponent self)
         {
-            self.SyncContext = new SyncContext();
+            self.SyncContext = new SyncContext(self);
         }
     }
     
@@ -22,7 +22,7 @@ namespace ET
     {
         public static void FixedUpdate(this NP_SyncComponent self, uint currentFrame)
         {
-            self.SyncContext.Update(currentFrame);
+            self.SyncContext.Update();
         }
     }
 }

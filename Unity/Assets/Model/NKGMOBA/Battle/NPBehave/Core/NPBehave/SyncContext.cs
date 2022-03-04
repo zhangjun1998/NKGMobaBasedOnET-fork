@@ -13,7 +13,12 @@ namespace NPBehave
     {
         private Dictionary<string, Blackboard> blackboards = new Dictionary<string, Blackboard>();
 
-        private Clock clock = new Clock();
+        private Clock clock;
+
+        public SyncContext(NP_SyncComponent npSyncComponent)
+        {
+            clock = new Clock(npSyncComponent.GetParent<Room>().GetComponent<LSF_Component>());
+        }
 
         public Clock GetClock()
         {
@@ -30,9 +35,9 @@ namespace NPBehave
             return blackboards[key];
         }
 
-        public void Update(uint currentFrame)
+        public void Update()
         {
-            clock.Update(currentFrame);
+            clock.Update();
         }
     }
 }

@@ -71,12 +71,7 @@ namespace ET
         /// </summary>
         public async ETVoid Finish()
         {
-            //因为编辑器模式下会因为Game.Scene的销毁而报错，但是NPBehave又只能在下一帧销毁，所以就这样写了
-#if UNITY_EDITOR
-            await ETTask.CompletedTask;
-#else
-            await TimerComponent.Instance.WaitFrameAsync();
-#endif
+            await BelongToUnit.BelongToRoom.GetComponent<LSF_TimerComponent>().WaitFrameAsync();
 
             this.m_RootNode.CancelWithoutReturnResult();
             BelongToUnit = null;

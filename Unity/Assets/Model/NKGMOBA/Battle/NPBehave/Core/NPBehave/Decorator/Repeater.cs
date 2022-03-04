@@ -55,7 +55,7 @@
                 }
                 else
                 {
-                    TimerId = this.Clock.AddTimer(0, restartDecoratee);
+                    TimerId = this.Clock.AddTimer(1, restartDecoratee);
                 }
             }
             else

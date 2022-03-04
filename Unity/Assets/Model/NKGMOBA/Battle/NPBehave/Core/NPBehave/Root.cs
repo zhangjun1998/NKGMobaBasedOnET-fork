@@ -73,7 +73,7 @@ namespace NPBehave
             if (!IsStopRequested)
             {
                 // wait one tick, to prevent endless recursions
-                this.TimerId = this.clock.AddTimer(0, this.m_MainNodeStartActionCache);
+                this.TimerId = this.clock.AddTimer(1,this.m_MainNodeStartActionCache);
             }
             else
             {

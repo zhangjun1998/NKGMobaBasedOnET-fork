@@ -63,12 +63,12 @@ namespace NPBehave
                 Result result = this.multiFrameFunc.Invoke(false);
                 if (result == Result.PROGRESS)
                 {
-                    TimerId = this.RootNode.Clock.AddTimer(0, OnUpdateFunc, -1);
+                    TimerId = this.RootNode.Clock.AddTimer(1, OnUpdateFunc, -1);
                 }
                 else if (result == Result.BLOCKED)
                 {
                     this.bWasBlocked = true;
-                    TimerId = this.RootNode.Clock.AddTimer(0, OnUpdateFunc, -1);
+                    TimerId = this.RootNode.Clock.AddTimer(1, OnUpdateFunc, -1);
                 }
                 else
                 {
@@ -80,12 +80,12 @@ namespace NPBehave
                 Result result = this.multiFrameFunc2.Invoke(Request.START);
                 if (result == Result.PROGRESS)
                 {
-                    TimerId = this.RootNode.Clock.AddTimer(0, OnUpdateFunc2, -1);
+                    TimerId = this.RootNode.Clock.AddTimer(1, OnUpdateFunc2, -1);
                 }
                 else if (result == Result.BLOCKED)
                 {
                     this.bWasBlocked = true;
-                    TimerId = this.RootNode.Clock.AddTimer(0, OnUpdateFunc2, -1);
+                    TimerId = this.RootNode.Clock.AddTimer(1, OnUpdateFunc2, -1);
                 }
                 else
                 {
