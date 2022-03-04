@@ -133,7 +133,7 @@ namespace NPBehave
             {
                 Result result = this.multiFrameFunc.Invoke(true);
                 Debug.Assert(result != Result.PROGRESS,
-                    "The Task has to return Result.SUCCESS, Result.FAILED/BLOCKED after beeing cancelled!");
+                    $"The Task has to return Result.SUCCESS, Result.FAILED/BLOCKED after beeing cancelled!  PATH: {GetPath()}");
                 this.RootNode.Clock.RemoveTimer(TimerId);
                 this.Stopped(result == Result.SUCCESS);
             }
@@ -141,13 +141,13 @@ namespace NPBehave
             {
                 Result result = this.multiFrameFunc2.Invoke(Request.CANCEL);
                 Debug.Assert(result != Result.PROGRESS,
-                    "The Task has to return Result.SUCCESS or Result.FAILED/BLOCKED after beeing cancelled!");
+                    $"The Task has to return Result.SUCCESS or Result.FAILED/BLOCKED after beeing cancelled!  PATH: {GetPath()}");
                 this.RootNode.Clock.RemoveTimer(TimerId);
                 this.Stopped(result == Result.SUCCESS);
             }
             else
             {
-                Debug.Assert(false, "DoStop called for a single frame action on " + this);
+                Debug.Assert(false, $"DoStop called for a single frame action on " + this + $"  PATH: {GetPath()}");
             }
         }
     }
