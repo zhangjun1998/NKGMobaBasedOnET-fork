@@ -66,6 +66,12 @@ namespace ET
 
                 foreach (var frameCmd in frameCmdsQueue)
                 {
+                    // 其他玩家的指令直接执行
+                    if (frameCmd.UnitId != playerUnit.Id)
+                    {
+                        LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), frameCmd);
+                    }
+                    
                     //只有本地玩家的指令才有回滚的可能性
                     if (frameCmd.UnitId == playerUnit.Id)
                     {
@@ -121,22 +127,6 @@ namespace ET
 
                     self.IsInChaseFrameState = false;
                 }
-
-                #region //随后处理其他玩家的指令，这一部分的处理其实相当反直觉，因为我们本地没有远程玩家的历史信息，所以需要强行把帧数拉到命令的帧数进行Handle
-
-                uint originFrame = self.CurrentFrame;
-                self.CurrentFrame = frameCmdsQueuePair.Key;
-                foreach (var frameCmd in frameCmdsQueue)
-                {
-                    if (frameCmd.UnitId != playerUnit.Id)
-                    {
-                        LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), frameCmd);
-                    }
-                }
-
-                self.CurrentFrame = originFrame;
-
-                #endregion
             }
 
             self.FrameCmdsToHandle.Clear();
