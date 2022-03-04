@@ -94,13 +94,14 @@ namespace ET
                         // 本地玩家的的指令才会回滚
                         if (frameCmd.UnitId == playerUnit.Id)
                         {
+                            //回滚处理
+                            self.RollBack(self.CurrentFrame, frameCmd);
+                            
                             if (!frameCmd.PassingConsistencyCheck)
                             {
                                 LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), frameCmd);
                             }
-
-                            //回滚处理
-                            self.RollBack(self.CurrentFrame, frameCmd);
+                            
                             frameCmd.PassingConsistencyCheck = true;
                         }
                     }
