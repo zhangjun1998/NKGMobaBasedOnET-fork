@@ -12,7 +12,7 @@ namespace ET
         /// <summary>
         /// 将要处理的命令列表
         /// </summary>
-        public Dictionary<uint, Queue<ALSF_Cmd>> FrameCmdsToHandle = new Dictionary<uint, Queue<ALSF_Cmd>>(64);
+        public SortedDictionary<uint, Queue<ALSF_Cmd>> FrameCmdsToHandle = new SortedDictionary<uint, Queue<ALSF_Cmd>>();
 
         /// <summary>
         /// 将要发送的命令列表

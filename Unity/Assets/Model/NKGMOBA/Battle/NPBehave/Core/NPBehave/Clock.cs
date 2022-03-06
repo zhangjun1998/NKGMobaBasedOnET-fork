@@ -49,17 +49,37 @@ namespace NPBehave
 
             return frameAction.Id;
         }
-        
+
         private void AddTimer(FrameAction frameAction)
         {
             CalculateTimerFrame(frameAction);
             if (!isInUpdate)
             {
-                AllFrameActions[frameAction.Id] = frameAction;
+                if (AllFrameActions.TryGetValue(frameAction.Id, out var result))
+                {
+                    if (result.TargetTickFrame > frameAction.TargetTickFrame)
+                    {
+                        result.TargetTickFrame = frameAction.TargetTickFrame;
+                    }
+                }
+                else
+                {
+                    AllFrameActions[frameAction.Id] = frameAction;
+                }
             }
             else
             {
-                this.ToBeAddedFrameActions[frameAction.Id] = frameAction;
+                if (ToBeAddedFrameActions.TryGetValue(frameAction.Id, out var result))
+                {
+                    if (result.TargetTickFrame > frameAction.TargetTickFrame)
+                    {
+                        result.TargetTickFrame = frameAction.TargetTickFrame;
+                    }
+                }
+                else
+                {
+                    this.ToBeAddedFrameActions[frameAction.Id] = frameAction;
+                }
             }
         }
 
@@ -69,7 +89,6 @@ namespace NPBehave
             {
                 if (this.AllFrameActions.TryGetValue(id, out var frameAction))
                 {
-                    ReferencePool.Release(frameAction);
                     this.AllFrameActions.Remove(id);
                 }
             }

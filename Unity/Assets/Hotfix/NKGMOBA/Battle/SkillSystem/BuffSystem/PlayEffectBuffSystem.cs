@@ -18,7 +18,7 @@ namespace ET
                 PlayEffectBuffData = GetBuffDataWithTType, Target = this.GetBuffTarget(),
                 CurrentOverlay = this.CurrentOverlay
             }).Coroutine();
-            //Log.Info("Execute播放");
+            Log.Info($"Execute播放：{GetBuffDataWithTType.EffectName}");
             if (this.BuffData.EventIds != null)
             {
                 foreach (var eventId in this.BuffData.EventIds)
@@ -45,7 +45,7 @@ namespace ET
                 PlayEffectBuffData = GetBuffDataWithTType, Target = this.GetBuffTarget(),
                 CurrentOverlay = this.CurrentOverlay
             }).Coroutine();
-            //Log.Info("Refresh播放");
+            Log.Info($"Refresh播放：{GetBuffDataWithTType.EffectName}");
             if (this.BuffData.EventIds != null)
             {
                 foreach (var eventId in this.BuffData.EventIds)

@@ -57,6 +57,12 @@ namespace ET
 #else
             Unit playerUnit = self.GetParent<Room>().GetComponent<UnitComponent>().MyUnit;
 
+            Log.Error($"current frame: {self.CurrentFrame}, CmdCountToHandle: {self.FrameCmdsToHandle.Count}");
+
+            if (self.FrameCmdsToHandle.Count == 2)
+            {
+                Log.Info("????????");
+            }
             foreach (var frameCmdsQueuePair in self.FrameCmdsToHandle)
             {
                 // 现根据服务端发回的指令进行一致性检测，如果需要的话就进行回滚
@@ -69,7 +75,8 @@ namespace ET
                     // 其他玩家的指令直接执行
                     if (frameCmd.UnitId != playerUnit.Id)
                     {
-                        LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), frameCmd);
+                        shouldRollback = true;
+                        Log.Error($"由于收到远程玩家{MongoHelper.ToJson(frameCmd)}指令，准备进入回滚流程");
                     }
                     
                     //只有本地玩家的指令才有回滚的可能性
@@ -110,6 +117,11 @@ namespace ET
                             
                             frameCmd.PassingConsistencyCheck = true;
                         }
+                        else
+                        {
+                            // 远程玩家指令直接执行
+                            LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), frameCmd);
+                        }
                     }
 
                     //因为这一帧已经重置过数据，所以从下一帧开始追帧
@@ -121,6 +133,7 @@ namespace ET
 
                     while (count-- >= 0)
                     {
+                        Log.Error($"开始追帧Tick，：{self.CurrentFrame}");
                         self.LSF_TickManually();
                         self.CurrentFrame++;
                     }
