@@ -79,7 +79,6 @@ namespace NPBehave
             {
                 if (CheckCondition(matchInfo.NPBalckBoardRelationData.BBKey, matchInfo.NPBalckBoardRelationData.NP_BBValue, matchInfo.Operator))
                 {
-                    Log.Info($"{matchInfo.NPBalckBoardRelationData.BBKey} 符合条件");
                     realMatchCount++;
                 }
             }
