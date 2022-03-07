@@ -45,6 +45,7 @@ namespace NPBehave
             frameAction.RepeatTime = repeat;
             frameAction.IntervalFrame = intervalFrame;
 
+            CalculateTimerFrame(frameAction);
             AddTimer(frameAction);
 
             return frameAction.Id;
@@ -52,7 +53,6 @@ namespace NPBehave
 
         private void AddTimer(FrameAction frameAction)
         {
-            CalculateTimerFrame(frameAction);
             if (!isInUpdate)
             {
                 if (AllFrameActions.TryGetValue(frameAction.Id, out var result))

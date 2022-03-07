@@ -11,21 +11,29 @@ namespace ET
             NP_RuntimeTreeManager npRuntimeTreeManager = unit.GetComponent<NP_RuntimeTreeManager>();
             NP_RuntimeTreeBBSnap cmdNPRuntimeTreeBbSnap = cmd.NP_RuntimeTreeBBSnap;
 
+#if !SERVER
+            bool isLocalPlayer = unit == unit.BelongToRoom.GetComponent<UnitComponent>().MyUnit;
+#else
+            bool isLocalPlayer = true;
+#endif
+
             // 服务器发来的脏数据就是变更的黑板数据，直接原样设置到黑板中即可
             if (npRuntimeTreeManager.RuntimeTrees.TryGetValue(cmd.TargetNPBehaveTreeId, out var npRuntimeTree))
             {
                 Blackboard blackboard = npRuntimeTree.GetBlackboard();
-                
+
                 foreach (var toBeChangedBBValues in cmd.NP_RuntimeTreeBBSnap.NP_FrameBBValues)
                 {
-                    if (cmdNPRuntimeTreeBbSnap.NP_FrameBBValueOperations.TryGetValue(toBeChangedBBValues.Key, out var operationType))
+                    if (cmdNPRuntimeTreeBbSnap.NP_FrameBBValueOperations.TryGetValue(toBeChangedBBValues.Key,
+                        out var operationType))
                     {
                         switch (operationType)
                         {
                             case NP_RuntimeTreeBBOperationType.ADD:
                             case NP_RuntimeTreeBBOperationType.CHANGE:
-                                NP_BBValueHelper.SetTargetBlackboardUseANP_BBValue(toBeChangedBBValues.Value, blackboard,
-                                    toBeChangedBBValues.Key, cmd.Frame);
+                                NP_BBValueHelper.SetTargetBlackboardUseANP_BBValue(toBeChangedBBValues.Value,
+                                    blackboard,
+                                    toBeChangedBBValues.Key, isLocalPlayer);
                                 break;
                             case NP_RuntimeTreeBBOperationType.REMOVE:
                                 blackboard.Unset(toBeChangedBBValues.Key);
