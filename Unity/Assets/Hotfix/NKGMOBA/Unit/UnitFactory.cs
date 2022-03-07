@@ -25,6 +25,7 @@ namespace ET
             unit.Position = new Vector3(unitInfo.X, unitInfo.Y, unitInfo.Z);
 
             unit.AddComponent<DataModifierComponent>();
+            unit.AddComponent<NP_SyncComponent>();
             unit.AddComponent<NumericComponent>();
             //增加栈式状态机，辅助动画切换
             unit.AddComponent<StackFsmComponent>();
@@ -66,6 +67,7 @@ namespace ET
             unit.Position = new Vector3(unitInfo.X, unitInfo.Y, unitInfo.Z);
 
             unit.AddComponent<DataModifierComponent>();
+            unit.AddComponent<NP_SyncComponent>();
             unit.AddComponent<NumericComponent>();
             //增加栈式状态机，辅助动画切换
             unit.AddComponent<StackFsmComponent>();
@@ -107,6 +109,7 @@ namespace ET
             Unit b2sColliderEntity = CreateUnit(room, selfId, 0);
             Unit belongToUnit = room.GetComponent<UnitComponent>().Get(belongToUnitId);
 
+            b2sColliderEntity.AddComponent<NP_SyncComponent>();
             b2sColliderEntity.AddComponent<B2S_ColliderComponent, CreateSkillColliderArgs>(
                 new CreateSkillColliderArgs()
                 {

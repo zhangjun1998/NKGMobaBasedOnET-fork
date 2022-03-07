@@ -47,7 +47,7 @@ namespace ET
             NP_RuntimeTree tempTree =
                 npRuntimeTreeManager.AddChildWithId<NP_RuntimeTree, NP_DataSupportor, NP_SyncComponent, Unit>(
                     rootId + unit.Id, npDataSupportor,
-                    unit.BelongToRoom.GetComponent<NP_SyncComponent>(), unit);
+                    unit.GetComponent<NP_SyncComponent>(), unit);
 
 
             npRuntimeTreeManager.AddTree(tempTree.Id, rootId, tempTree);

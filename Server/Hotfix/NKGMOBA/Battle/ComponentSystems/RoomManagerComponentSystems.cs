@@ -9,7 +9,6 @@
             room.AddComponent<UnitComponent>();
             room.AddComponent<LSF_Component>();
             room.AddComponent<LSF_TimerComponent>();
-            room.AddComponent<NP_SyncComponent>();
             room.AddComponent<RecastNavMeshManagerComponent>();
             room.AddComponent<CDComponent>();
 

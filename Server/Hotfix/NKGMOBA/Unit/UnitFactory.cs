@@ -87,6 +87,7 @@ namespace ET
             //unit.AddComponent<OperatesComponent>();
 
             unit.AddComponent<BuffManagerComponent>();
+            unit.AddComponent<NP_SyncComponent>();
             unit.AddComponent<NP_RuntimeTreeManager>();
             unit.AddComponent<SkillCanvasManagerComponent>();
 
@@ -165,6 +166,7 @@ namespace ET
             //unit.AddComponent<OperatesComponent>();
 
             unit.AddComponent<BuffManagerComponent>();
+            unit.AddComponent<NP_SyncComponent>();
             unit.AddComponent<NP_RuntimeTreeManager>();
             unit.AddComponent<SkillCanvasManagerComponent>();
 
@@ -229,6 +231,7 @@ namespace ET
                     targetPos = targetPos, angle = angle
                 });
 
+            b2sColliderEntity.AddComponent<NP_SyncComponent>();
             b2sColliderEntity.AddComponent<NP_RuntimeTreeManager>();
             b2sColliderEntity.AddComponent<SkillCanvasManagerComponent>();
 

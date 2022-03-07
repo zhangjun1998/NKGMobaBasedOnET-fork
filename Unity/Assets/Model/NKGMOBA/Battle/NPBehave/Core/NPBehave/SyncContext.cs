@@ -17,7 +17,7 @@ namespace NPBehave
 
         public SyncContext(NP_SyncComponent npSyncComponent)
         {
-            clock = new Clock(npSyncComponent.GetParent<Room>().GetComponent<LSF_Component>());
+            clock = new Clock(npSyncComponent.GetParent<Unit>().BelongToRoom.GetComponent<LSF_Component>());
         }
 
         public Clock GetClock()

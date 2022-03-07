@@ -49,7 +49,6 @@ namespace ET
                 BattleRoom.AddComponent<UnitComponent>();
                 BattleRoom.AddComponent<LSF_Component>();
                 BattleRoom.AddComponent<LSF_TimerComponent>();
-                BattleRoom.AddComponent<NP_SyncComponent>();
                 BattleRoom.AddComponent<MouseTargetSelectorComponent>();
                 BattleRoom.AddComponent<MapClickCompoent>();
                 BattleRoom.AddComponent<LSF_TickComponent>();
