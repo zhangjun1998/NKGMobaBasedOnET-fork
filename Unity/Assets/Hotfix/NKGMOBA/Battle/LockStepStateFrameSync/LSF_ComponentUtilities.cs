@@ -59,12 +59,10 @@ namespace ET
 
             Log.Error($"current frame: {self.CurrentFrame}, CmdCountToHandle: {self.FrameCmdsToHandle.Count}");
 
-            if (self.FrameCmdsToHandle.Count == 2)
+            if (self.FrameCmdsToHandle.Count > 0)
             {
-                Log.Info("????????");
-            }
-            foreach (var frameCmdsQueuePair in self.FrameCmdsToHandle)
-            {
+                var frameCmdsQueuePair = self.FrameCmdsToHandle.First();
+
                 // 现根据服务端发回的指令进行一致性检测，如果需要的话就进行回滚
                 bool shouldRollback = false;
                 Queue<ALSF_Cmd> frameCmdsQueue = frameCmdsQueuePair.Value;
@@ -75,10 +73,10 @@ namespace ET
                     // 其他玩家的指令直接执行
                     if (frameCmd.UnitId != playerUnit.Id)
                     {
-                        shouldRollback = true;
-                        Log.Error($"由于收到远程玩家{MongoHelper.ToJson(frameCmd)}指令，准备进入回滚流程");
+                        // 远程玩家指令直接执行
+                        LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), frameCmd);
                     }
-                    
+
                     //只有本地玩家的指令才有回滚的可能性
                     if (frameCmd.UnitId == playerUnit.Id)
                     {
@@ -109,18 +107,13 @@ namespace ET
                         {
                             //回滚处理
                             self.RollBack(self.CurrentFrame, frameCmd);
-                            
+
                             if (!frameCmd.PassingConsistencyCheck)
                             {
                                 LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), frameCmd);
                             }
-                            
+
                             frameCmd.PassingConsistencyCheck = true;
-                        }
-                        else
-                        {
-                            // 远程玩家指令直接执行
-                            LSF_CmdDispatcherComponent.Instance.Handle(self.GetParent<Room>(), frameCmd);
                         }
                     }
 
@@ -140,9 +133,11 @@ namespace ET
 
                     self.IsInChaseFrameState = false;
                 }
+
+                self.FrameCmdsToHandle.Remove(frameCmdsQueuePair.Key);
             }
 
-            self.FrameCmdsToHandle.Clear();
+
 #endif
             // 执行本帧本应该执行的的Tick
             self.LSF_TickManually();

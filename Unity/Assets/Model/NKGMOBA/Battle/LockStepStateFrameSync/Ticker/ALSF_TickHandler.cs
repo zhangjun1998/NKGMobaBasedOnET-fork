@@ -14,54 +14,16 @@
 
         public void LSF_TickStart(Entity entity, uint frame, long deltaTime)
         {
-#if !SERVER
-            Unit unit = entity.GetParent<Unit>();
-
-            if (unit != null)
-            {
-                LSF_Component lsfComponent = unit.BelongToRoom.GetComponent<LSF_Component>();
-                if (unit != unit.BelongToRoom.GetComponent<UnitComponent>().MyUnit && lsfComponent.IsInChaseFrameState)
-                {
-                    return;
-                }
-            }
-#endif
-
             OnLSF_TickStart(entity as T, frame, deltaTime);
         }
 
         public void LSF_Tick(Entity entity, uint currentFrame, long deltaTime)
         {
-#if !SERVER
-            Unit unit = entity.GetParent<Unit>();
-
-            if (unit != null)
-            {
-                LSF_Component lsfComponent = unit.BelongToRoom.GetComponent<LSF_Component>();
-                if (unit != unit.BelongToRoom.GetComponent<UnitComponent>().MyUnit && lsfComponent.IsInChaseFrameState)
-                {
-                    return;
-                }
-            }
-#endif
-            
             OnLSF_Tick(entity as T, currentFrame, deltaTime);
         }
 
         public void LSF_TickEnd(Entity entity, uint frame, long deltaTime)
         {
-#if !SERVER
-            Unit unit = entity.GetParent<Unit>();
-
-            if (unit != null)
-            {
-                LSF_Component lsfComponent = unit.BelongToRoom.GetComponent<LSF_Component>();
-                if (unit != unit.BelongToRoom.GetComponent<UnitComponent>().MyUnit && lsfComponent.IsInChaseFrameState)
-                {
-                    return;
-                }
-            }
-#endif
             OnLSF_TickEnd(entity as T, frame, deltaTime);
         }
 

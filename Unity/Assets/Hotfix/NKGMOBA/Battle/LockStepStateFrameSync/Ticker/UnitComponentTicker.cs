@@ -10,9 +10,17 @@
                 LSF_TickDispatcherComponent.Instance.HandleLSF_TickStart(allUnit.Value, frame, deltaTime);
             }
         }
-        
+
         public override void OnLSF_Tick(UnitComponent entity, uint currentFrame, long deltaTime)
         {
+#if !SERVER
+            if (entity.GetParent<Room>().GetComponent<LSF_Component>().IsInChaseFrameState)
+            {
+                LSF_TickDispatcherComponent.Instance.HandleLSF_Tick(entity.MyUnit, currentFrame, deltaTime);
+                return;
+            }
+#endif
+
             using (ListComponent<Unit> unitsToTick = new ListComponent<Unit>())
             {
                 foreach (var allUnit in entity.idUnits)
@@ -29,7 +37,7 @@
                 }
             }
         }
-        
+
         public override void OnLSF_TickEnd(UnitComponent entity, uint frame, long deltaTime)
         {
             foreach (var allUnit in entity.idUnits)
@@ -49,22 +57,14 @@
 
         public override void OnLSF_RollBackTick(UnitComponent entity, uint frame, ALSF_Cmd stateToCompare)
         {
-            foreach (var allUnit in entity.idUnits)
-            {
-                LSF_TickDispatcherComponent.Instance.HandleLSF_RollBack(allUnit.Value, frame,
-                    stateToCompare);
-            }
+            LSF_TickDispatcherComponent.Instance.HandleLSF_RollBack(entity.MyUnit, frame,
+                stateToCompare);
         }
 
         public override bool OnLSF_CheckConsistency(UnitComponent entity, uint frame, ALSF_Cmd stateToCompare)
         {
-            foreach (var allUnit in entity.idUnits)
-            {
-                return LSF_TickDispatcherComponent.Instance.HandleLSF_CheckConsistency(allUnit.Value, frame,
-                    stateToCompare);
-            }
-
-            return true;
+            return LSF_TickDispatcherComponent.Instance.HandleLSF_CheckConsistency(entity.MyUnit, frame,
+                stateToCompare);
         }
 #endif
     }
