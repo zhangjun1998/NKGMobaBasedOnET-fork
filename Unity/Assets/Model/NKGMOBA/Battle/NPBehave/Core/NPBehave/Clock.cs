@@ -105,7 +105,7 @@ namespace NPBehave
             foreach (var frameActionPair in AllFrameActions)
             {
                 FrameAction frameAction = frameActionPair.Value;
-                if (frameAction.TargetTickFrame <= LsfComponent.CurrentFrame)
+                if (frameAction.TargetTickFrame <= LsfComponent.CurrentFrame && !this.ToBeRemovedFrameActions.Contains(frameAction.Id))
                 {
                     frameAction.Action.Invoke();
 

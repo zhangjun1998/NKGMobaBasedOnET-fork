@@ -57,7 +57,7 @@ namespace ET
 #else
             Unit playerUnit = self.GetParent<Room>().GetComponent<UnitComponent>().MyUnit;
 
-            Log.Error($"current frame: {self.CurrentFrame}, CmdCountToHandle: {self.FrameCmdsToHandle.Count}");
+            //Log.Error($"current frame: {self.CurrentFrame}, CmdCountToHandle: {self.FrameCmdsToHandle.Count}");
 
             if (self.FrameCmdsToHandle.Count > 0)
             {
