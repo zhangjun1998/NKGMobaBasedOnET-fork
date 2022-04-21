@@ -21,26 +21,21 @@ namespace ET
     /// <summary>
     /// 矩形可视化辅助
     /// </summary>
-    public class B2S_BoxColliderVisualHelper: B2S_ColliderVisualHelperBase
+    public class B2S_BoxColliderVisualHelper : B2S_ColliderVisualHelperBase
     {
-        [DisableInEditorMode]
-        [LabelText("映射文件名称")]
+        [DisableInEditorMode] [LabelText("映射文件名称")]
         public string NameAndIdInflectFileName = "BoxColliderNameAndIdInflect";
 
-        [DisableInEditorMode]
-        [LabelText("碰撞数据文件名称")]
+        [DisableInEditorMode] [LabelText("碰撞数据文件名称")]
         public string ColliderDataFileName = "BoxColliderData";
 
-        [InlineEditor]
-        [DisableInEditorMode]
-        [Required("需要至少一个Unity2D矩形碰撞器")]
-        [BsonIgnore]
+        [InlineEditor] [DisableInEditorMode] [Required("需要至少一个Unity2D矩形碰撞器")] [BsonIgnore]
         public BoxCollider2D mCollider2D;
 
         [LabelText("矩形碰撞体数据")]
         public B2S_BoxColliderDataStructure MB2S_BoxColliderDataStructure = new B2S_BoxColliderDataStructure();
 
-        private List<Vector2> points = new List<Vector2>();
+        private Vector3[] Points = new Vector3[4];
 
         public override void InitColliderBaseInfo()
         {
@@ -50,55 +45,48 @@ namespace ET
         [Button("重新绘制矩形碰撞体", 25), GUIColor(0.2f, 0.9f, 1.0f)]
         public override void InitPointInfo()
         {
+            base.InitPointInfo();
+
             BoxCollider2D tempBox2D = this.mCollider2D;
+            // 这里不需要再去根据Go的缩放计算了，因为Unity已经帮我们计算好了
             this.MB2S_BoxColliderDataStructure.hx = tempBox2D.bounds.size.x / 2;
             this.MB2S_BoxColliderDataStructure.hy = tempBox2D.bounds.size.y / 2;
-            var conversion = new Vector3(this.theObjectWillBeEdited.transform.localScale.x,
-                this.theObjectWillBeEdited.transform.localScale.y, this.theObjectWillBeEdited.transform.localScale.z);
-            MB2S_BoxColliderDataStructure.finalOffset.X = this.mCollider2D.offset.x;
-            MB2S_BoxColliderDataStructure.finalOffset.Y = this.mCollider2D.offset.y;
-            this.points.Clear();
 
-            this.points.Add(new Vector2(-tempBox2D.bounds.size.x / 2 / conversion.x + tempBox2D.offset.x,
-                -tempBox2D.bounds.size.y / 2 / conversion.y + tempBox2D.offset.y));
-            this.points.Add(new Vector2(-tempBox2D.bounds.size.x / 2 / conversion.x + tempBox2D.offset.x,
-                tempBox2D.bounds.size.y / 2 / conversion.y + tempBox2D.offset.y));
-            this.points.Add(new Vector2(tempBox2D.bounds.size.x / 2 / conversion.x + tempBox2D.offset.x,
-                tempBox2D.bounds.size.y / 2 / conversion.y + tempBox2D.offset.y));
-            this.points.Add(new Vector2(tempBox2D.bounds.size.x / 2 / conversion.x + tempBox2D.offset.x,
-                -tempBox2D.bounds.size.y / 2 / conversion.y + tempBox2D.offset.y));
+            var finalOffset = this.GoScaleAndRotMatrix4X4.MultiplyPoint(
+                new Vector3(this.mCollider2D.offset.x, 0, this.mCollider2D.offset.y));
 
-            matrix4X4 = Matrix4x4.TRS(theObjectWillBeEdited.transform.position, theObjectWillBeEdited.transform.rotation,
-                theObjectWillBeEdited.transform.localScale);
+            MB2S_BoxColliderDataStructure.finalOffset = new System.Numerics.Vector2(finalOffset.x, finalOffset.z);
+
+            // 从左上角开始顺时针计算顶点
+            Points[0] = GoTranslateMatrix4X4.MultiplyPoint(new Vector3(
+                -MB2S_BoxColliderDataStructure.hx + MB2S_BoxColliderDataStructure.finalOffset.X, 1,
+                MB2S_BoxColliderDataStructure.hy + MB2S_BoxColliderDataStructure.finalOffset.Y));
+            Points[1] = GoTranslateMatrix4X4.MultiplyPoint(new Vector3(
+                MB2S_BoxColliderDataStructure.hx + MB2S_BoxColliderDataStructure.finalOffset.X, 1,
+                MB2S_BoxColliderDataStructure.hy + MB2S_BoxColliderDataStructure.finalOffset.Y));
+            Points[2] = GoTranslateMatrix4X4.MultiplyPoint(new Vector3(
+                MB2S_BoxColliderDataStructure.hx + MB2S_BoxColliderDataStructure.finalOffset.X, 1,
+                -MB2S_BoxColliderDataStructure.hy + MB2S_BoxColliderDataStructure.finalOffset.Y));
+            Points[3] = GoTranslateMatrix4X4.MultiplyPoint(new Vector3(
+                -MB2S_BoxColliderDataStructure.hx + MB2S_BoxColliderDataStructure.finalOffset.X, 1,
+                -MB2S_BoxColliderDataStructure.hy + MB2S_BoxColliderDataStructure.finalOffset.Y));
 
             this.canDraw = true;
         }
 
         public override void DrawCollider()
         {
-            if (this.mCollider2D is BoxCollider2D)
-
-                for (int i = 0; i < this.points.Count; i++)
-                {
-                    if (i < this.points.Count - 1)
-                        Gizmos.DrawLine(matrix4X4.MultiplyPoint(new Vector3(points[i].x, 0,
-                                points[i].y)),
-                            matrix4X4.MultiplyPoint(new Vector3(points[i + 1].x, 0,
-                                points[i + 1].y)));
-                    else
-                    {
-                        Gizmos.DrawLine(matrix4X4.MultiplyPoint(new Vector3(points[i].x, 0,
-                                points[i].y)),
-                            matrix4X4.MultiplyPoint(new Vector3(points[0].x, 0,
-                                points[0].y)));
-                    }
-                }
+            for (int i = 0; i < 4; i++)
+            {
+                Gizmos.DrawLine(Points[i], Points[(i + 1) % 4]);
+            }
         }
 
         [Button("保存所有矩形碰撞体名称与ID映射信息", 25), GUIColor(0.2f, 0.9f, 1.0f)]
         public override void SavecolliderNameAndIdInflect()
         {
-            if (!this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.ContainsKey(this.theObjectWillBeEdited.name))
+            if (!this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.ContainsKey(
+                this.theObjectWillBeEdited.name))
             {
                 MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.Add(this.theObjectWillBeEdited.name,
                     this.MB2S_BoxColliderDataStructure.id);
@@ -106,10 +94,11 @@ namespace ET
             else
             {
                 MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic[this.theObjectWillBeEdited.name] =
-                        this.MB2S_BoxColliderDataStructure.id;
+                    this.MB2S_BoxColliderDataStructure.id;
             }
 
-            using (FileStream file = File.Create($"{this.NameAndIdInflectSavePath}/{this.NameAndIdInflectFileName}.bytes"))
+            using (FileStream file =
+                File.Create($"{B2S_BattleColliderExportPathDefine.ColliderNameAndIdInflectSavePath}/{this.NameAndIdInflectFileName}.bytes"))
             {
                 BsonSerializer.Serialize(new BsonBinaryWriter(file), this.MColliderNameAndIdInflectSupporter);
             }
@@ -136,10 +125,11 @@ namespace ET
                 else
                 {
                     this.MColliderDataSupporter.colliderDataDic[this.MB2S_BoxColliderDataStructure.id] =
-                            this.MB2S_BoxColliderDataStructure;
+                        this.MB2S_BoxColliderDataStructure;
                 }
             }
-            using (FileStream file = File.Create($"{this.ColliderDataSavePath}/{this.ColliderDataFileName}.bytes"))
+
+            using (FileStream file = File.Create($"{B2S_BattleColliderExportPathDefine.ServerColliderDataSavePath}/{this.ColliderDataFileName}.bytes"))
             {
                 BsonSerializer.Serialize(new BsonBinaryWriter(file), this.MColliderDataSupporter);
             }
@@ -151,12 +141,13 @@ namespace ET
             this.MColliderDataSupporter.colliderDataDic.Clear();
             this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.Clear();
 
-            using (FileStream file = File.Create($"{this.NameAndIdInflectSavePath}/{this.NameAndIdInflectFileName}.bytes"))
+            using (FileStream file =
+                File.Create($"{B2S_BattleColliderExportPathDefine.ColliderNameAndIdInflectSavePath}/{this.NameAndIdInflectFileName}.bytes"))
             {
                 BsonSerializer.Serialize(new BsonBinaryWriter(file), this.MColliderNameAndIdInflectSupporter);
             }
 
-            using (FileStream file = File.Create($"{this.ColliderDataSavePath}/{this.ColliderDataFileName}.bytes"))
+            using (FileStream file = File.Create($"{B2S_BattleColliderExportPathDefine.ServerColliderDataSavePath}/{this.ColliderDataFileName}.bytes"))
             {
                 BsonSerializer.Serialize(new BsonBinaryWriter(file), this.MColliderDataSupporter);
             }
@@ -172,17 +163,20 @@ namespace ET
                     this.MColliderDataSupporter.colliderDataDic.Remove(this.MB2S_BoxColliderDataStructure.id);
                 }
 
-                if (this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.ContainsKey(this.theObjectWillBeEdited.name))
+                if (this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.ContainsKey(
+                    this.theObjectWillBeEdited.name))
                 {
-                    this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.Remove(this.theObjectWillBeEdited.name);
+                    this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.Remove(
+                        this.theObjectWillBeEdited.name);
                 }
 
-                using (FileStream file = File.Create($"{this.NameAndIdInflectSavePath}/{this.NameAndIdInflectFileName}.bytes"))
+                using (FileStream file =
+                    File.Create($"{B2S_BattleColliderExportPathDefine.ColliderNameAndIdInflectSavePath}/{this.NameAndIdInflectFileName}.bytes"))
                 {
                     BsonSerializer.Serialize(new BsonBinaryWriter(file), this.MColliderNameAndIdInflectSupporter);
                 }
 
-                using (FileStream file = File.Create($"{this.ColliderDataSavePath}/{this.ColliderDataFileName}.bytes"))
+                using (FileStream file = File.Create($"{B2S_BattleColliderExportPathDefine.ServerColliderDataSavePath}/{this.ColliderDataFileName}.bytes"))
                 {
                     BsonSerializer.Serialize(new BsonBinaryWriter(file), this.MColliderDataSupporter);
                 }
@@ -198,7 +192,7 @@ namespace ET
                 ResetData();
                 return;
             }
-            
+
             if (theObjectWillBeEdited == null)
             {
                 ResetData();
@@ -213,15 +207,17 @@ namespace ET
                     this.canDraw = false;
                 }
             }
-            
+
             if (this.MB2S_BoxColliderDataStructure.id == 0)
             {
-                this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.TryGetValue(this.theObjectWillBeEdited.name,
+                this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.TryGetValue(
+                    this.theObjectWillBeEdited.name,
                     out this.MB2S_BoxColliderDataStructure.id);
                 if (this.MColliderDataSupporter.colliderDataDic.ContainsKey(this.MB2S_BoxColliderDataStructure.id))
                 {
                     this.MB2S_BoxColliderDataStructure =
-                            (B2S_BoxColliderDataStructure) this.MColliderDataSupporter.colliderDataDic[this.MB2S_BoxColliderDataStructure.id];
+                        (B2S_BoxColliderDataStructure) this.MColliderDataSupporter.colliderDataDic[
+                            this.MB2S_BoxColliderDataStructure.id];
                 }
             }
         }
@@ -231,14 +227,14 @@ namespace ET
             mCollider2D = null;
             this.canDraw = false;
             this.MB2S_BoxColliderDataStructure.id = 0;
-            this.points.Clear();
             this.MB2S_BoxColliderDataStructure.isSensor = false;
             MB2S_BoxColliderDataStructure.finalOffset = System.Numerics.Vector2.Zero;
         }
-        
-        
+
+
         public B2S_BoxColliderVisualHelper(ColliderNameAndIdInflectSupporter colliderNameAndIdInflectSupporter,
-        ColliderDataSupporter colliderDataSupporter): base(colliderNameAndIdInflectSupporter, colliderDataSupporter)
+            ColliderDataSupporter colliderDataSupporter) : base(colliderNameAndIdInflectSupporter,
+            colliderDataSupporter)
         {
         }
     }

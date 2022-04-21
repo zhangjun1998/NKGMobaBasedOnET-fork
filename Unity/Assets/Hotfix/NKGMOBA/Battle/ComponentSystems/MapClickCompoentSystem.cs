@@ -16,16 +16,18 @@ namespace ET
         {
             self.m_UserInputComponent = Game.Scene.GetComponent<UserInputComponent>();
 
-            self.m_MouseTargetSelectorComponent = self.DomainScene().GetComponent<MouseTargetSelectorComponent>();
+            self.m_MouseTargetSelectorComponent = self.GetParent<Room>().GetComponent<MouseTargetSelectorComponent>();
         }
     }
-
+    
     public class MapClickComponentUpdate : UpdateSystem<MapClickCompoent>
     {
         public override void Update(MapClickCompoent self)
         {
             if (self.m_UserInputComponent.RightMouseDown)
             {
+                // 状态帧系统测试代码
+
                 if (Stage.isTouchOnUI) //点在了UI上
                 {
                     //Log.Info("点在UI上");
@@ -46,14 +48,11 @@ namespace ET
     {
         public static void MapPathFinder(this MapClickCompoent self, Vector3 ClickPoint)
         {
-            Game.Scene.GetComponent<PlayerComponent>().GateSession.Send(new C2M_PathfindingResult()
-            {
-                X = ClickPoint.x,
-                Y = ClickPoint.y,
-                Z = ClickPoint.z
-            });
+            Room room = self.GetParent<Room>();
+            UnitComponent unitComponent = room.GetComponent<UnitComponent>();
+
+            unitComponent.MyUnit.SendPathFindCmd(ClickPoint);
         }
     }
 }
 #endif
-

@@ -1,20 +1,36 @@
 using System;
+using ET.EventType;
+using UnityEngine;
 
 namespace ET
 {
-    [ObjectSystem]
-    public class PingComponentAwakeSystem: AwakeSystem<PingComponent>
+    public class FinishEnterMap_BeginPing : AEvent<EventType.FinishEnterMap>
     {
-        public override void Awake(PingComponent self)
+        protected override async ETTask Run(FinishEnterMap a)
         {
-            PingAsync(self).Coroutine();
-        }
+            Game.Scene.GetComponent<PlayerComponent>().GateSession.GetComponent<PingComponent>().PingAsync()
+                .Coroutine();
 
-        private static async ETVoid PingAsync(PingComponent self)
+            await ETTask.CompletedTask;
+        }
+    }
+
+    [ObjectSystem]
+    public class PingComponentDestroySystem : DestroySystem<PingComponent>
+    {
+        public override void Destroy(PingComponent self)
+        {
+            self.C2GPingValue = default;
+        }
+    }
+
+    public static class PingComponentUtilities
+    {
+        public static async ETVoid PingAsync(this PingComponent self)
         {
             Session session = self.GetParent<Session>();
             long instanceId = self.InstanceId;
-            
+
             while (true)
             {
                 if (self.InstanceId != instanceId)
@@ -22,22 +38,39 @@ namespace ET
                     return;
                 }
 
-                long time1 = TimeHelper.ClientNow();
                 try
                 {
-                    G2C_Ping response = await session.Call(self.C2G_Ping) as G2C_Ping;
+                    long clientNow_C2GSend = TimeHelper.ClientNow();
+
+                    G2C_Ping responseFromGate = await session.Call(self.C2G_Ping) as G2C_Ping;
 
                     if (self.InstanceId != instanceId)
                     {
                         return;
                     }
 
-                    long time2 = TimeHelper.ClientNow();
-                    self.Ping = time2 - time1;
-                    
-                    Game.TimeInfo.ServerMinusClientTime = response.Time + (time2 - time1) / 2 - time2;
+                    self.C2GPingValue =
+                        (uint) Mathf.Clamp((responseFromGate.Time - clientNow_C2GSend) * 2, 0.0f,
+                            999.0f);
 
-                    await TimerComponent.Instance.WaitAsync(2000);
+                    long clientNow_C2MSend = TimeHelper.ClientNow();
+                    
+                    M2C_Ping responseFromMap = await session.Call(self.C2M_Ping) as M2C_Ping;
+                    
+                    self.C2MPingValue =
+                        (uint) Mathf.Clamp((responseFromMap.TimePoint - clientNow_C2MSend) * 2, 0.0f,
+                            999.0f);
+
+                    //TODO 这里是只有C2M的ping发生变化才发送通知
+                    Game.EventSystem.Publish(new EventType.PingChange()
+                        {
+                            C2GPing = self.C2GPingValue,
+                            C2MPing = self.C2MPingValue,
+                            ServerTimeSnap = responseFromMap.TimePoint,
+                            MessageFrame = responseFromMap.ServerFrame,
+                            ZoneScene = self.DomainScene()
+                        })
+                        .Coroutine();
                 }
                 catch (RpcException e)
                 {
@@ -49,16 +82,9 @@ namespace ET
                 {
                     Log.Error($"ping error: \n{e}");
                 }
-            }
-        }
-    }
 
-    [ObjectSystem]
-    public class PingComponentDestroySystem: DestroySystem<PingComponent>
-    {
-        public override void Destroy(PingComponent self)
-        {
-            self.Ping = default;
+                await TimerComponent.Instance.WaitAsync(1000);
+            }
         }
     }
 }

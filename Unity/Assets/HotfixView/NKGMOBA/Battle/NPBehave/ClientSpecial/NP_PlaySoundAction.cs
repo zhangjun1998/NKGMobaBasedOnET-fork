@@ -19,7 +19,9 @@ namespace ET
 
         public void PlaySoundAction()
         {
+#if !SERVER
             Game.Scene.GetComponent<SoundComponent>().PlayClip(this.SoundName, 0.4f).Coroutine();
+#endif
         }
     }
 }

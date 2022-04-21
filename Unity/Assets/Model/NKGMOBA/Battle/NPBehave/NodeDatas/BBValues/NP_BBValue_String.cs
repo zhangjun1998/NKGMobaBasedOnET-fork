@@ -5,12 +5,14 @@
 //------------------------------------------------------------
 
 using System;
+using ProtoBuf;
 using Sirenix.OdinInspector;
 
 namespace ET
 {
     [HideLabel]
     [HideReferenceObjectPicker]
+    [ProtoContract]
     public class NP_BBValue_String: NP_BBValueBase<string>, IEquatable<NP_BBValue_String>
     {
         public override Type NP_BBValueType
@@ -116,6 +118,24 @@ namespace ET
         public static bool operator <=(NP_BBValue_String lhs, NP_BBValue_String rhs)
         {
             return false;
+        }
+
+        #endregion
+        
+        #region proto序列化支持
+
+        [ProtoMember(1)] private string ValueForProtoSerilize;
+
+        [ProtoBeforeSerialization]
+        private void HandleBeforSerilize()
+        {
+            ValueForProtoSerilize = Value;
+        }
+
+        [ProtoAfterDeserialization]
+        private void HandleAfterSerilize()
+        {
+            Value = ValueForProtoSerilize;
         }
 
         #endregion

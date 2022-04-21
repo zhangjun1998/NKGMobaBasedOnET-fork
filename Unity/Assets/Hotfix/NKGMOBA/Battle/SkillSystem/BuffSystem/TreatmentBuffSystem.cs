@@ -12,7 +12,7 @@ namespace ET
     public class TreatmentBuffSystem : ABuffSystemBase<TreatmentBuffData>
     {
 #if SERVER
-        public override void OnExecute()
+        public override void OnExecute(uint currentFrame)
         {
             float finalTreatValue;
             finalTreatValue = BuffDataCalculateHelper.CalculateCurrentData(this);
@@ -25,13 +25,13 @@ namespace ET
             this.TheUnitBelongto.GetComponent<UnitAttributesDataComponent>().NumericComponent
                 .ApplyChange(NumericType.Hp, finalTreatValue);
             //抛出治疗事件，需要监听治疗的Buff需要监听此事件
-            this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystem>()
+            this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystemComponent>()
                 .Run($"ExcuteTreate{this.TheUnitFrom.Id}", finalTreatValue);
-            this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystem>()
+            this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystemComponent>()
                 .Run($"TakeTreate{this.GetBuffTarget()}", finalTreatValue);
         }
 #else
-        public override void OnExecute()
+        public override void OnExecute(uint currentFrame)
         {
             throw new System.NotImplementedException();
         }

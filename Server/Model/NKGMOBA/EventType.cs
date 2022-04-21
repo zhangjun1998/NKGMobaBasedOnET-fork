@@ -35,15 +35,9 @@
             public float Result;
         }
 
-        public struct SpriteDead
-        {
-            public Unit KillerSprite;
-            public Unit DeadSprite;
-        }
-
         public struct NumericApplyChangeValue
         {
-            public long UnitId;
+            public Unit Unit;
             public NumericType NumericType;
             public float ChangedValue;
         }

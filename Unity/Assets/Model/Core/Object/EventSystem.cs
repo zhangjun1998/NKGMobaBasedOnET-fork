@@ -74,6 +74,9 @@ namespace ET
 
         private readonly UnOrderMultiMapSet<Type, Type> types = new UnOrderMultiMapSet<Type, Type>();
 
+        private readonly Dictionary<Type, List<BaseAttribute>> allAttributes =
+            new Dictionary<Type, List<BaseAttribute>>();
+
         private readonly Dictionary<Type, List<object>> allEvents = new Dictionary<Type, List<object>>();
 
         private TypeSystems typeSystems = new TypeSystems();
@@ -130,6 +133,15 @@ namespace ET
                 foreach (BaseAttribute baseAttribute in objects)
                 {
                     this.types.Add(baseAttribute.AttributeType, type);
+
+                    if (this.allAttributes.TryGetValue(type, out var list))
+                    {
+                        list.Add(baseAttribute);
+                    }
+                    else
+                    {
+                        allAttributes[type] = new List<BaseAttribute>() {baseAttribute};
+                    }
                 }
             }
         }
@@ -209,6 +221,26 @@ namespace ET
             }
 
             return this.types[systemAttributeType];
+        }
+
+        public List<BaseAttribute> GetAttributes(Type type)
+        {
+            if (!this.allAttributes.ContainsKey(type))
+            {
+                return new List<BaseAttribute>();
+            }
+
+            return this.allAttributes[type];
+        }
+
+        public T GetAttribute<T>(Type type) where T : BaseAttribute
+        {
+            if (!this.allAttributes.ContainsKey(type))
+            {
+                return default;
+            }
+
+            return this.allAttributes[type][0] as T;
         }
 
         public List<Type> GetTypes()
@@ -667,6 +699,7 @@ namespace ET
 
                     list.List.Add(aEvent.Handle(a));
                 }
+
                 try
                 {
                     await ETTaskHelper.WaitAll(list.List);

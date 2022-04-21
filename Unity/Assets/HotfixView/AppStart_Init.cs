@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Security.Policy;
+
 namespace ET
 {
     public class AppStart_Init : AEvent<EventType.AppStart>
@@ -9,7 +12,7 @@ namespace ET
 
             Game.Scene.AddComponent<ConfigComponent>();
             await ConfigComponent.Instance.LoadAsync();
-            
+
             Game.Scene.AddComponent<OpcodeTypeComponent>();
             Game.Scene.AddComponent<MessageDispatcherComponent>();
 
@@ -30,10 +33,15 @@ namespace ET
 
             Game.Scene.AddComponent<UserInputComponent>();
 
+            Game.Scene.AddComponent<LSF_CmdDispatcherComponent>();
+            Game.Scene.AddComponent<LSF_TickDispatcherComponent>();
+
             Scene zoneScene = await SceneFactory.CreateZoneScene(1, "Game", Game.Scene);
 
             //显示登陆界面
             await Game.EventSystem.Publish(new EventType.AppStartInitFinish() {ZoneScene = zoneScene});
+
+            ProtoTest.Do();
         }
     }
 }

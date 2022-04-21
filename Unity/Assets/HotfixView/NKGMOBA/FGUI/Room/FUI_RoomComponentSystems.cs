@@ -19,6 +19,8 @@
 
             self.FuiRoomList = fuiRoomList;
             self.FuiRoom = fuiRoom;
+            
+            FUI_RoomUtilities.RefreshRoomListBaseOnRoomData(self);
         }
     }
 

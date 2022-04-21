@@ -22,8 +22,8 @@ namespace ET
         public void RegisteReplaceAttackAction()
         {
 #if SERVER
-            BelongToUnit.GetComponent<CommonAttackComponent>().SetAttackReplaceInfo(this.BelongtoRuntimeTree.Id, AttackReplaceInfo);
-            BelongToUnit.GetComponent<CommonAttackComponent>().SetCancelAttackReplaceInfo(this.BelongtoRuntimeTree.Id, CancelReplaceInfo);  
+            BelongToUnit.GetComponent<CommonAttackComponent_Logic>().SetAttackReplaceInfo(this.BelongtoRuntimeTree.Id, AttackReplaceInfo);
+            BelongToUnit.GetComponent<CommonAttackComponent_Logic>().SetCancelAttackReplaceInfo(this.BelongtoRuntimeTree.Id, CancelReplaceInfo);  
 #endif
         }
     }

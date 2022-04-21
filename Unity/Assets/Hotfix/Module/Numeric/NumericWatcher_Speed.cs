@@ -5,17 +5,16 @@
     {
         public void Run(NumericComponent numericComponent, NumericType numericType, float value)
         {
-#if SERVER
             Unit unit = numericComponent.GetParent<Unit>();
-
-            if (!(unit is null))
+            if (unit.GetComponent<MoveComponent>().ShouldMove)
             {
-                MessageHelper.BroadcastToRoom(unit.BelongToRoom,
-                    new M2C_ChangeProperty() {UnitId = unit.Id, FinalValue = value, NumicType = (int) numericType});
+                unit.GetComponent<MoveComponent>().ChangeSpeed(value / 100f);
             }
-#else
+#if !SERVER
             Game.EventSystem.Publish(new EventType.UnitChangeProperty()
                 {FinalValue = value, Sprite = numericComponent.GetParent<Unit>(), NumericType = numericType});
+#else
+
 #endif
         }
     }

@@ -18,7 +18,9 @@ namespace ET
 
         public void StopSoundAction()
         {
-            Game.Scene.GetComponent<SoundComponent>().StopAndCleanMusic(this.SoundName);
+#if !SERVER
+                        Game.Scene.GetComponent<SoundComponent>().StopAndCleanMusic(this.SoundName);
+#endif
         }
     }
 }

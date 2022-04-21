@@ -5,7 +5,7 @@
         public UserInputComponent m_UserInputComponent;
 
         public MouseTargetSelectorComponent m_MouseTargetSelectorComponent;
-        
+
         public override void Dispose()
         {
             if (this.IsDisposed)

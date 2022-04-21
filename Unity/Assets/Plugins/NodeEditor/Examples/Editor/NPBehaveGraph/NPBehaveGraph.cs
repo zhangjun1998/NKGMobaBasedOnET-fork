@@ -32,54 +32,116 @@ namespace Plugins.NodeEditor
         [BoxGroup("本Canvas所有数据整理部分")] [LabelText("配置表中的Id"), GUIColor(0.9f, 0.7f, 1)]
         public int IdInConfig;
 
-        [BoxGroup("本Canvas所有数据整理部分")] [LabelText("保存路径"), GUIColor(0.1f, 0.7f, 1)] [FolderPath]
-        public string SavePath;
+        [BoxGroup("本Canvas所有数据整理部分")] [LabelText("保存路径(服务端)"), GUIColor(0.1f, 0.7f, 1)] [FolderPath]
+        public string SavePathServer;
 
-        [BoxGroup("此行为树数据载体")] [DisableInEditorMode]
-        public NP_DataSupportorBase NpDataSupportor = new NP_DataSupportorBase();
+        [BoxGroup("本Canvas所有数据整理部分")] [LabelText("保存路径(客户端)"), GUIColor(0.1f, 0.7f, 1)] [FolderPath]
+        public string SavePathClient;
 
-        [BoxGroup("行为树反序列化测试")] [DisableInEditorMode]
-        public NP_DataSupportorBase NpDataSupportor1 = new NP_DataSupportorBase();
+        [BoxGroup("此行为树数据载体(客户端)")] [DisableInEditorMode]
+        public NP_DataSupportorBase NpDataSupportor_Client = new NP_DataSupportorBase();
+
+        [BoxGroup("行为树反序列化测试(客户端)")] [DisableInEditorMode]
+        public NP_DataSupportorBase NpDataSupportor_Client_Des = new NP_DataSupportorBase();
+
+        [BoxGroup("此行为树数据载体(服务端)")] [DisableInEditorMode]
+        public NP_DataSupportorBase NpDataSupportor_Server = new NP_DataSupportorBase();
+
+        [BoxGroup("行为树反序列化测试(服务端)")] [DisableInEditorMode]
+        public NP_DataSupportorBase NpDataSupportor_Server_Des = new NP_DataSupportorBase();
 
         /// <summary>
         /// 黑板数据管理器
         /// </summary>
         [HideInInspector] public NP_BlackBoardDataManager NpBlackBoardDataManager = new NP_BlackBoardDataManager();
 
+        //当前Canvas所有NP_Node
+        private List<NP_NodeBase> m_AllNodes = new List<NP_NodeBase>();
+
         /// <summary>
         /// 自动配置当前图所有数据（结点，黑板）
         /// </summary>
         /// <param name="npDataSupportorBase">自定义的继承于NP_DataSupportorBase的数据体</param>
-        [Button("自动配置所有结点数据", 25), GUIColor(0.4f, 0.8f, 1)]
+        [Button("自动配置所有结点数据(客户端)", 25), GUIColor(0.4f, 0.8f, 1)]
         public virtual void AutoSetCanvasDatas()
         {
-            if (this.NpDataSupportor == null)
+            if (this.NpDataSupportor_Client == null)
             {
-                return;
+                NpDataSupportor_Client = new NP_DataSupportorBase();
             }
 
-            this.AutoSetNP_NodeData(this.NpDataSupportor);
-            this.AutoSetNP_BBDatas(this.NpDataSupportor);
+            if (this.NpDataSupportor_Server == null)
+            {
+                NpDataSupportor_Server = new NP_DataSupportorBase();
+            }
+
+            this.OnGraphEnable();
+            NP_BlackBoardHelper.SetCurrentBlackBoardDataManager(this);
+
+            PrepareAllNodeData();
+            AutoSetCanvasDatas(true);
+            AutoSetCanvasDatas(false);
         }
+
+        // 准备所有节点的数据
+        private void PrepareAllNodeData()
+        {
+            m_AllNodes.Clear();
+            
+            foreach (var node in this.nodes)
+            {
+                if (node is NP_NodeBase mNode)
+                {
+                    m_AllNodes.Add(mNode);
+                }
+            }
+            
+            //排序
+            m_AllNodes.Sort((x, y) => -x.position.y.CompareTo(y.position.y));
+
+            //配置每个节点Id
+            foreach (var node in m_AllNodes)
+            {
+                node.NP_GetNodeData().id = IdGenerater.Instance.GenerateId();
+            }
+        }
+
+        private void AutoSetCanvasDatas(bool isServer)
+        {
+            if (isServer)
+            {
+                this.AutoSetNP_NodeData(this.NpDataSupportor_Server, true);
+                this.AutoSetNP_BBDatas(this.NpDataSupportor_Server);
+            }
+            else
+            {
+                this.AutoSetNP_NodeData(this.NpDataSupportor_Client, false);
+                this.AutoSetNP_BBDatas(this.NpDataSupportor_Client);
+            }
+        }
+
 
         [Button("保存行为树信息为二进制文件", 25), GUIColor(0.4f, 0.8f, 1)]
         public void Save()
         {
-            if (string.IsNullOrEmpty(SavePath) || string.IsNullOrEmpty(Name))
+            if (string.IsNullOrEmpty(SavePathServer) || string.IsNullOrEmpty(SavePathClient) ||
+                string.IsNullOrEmpty(Name))
             {
                 Log.Error($"保存路径或文件名不能为空，请检查配置");
                 return;
             }
 
-            byte[] bytes = SerializationUtility.SerializeValue(NpDataSupportor, DataFormat.Binary);
-            using (var fs = new FileStream($"{SavePath}/{this.Name}.bytes", FileMode.Create, FileAccess.Write,
-                FileShare.Write))
-            using (var writer = new BinaryWriter(fs))
+            using (FileStream file = File.Create($"{SavePathServer}/{this.Name}.bytes"))
             {
-                writer.Write(bytes);
+                BsonSerializer.Serialize(new BsonBinaryWriter(file), NpDataSupportor_Server);
             }
 
-            Log.Info($"保存 {SavePath}/{this.Name}.bytes 成功");
+            using (FileStream file = File.Create($"{SavePathClient}/{this.Name}.bytes"))
+            {
+                BsonSerializer.Serialize(new BsonBinaryWriter(file), NpDataSupportor_Client);
+            }
+
+            Log.Info($"保存 {SavePathServer}/{this.Name}.bytes {SavePathClient}/{this.Name}.bytes 成功");
         }
 
         [Button("测试反序列化", 25), GUIColor(0.4f, 0.8f, 1)]
@@ -87,14 +149,26 @@ namespace Plugins.NodeEditor
         {
             try
             {
-                this.NpDataSupportor1 = null;
-                using (var fs = new FileStream($"{SavePath}/{this.Name}.bytes", FileMode.Open, FileAccess.Read,
+                this.NpDataSupportor_Server_Des = null;
+                using (var fs = new FileStream($"{SavePathServer}/{this.Name}.bytes", FileMode.Open, FileAccess.Read,
                     FileShare.Read))
                 using (var reader = new BinaryReader(fs))
                 {
-                    this.NpDataSupportor1 =
+                    this.NpDataSupportor_Server_Des =
                         SerializationUtility.DeserializeValue<NP_DataSupportorBase>(reader.BaseStream,
                             DataFormat.Binary);
+                    Log.Info($"反序列化{SavePathServer}/{this.Name}.bytes成功");
+                }
+
+                this.NpDataSupportor_Client_Des = null;
+                using (var fs = new FileStream($"{SavePathClient}/{this.Name}.bytes", FileMode.Open, FileAccess.Read,
+                    FileShare.Read))
+                using (var reader = new BinaryReader(fs))
+                {
+                    this.NpDataSupportor_Client_Des =
+                        SerializationUtility.DeserializeValue<NP_DataSupportorBase>(reader.BaseStream,
+                            DataFormat.Binary);
+                    Log.Info($"反序列化{SavePathClient}/{this.Name}.bytes成功");
                 }
             }
             catch (Exception e)
@@ -108,7 +182,7 @@ namespace Plugins.NodeEditor
         /// 自动配置所有行为树结点
         /// </summary>
         /// <param name="npDataSupportorBase">自定义的继承于NP_DataSupportorBase的数据体</param>
-        private void AutoSetNP_NodeData(NP_DataSupportorBase npDataSupportorBase)
+        private void AutoSetNP_NodeData(NP_DataSupportorBase npDataSupportorBase, bool isServer)
         {
             if (npDataSupportorBase == null)
             {
@@ -119,25 +193,22 @@ namespace Plugins.NodeEditor
             npDataSupportorBase.NP_DataSupportorDic.Clear();
 
             //当前Canvas所有NP_Node
-            List<NP_NodeBase> allNodes = new List<NP_NodeBase>();
+            List<NP_NodeBase> m_ValidNodes = new List<NP_NodeBase>();
 
-            foreach (var node in this.nodes)
+            foreach (var node in m_AllNodes)
             {
                 if (node is NP_NodeBase mNode)
                 {
-                    allNodes.Add(mNode);
+                    // 如果当前模式为客户端模式，则不导出 title为服务端专属Group中的节点
+                    if (!isServer && NPBehaveGraphExportDataHelper.IsServerSpecialNode(this, mNode))
+                    {
+                        continue;
+                    }
+
+                    m_ValidNodes.Add(mNode);
                 }
             }
-
-            //排序
-            allNodes.Sort((x, y) => -x.position.y.CompareTo(y.position.y));
-
-            //配置每个节点Id
-            foreach (var node in allNodes)
-            {
-                node.NP_GetNodeData().id = IdGenerater.Instance.GenerateId();
-            }
-
+            
             if (this.Config == null)
             {
                 return;
@@ -148,22 +219,12 @@ namespace Plugins.NodeEditor
             //目前行为树只有三种类型，直接在这里写出
             switch (config)
             {
-                case Server_SkillCanvasConfigCategory serverSkillCanvasConfigCategory:
-                    serverSkillCanvasConfigCategory.AfterDeserialization();
-                    Server_SkillCanvasConfig skillCanvasConfig = serverSkillCanvasConfigCategory.Get(this.IdInConfig);
+                case SkillCanvasConfigCategory skillCanvasConfigCategory:
+                    skillCanvasConfigCategory.AfterDeserialization();
+                    SkillCanvasConfig skillCanvasConfig = skillCanvasConfigCategory.Get(this.IdInConfig);
                     if (skillCanvasConfig != null)
                     {
                         npDataSupportorBase.NPBehaveTreeDataId = skillCanvasConfig.NPBehaveId;
-                    }
-
-                    break;
-                case Client_SkillCanvasConfigCategory clientSkillCanvasConfigCategory:
-                    clientSkillCanvasConfigCategory.AfterDeserialization();
-                    Client_SkillCanvasConfig clientSkillCanvasConfig =
-                        clientSkillCanvasConfigCategory.Get(this.IdInConfig);
-                    if (clientSkillCanvasConfig != null)
-                    {
-                        npDataSupportorBase.NPBehaveTreeDataId = clientSkillCanvasConfig.NPBehaveId;
                     }
 
                     break;
@@ -181,16 +242,16 @@ namespace Plugins.NodeEditor
             if (npDataSupportorBase.NPBehaveTreeDataId == 0)
             {
                 //设置为根结点Id
-                npDataSupportorBase.NPBehaveTreeDataId = allNodes[allNodes.Count - 1].NP_GetNodeData().id;
+                npDataSupportorBase.NPBehaveTreeDataId = m_ValidNodes[m_ValidNodes.Count - 1].NP_GetNodeData().id;
                 Log.Error(
                     $"注意，名为{this.Name}的Graph首次导出，或者未在配置表中找到Id为{this.IdInConfig}的数据行，行为树Id被设置为{npDataSupportorBase.NPBehaveTreeDataId}，请前往Excel表中进行添加，然后导出Excel");
             }
             else
             {
-                allNodes[allNodes.Count - 1].NP_GetNodeData().id = npDataSupportorBase.NPBehaveTreeDataId;
+                m_ValidNodes[m_ValidNodes.Count - 1].NP_GetNodeData().id = npDataSupportorBase.NPBehaveTreeDataId;
             }
 
-            foreach (var node in allNodes)
+            foreach (var node in m_ValidNodes)
             {
                 //获取结点对应的NPData
                 NP_NodeDataBase mNodeData = node.NP_GetNodeData();
@@ -206,7 +267,10 @@ namespace Plugins.NodeEditor
 
                 foreach (var outputNode in node.GetOutputNodes())
                 {
-                    theNodesConnectedToOutNode.Add(outputNode as NP_NodeBase);
+                    if (m_ValidNodes.Contains(outputNode))
+                    {
+                        theNodesConnectedToOutNode.Add(outputNode as NP_NodeBase);
+                    }
                 }
 
                 //对所连接的节点们进行排序

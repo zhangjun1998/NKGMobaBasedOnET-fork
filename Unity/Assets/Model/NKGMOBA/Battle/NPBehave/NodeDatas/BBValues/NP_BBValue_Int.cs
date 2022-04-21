@@ -5,12 +5,14 @@
 //------------------------------------------------------------
 
 using System;
+using ProtoBuf;
 using Sirenix.OdinInspector;
 
 namespace ET
 {
     [HideLabel]
     [HideReferenceObjectPicker]
+    [ProtoContract]
     public class NP_BBValue_Int: NP_BBValueBase<int>, IEquatable<NP_BBValue_Int>
     {
         public override Type NP_BBValueType
@@ -119,5 +121,23 @@ namespace ET
         }
 
         #endregion
+        #region proto序列化支持
+
+        [ProtoMember(1)] private int ValueForProtoSerilize;
+
+        [ProtoBeforeSerialization]
+        private void HandleBeforSerilize()
+        {
+            ValueForProtoSerilize = Value;
+        }
+
+        [ProtoAfterDeserialization]
+        private void HandleAfterSerilize()
+        {
+            Value = ValueForProtoSerilize;
+        }
+
+        #endregion
+        
     }
 }

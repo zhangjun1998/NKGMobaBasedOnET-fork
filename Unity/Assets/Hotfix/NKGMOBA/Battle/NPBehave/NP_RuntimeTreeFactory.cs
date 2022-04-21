@@ -42,12 +42,13 @@ namespace ET
                 .GetNP_TreeData_DeepCopyBBValuesOnly(nPDataId);
 
             NP_RuntimeTreeManager npRuntimeTreeManager = unit.GetComponent<NP_RuntimeTreeManager>();
+            long rootId = npDataSupportor.NpDataSupportorBase.NPBehaveTreeDataId;
 
             NP_RuntimeTree tempTree =
-                npRuntimeTreeManager.AddChild<NP_RuntimeTree, NP_DataSupportor, NP_SyncComponent, Unit>(npDataSupportor,
-                    unit.BelongToRoom.GetComponent<NP_SyncComponent>(), unit);
+                npRuntimeTreeManager.AddChildWithId<NP_RuntimeTree, NP_DataSupportor, NP_SyncComponent, Unit>(
+                    rootId + unit.Id, npDataSupportor,
+                    unit.GetComponent<NP_SyncComponent>(), unit);
 
-            long rootId = npDataSupportor.NpDataSupportorBase.NPBehaveTreeDataId;
 
             npRuntimeTreeManager.AddTree(tempTree.Id, rootId, tempTree);
 

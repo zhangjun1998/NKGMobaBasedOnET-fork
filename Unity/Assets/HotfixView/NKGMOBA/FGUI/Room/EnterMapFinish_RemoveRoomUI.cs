@@ -2,9 +2,9 @@
 
 namespace ET
 {
-	public class EnterMapFinish_RemoveRoomUI: AEvent<EventType.EnterMapFinish>
+	public class EnterMapFinish_RemoveRoomUI: AEvent<EventType.PrepareEnterMap>
 	{
-		protected override async ETTask Run(EventType.EnterMapFinish args)
+		protected override async ETTask Run(EventType.PrepareEnterMap args)
 		{
 			Scene scene = args.ZoneScene;
 

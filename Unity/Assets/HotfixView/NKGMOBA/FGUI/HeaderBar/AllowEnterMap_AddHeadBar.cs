@@ -2,9 +2,9 @@
 
 namespace ET
 {
-    public class AllowEnterMap_AddHeadBar : AEvent<EventType.EnterMapFinish>
+    public class AllowEnterMap_AddHeadBar : AEvent<EventType.PrepareEnterMap>
     {
-        protected override async ETTask Run(EnterMapFinish a)
+        protected override async ETTask Run(PrepareEnterMap a)
         {
             await a.ZoneScene.GetComponent<FUIPackageManagerComponent>().AddPackageAsync(FUIPackage.HeadBar);
 

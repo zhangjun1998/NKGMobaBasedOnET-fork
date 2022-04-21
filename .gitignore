@@ -45,7 +45,6 @@ _ReSharper.CSharp/
 /Excel/md5.txt
 /Release
 /Unity/Logs
-/Unity/Assets/StreamingAssets/
 /Unity/Assets/Mono/ILRuntimeGenerate/ILBindingAuto/
 /Unity/UserSettings/
 /netcoreapp2.0
@@ -55,9 +54,11 @@ _ReSharper.CSharp/
 /*.user
 /ToolsApp/
 
-Unity/Assets/Res/Code/Hotfix.dll.bytes
-Unity/Assets/Res/Code/Hotfix.pdb.bytes
-Unity/Assets/Res/Code/Hotfix.pdb.bytes
-Unity/Assets/Res/Code/Hotfix.dll.bytes
-Unity/Assets/Res/Code/Hotfix.dll.bytes
-Unity/Assets/Res/Code/Hotfix.pdb.bytes
+/Unity/Assets/Res/Code/Hotfix.dll.bytes
+/Unity/Assets/Res/Code/Hotfix.pdb.bytes
+/Unity/Assets/Res/Code/HotfixView.pdb.bytes
+/Unity/Assets/Res/Code/HotfixView.dll.bytes
+/Unity/Assets/Res/Code/Model.dll.bytes
+/Unity/Assets/Res/Code/Model.pdb.bytes
+/Unity/Assets/Res/Code/ModelView.dll.bytes
+/Unity/Assets/Res/Code/ModelView.pdb.bytes

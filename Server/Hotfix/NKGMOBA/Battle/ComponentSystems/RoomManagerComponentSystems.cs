@@ -7,14 +7,17 @@
             Room room = self.AddChildWithId<Room>(id);
 
             room.AddComponent<UnitComponent>();
-            room.AddComponent<NP_SyncComponent>();
-            room.AddComponent<RecastPathComponent>();
+            room.AddComponent<LSF_Component>();
+            room.AddComponent<LSF_TimerComponent>();
+            room.AddComponent<RecastNavMeshManagerComponent>();
             room.AddComponent<CDComponent>();
 
-            room.AddComponent<BattleEventSystem>();
+            room.AddComponent<BattleEventSystemComponent>();
             room.AddComponent<B2S_WorldComponent>();
             room.AddComponent<B2S_WorldColliderManagerComponent>();
             room.AddComponent<B2S_CollisionListenerComponent>();
+
+            room.AddComponent<LSF_TickComponent>();
 
             self.Rooms.Add(room.Id, room);
             return room;

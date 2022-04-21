@@ -16,20 +16,22 @@ namespace ET
         {
             return self.OriNumericDic[(int) numericType];
         }
-
-#if SERVER
+        
         /// <summary>
         /// 适配变化
         /// </summary>
         public static void ApplyChange(this NumericComponent self, NumericType numericType, float changedValue)
         {
             Unit unit = self.GetParent<Unit>();
-            MessageHelper.BroadcastToRoom(unit.BelongToRoom,
-                new M2C_ChangeUnitAttribute()
-                    {UnitId = unit.Id, NumericType = (int) numericType, ChangeValue = changedValue});
+            Game.EventSystem.Publish(new EventType.NumericApplyChangeValue()
+                {ChangedValue = changedValue, NumericType = numericType, Unit = unit}).Coroutine();
             self[numericType] += changedValue;
-        }
+            
+#if SERVER
+            uint currentFrame = self.GetParent<Unit>().BelongToRoom.GetComponent<LSF_Component>().CurrentFrame;
+            self.AttributeChangeFrameSnap[currentFrame][(int)numericType] = changedValue;
 #endif
+        }
 
         public static void SetValueWithoutBroadCast(this NumericComponent self, NumericType numericType, float value)
         {

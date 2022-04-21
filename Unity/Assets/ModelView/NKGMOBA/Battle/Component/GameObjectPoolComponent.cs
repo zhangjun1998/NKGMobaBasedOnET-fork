@@ -27,6 +27,11 @@ namespace ET
         /// 特效
         /// </summary>
         Effect,
+        
+        /// <summary>
+        /// 技能指示器
+        /// </summary>
+        SkillIndictor,
     }
 
     public class GameObjectPoolComponent : Entity
@@ -82,6 +87,10 @@ namespace ET
                         case GameObjectType.Effect:
                             targetprefab =
                                 XAssetLoader.LoadAsset<GameObject>(XAssetPathUtilities.GetEffectPath(resName));
+                            break;
+                        case GameObjectType.SkillIndictor:
+                            targetprefab =
+                                XAssetLoader.LoadAsset<GameObject>(XAssetPathUtilities.GetSkillIndicatorPath(resName));
                             break;
                     }
 

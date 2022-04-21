@@ -8,24 +8,6 @@ using NPBehave;
 
 namespace ET
 {
-    public class NP_RuntimeTreeAwakeSystem : AwakeSystem<NP_RuntimeTree, NP_DataSupportor, NP_SyncComponent, Unit>
-    {
-        public override void Awake(NP_RuntimeTree self, NP_DataSupportor belongNP_DataSupportor,NP_SyncComponent npSyncComponent, Unit belongToUnit)
-        {
-            self.BelongToUnit = belongToUnit;
-            self.BelongNP_DataSupportor = belongNP_DataSupportor;
-            self.NpSyncComponent = npSyncComponent;
-        }
-    }
-
-    public class NP_RuntimeTreeDestroySystem : DestroySystem<NP_RuntimeTree>
-    {
-        public override void Destroy(NP_RuntimeTree self)
-        {
-            self.Finish().Coroutine();
-        }
-    }
-
     public class NP_RuntimeTree : Entity
     {
         /// <summary>
@@ -65,6 +47,14 @@ namespace ET
         /// <returns></returns>
         public Blackboard GetBlackboard()
         {
+            if (m_RootNode == null)
+            {
+                Log.Error($"行为树{this.Id}的根节点为空");
+            }
+            if (m_RootNode.blackboard == null)
+            {
+                Log.Error($"行为树{this.Id}的黑板实例为空");
+            }
             return this.m_RootNode.Blackboard;
         }
 
@@ -81,12 +71,7 @@ namespace ET
         /// </summary>
         public async ETVoid Finish()
         {
-            //因为编辑器模式下会因为Game.Scene的销毁而报错，但是NPBehave又只能在下一帧销毁，所以就这样写了
-#if UNITY_EDITOR
-            await ETTask.CompletedTask;
-#else
-            await TimerComponent.Instance.WaitFrameAsync();
-#endif
+            await BelongToUnit.BelongToRoom.GetComponent<LSF_TimerComponent>().WaitFrameAsync();
 
             this.m_RootNode.CancelWithoutReturnResult();
             BelongToUnit = null;

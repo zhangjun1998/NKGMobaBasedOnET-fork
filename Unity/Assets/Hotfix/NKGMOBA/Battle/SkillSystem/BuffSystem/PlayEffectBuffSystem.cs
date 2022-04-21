@@ -11,24 +11,25 @@ namespace ET
     public class PlayEffectBuffSystem : ABuffSystemBase<PlayEffectBuffData>
     {
 #if !SERVER
-        public override void OnExecute()
+        public override void OnExecute(uint currentFrame)
         {
             Game.EventSystem.Publish(new EventType.PlayEffectBuffSystemExcuteEvent()
             {
                 PlayEffectBuffData = GetBuffDataWithTType, Target = this.GetBuffTarget(),
                 CurrentOverlay = this.CurrentOverlay
             }).Coroutine();
+            Log.Info($"Execute播放：{GetBuffDataWithTType.EffectName}");
             if (this.BuffData.EventIds != null)
             {
                 foreach (var eventId in this.BuffData.EventIds)
                 {
-                    Game.Scene.GetComponent<BattleEventSystem>().Run($"{eventId}{this.TheUnitFrom.Id}", this);
+                    Game.Scene.GetComponent<BattleEventSystemComponent>().Run($"{eventId}{this.TheUnitFrom.Id}", this);
                     //Log.Info($"抛出了{this.MSkillBuffDataBase.theEventID}{this.theUnitFrom.Id}");
                 }
             }
         }
 
-        public override void OnFinished()
+        public override void OnFinished(uint currentFrame)
         {
             Game.EventSystem.Publish(new EventType.PlayEffectBuffSystemFinishEvent()
             {
@@ -37,26 +38,27 @@ namespace ET
             }).Coroutine();
         }
 
-        public override void OnRefreshed()
+        public override void OnRefreshed(uint currentFrame)
         {
             Game.EventSystem.Publish(new EventType.PlayEffectBuffSystemExcuteEvent()
             {
                 PlayEffectBuffData = GetBuffDataWithTType, Target = this.GetBuffTarget(),
                 CurrentOverlay = this.CurrentOverlay
             }).Coroutine();
+            Log.Info($"Refresh播放：{GetBuffDataWithTType.EffectName}");
             if (this.BuffData.EventIds != null)
             {
                 foreach (var eventId in this.BuffData.EventIds)
                 {
-                    Game.Scene.GetComponent<BattleEventSystem>().Run($"{eventId}{this.TheUnitFrom.Id}", this);
+                    Game.Scene.GetComponent<BattleEventSystemComponent>().Run($"{eventId}{this.TheUnitFrom.Id}", this);
                     //Log.Info($"抛出了{this.MSkillBuffDataBase.theEventID}{this.theUnitFrom.Id}");
                 }
             }
         }
 #else
-        public override void OnExecute()
+        public override void OnExecute(uint currentFrame)
         {
-            throw new System.NotImplementedException();
+
         }
 
 #endif

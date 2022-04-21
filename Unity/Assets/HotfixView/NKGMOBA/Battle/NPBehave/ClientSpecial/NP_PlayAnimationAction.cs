@@ -6,7 +6,9 @@
 
 using System;
 using System.Collections.Generic;
+#if !SERVER
 using Animancer;
+#endif
 using Sirenix.OdinInspector;
 
 namespace ET
@@ -19,6 +21,7 @@ namespace ET
     {
         [LabelText("要播放的动画数据")] public List<PlayAnimInfo> NodeDataForPlayAnims = new List<PlayAnimInfo>();
 
+#if !SERVER
         /// <summary>
         /// 用于标识当前播放到哪一个动画的flag
         /// </summary>
@@ -29,13 +32,16 @@ namespace ET
         /// </summary>
         private Action m_OnAnimFinished;
 
+
         /// <summary>
         /// 当前动画状态
         /// </summary>
         private AnimancerState m_AnimancerState;
+#endif
 
         public override Action GetActionToBeDone()
         {
+#if !SERVER
             //数据初始化
             this.m_OnAnimFinished = this.OnAnimFinished;
             m_Flag = 0;
@@ -47,18 +53,29 @@ namespace ET
                     playAnimInfo.AnimationClipName;
             }
 
+#endif
+
             this.Action = this.PlayAnimation;
             return base.GetActionToBeDone();
         }
 
         private void PlayAnimation()
         {
+#if !SERVER
+            // TODO 说明上次动画节点的动画尚未播放完毕，所以就忽略这次重复的播放，这块逻辑应当放在Timeline中处理
+            if (m_Flag != 0)
+            {
+                return;
+            }
+
             m_Flag = 0;
             HandlePlayAnim(NodeDataForPlayAnims[this.m_Flag].StateTypes,
                 NodeDataForPlayAnims[this.m_Flag].OccAvatarMaskType, NodeDataForPlayAnims[this.m_Flag].FadeOutTime);
             //Log.Info("这次播放的是Q技能动画");
+#endif
         }
 
+#if !SERVER
         /// <summary>
         /// 处理播放动画
         /// </summary>
@@ -77,6 +94,7 @@ namespace ET
         /// </summary>
         private void OnAnimFinished()
         {
+            m_AnimancerState.Stop();
             if (++m_Flag <= NodeDataForPlayAnims.Count - 1)
             {
                 HandlePlayAnim(NodeDataForPlayAnims[m_Flag].StateTypes,
@@ -84,18 +102,13 @@ namespace ET
             }
             else //说明所有动画都已经播放完毕
             {
-                if (this.BelongToUnit.GetComponent<AnimationComponent>().SkillStateShouldStopImmdiately())
-                {
-                    m_AnimancerState.Stop();
-                }
-                else
-                {
-                    m_AnimancerState.StartFade(0, 0.1f);
-                }
+                this.BelongToUnit.GetComponent<AnimationComponent>().PlayAnimByStackFsmCurrent();
 
-                this.BelongToUnit.GetComponent<AnimationComponent>().PlayAnimByStackFsmCurrent(0.25f, 1, true);
+                //Log.Error("--------------------------");
                 this.m_Flag = 0;
             }
         }
+
+#endif
     }
 }

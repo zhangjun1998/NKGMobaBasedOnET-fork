@@ -9,30 +9,6 @@ using NPBehave;
 
 namespace ET
 {
-    public class SyncComponentAwakeSystem: AwakeSystem<NP_SyncComponent>
-    {
-        public override void Awake(NP_SyncComponent self)
-        {
-            self.SyncContext = new SyncContext();
-        }
-    }
-
-    public class SyncComponentFixedUpdate: FixedUpdateSystem<NP_SyncComponent>
-    {
-        public override void FixedUpdate(NP_SyncComponent self)
-        {
-            self.SyncContext.Update();
-        }
-    }
-    
-    public class SyncComponentDestroy: DestroySystem<NP_SyncComponent>
-    {
-        public override void Destroy(NP_SyncComponent self)
-        {
-            self.SyncContext = null;
-        }
-    }
-    
     public class NP_SyncComponent: Entity
     {
         public SyncContext SyncContext;

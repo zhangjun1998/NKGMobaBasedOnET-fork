@@ -7,10 +7,13 @@
             //TODO 单独的加载UI处理
             FUI_LoadingComponent.HideLoadingUI();
             PlayerComponent playerComponent = Game.Scene.GetComponent<PlayerComponent>();
-            playerComponent.BelongToRoom = null;
-            playerComponent.HasCompletedLoadCount = 0;
             
-            Game.EventSystem.Publish(new EventType.EnterMapFinish() {ZoneScene = session.DomainScene()}).Coroutine();
+            // 这里要将战斗Room赋值给playerComponent
+            playerComponent.BelongToRoom = session.DomainScene().GetComponent<RoomManagerComponent>().GetBattleRoom();
+            playerComponent.HasCompletedLoadCount = 0;
+
+            await Game.EventSystem.Publish(new EventType.PrepareEnterMap() {ZoneScene = session.DomainScene()});
+            Game.EventSystem.Publish(new EventType.FinishEnterMap() {ZoneScene = session.DomainScene()}).Coroutine();
 
             await ETTask.CompletedTask;
         }

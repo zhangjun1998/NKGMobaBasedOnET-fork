@@ -65,7 +65,7 @@ namespace ET
                 fuiBtnRoom.m_PlayerNum.text = $"{room.Value.PlayerCount}/6";
                 fuiBtnRoom.m_RoomName.text = $"{room.Value.RoomName}";
 
-                fuiBtnRoom.self.onClick.Add(() =>
+                fuiBtnRoom.m_JoinButton.self.onClick.Add(() =>
                 {
                     JoinRoomHelper.JoinRoom(self, long.Parse(fuiBtnRoom.self.data.ToString()));
                 });

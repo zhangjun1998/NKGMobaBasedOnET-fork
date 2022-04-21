@@ -11,14 +11,14 @@ namespace NPBehave
 {
     public class SyncContext
     {
-        /// <summary>
-        /// 计时器
-        /// </summary>
-        private static float s_Timer = 0;
-
         private Dictionary<string, Blackboard> blackboards = new Dictionary<string, Blackboard>();
 
-        private Clock clock = new Clock();
+        private Clock clock;
+
+        public SyncContext(NP_SyncComponent npSyncComponent)
+        {
+            clock = new Clock(npSyncComponent.GetParent<Unit>().BelongToRoom.GetComponent<LSF_Component>());
+        }
 
         public Clock GetClock()
         {
@@ -37,13 +37,7 @@ namespace NPBehave
 
         public void Update()
         {
-            s_Timer += GlobalDefine.FixedUpdateTargetDTTime;
-            if (s_Timer >= GlobalDefine.FixedUpdateTargetDTTime)
-            {
-                //默认30hz运行
-                clock.Update(GlobalDefine.FixedUpdateTargetDTTime);
-                s_Timer = 0;
-            }
+            clock.Update();
         }
     }
 }

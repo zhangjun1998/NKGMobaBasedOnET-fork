@@ -43,6 +43,12 @@ namespace Plugins.NodeEditor
         protected override void AddButtons()
         {
             base.AddButtons();
+            
+            AddButton(new GUIContent("AutoLayout", "自动优化布局"),
+                () =>
+                {
+                    (this.graphView as NPBehaveGraphView).AutoSortLayout();
+                }, false);
         
             AddButton(new GUIContent("Blackboard", "打开Blackboard数据面板"),
                 () =>

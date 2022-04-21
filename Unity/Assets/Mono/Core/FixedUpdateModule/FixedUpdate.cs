@@ -75,7 +75,7 @@ namespace ET
         public TimerTick PlayTime => _playTimer;
 
         /// <summary>
-        /// 每次更新的时间间隔,默认60Hz<br/>
+        /// 每次更新的时间间隔,默认30Hz<br/>
         /// Gets or sets the target elapsed time, this is the duration of each tick/update 
         /// </summary>
         /// <value>The target elapsed time.</value>

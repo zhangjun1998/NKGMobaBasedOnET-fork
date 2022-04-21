@@ -4,8 +4,6 @@ using UnityEngine;
 
 namespace ET
 {
-    
-    
     [ObjectSystem]
     public class MoveComponentDestroySystem : DestroySystem<MoveComponent>
     {
@@ -23,11 +21,10 @@ namespace ET
             self.StartTime = 0;
             self.StartPos = Vector3.zero;
             self.NeedTime = 0;
-            self.MoveTimer = 0;
             self.Callback = null;
             self.Targets.Clear();
             self.Speed = 0;
-            self.N = 0;
+            self.NextPointIndex = 0;
             self.TurnTime = 0;
         }
     }
@@ -54,14 +51,12 @@ namespace ET
             Unit unit = self.GetParent<Unit>();
             using (MonoListComponent<Vector3> path = MonoListComponent<Vector3>.Create())
             {
-                self.MoveForward(true);
-
                 path.List.Add(unit.Position); // 第一个是Unit的pos
-                for (int i = self.N; i < self.Targets.Count; ++i)
+                for (int i = self.NextPointIndex; i < self.Targets.Count; ++i)
                 {
                     path.List.Add(self.Targets[i]);
                 }
-
+                self.Stop();
                 self.MoveToAsync(path.List, speed).Coroutine();
             }
 
@@ -73,9 +68,8 @@ namespace ET
         {
             if (!self.GetParent<Unit>().GetComponent<StackFsmComponent>()
                 .ChangeState<NavigateState>(StateTypes.Run, "Navigate", 1)) return false;
-            
-            self.Stop();
 
+            self.Stop();
             self.TargetRange = targetRange;
 
             foreach (Vector3 v in target)
@@ -118,12 +112,12 @@ namespace ET
             return moveRet;
         }
 
-        public static void MoveForward(this MoveComponent self, bool needCancel)
+        public static void MoveForward(this MoveComponent self, long deltaTime, bool needCancel)
         {
             Unit unit = self.GetParent<Unit>();
 
-            long timeNow = TimeHelper.ClientNow();
-            long moveTime = timeNow - self.StartTime;
+            long moveTime = self.AccumulateTime += deltaTime;
+
             while (true)
             {
                 if (moveTime <= 0)
@@ -162,10 +156,10 @@ namespace ET
                 moveTime -= self.NeedTime;
 
                 // 如果抵达了目标范围，强行让客户端停止
-                if (Vector3.Distance(unit.Position, self.FinalTarget) - self.TargetRange <= 0.01f)
+                if (Vector3.Distance(unit.Position, self.FinalTarget) - self.TargetRange <= 0.0001f)
                 {
                     unit.Rotation = self.To;
-                    
+
                     Action<bool> callback = self.Callback;
                     self.Callback = null;
 
@@ -181,7 +175,7 @@ namespace ET
                 }
 
                 // 如果是最后一个点
-                if (self.N >= self.Targets.Count - 1)
+                if (self.NextPointIndex >= self.Targets.Count - 1)
                 {
                     unit.Position = self.NextTarget;
                     unit.Rotation = self.To;
@@ -200,31 +194,17 @@ namespace ET
 
         private static void StartMove(this MoveComponent self)
         {
-            Unit unit = self.GetParent<Unit>();
-
             self.BeginTime = TimeHelper.ClientNow();
             self.StartTime = self.BeginTime;
             self.SetNextTarget();
-
-            self.MoveTimer = TimerComponent.Instance.NewFrameTimer(() =>
-                {
-                    try
-                    {
-                        self.MoveForward(false);
-                    }
-                    catch (Exception e)
-                    {
-                        Log.Error($"move timer error: {unit.Id}\n{e}");
-                    }
-                }
-            );
+            self.ShouldMove = true;
         }
 
         private static void SetNextTarget(this MoveComponent self)
         {
             Unit unit = self.GetParent<Unit>();
 
-            ++self.N;
+            ++self.NextPointIndex;
 
             // 时间计算用服务端的位置, 但是移动要用客户端的位置来插值
             Vector3 v = self.GetFaceV();
@@ -233,6 +213,7 @@ namespace ET
             // 插值的起始点要以unit的真实位置来算
             self.StartPos = unit.Position;
 
+            self.AccumulateTime = 0;
             self.StartTime += self.NeedTime;
 
             self.NeedTime = (long) (distance / self.Speed * 1000);
@@ -286,7 +267,7 @@ namespace ET
         /// <param name="targetRange">目标距离</param>
         /// <param name="targetState">目标状态</param>
         public static async ETVoid NavigateTodoSomething(this Unit self, Vector3 target, float targetRange,
-            AFsmStateBase targetState)
+            AFsmStateBase targetState, ETCancellationToken etCancellationToken = null)
         {
             Unit unit = self;
 
@@ -296,18 +277,19 @@ namespace ET
                 return;
             }
 
-#if SERVER
-            if (await unit.FindPathMoveToAsync(target, targetRange))
+            if (await unit.FindPathMoveToAsync(target, targetRange, etCancellationToken))
             {
                 if (targetState != null)
                 {
                     if (unit.GetComponent<StackFsmComponent>().ChangeState(targetState))
                     {
-                        //Log.Info($"切换至{targetState.StateName} ");
+#if !SERVER
+                        Game.EventSystem.Publish(new EventType.FSMStateChanged_PlayAnim() {Unit = unit}).Coroutine();
+#endif
                     }
                 }
             }
-#endif
+
             await ETTask.CompletedTask;
         }
 
@@ -373,33 +355,30 @@ namespace ET
             return true;
         }
 
-        public static void Stop(this MoveComponent self)
+        public static void Stop(this MoveComponent self, bool result = false)
         {
-            if (self.Targets.Count > 0)
-            {
-                self.MoveForward(true);
-            }
-            self.Clear();
+            self.Clear(result);
         }
 
-        public static void Clear(this MoveComponent self)
+        public static void Clear(this MoveComponent self, bool result = false)
         {
             self.StartTime = 0;
             self.StartPos = Vector3.zero;
             self.BeginTime = 0;
             self.NeedTime = 0;
-            TimerComponent.Instance.Remove(ref self.MoveTimer);
+            self.AccumulateTime = 0;
             self.Targets.Clear();
             self.Speed = 0;
-            self.N = 0;
+            self.NextPointIndex = 0;
             self.TurnTime = 0;
             self.IsTurnHorizontal = false;
+            self.ShouldMove = false;
 
             if (self.Callback != null)
             {
                 Action<bool> callback = self.Callback;
                 self.Callback = null;
-                callback.Invoke(false);
+                callback.Invoke(result);
             }
         }
     }

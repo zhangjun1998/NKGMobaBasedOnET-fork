@@ -43,11 +43,11 @@ namespace Box2DSharp.Dynamics.Contacts
 
         /// World pool and list pointers.
         /// Nodes for connecting bodies.
-        internal LinkedListNode<Contact> Node;
+        internal readonly LinkedListNode<Contact> Node = new LinkedListNode<Contact>(default);
 
-        internal ContactEdge NodeA;
+        internal readonly ContactEdge NodeA = new ContactEdge();
 
-        internal ContactEdge NodeB;
+        internal readonly ContactEdge NodeB = new ContactEdge();
 
         internal float Restitution;
 
@@ -57,15 +57,13 @@ namespace Box2DSharp.Dynamics.Contacts
 
         internal int ToiCount;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal void Initialize(Fixture fixtureA, int indexA, Fixture fixtureB, int indexB)
         {
             Flags = ContactFlag.EnabledFlag;
 
             FixtureA = fixtureA;
             FixtureB = fixtureB;
-
-            NodeA = ContactEdge.Pool.Get();
-            NodeB = ContactEdge.Pool.Get();
 
             ChildIndexA = indexA;
             ChildIndexB = indexB;
@@ -78,6 +76,7 @@ namespace Box2DSharp.Dynamics.Contacts
             TangentSpeed = 0.0f;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal virtual void Reset()
         {
             FixtureA = default;
@@ -87,22 +86,24 @@ namespace Box2DSharp.Dynamics.Contacts
             ChildIndexA = default;
             ChildIndexB = default;
             Manifold = default;
-            Node = default;
-            ContactEdge.Pool.Return(NodeA);
-            ContactEdge.Pool.Return(NodeB);
-            NodeA = default;
-            NodeB = default;
+            Node.Value = default;
+            NodeA.Node.Value = default;
+            NodeA.Other = default;
+            NodeB.Node.Value = default;
+            NodeB.Other = default;
             Restitution = default;
             TangentSpeed = default;
             Toi = default;
             ToiCount = default;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static float MixFriction(float friction1, float friction2)
         {
-            return (float) Math.Sqrt(friction1 * friction2);
+            return (float)Math.Sqrt(friction1 * friction2);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static float MixRestitution(float restitution1, float restitution2)
         {
             return restitution1 > restitution2 ? restitution1 : restitution2;
@@ -129,7 +130,7 @@ namespace Box2DSharp.Dynamics.Contacts
         public bool IsTouching
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => HasFlag(ContactFlag.TouchingFlag);
+            get => Flags.HasFlag(ContactFlag.TouchingFlag);
         }
 
         /// Enable/disable this contact. This can be used inside the pre-solve
@@ -152,23 +153,26 @@ namespace Box2DSharp.Dynamics.Contacts
         public bool IsEnabled
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => HasFlag(ContactFlag.EnabledFlag);
+            get => Flags.HasFlag(ContactFlag.EnabledFlag);
         }
 
         /// Override the default friction mixture. You can call this in b2ContactListener::PreSolve.
         /// This value persists until set or reset.
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetFriction(float friction)
         {
             Friction = friction;
         }
 
         /// Get the friction.
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public float GetFriction()
         {
             return Friction;
         }
 
         /// Reset the friction mixture to the default value.
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ResetFriction()
         {
             Friction = MixFriction(FixtureA.Friction, FixtureB.Friction);
@@ -176,30 +180,35 @@ namespace Box2DSharp.Dynamics.Contacts
 
         /// Override the default restitution mixture. You can call this in b2ContactListener::PreSolve.
         /// The value persists until you set or reset.
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetRestitution(float restitution)
         {
             Restitution = restitution;
         }
 
         /// Get the restitution.
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public float GetRestitution()
         {
             return Restitution;
         }
 
         /// Reset the restitution to the default value.
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ResetRestitution()
         {
             Restitution = MixRestitution(FixtureA.Restitution, FixtureB.Restitution);
         }
 
         /// Set the desired tangent speed for a conveyor belt behavior. In meters per second.
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetTangentSpeed(float speed)
         {
             TangentSpeed = speed;
         }
 
         /// Get the desired tangent speed. In meters per second.
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public float GetTangentSpeed()
         {
             return TangentSpeed;
@@ -224,7 +233,7 @@ namespace Box2DSharp.Dynamics.Contacts
             Flags |= ContactFlag.EnabledFlag;
 
             var touching = false;
-            var wasTouching = HasFlag(ContactFlag.TouchingFlag);
+            var wasTouching = Flags.HasFlag(ContactFlag.TouchingFlag);
 
             var sensorA = FixtureA.IsSensor;
             var sensorB = FixtureB.IsSensor;
@@ -336,12 +345,6 @@ namespace Box2DSharp.Dynamics.Contacts
 
             // This contact has a valid TOI in m_toi
             ToiFlag = 0x0020
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool HasFlag(ContactFlag flag)
-        {
-            return (Flags & flag) != 0;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

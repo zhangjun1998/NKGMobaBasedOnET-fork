@@ -5,12 +5,14 @@
 //------------------------------------------------------------
 
 using System;
+using ProtoBuf;
 using Sirenix.OdinInspector;
 
 namespace ET
 {
     [HideLabel]
     [HideReferenceObjectPicker]
+    [ProtoContract]
     public class NP_BBValue_Float: NP_BBValueBase<float>, IEquatable<NP_BBValue_Float>
     {
         public override Type NP_BBValueType
@@ -116,6 +118,24 @@ namespace ET
         public static bool operator <=(NP_BBValue_Float lhs, NP_BBValue_Float rhs)
         {
             return lhs.GetValue() <= rhs.GetValue();
+        }
+
+        #endregion
+
+        #region proto序列化支持
+
+        [ProtoMember(1)] private float ValueForProtoSerilize;
+
+        [ProtoBeforeSerialization]
+        private void HandleBeforSerilize()
+        {
+            ValueForProtoSerilize = Value;
+        }
+
+        [ProtoAfterDeserialization]
+        private void HandleAfterSerilize()
+        {
+            Value = (float)ValueForProtoSerilize;
         }
 
         #endregion
