@@ -11,10 +11,9 @@ namespace ET
             zoneScene.AddComponent<RoomManagerComponent>();
             zoneScene.AddComponent<NP_TreeDataRepositoryComponent>();
             zoneScene.AddComponent<UnitAttributesDataRepositoryComponent>();
-            zoneScene.AddComponent<MouseTargetSelectorComponent>();
-            zoneScene.AddComponent<MapClickCompoent>();
-            zoneScene.AddComponent<CDComponent>();
-            
+            zoneScene.AddComponent<B2S_ColliderDataRepositoryComponent>();
+            zoneScene.AddComponent<RecastNavMeshManagerComponent>();
+
             // UI层的初始化
             await Game.EventSystem.Publish(new EventType.AfterCreateZoneScene() {ZoneScene = zoneScene});
 

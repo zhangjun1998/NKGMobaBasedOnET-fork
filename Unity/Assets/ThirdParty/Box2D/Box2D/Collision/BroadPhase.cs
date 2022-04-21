@@ -1,9 +1,7 @@
 using System;
 using System.Buffers;
 using System.Numerics;
-using System.Threading;
 using Box2DSharp.Collision.Collider;
-using Box2DSharp.Common;
 using Box2DSharp.Dynamics;
 using Box2DSharp.Dynamics.Internal;
 
@@ -31,22 +29,29 @@ namespace Box2DSharp.Collision
 
         private int _queryProxyId;
 
-        /// <inheritdoc />
         public BroadPhase()
         {
             _proxyCount = 0;
             _tree = new DynamicTree();
             _pairCapacity = 16;
             _pairCount = 0;
-            _pairBuffer = new Pair[_pairCapacity];
-            for (var i = 0; i < _pairBuffer.Length; i++)
-            {
-                _pairBuffer[i] = new Pair();
-            }
-
+            _pairBuffer = ArrayPool<Pair>.Shared.Rent(_pairCapacity);
             _moveCapacity = 16;
             _moveCount = 0;
-            _moveBuffer = new int[_moveCapacity];
+            _moveBuffer = ArrayPool<int>.Shared.Rent(_moveCapacity);
+        }
+
+        ~BroadPhase()
+        {
+            if (_pairBuffer != null)
+            {
+                ArrayPool<Pair>.Shared.Return(_pairBuffer, true);
+            }
+
+            if (_moveBuffer != null)
+            {
+                ArrayPool<int>.Shared.Return(_moveBuffer, true);
+            }
         }
 
         /// Create a proxy with an initial AABB. Pairs are not reported until
@@ -109,7 +114,7 @@ namespace Box2DSharp.Collision
         }
 
         /// Update the pairs. This results in pair callbacks. This can only add pairs.
-        internal void UpdatePairs<T>(T obj)
+        internal void UpdatePairs<T>(T callback)
             where T : IAddPairCallback
         {
             // Reset pair buffer
@@ -132,37 +137,30 @@ namespace Box2DSharp.Collision
                 _tree.Query(this, fatAABB);
             }
 
-            // Reset move buffer
-            _moveCount = 0;
-
-            Array.Sort(_pairBuffer, 0, _pairCount);
-
-            // Send the pairs back to the client.
-            var i = 0;
-            while (i < _pairCount)
+            // Send pairs to caller
+            for (var i = 0; i < _pairCount; ++i)
             {
-                var primaryPair = _pairBuffer[i];
+                ref readonly var primaryPair = ref _pairBuffer[i];
                 var userDataA = _tree.GetUserData(primaryPair.ProxyIdA);
                 var userDataB = _tree.GetUserData(primaryPair.ProxyIdB);
 
-                obj.AddPairCallback(userDataA, userDataB);
-                ++i;
-
-                // Skip any duplicate pairs.
-                while (i < _pairCount)
-                {
-                    var pair = _pairBuffer[i];
-                    if (pair.ProxyIdA != primaryPair.ProxyIdA || pair.ProxyIdB != primaryPair.ProxyIdB)
-                    {
-                        break;
-                    }
-
-                    ++i;
-                }
+                callback.AddPairCallback(userDataA, userDataB);
             }
 
-            // Try to keep the tree balanced.
-            //m_tree.Rebalance(4);
+            // Clear move flags
+            for (var i = 0; i < _moveCount; ++i)
+            {
+                var proxyId = _moveBuffer[i];
+                if (proxyId == NullProxy)
+                {
+                    continue;
+                }
+
+                _tree.ClearMoved(proxyId);
+            }
+
+            // Reset move buffer
+            _moveCount = 0;
         }
 
         /// Query an AABB for overlapping proxies. The callback class
@@ -216,8 +214,10 @@ namespace Box2DSharp.Collision
             {
                 var oldBuffer = _moveBuffer;
                 _moveCapacity *= 2;
-                _moveBuffer = new int[_moveCapacity];
+                _moveBuffer = ArrayPool<int>.Shared.Rent(_moveCapacity);
                 Array.Copy(oldBuffer, _moveBuffer, _moveCount);
+                Array.Clear(oldBuffer, 0, _moveCount);
+                ArrayPool<int>.Shared.Return(oldBuffer);
             }
 
             _moveBuffer[_moveCount] = proxyId;
@@ -243,19 +243,22 @@ namespace Box2DSharp.Collision
                 return true;
             }
 
+            var moved = _tree.WasMoved(proxyId);
+            if (moved && proxyId > _queryProxyId)
+            {
+                // Both proxies are moving. Avoid duplicate pairs.
+                return true;
+            }
+
             // Grow the pair buffer as needed.
             if (_pairCount == _pairCapacity)
             {
                 var oldBuffer = _pairBuffer;
-                _pairCapacity *= 2;
-                _pairBuffer = new Pair[_pairCapacity];
+                _pairCapacity += _pairCapacity >> 1;
+                _pairBuffer = ArrayPool<Pair>.Shared.Rent(_pairCapacity);
                 Array.Copy(oldBuffer, _pairBuffer, _pairCount);
-                for (var i = _pairCount; i < _pairCapacity; i++)
-                {
-                    _pairBuffer[i] = new Pair();
-                }
-
-                Array.Clear(oldBuffer, 0, oldBuffer.Length);
+                Array.Clear(oldBuffer, 0, _pairCount);
+                ArrayPool<Pair>.Shared.Return(oldBuffer);
             }
 
             _pairBuffer[_pairCount].ProxyIdA = Math.Min(proxyId, _queryProxyId);
@@ -266,33 +269,10 @@ namespace Box2DSharp.Collision
         }
     }
 
-    public class Pair : IComparable<Pair>
+    public struct Pair
     {
         public int ProxyIdA;
 
         public int ProxyIdB;
-
-        public int CompareTo(Pair other)
-        {
-            if (ProxyIdA < other.ProxyIdA)
-            {
-                return -1;
-            }
-
-            if (ProxyIdA == other.ProxyIdA)
-            {
-                if (ProxyIdB < other.ProxyIdB)
-                {
-                    return -1;
-                }
-
-                if (ProxyIdB == other.ProxyIdB)
-                {
-                    return 0;
-                }
-            }
-
-            return 1;
-        }
     }
 }

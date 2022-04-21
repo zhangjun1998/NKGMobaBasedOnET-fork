@@ -15,7 +15,7 @@ namespace ET
         {
             self.LobbyRooms.Clear();
             
-            self.BattleRoom.Dispose();
+            self.BattleRoom?.Dispose();
         }
     }
 
@@ -35,6 +35,11 @@ namespace ET
             return room;
         }
         
+        public Room GetBattleRoom()
+        {
+            return BattleRoom;
+        }
+
         public Room GetOrCreateBattleRoom()
         {
             if (BattleRoom == null)
@@ -42,12 +47,19 @@ namespace ET
                 BattleRoom = this.AddChild<Room>();
 
                 BattleRoom.AddComponent<UnitComponent>();
-                BattleRoom.AddComponent<NP_SyncComponent>();
+                BattleRoom.AddComponent<LSF_Component>();
+                BattleRoom.AddComponent<LSF_TimerComponent>();
+                BattleRoom.AddComponent<MouseTargetSelectorComponent>();
+                BattleRoom.AddComponent<MapClickCompoent>();
+                BattleRoom.AddComponent<LSF_TickComponent>();
+                BattleRoom.AddComponent<BattleEventSystemComponent>();
+                BattleRoom.AddComponent<CDComponent>();
+                BattleRoom.AddComponent<B2S_WorldComponent>();
             }
 
             return BattleRoom;
         }
-
+        
         public Room GetLobbyRoom(long id)
         {
             if (LobbyRooms.TryGetValue(id, out var room))

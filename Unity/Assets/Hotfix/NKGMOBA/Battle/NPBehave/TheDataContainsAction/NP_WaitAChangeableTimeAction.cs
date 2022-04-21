@@ -15,31 +15,33 @@ namespace ET
     /// 等待一个可变化的时间，比如CD变化
     /// </summary>
     [Title("等待一个可变化的时间", TitleAlignment = TitleAlignments.Centered)]
-    public class NP_WaitAChangeableTimeAction: NP_ClassForStoreAction
+    public class NP_WaitAChangeableTimeAction : NP_ClassForStoreAction
     {
-        [LabelText("等待的时长")]
-        public NP_BlackBoardRelationData TheTimeToWait = new NP_BlackBoardRelationData();
-
-        private double lastElapsedTime;
-
-        private Blackboard tempBlackboard;
+        [LabelText("等待的时长")] public NP_BlackBoardRelationData TheTimeToWait = new NP_BlackBoardRelationData();
+        private bool HasInited;
 
         public override Func<bool, Action.Result> GetFunc2ToBeDone()
         {
-            tempBlackboard = this.BelongtoRuntimeTree.GetBlackboard();
             this.Func2 = WaitTime;
+
             return this.Func2;
         }
 
         public Action.Result WaitTime(bool hasDown)
         {
-            this.lastElapsedTime = this.BelongtoRuntimeTree.GetClock().ElapsedTime;
-            tempBlackboard.Set(this.TheTimeToWait.BBKey,
-                tempBlackboard.Get<float>(this.TheTimeToWait.BBKey) -
-                (float) (this.BelongtoRuntimeTree.GetClock().ElapsedTime - lastElapsedTime));
-            if (tempBlackboard.Get<float>(this.TheTimeToWait.BBKey) <= 0)
+            if (!HasInited)
             {
-                lastElapsedTime = -1;
+                this.BelongtoRuntimeTree.GetBlackboard().Set<uint>(this.TheTimeToWait.BBKey,
+                    this.BelongToUnit.LsfComponent.CurrentFrame +
+                    TimeAndFrameConverter.Frame_Float2Frame(this.TheTimeToWait.GetTheBBDataValue<float>()));
+                HasInited = true;
+            }
+
+            if (this.BelongToUnit.LsfComponent.CurrentFrame >=
+                TimeAndFrameConverter.Frame_Float2Frame(this.BelongtoRuntimeTree.GetBlackboard()
+                    .Get<float>(this.TheTimeToWait.BBKey)))
+            {
+                HasInited = false;
                 return NPBehave.Action.Result.SUCCESS;
             }
 

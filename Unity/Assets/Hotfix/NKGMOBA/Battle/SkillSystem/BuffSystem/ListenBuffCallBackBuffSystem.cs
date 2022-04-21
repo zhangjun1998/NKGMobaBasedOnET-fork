@@ -13,7 +13,7 @@ namespace ET
     {
         public ListenBuffEvent_Normal ListenBuffEventNormal;
         
-        public override void OnExecute()
+        public override void OnExecute(uint currentFrame)
         {
             if (GetBuffDataWithTType.HasOverlayerJudge)
             {
@@ -27,12 +27,12 @@ namespace ET
                 ListenBuffEventNormal = ReferencePool.Acquire<ListenBuffEvent_Normal>();
                 ListenBuffEventNormal.BuffInfoWillBeAdded = GetBuffDataWithTType.BuffInfoWillBeAdded;
             }
-            this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystem>().RegisterEvent($"{this.GetBuffDataWithTType.EventId.Value}{this.TheUnitFrom.Id}", ListenBuffEventNormal);
+            this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystemComponent>().RegisterEvent($"{this.GetBuffDataWithTType.EventId.Value}{this.TheUnitFrom.Id}", ListenBuffEventNormal);
         }
 
-        public override void OnFinished()
+        public override void OnFinished(uint currentFrame)
         {
-            this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystem>().UnRegisterEvent($"{this.GetBuffDataWithTType.EventId.Value}{this.TheUnitFrom.Id}", ListenBuffEventNormal);
+            this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystemComponent>().UnRegisterEvent($"{this.GetBuffDataWithTType.EventId.Value}{this.TheUnitFrom.Id}", ListenBuffEventNormal);
         }
     }
 }

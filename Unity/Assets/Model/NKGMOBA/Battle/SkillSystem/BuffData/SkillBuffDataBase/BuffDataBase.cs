@@ -45,6 +45,16 @@ namespace ET
         [LabelText("Buff的基本特征")]
         [BoxGroup("必填项")]
         public BuffBaseType BuffBaseType;
+        
+        /// <summary>
+        /// 如果为false则不会纳入网络同步范畴
+        /// 比如状态BuffA（true）和其所连接的BuffB（false），A会考虑进网络同步的范畴，但B不会
+        /// 所以服务端只会将BuffA同步过来，客户端在添加BuffA的时候再去添加B，这样就保证了这种连锁类型的Buff不会重复添加
+        /// </summary>
+        [InfoBox("如果为false则不会纳入网络同步范畴")]
+        [LabelText("Buff是否需要单独同步")]
+        [BoxGroup("必填项")]
+        public bool NetSyncSpecial;
 
         [ShowIf("Base_isVisualable")]
         [LabelText("Buff图标的名称")]

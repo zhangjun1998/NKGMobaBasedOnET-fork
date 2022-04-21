@@ -10,19 +10,18 @@ namespace ET
 {
     public class ReplaceAttackBuffSystem : ABuffSystemBase<ReplaceAttackBuffData>
     {
-#if SERVER
-        public override void OnExecute()
+        public override void OnExecute(uint currentFrame)
         {
             ReplaceAttackBuffData replaceAttackBuffData = this.GetBuffDataWithTType;
 
             Unit unit = this.GetBuffTarget();
             
             // 默认重置一次普攻
-            unit.GetComponent<CommonAttackComponent>().CancelCommonAttackWithOutResetTarget_ResetAttackCD();
+            unit.GetComponent<CommonAttackComponent_Logic>().CancelCommonAttackWithOutResetTarget_ResetAttackCD();
             
-            unit.GetComponent<CommonAttackComponent>().SetAttackReplaceInfo(this.BelongtoRuntimeTree.Id,
+            unit.GetComponent<CommonAttackComponent_Logic>().SetAttackReplaceInfo(this.BelongtoRuntimeTree.Id,
                 replaceAttackBuffData.AttackReplaceInfo);
-            unit.GetComponent<CommonAttackComponent>()
+            unit.GetComponent<CommonAttackComponent_Logic>()
                 .SetCancelAttackReplaceInfo(this.BelongtoRuntimeTree.Id, replaceAttackBuffData.CancelReplaceInfo);
 
             Blackboard blackboard =
@@ -36,19 +35,19 @@ namespace ET
             {
                 foreach (var eventId in this.BuffData.EventIds)
                 {
-                    this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystem>().Run($"{eventId}{this.TheUnitFrom.Id}", this);
+                    this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystemComponent>().Run($"{eventId}{this.TheUnitFrom.Id}", this);
                     //Log.Info($"抛出了{this.MSkillBuffDataBase.theEventID}{this.theUnitFrom.Id}");
                 }
             }
         }
 
-        public override void OnFinished()
+        public override void OnFinished(uint currentFrame)
         {
             ReplaceAttackBuffData replaceAttackBuffData = this.GetBuffDataWithTType;
 
             Unit unit = this.GetBuffTarget();
-            unit.GetComponent<CommonAttackComponent>().ReSetAttackReplaceInfo();
-            unit.GetComponent<CommonAttackComponent>().ReSetCancelAttackReplaceInfo();
+            unit.GetComponent<CommonAttackComponent_Logic>().ReSetAttackReplaceInfo();
+            unit.GetComponent<CommonAttackComponent_Logic>().ReSetCancelAttackReplaceInfo();
 
             Blackboard blackboard =
                 unit.GetComponent<NP_RuntimeTreeManager>().GetTreeByRuntimeID(this.BelongtoRuntimeTree.Id)
@@ -57,11 +56,5 @@ namespace ET
             blackboard.Set(replaceAttackBuffData.AttackReplaceInfo.BBKey, false);
             blackboard.Set(replaceAttackBuffData.CancelReplaceInfo.BBKey, false);
         }
-#else
-        public override void OnExecute()
-        {
-            throw new System.NotImplementedException();
-        }
-#endif
     }
 }

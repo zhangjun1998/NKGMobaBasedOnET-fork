@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.Linq;
 using Sirenix.OdinInspector;
@@ -96,6 +97,11 @@ namespace Werewolf.StatusIndicators.Components
             {
                 _SharedMaterialPropertyBlock = value;
             }
+        }
+
+        public virtual void OnEnable()
+        {
+            
         }
 
         /// <summary>

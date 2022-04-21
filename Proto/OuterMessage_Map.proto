@@ -32,6 +32,22 @@ message Actor_TransferResponse // IActorLocationResponse
   string Message = 92;
 }
 
+//ResponseType M2C_Ping
+message C2M_Ping // IActorLocationRequest
+{
+  int32 RpcId = 90;
+  int64 ActorId = 93;
+}
+
+message M2C_Ping // IActorLocationResponse
+{
+  int32 RpcId = 90;
+  string Message = 92;
+  int32 Error = 91;
+  int64 TimePoint = 1;
+  uint32 ServerFrame = 93;
+}
+
 //ResponseType M2C_Reload
 message C2M_Reload // IRequest
 {
@@ -84,6 +100,7 @@ message UnitInfo
   float Y = 4;
   float Z = 5;
   int32 RoleCamp = 6;
+  int64 RoomId = 7;
 }
 
 message M2C_CreateUnits // IActorMessage
@@ -102,36 +119,10 @@ message M2C_UnitDestoryed // IActorMessage
   int64 DestoryedUnitId = 94;
 }
 
-message C2M_PathfindingResult // IActorLocationMessage
-{
-  int32 RpcId = 90;
-  int64 ActorId = 93;
-
-  float X = 1;
-  float Y = 2;
-  float Z = 3;
-}
-
 message C2M_Stop // IActorLocationMessage
 {
   int32 RpcId = 90;
   int64 ActorId = 93;
-}
-
-message M2C_PathfindingResult // IActorMessage
-{
-  int64 ActorId = 93;
-
-  int64 Id = 1;
-
-  float X = 2;
-  float Y = 3;
-  float Z = 4;
-  float Speed = 6;
-
-  repeated float Xs = 7;
-  repeated float Ys = 8;
-  repeated float Zs = 9;
 }
 
 message M2C_Stop // IActorMessage
@@ -157,15 +148,6 @@ message M2C_ReceiveDamage // IActorMessage
   float FinalValue = 4;
 }
 
-message M2C_ChangeProperty // IActorMessage
-{
-  int32 Error = 1;
-  int64 UnitId = 2;
-
-  int32 NumicType = 3;
-  float FinalValue = 4;
-}
-
 message C2M_CastHeroSkill // IActorLocationMessage
 {
   int32 RpcId = 90;
@@ -181,36 +163,6 @@ message M2C_RecoverHP // IActorMessage
 {
   int64 SpriteUnitId = 1;
   float  RecoverHPValue = 2;
-}
-
-//请求攻击
-message C2M_CommonAttack // IActorLocationMessage
-{
-  int32 RpcId = 90;
-  int64 ActorId = 93;
-
-  int64 TargetUnitId = 1;
-}
-
-//请求攻击
-message M2C_CancelCommonAttack // IActorMessage
-{
-  int32 RpcId = 90;
-  int64 ActorId = 93;
-
-  int64 TargetUnitId = 1;
-}
-
-
-//服务器返回攻击指令，开始播放动画
-message M2C_CommonAttack // IActorMessage
-{
-  int32 RpcId = 90;
-  int64 ActorId = 93;
-
-  int64 AttackCasterId = 4;//攻击发起者Id
-  int64 TargetUnitId = 3;//攻击目标Id
-  bool CanAttack = 2; //是否可以发起攻击
 }
 
 
@@ -230,24 +182,6 @@ message M2C_BuffInfo // IActorMessage
   float BuffMaxLimitTime = 4; //Buff最大持续到的时间点
 }
 
-message C2M_UserInputSkillCmd // IActorLocationMessage
-{
-  int32 RpcId = 90;
-  int64 ActorId = 93;
-  string VK = 64;
-}
-
-//同步行为树bool黑板变量
-message M2C_SyncNPBehaveBoolData // IActorMessage
-{
-  int32 RpcId = 90;
-  int64 ActorId = 93;
-
-  int64 UnitId = 94;
-  //黑板键
-  string BBKey = 2;
-  bool Value = 5;
-}
 //同步CD信息
 message M2C_SyncCDData // IActorMessage
 {
@@ -263,23 +197,23 @@ message M2C_SyncCDData // IActorMessage
   int64 RemainCDLength = 5;
 }
 
-message C2M_CreateSpiling // IActorLocationMessage
+message C2M_FrameCmd // IActorLocationMessage
 {
-  float X = 2;
-  float Y = 3;
-  float Z = 4;
-  //所归属的父实体id
   int32 RpcId = 90;
   int64 ActorId = 93;
+  
+  ALSF_Cmd CmdContent = 92;
 }
 
 
-message M2C_CreateSpilings // IActorMessage
+message M2C_FrameCmd // IActorMessage
 {
   int32 RpcId = 90;
   int64 ActorId = 93;
-  int64 RoomId = 95;
-  UnitInfo Unit = 2;
+  
+  int64 ServerTimeSnap = 94;
+  
+  ALSF_Cmd CmdContent = 92;
 }
 
 message M2C_SyncUnitAttribute // IActorMessage

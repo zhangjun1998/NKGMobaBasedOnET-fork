@@ -56,10 +56,8 @@ namespace ET
             }
             else
             {
-#if SERVER
                 targetUnit = BelongToUnit.BelongToRoom.GetComponent<UnitComponent>()
                     .Get(this.TargetUnitId.GetBlackBoardValue<long>(this.BelongtoRuntimeTree.GetBlackboard()));
-#endif
             }
 
             List<NP_RuntimeTree> skillContent = targetUnit.GetComponent<SkillCanvasManagerComponent>()

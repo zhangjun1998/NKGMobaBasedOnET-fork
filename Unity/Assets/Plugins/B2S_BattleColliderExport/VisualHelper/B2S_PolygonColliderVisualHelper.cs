@@ -3,6 +3,7 @@
 // Mail: 1778139321@qq.com
 // Data: 2019年7月10日 21:02:18
 //------------------------------------------------------------
+
 #if UNITY_EDITOR
 
 using System.Collections.Generic;
@@ -20,27 +21,22 @@ namespace ET
     /// <summary>
     /// 多边形可视化辅助
     /// </summary>
-    public class B2S_PolygonColliderVisualHelper: B2S_ColliderVisualHelperBase
+    public class B2S_PolygonColliderVisualHelper : B2S_ColliderVisualHelperBase
     {
-        [DisableInEditorMode]
-        [LabelText("映射文件名称")]
+        [DisableInEditorMode] [LabelText("映射文件名称")]
         public string NameAndIdInflectFileName = "PolygonColliderNameAndIdInflect";
 
-        [DisableInEditorMode]
-        [LabelText("碰撞数据文件名称")]
+        [DisableInEditorMode] [LabelText("碰撞数据文件名称")]
         public string ColliderDataFileName = "PolygonColliderData";
 
-        [LabelText("请设置每个多边形最大顶点数")]
-        [Range(3, 8)]
+        [LabelText("请设置每个多边形最大顶点数")] [Range(3, 8)]
         public int MaxPointLimit;
 
-        [InlineEditor]
-        [Required("需要至少一个Unity2D多边形碰撞器")]
-        [HideLabel]
-        [DisableInEditorMode]
+        [InlineEditor] [Required("需要至少一个Unity2D多边形碰撞器")] [HideLabel] [DisableInEditorMode]
         public PolygonCollider2D mCollider2D;
 
-        public B2S_PolygonColliderDataStructure MB2S_PolygonColliderDataStructure = new B2S_PolygonColliderDataStructure();
+        public B2S_PolygonColliderDataStructure MB2S_PolygonColliderDataStructure =
+            new B2S_PolygonColliderDataStructure();
 
         public override void InitColliderBaseInfo()
         {
@@ -50,36 +46,34 @@ namespace ET
         [Button("重新绘制多边形碰撞体", 25), GUIColor(0.2f, 0.9f, 1.0f)]
         public override void InitPointInfo()
         {
-            CheckPolygon();
-
-            matrix4X4 = Matrix4x4.TRS(theObjectWillBeEdited.transform.position, theObjectWillBeEdited.transform.rotation,
-                theObjectWillBeEdited.transform.localScale);
-
-            MB2S_PolygonColliderDataStructure.pointCount = mCollider2D.GetTotalPointCount();
-            MB2S_PolygonColliderDataStructure.finalOffset.X = this.mCollider2D.offset.x;
-            MB2S_PolygonColliderDataStructure.finalOffset.Y = this.mCollider2D.offset.y;
+            base.InitPointInfo();
+            InitBox2dPolygonFromUnityCollider();
             this.canDraw = true;
         }
 
         public override void DrawCollider()
         {
-            foreach (var VARIABLE in this.MB2S_PolygonColliderDataStructure.finalPoints)
+            foreach (var b2sColliderPoints in this.MB2S_PolygonColliderDataStructure.finalPoints)
             {
-                for (int i = 0; i < VARIABLE.Count; i++)
+                for (int i = 0; i < b2sColliderPoints.Count; i++)
                 {
-                    if (i < VARIABLE.Count - 1)
-                        Gizmos.DrawLine(matrix4X4.MultiplyPoint(new Vector3(VARIABLE[i].X + this.mCollider2D.offset.x,
+                    if (i < b2sColliderPoints.Count - 1)
+                        Gizmos.DrawLine(GoTranslateMatrix4X4.MultiplyPoint(new Vector3(
+                                b2sColliderPoints[i].X,
                                 0,
-                                VARIABLE[i].Y + this.mCollider2D.offset.y)),
-                            matrix4X4.MultiplyPoint(new Vector3(VARIABLE[i + 1].X + this.mCollider2D.offset.x, 0,
-                                VARIABLE[i + 1].Y + this.mCollider2D.offset.y)));
+                                b2sColliderPoints[i].Y)),
+                            GoTranslateMatrix4X4.MultiplyPoint(new Vector3(
+                                b2sColliderPoints[i + 1].X, 0,
+                                b2sColliderPoints[i + 1].Y)));
                     else
                     {
-                        Gizmos.DrawLine(matrix4X4.MultiplyPoint(new Vector3(VARIABLE[i].X + this.mCollider2D.offset.x,
+                        Gizmos.DrawLine(GoTranslateMatrix4X4.MultiplyPoint(new Vector3(
+                                b2sColliderPoints[i].X,
                                 0,
-                                VARIABLE[i].Y + this.mCollider2D.offset.y)),
-                            matrix4X4.MultiplyPoint(new Vector3(VARIABLE[0].X + this.mCollider2D.offset.x, 0,
-                                VARIABLE[0].Y + this.mCollider2D.offset.y)));
+                                b2sColliderPoints[i].Y)),
+                            GoTranslateMatrix4X4.MultiplyPoint(new Vector3(
+                                b2sColliderPoints[0].X, 0,
+                                b2sColliderPoints[0].Y)));
                     }
                 }
             }
@@ -88,7 +82,8 @@ namespace ET
         [Button("保存所有多边形碰撞体名称与ID映射信息", 25), GUIColor(0.2f, 0.9f, 1.0f)]
         public override void SavecolliderNameAndIdInflect()
         {
-            if (!this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.ContainsKey(this.theObjectWillBeEdited.name))
+            if (!this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.ContainsKey(
+                this.theObjectWillBeEdited.name))
             {
                 MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.Add(this.theObjectWillBeEdited.name,
                     this.MB2S_PolygonColliderDataStructure.id);
@@ -96,16 +91,18 @@ namespace ET
             else
             {
                 MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic[this.theObjectWillBeEdited.name] =
-                        this.MB2S_PolygonColliderDataStructure.id;
+                    this.MB2S_PolygonColliderDataStructure.id;
             }
 
-            using (FileStream file = File.Create($"{this.NameAndIdInflectSavePath}/{this.NameAndIdInflectFileName}.bytes"))
+            using (FileStream file =
+                File.Create(
+                    $"{B2S_BattleColliderExportPathDefine.ColliderNameAndIdInflectSavePath}/{this.NameAndIdInflectFileName}.bytes"))
             {
                 BsonSerializer.Serialize(new BsonBinaryWriter(file), this.MColliderNameAndIdInflectSupporter);
             }
         }
 
-        public void CheckPolygon()
+        public void InitBox2dPolygonFromUnityCollider()
         {
             MB2S_PolygonColliderDataStructure.pointCount = 0;
             this.MB2S_PolygonColliderDataStructure.finalPoints.Clear();
@@ -113,32 +110,41 @@ namespace ET
             //对多边形进行分割操作
             List<Vector2> tempPoints = new List<Vector2>();
             //必须进行放缩操作，不然在很近的时候运算误差会导致出错
-            foreach (var VARIABLE in this.mCollider2D.points)
+            foreach (var unityColliderPoints in this.mCollider2D.points)
             {
-                Vector2 tempVector2 = new Vector2(VARIABLE.x * 30, VARIABLE.y * 30);
+                Vector2 tempVector2 = new Vector2(unityColliderPoints.x * 30, unityColliderPoints.y * 30);
                 tempPoints.Add(tempVector2);
             }
 
             List<List<Vector2>> tempFinalPolygons = Separator.CalcShapes(tempPoints);
 
-            foreach (var VARIABLE in tempFinalPolygons)
+            foreach (var b2sColliderPoints in tempFinalPolygons)
             {
-                for (int i = 0; i < VARIABLE.Count; i++)
+                for (int i = 0; i < b2sColliderPoints.Count; i++)
                 {
-                    VARIABLE[i] = new Vector2(VARIABLE[i].X / 30, VARIABLE[i].Y / 30);
+                    b2sColliderPoints[i] = new Vector2(b2sColliderPoints[i].X / 30, b2sColliderPoints[i].Y / 30);
                 }
             }
 
+            // 因为Box2d的多边形默认不提供偏移设置，所以这里在存储的时候直接将偏移累加到顶点位置上
+            MB2S_PolygonColliderDataStructure.finalOffset = Vector2.Zero;
+            
             List<List<Vector2>> FinalPolygons = Separator.SplitPolygonUntilLessX(this.MaxPointLimit, tempFinalPolygons);
 
+            int pointCount = 0;
             for (int i = 0; i < FinalPolygons.Count; i++)
             {
                 this.MB2S_PolygonColliderDataStructure.finalPoints.Add(new List<Vector2>());
-                for (int j = 0; j < FinalPolygons[i].Count; j++)
+                for (int j = 0; j < FinalPolygons[i].Count; j++, pointCount++)
                 {
-                    this.MB2S_PolygonColliderDataStructure.finalPoints[i].Add(new Vector2(FinalPolygons[i][j].X, FinalPolygons[i][j].Y));
+                    // 因为Box2d的多边形默认不提供偏移设置，所以这里在存储的时候直接将偏移累加到顶点位置上
+                    Vector3 finalPint = GoScaleAndRotMatrix4X4.MultiplyPoint(new Vector3(FinalPolygons[i][j].X + mCollider2D.offset.x, 0,
+                        FinalPolygons[i][j].Y + mCollider2D.offset.y));
+                    this.MB2S_PolygonColliderDataStructure.finalPoints[i].Add(new Vector2(finalPint.x, finalPint.z));
                 }
             }
+
+            MB2S_PolygonColliderDataStructure.pointCount = pointCount;
         }
 
         [Button("保存所有多边形碰撞体信息", 25), GUIColor(0.2f, 0.9f, 1.0f)]
@@ -159,7 +165,8 @@ namespace ET
                         temp.finalPoints.Add(new List<Vector2>());
                         for (int j = 0; j < this.MB2S_PolygonColliderDataStructure.finalPoints[i].Count; j++)
                         {
-                            Vector2 costumVector2 = new Vector2(this.MB2S_PolygonColliderDataStructure.finalPoints[i][j].X,
+                            Vector2 costumVector2 = new Vector2(
+                                this.MB2S_PolygonColliderDataStructure.finalPoints[i][j].X,
                                 this.MB2S_PolygonColliderDataStructure.finalPoints[i][j].Y);
                             temp.finalPoints[i].Add(costumVector2);
                         }
@@ -172,11 +179,13 @@ namespace ET
                 else
                 {
                     this.MColliderDataSupporter.colliderDataDic[this.MB2S_PolygonColliderDataStructure.id] =
-                            this.MB2S_PolygonColliderDataStructure;
+                        this.MB2S_PolygonColliderDataStructure;
                 }
             }
 
-            using (FileStream file = File.Create($"{this.ColliderDataSavePath}/{this.ColliderDataFileName}.bytes"))
+            using (FileStream file =
+                File.Create(
+                    $"{B2S_BattleColliderExportPathDefine.ServerColliderDataSavePath}/{this.ColliderDataFileName}.bytes"))
             {
                 BsonSerializer.Serialize(new BsonBinaryWriter(file), this.MColliderDataSupporter);
             }
@@ -188,12 +197,16 @@ namespace ET
             this.MColliderDataSupporter.colliderDataDic.Clear();
             this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.Clear();
 
-            using (FileStream file = File.Create($"{this.NameAndIdInflectSavePath}/{this.NameAndIdInflectFileName}.bytes"))
+            using (FileStream file =
+                File.Create(
+                    $"{B2S_BattleColliderExportPathDefine.ColliderNameAndIdInflectSavePath}/{this.NameAndIdInflectFileName}.bytes"))
             {
                 BsonSerializer.Serialize(new BsonBinaryWriter(file), this.MColliderNameAndIdInflectSupporter);
             }
 
-            using (FileStream file = File.Create($"{this.ColliderDataSavePath}/{this.ColliderDataFileName}.bytes"))
+            using (FileStream file =
+                File.Create(
+                    $"{B2S_BattleColliderExportPathDefine.ServerColliderDataSavePath}/{this.ColliderDataFileName}.bytes"))
             {
                 BsonSerializer.Serialize(new BsonBinaryWriter(file), this.MColliderDataSupporter);
             }
@@ -209,17 +222,23 @@ namespace ET
                     this.MColliderDataSupporter.colliderDataDic.Remove(this.MB2S_PolygonColliderDataStructure.id);
                 }
 
-                if (this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.ContainsKey(this.theObjectWillBeEdited.name))
+                if (this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.ContainsKey(
+                    this.theObjectWillBeEdited.name))
                 {
-                    this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.Remove(this.theObjectWillBeEdited.name);
+                    this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.Remove(
+                        this.theObjectWillBeEdited.name);
                 }
 
-                using (FileStream file = File.Create($"{this.NameAndIdInflectSavePath}/{this.NameAndIdInflectFileName}.bytes"))
+                using (FileStream file =
+                    File.Create(
+                        $"{B2S_BattleColliderExportPathDefine.ColliderNameAndIdInflectSavePath}/{this.NameAndIdInflectFileName}.bytes"))
                 {
                     BsonSerializer.Serialize(new BsonBinaryWriter(file), this.MColliderNameAndIdInflectSupporter);
                 }
 
-                using (FileStream file = File.Create($"{this.ColliderDataSavePath}/{this.ColliderDataFileName}.bytes"))
+                using (FileStream file =
+                    File.Create(
+                        $"{B2S_BattleColliderExportPathDefine.ServerColliderDataSavePath}/{this.ColliderDataFileName}.bytes"))
                 {
                     BsonSerializer.Serialize(new BsonBinaryWriter(file), this.MColliderDataSupporter);
                 }
@@ -254,13 +273,15 @@ namespace ET
 
             if (this.MB2S_PolygonColliderDataStructure.id == 0)
             {
-                this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.TryGetValue(this.theObjectWillBeEdited.name,
+                this.MColliderNameAndIdInflectSupporter.colliderNameAndIdInflectDic.TryGetValue(
+                    this.theObjectWillBeEdited.name,
                     out this.MB2S_PolygonColliderDataStructure.id);
 
                 if (this.MColliderDataSupporter.colliderDataDic.ContainsKey(this.MB2S_PolygonColliderDataStructure.id))
                 {
                     this.MB2S_PolygonColliderDataStructure =
-                            (B2S_PolygonColliderDataStructure) this.MColliderDataSupporter.colliderDataDic[this.MB2S_PolygonColliderDataStructure.id];
+                        (B2S_PolygonColliderDataStructure) this.MColliderDataSupporter.colliderDataDic[
+                            this.MB2S_PolygonColliderDataStructure.id];
                 }
             }
         }
@@ -275,7 +296,8 @@ namespace ET
         }
 
         public B2S_PolygonColliderVisualHelper(ColliderNameAndIdInflectSupporter colliderNameAndIdInflectSupporter,
-        ColliderDataSupporter colliderDataSupporter): base(colliderNameAndIdInflectSupporter, colliderDataSupporter)
+            ColliderDataSupporter colliderDataSupporter) : base(colliderNameAndIdInflectSupporter,
+            colliderDataSupporter)
         {
         }
     }

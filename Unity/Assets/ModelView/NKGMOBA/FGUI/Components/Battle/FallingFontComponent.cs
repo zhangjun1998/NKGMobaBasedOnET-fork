@@ -6,13 +6,13 @@ using UnityEngine;
 
 namespace ET
 {
-    public class ChangeUnitAttribute_FallFront : AEvent<EventType.ChangeUnitAttribute>
+    public class ChangeUnitAttribute_FallFront : AEvent<EventType.NumericApplyChangeValue>
     {
-        protected override async ETTask Run(ChangeUnitAttribute a)
+        protected override async ETTask Run(NumericApplyChangeValue a)
         {
-            if ((a.NumericType == NumericType.Hp))
+            if (a.NumericType == NumericType.Hp)
             {
-                a.Unit.GetComponent<FallingFontComponent>().Play((int) a.ChangeValue);
+                a.Unit.GetComponent<FallingFontComponent>().Play((int) a.ChangedValue);
             }
 
             await ETTask.CompletedTask;

@@ -3,7 +3,7 @@
 <div align=center><img width="128" height="128" src="https://images.gitee.com/uploads/images/2021/0422/123950_25e45fe3_2253805.png"/></div>
 
 ## 介绍
-基于ET框架致敬LOL的Moba游戏，包含完整的客户端与服务端交互，热更新，基于双端行为树的技能系统，更多精彩等你发现！
+基于ET框架致敬LOL的Moba游戏，包含完整的客户端与服务端交互，热更新，基于状态帧同步的战斗系统（包含完整的预测回滚功能），基于双端行为树的技能系统（提供通用的可视化节点编辑器），更多精彩等你发现！
 
 如果你对这个开源项目有好的想法或者想和大家一起交流，可以提Issues
 
@@ -53,7 +53,7 @@
 - 基于 **[FGUI](https://www.fairygui.com/)** 的UI解决方案
 - 基于 **[ILRuntime](http://ourpalm.github.io/ILRuntime/public/v1/guide/index.html)** 的代码热更新方案
 - 基于 **[xasset](https://github.com/xasset/xasset)** 的资源热更新方案
-- 基于状态帧同步的网络同步方案（目前仅为状态同步，状态帧参照： **[守望先锋GDC2017分享](https://www.lfzxb.top/ow-gdc-share-table-of-contents/)** ）
+- 基于状态帧同步的网络同步方案（参照： **[守望先锋GDC2017分享](https://www.lfzxb.top/ow-gdc-share-table-of-contents/)** ）
 - 基于 **[kcp](https://github.com/skywind3000/kcp)** 的网络通信算法
 - 基于 **[Unity GraphView](https://github.com/wqaetly/NodeGraphProcessor)** 的可视化节点解决方案，可用于制作各种可视化编辑器（技能编辑器，剧情编辑器，任务编辑器，新手引导编辑器等）
 - 基于 **[NPBehave行为树](https://github.com/meniku/NPBehave)** 的可视化节点技能编辑器

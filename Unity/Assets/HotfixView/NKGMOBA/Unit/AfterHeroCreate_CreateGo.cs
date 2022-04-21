@@ -18,19 +18,29 @@ namespace ET
             args.Unit.AddComponent<UnitTransformComponent>();
             args.Unit.AddComponent<TurnComponent>();
             args.Unit.AddComponent<EffectComponent>();
-            args.Unit.AddComponent<CommonAttackComponent>();
+            args.Unit.AddComponent<CommonAttackComponent_View>();
             args.Unit.AddComponent<FallingFontComponent>();
+            args.Unit.AddComponent<B2S_DebuggerComponent>();
 
-            gameObjectComponent.GameObject.GetComponent<MonoBridge>().BelongToUnitId = args.Unit.Id;
+            // 只有本地玩家才会显示技能指示器
+            if (args.IsLocalPlayer)
+            {
+                args.Unit.AddComponent<SkillIndicatorComponent>();
+                args.Unit.AddComponent<PlayerHeroControllerComponent>();
+            }
             
-            Client_SkillCanvasConfig unitPassiveSkillConfig =
-                Client_SkillCanvasConfigCategory.Instance.Get(clientUnitConfig.UnitPassiveSkillId);
-            Client_SkillCanvasConfig unitQSkillConfig =
-                Client_SkillCanvasConfigCategory.Instance.Get(clientUnitConfig.UnitQSkillId);
-            Client_SkillCanvasConfig unitWSkillConfig =
-                Client_SkillCanvasConfigCategory.Instance.Get(clientUnitConfig.UnitWSkillId);
-            Client_SkillCanvasConfig unitESkillConfig =
-                Client_SkillCanvasConfigCategory.Instance.Get(clientUnitConfig.UnitESkillId);
+            gameObjectComponent.GameObject.GetComponent<MonoBridge>().BelongToUnitId = args.Unit.Id;
+
+            SkillCanvasConfig unitPassiveSkillConfig =
+                SkillCanvasConfigCategory.Instance.Get(clientUnitConfig.UnitPassiveSkillId);
+            SkillCanvasConfig unitQSkillConfig =
+                SkillCanvasConfigCategory.Instance.Get(clientUnitConfig.UnitQSkillId);
+            SkillCanvasConfig unitWSkillConfig =
+                SkillCanvasConfigCategory.Instance.Get(clientUnitConfig.UnitWSkillId);
+            SkillCanvasConfig unitESkillConfig =
+                SkillCanvasConfigCategory.Instance.Get(clientUnitConfig.UnitESkillId);
+            SkillCanvasConfig Test =
+                SkillCanvasConfigCategory.Instance.Get(clientUnitConfig.UnitRSkillId);
 
             //英雄属性组件
             args.Unit.AddComponent<UnitAttributesDataComponent, long>(clientUnitConfig.UnitAttributesDataId);
@@ -47,6 +57,9 @@ namespace ET
             NP_RuntimeTreeFactory
                 .CreateSkillNpRuntimeTree(args.Unit, unitESkillConfig.NPBehaveId, unitESkillConfig.BelongToSkillId)
                 .Start();
+            // NP_RuntimeTreeFactory
+            //     .CreateSkillNpRuntimeTree(args.Unit, Test.NPBehaveId, unitESkillConfig.BelongToSkillId)
+            //     .Start();
 
             await ETTask.CompletedTask;
         }

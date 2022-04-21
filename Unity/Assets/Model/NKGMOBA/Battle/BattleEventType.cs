@@ -60,7 +60,7 @@ namespace ET
 
         public struct NumericApplyChangeValue
         {
-            public long UnitId;
+            public Unit Unit;
             public NumericType NumericType;
             public float ChangedValue;
         }
@@ -82,6 +82,15 @@ namespace ET
             public bool ResetAttackTarget;
         }
 
+        /// <summary>
+        /// 等待下次普攻可以发出
+        /// </summary>
+        public struct WaitForAttack
+        {
+            public Unit CastUnit;
+            public Unit TargetUnit;
+        }
+        
         /// <summary>
         /// 修改对象的属性，用于处理具体的改变数值
         /// 例如服务端发送了一条扣血（50）消息

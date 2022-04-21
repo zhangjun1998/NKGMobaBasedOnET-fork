@@ -15,6 +15,20 @@ namespace ET
 
     public class NumericComponent : Entity
     {
+#if SERVER 
+        /// <summary>
+        /// 每帧Attribute的结果
+        /// </summary>
+        public Dictionary<uint, Dictionary<int, float>> AttributeReusltFrameSnap =
+            new Dictionary<uint, Dictionary<int, float>>();
+        
+        /// <summary>
+        /// 每帧变化量
+        /// </summary>
+        public Dictionary<uint, Dictionary<int, float>> AttributeChangeFrameSnap =
+            new Dictionary<uint, Dictionary<int, float>>();  
+#endif
+
         public Dictionary<int, float> NumericDic = new Dictionary<int, float>();
 
         public Dictionary<int, float> OriNumericDic = new Dictionary<int, float>();
@@ -51,7 +65,12 @@ namespace ET
         {
             int final = (int) numericType;
             float result = this.NumericDic[final];
-
+            
+#if SERVER
+            uint currentFrame = this.GetParent<Unit>().BelongToRoom.GetComponent<LSF_Component>().CurrentFrame;
+            this.AttributeReusltFrameSnap[currentFrame][(int)numericType] = result;
+#endif
+            
             //如果不是直接操作最终值，需要发送两次事件，一次是修改的值，一次是最终值
             if (numericType > NumericType.Min)
             {

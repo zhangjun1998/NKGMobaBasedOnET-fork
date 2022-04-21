@@ -25,13 +25,17 @@ namespace ET
         /// </summary>
         [LabelText("特效将要粘贴到的位置")] public PosType PosType;
 
-        /// <summary>
+#if !SERVER
+                /// <summary>
         /// 目标特效对象
         /// </summary>
         [HideInEditorMode] public GameObject Partical;
 
+#endif
+
         public override Action GetActionToBeDone()
         {
+#if !SERVER
             Partical = GameObjectPoolComponent.Instance.FetchGameObject($"{ParticalName}",
                 GameObjectType.Effect);
             if (this.FollowUnit)
@@ -41,6 +45,7 @@ namespace ET
                 Partical.transform.localPosition = Vector3.zero;
             }
             Partical.SetActive(false);
+#endif
             
             this.Action = this.PlayPartical;
             return this.Action;
@@ -48,8 +53,10 @@ namespace ET
 
         private void PlayPartical()
         {
+#if !SERVER
             Partical.SetActive(true);
             this.Partical.GetComponent<ParticleSystem>().Play();
+#endif
         }
     }
 }

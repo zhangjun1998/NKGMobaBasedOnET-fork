@@ -30,6 +30,8 @@ namespace ET
         /// </summary>
         public Room BelongToRoom;
 
+        public LSF_Component LsfComponent => BelongToRoom.GetComponent<LSF_Component>();
+
         /// <summary>
         /// 是否需要同步到客户端
         /// </summary>

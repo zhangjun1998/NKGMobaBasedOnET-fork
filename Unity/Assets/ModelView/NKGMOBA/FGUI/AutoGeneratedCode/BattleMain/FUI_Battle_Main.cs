@@ -127,6 +127,11 @@ namespace ET
     	public FUI_Btn_GMController_Disable m_Btn_GMController_Enable;
     	public FUI_Btn_GMController_Disable m_Btn_GMController_Disable;
     	public GGroup m_GM;
+    	public GTextField m_Text_C2GPingDes;
+    	public GTextField m_Text_C2GPinginfo;
+    	public GTextField m_Text_C2GPingDes_2;
+    	public GTextField m_Text_C2MPinginfo;
+    	public GGroup m_Right_Top;
     	public Transition m_Par_GMControllerDis;
     	public Transition m_Part_GMControllerEnable;
     	public const string URL = "ui://9sdz56q4rdf51";
@@ -318,6 +323,11 @@ namespace ET
     			m_Btn_GMController_Enable = FUI_Btn_GMController_Disable.Create(this, com.GetChildAt(101));
     			m_Btn_GMController_Disable = FUI_Btn_GMController_Disable.Create(this, com.GetChildAt(102));
     			m_GM = (GGroup)com.GetChildAt(103);
+    			m_Text_C2GPingDes = (GTextField)com.GetChildAt(104);
+    			m_Text_C2GPinginfo = (GTextField)com.GetChildAt(105);
+    			m_Text_C2GPingDes_2 = (GTextField)com.GetChildAt(106);
+    			m_Text_C2MPinginfo = (GTextField)com.GetChildAt(107);
+    			m_Right_Top = (GGroup)com.GetChildAt(108);
     			m_Par_GMControllerDis = com.GetTransitionAt(0);
     			m_Part_GMControllerEnable = com.GetTransitionAt(1);
     		}
@@ -456,6 +466,11 @@ namespace ET
     		m_Btn_GMController_Disable.Dispose();
     		m_Btn_GMController_Disable = null;
     		m_GM = null;
+    		m_Text_C2GPingDes = null;
+    		m_Text_C2GPinginfo = null;
+    		m_Text_C2GPingDes_2 = null;
+    		m_Text_C2MPinginfo = null;
+    		m_Right_Top = null;
     		m_Par_GMControllerDis = null;
     		m_Part_GMControllerEnable = null;
     	}

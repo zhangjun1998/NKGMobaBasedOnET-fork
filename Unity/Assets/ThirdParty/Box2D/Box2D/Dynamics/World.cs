@@ -1,4 +1,5 @@
 using System;
+using System.Buffers;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
@@ -28,9 +29,9 @@ namespace Box2DSharp.Dynamics
         private bool _stepComplete;
 
         /// <summary>
-        /// 新增夹具
+        /// 存在新接触点
         /// </summary>
-        private bool _hasNewFixture;
+        public bool HasNewContacts;
 
         /// <summary>
         /// Register a destruction listener. The listener is owned by you and must
@@ -109,7 +110,7 @@ namespace Box2DSharp.Dynamics
         /// <summary>
         /// 性能统计
         /// </summary>
-        public Profile Profile { get; private set; }
+        public Profile Profile;
 
         public ToiProfile ToiProfile { get; set; } = null;
 
@@ -152,7 +153,8 @@ namespace Box2DSharp.Dynamics
         /// The minimum is 1.
         public float TreeQuality => ContactManager.BroadPhase.GetTreeQuality();
 
-        public World() : this(new Vector2(0, -10))
+        public World()
+            : this(new Vector2(0, -10))
         { }
 
         public World(in Vector2 gravity)
@@ -167,7 +169,7 @@ namespace Box2DSharp.Dynamics
             AllowSleep = true;
             IsAutoClearForces = true;
             _invDt0 = 0.0f;
-            Profile = new Profile();
+            Profile = default;
         }
 
         ~World()
@@ -198,19 +200,9 @@ namespace Box2DSharp.Dynamics
             DestructionListener = null;
             Drawer = null;
 
-            Profile = null;
+            Profile = default;
             ToiProfile = null;
             GJkProfile = null;
-        }
-
-        internal void NotifyNewFixture()
-        {
-            _hasNewFixture = true;
-        }
-
-        private void ResetNewFixture()
-        {
-            _hasNewFixture = false;
         }
 
         /// <summary>
@@ -436,13 +428,13 @@ namespace Box2DSharp.Dynamics
 
             // If new fixtures were added, we need to find the new contacts.
             // 如果存在新增夹具,则需要找到新接触点
-            if (_hasNewFixture)
+            if (HasNewContacts)
             {
                 // 寻找新接触点
                 ContactManager.FindNewContacts();
 
                 // 去除新增夹具标志
-                ResetNewFixture();
+                HasNewContacts = false;
             }
 
             // 锁定世界
@@ -534,7 +526,7 @@ namespace Box2DSharp.Dynamics
             }
         }
 
-        private class TreeQueryCallback : ITreeQueryCallback, IDisposable
+        private class TreeQueryCallback : ITreeQueryCallback
         {
             public ContactManager ContactManager { get; private set; }
 
@@ -546,7 +538,7 @@ namespace Box2DSharp.Dynamics
                 Callback = callback;
             }
 
-            public void Dispose()
+            public void Reset()
             {
                 ContactManager = default;
                 Callback = default;
@@ -555,11 +547,13 @@ namespace Box2DSharp.Dynamics
             /// <inheritdoc />
             public bool QueryCallback(int proxyId)
             {
-                var proxy = (FixtureProxy) ContactManager
-                                          .BroadPhase.GetUserData(proxyId);
+                var proxy = (FixtureProxy)ContactManager
+                                         .BroadPhase.GetUserData(proxyId);
                 return Callback.QueryCallback(proxy.Fixture);
             }
         }
+
+        private readonly TreeQueryCallback _treeQueryCallback = new TreeQueryCallback();
 
         /// Query the world for all fixtures that potentially overlap the
         /// provided AABB.
@@ -567,13 +561,11 @@ namespace Box2DSharp.Dynamics
         /// @param aabb the query box.
         public void QueryAABB(in IQueryCallback callback, in AABB aabb)
         {
-            var cb = SimpleObjectPool<TreeQueryCallback>.Shared.Get();
-            cb.Set(ContactManager, in callback);
-            ContactManager.BroadPhase.Query(cb, aabb);
-            SimpleObjectPool<TreeQueryCallback>.Shared.Return(cb, true);
+            _treeQueryCallback.Set(ContactManager, in callback);
+            ContactManager.BroadPhase.Query(_treeQueryCallback, aabb);
         }
 
-        private class InternalRayCastCallback : ITreeRayCastCallback, IDisposable
+        private class InternalRayCastCallback : ITreeRayCastCallback
         {
             public ContactManager ContactManager { get; private set; }
 
@@ -585,7 +577,7 @@ namespace Box2DSharp.Dynamics
                 Callback = callback;
             }
 
-            public void Dispose()
+            public void Reset()
             {
                 ContactManager = default;
                 Callback = default;
@@ -594,7 +586,7 @@ namespace Box2DSharp.Dynamics
             public float RayCastCallback(in RayCastInput input, int proxyId)
             {
                 var userData = ContactManager.BroadPhase.GetUserData(proxyId);
-                var proxy = (FixtureProxy) userData;
+                var proxy = (FixtureProxy)userData;
                 var fixture = proxy.Fixture;
                 var index = proxy.ChildIndex;
 
@@ -611,6 +603,8 @@ namespace Box2DSharp.Dynamics
             }
         }
 
+        private readonly InternalRayCastCallback _rayCastCallback = new InternalRayCastCallback();
+
         /// Ray-cast the world for all fixtures in the path of the ray. Your callback
         /// controls whether you get the closest point, any point, or n-points.
         /// The ray-cast ignores shapes that contain the starting point.
@@ -624,10 +618,9 @@ namespace Box2DSharp.Dynamics
                 MaxFraction = 1.0f, P1 = point1,
                 P2 = point2
             };
-            var cb = SimpleObjectPool<InternalRayCastCallback>.Shared.Get();
-            cb.Set(ContactManager, in callback);
-            ContactManager.BroadPhase.RayCast(cb, input);
-            SimpleObjectPool<InternalRayCastCallback>.Shared.Return(cb, true);
+            _rayCastCallback.Set(ContactManager, in callback);
+            ContactManager.BroadPhase.RayCast(_rayCastCallback, input);
+            _rayCastCallback.Reset();
         }
 
         /// Shift the world origin. Useful for large worlds.
@@ -665,6 +658,8 @@ namespace Box2DSharp.Dynamics
 
         private readonly Stopwatch _solveTimer = new Stopwatch();
 
+        private readonly Island _solveIsland = new Island();
+
         /// <summary>
         /// Find islands, integrate and solve constraints, solve position constraints
         /// 找出岛屿,迭代求解约束,求解位置约束(岛屿用来对物理空间进行物体分组求解,提高效率)
@@ -678,7 +673,8 @@ namespace Box2DSharp.Dynamics
 
             // Size the island for the worst case.
             // 最坏情况岛屿容量,即全世界在同一个岛屿
-            var island = new Island(
+            var island = _solveIsland;
+            island.Setup(
                 BodyList.Count,
                 ContactManager.ContactList.Count,
                 JointList.Count,
@@ -716,12 +712,12 @@ namespace Box2DSharp.Dynamics
             {
                 var body = bodyNode.Value;
                 bodyNode = bodyNode.Next;
-                if (body.HasFlag(BodyFlags.Island)) // 已经分配到岛屿则跳过
+                if (body.Flags.HasFlag(BodyFlags.Island)) // 已经分配到岛屿则跳过
                 {
                     continue;
                 }
 
-                if (body.IsAwake == false || body.IsActive == false) // 跳过休眠物体
+                if (body.IsAwake == false || body.IsEnabled == false) // 跳过休眠物体
                 {
                     continue;
                 }
@@ -747,11 +743,8 @@ namespace Box2DSharp.Dynamics
                     // Grab the next body off the stack and add it to the island.
                     //--stackCount;
                     var b = stack.Pop();
-                    Debug.Assert(b.IsActive);
+                    Debug.Assert(b.IsEnabled);
                     island.Add(b);
-
-                    // Make sure the body is awake (without resetting sleep timer).
-                    b.SetFlag(BodyFlags.IsAwake);
 
                     // To keep islands as small as possible, we don't
                     // propagate islands across static bodies.
@@ -759,6 +752,9 @@ namespace Box2DSharp.Dynamics
                     {
                         continue;
                     }
+
+                    // Make sure the body is awake (without resetting sleep timer).
+                    b.SetFlag(BodyFlags.IsAwake);
 
                     // Search all contacts connected to this body.
                     // 查找该物体所有接触点
@@ -772,7 +768,7 @@ namespace Box2DSharp.Dynamics
 
                         // Has this contact already been added to an island?
                         // 接触点已经标记岛屿,跳过
-                        if (contact.HasFlag(Contact.ContactFlag.IslandFlag))
+                        if (contact.Flags.HasFlag(Contact.ContactFlag.IslandFlag))
                         {
                             continue;
                         }
@@ -799,7 +795,7 @@ namespace Box2DSharp.Dynamics
 
                         // Was the other body already added to this island?
                         // 如果接触边缘的另一个物体已经添加到岛屿则跳过
-                        if (other.HasFlag(BodyFlags.Island))
+                        if (other.Flags.HasFlag(BodyFlags.Island))
                         {
                             continue;
                         }
@@ -826,7 +822,7 @@ namespace Box2DSharp.Dynamics
 
                         // Don't simulate joints connected to inactive bodies.
                         // 跳过闲置物体
-                        if (other.IsActive == false)
+                        if (other.IsEnabled == false)
                         {
                             continue;
                         }
@@ -834,7 +830,7 @@ namespace Box2DSharp.Dynamics
                         island.Add(je.Joint);
                         je.Joint.IslandFlag = true;
 
-                        if (other.HasFlag(BodyFlags.Island))
+                        if (other.Flags.HasFlag(BodyFlags.Island))
                         {
                             continue;
                         }
@@ -874,7 +870,7 @@ namespace Box2DSharp.Dynamics
                     bodyNode = bodyNode.Next;
 
                     // If a body was not in an island then it did not move.
-                    if (!b.HasFlag(BodyFlags.Island))
+                    if (!b.Flags.HasFlag(BodyFlags.Island))
                     {
                         continue;
                     }
@@ -896,6 +892,8 @@ namespace Box2DSharp.Dynamics
             island.Reset();
         }
 
+        private readonly Island _solveToiIsland = new Island();
+
         /// <summary>
         /// Find TOI contacts and solve them.
         /// 求解碰撞时间
@@ -903,7 +901,8 @@ namespace Box2DSharp.Dynamics
         /// <param name="step"></param>
         private void SolveTOI(in TimeStep step)
         {
-            var island = new Island(
+            var island = _solveToiIsland;
+            island.Setup(
                 2 * Settings.MaxToiContacts,
                 Settings.MaxToiContacts,
                 0,
@@ -920,11 +919,9 @@ namespace Box2DSharp.Dynamics
                     b.Sweep.Alpha0 = 0.0f;
                 }
 
-                var contactNode = ContactManager.ContactList.First;
-                while (contactNode != null)
+                for (var node = ContactManager.ContactList.First; node != null; node = node.Next)
                 {
-                    var c = contactNode.Value;
-                    contactNode = contactNode.Next;
+                    var c = node.Value;
 
                     // Invalidate TOI
                     c.Flags &= ~(Contact.ContactFlag.ToiFlag | Contact.ContactFlag.IslandFlag);
@@ -959,7 +956,7 @@ namespace Box2DSharp.Dynamics
                     }
 
                     var alpha = 1.0f;
-                    if (c.HasFlag(Contact.ContactFlag.ToiFlag))
+                    if (c.Flags.HasFlag(Contact.ContactFlag.ToiFlag))
                     {
                         // This contact has a valid cached TOI.
                         alpha = c.Toi;
@@ -1120,7 +1117,7 @@ namespace Box2DSharp.Dynamics
                             var contact = contactEdge.Contact;
 
                             // Has this contact already been added to the island?
-                            if (contact.HasFlag(Contact.ContactFlag.IslandFlag))
+                            if (contact.Flags.HasFlag(Contact.ContactFlag.IslandFlag))
                             {
                                 continue;
                             }
@@ -1144,7 +1141,7 @@ namespace Box2DSharp.Dynamics
 
                             // Tentatively advance the body to the TOI.
                             var backup = other.Sweep;
-                            if (!other.HasFlag(BodyFlags.Island))
+                            if (!other.Flags.HasFlag(BodyFlags.Island))
                             {
                                 other.Advance(minAlpha);
                             }
@@ -1173,7 +1170,7 @@ namespace Box2DSharp.Dynamics
                             island.Add(contact);
 
                             // Has the other body already been added to the island?
-                            if (other.HasFlag(BodyFlags.Island))
+                            if (other.Flags.HasFlag(BodyFlags.Island))
                             {
                                 continue;
                             }
@@ -1213,7 +1210,7 @@ namespace Box2DSharp.Dynamics
                             var contact = contactEdge.Contact;
 
                             // Has this contact already been added to the island?
-                            if (contact.HasFlag(Contact.ContactFlag.IslandFlag))
+                            if (contact.Flags.HasFlag(Contact.ContactFlag.IslandFlag))
                             {
                                 continue;
                             }
@@ -1237,7 +1234,7 @@ namespace Box2DSharp.Dynamics
 
                             // Tentatively advance the body to the TOI.
                             var backup = other.Sweep;
-                            if (!other.HasFlag(BodyFlags.Island))
+                            if (!other.Flags.HasFlag(BodyFlags.Island))
                             {
                                 other.Advance(minAlpha);
                             }
@@ -1266,7 +1263,7 @@ namespace Box2DSharp.Dynamics
                             island.Add(contact);
 
                             // Has the other body already been added to the island?
-                            if (other.HasFlag(BodyFlags.Island))
+                            if (other.Flags.HasFlag(BodyFlags.Island))
                             {
                                 continue;
                             }
@@ -1388,7 +1385,7 @@ namespace Box2DSharp.Dynamics
 
         /// <summary>
         /// Register a routine for debug drawing. The debug draw functions are called
-        /// inside with b2World::DrawDebugData method. The debug draw object is owned
+        /// inside with <see cref="DebugDraw"/> method. The debug draw object is owned
         /// by you and must remain in scope.
         /// 调试绘制,用于绘制物体的图形
         /// </summary>
@@ -1400,7 +1397,7 @@ namespace Box2DSharp.Dynamics
 
         /// Call this to draw shapes and other debug draw data. This is intentionally non-const.
         /// 绘制调试数据
-        public void DrawDebugData()
+        public void DebugDraw()
         {
             if (Drawer == null)
             {
@@ -1416,17 +1413,20 @@ namespace Box2DSharp.Dynamics
 
             if (flags.HasFlag(DrawFlag.DrawShape))
             {
-                var node = BodyList.First;
-                while (node != null)
+                for (var node = BodyList.First; node != null; node = node.Next)
                 {
                     var b = node.Value;
-                    node = node.Next;
                     var xf = b.GetTransform();
-                    var isActive = b.IsActive;
+                    var isEnabled = b.IsEnabled;
                     var isAwake = b.IsAwake;
                     foreach (var f in b.Fixtures)
                     {
-                        if (isActive == false)
+                        if (b.BodyType == BodyType.DynamicBody && b.Mass.Equals(0))
+                        {
+                            // Bad body
+                            DrawShape(f, xf, Color.FromArgb(1.0f, 0.0f, 0.0f));
+                        }
+                        else if (isEnabled == false)
                         {
                             DrawShape(f, xf, inactiveColor);
                         }
@@ -1455,7 +1455,7 @@ namespace Box2DSharp.Dynamics
                 var node = JointList.First;
                 while (node != null)
                 {
-                    DrawJoint(node.Value);
+                    node.Value.Draw(Drawer);
                     node = node.Next;
                 }
             }
@@ -1463,11 +1463,9 @@ namespace Box2DSharp.Dynamics
             if (flags.HasFlag(DrawFlag.DrawPair))
             {
                 var color = Color.FromArgb(77, 230, 230);
-                var node = ContactManager.ContactList.First;
-                while (node != null)
+                for (var node = ContactManager.ContactList.First; node != null; node = node.Next)
                 {
                     var c = node.Value;
-                    node = node.Next;
                     var fixtureA = c.FixtureA;
                     var fixtureB = c.FixtureB;
 
@@ -1488,7 +1486,7 @@ namespace Box2DSharp.Dynamics
                 {
                     var b = node.Value;
                     node = node.Next;
-                    if (b.IsActive == false)
+                    if (b.IsEnabled == false)
                     {
                         continue;
                     }
@@ -1498,13 +1496,14 @@ namespace Box2DSharp.Dynamics
                         foreach (var proxy in f.Proxies)
                         {
                             var aabb = bp.GetFatAABB(proxy.ProxyId);
-                            var vs = new Vector2 [4];
+                            var vs = ArrayPool<Vector2>.Shared.Rent(4);
                             vs[0].Set(aabb.LowerBound.X, aabb.LowerBound.Y);
                             vs[1].Set(aabb.UpperBound.X, aabb.LowerBound.Y);
                             vs[2].Set(aabb.UpperBound.X, aabb.UpperBound.Y);
                             vs[3].Set(aabb.LowerBound.X, aabb.UpperBound.Y);
 
                             Drawer.DrawPolygon(vs, 4, color);
+                            ArrayPool<Vector2>.Shared.Return(vs, true);
                         }
                     }
                 }
@@ -1521,59 +1520,6 @@ namespace Box2DSharp.Dynamics
                     xf.Position = b.GetWorldCenter();
                     Drawer.DrawTransform(xf);
                 }
-            }
-        }
-
-        /// <summary>
-        /// 绘制关节
-        /// </summary>
-        /// <param name="joint"></param>
-        private void DrawJoint(Joint joint)
-        {
-            var bodyA = joint.BodyA;
-            var bodyB = joint.BodyB;
-            var xf1 = bodyA.GetTransform();
-            var xf2 = bodyB.GetTransform();
-            var x1 = xf1.Position;
-            var x2 = xf2.Position;
-            var p1 = joint.GetAnchorA();
-            var p2 = joint.GetAnchorB();
-
-            var color = Color.FromArgb(127, 204, 204);
-
-            switch (joint.JointType)
-            {
-            case JointType.DistanceJoint:
-                Drawer.DrawSegment(p1, p2, color);
-                break;
-
-            case JointType.PulleyJoint:
-            {
-                var pulley = (PulleyJoint) joint;
-                var s1 = pulley.GetGroundAnchorA();
-                var s2 = pulley.GetGroundAnchorB();
-                Drawer.DrawSegment(s1, p1, color);
-                Drawer.DrawSegment(s2, p2, color);
-                Drawer.DrawSegment(s1, s2, color);
-            }
-                break;
-
-            case JointType.MouseJoint:
-            {
-                var c = Color.FromArgb(0, 255, 0);
-                Drawer.DrawPoint(p1, 4.0f, c);
-                Drawer.DrawPoint(p2, 4.0f, c);
-
-                c = Color.FromArgb(204, 204, 204);
-                Drawer.DrawSegment(p1, p2, c);
-            }
-                break;
-
-            default:
-                Drawer.DrawSegment(x1, p1, color);
-                Drawer.DrawSegment(p1, p2, color);
-                Drawer.DrawSegment(x2, p2, color);
-                break;
             }
         }
 
@@ -1602,6 +1548,12 @@ namespace Box2DSharp.Dynamics
                 var v1 = MathUtils.Mul(xf, edge.Vertex1);
                 var v2 = MathUtils.Mul(xf, edge.Vertex2);
                 Drawer.DrawSegment(v1, v2, color);
+
+                if (edge.OneSided == false)
+                {
+                    Drawer.DrawPoint(v1, 4.0f, color);
+                    Drawer.DrawPoint(v2, 4.0f, color);
+                }
             }
                 break;
 
@@ -1610,35 +1562,12 @@ namespace Box2DSharp.Dynamics
                 var count = chain.Count;
                 var vertices = chain.Vertices;
 
-                var ghostColor = Color.FromArgb(
-                    color.A,
-                    (int) (0.75f * color.R),
-                    (int) (0.75f * color.G),
-                    (int) (0.75f * color.B));
-
                 var v1 = MathUtils.Mul(xf, vertices[0]);
-                Drawer.DrawPoint(v1, 4.0f, color);
-
-                if (chain.HasPrevVertex)
-                {
-                    var vp = MathUtils.Mul(xf, chain.PrevVertex);
-                    Drawer.DrawSegment(vp, v1, ghostColor);
-                    Drawer.DrawCircle(vp, 0.1f, ghostColor);
-                }
-
                 for (var i = 1; i < count; ++i)
                 {
                     var v2 = MathUtils.Mul(xf, vertices[i]);
                     Drawer.DrawSegment(v1, v2, color);
-                    Drawer.DrawPoint(v2, 4.0f, color);
                     v1 = v2;
-                }
-
-                if (chain.HasNextVertex)
-                {
-                    var vn = MathUtils.Mul(xf, chain.NextVertex);
-                    Drawer.DrawSegment(v1, vn, ghostColor);
-                    Drawer.DrawCircle(vn, 0.1f, ghostColor);
                 }
             }
                 break;
@@ -1647,7 +1576,7 @@ namespace Box2DSharp.Dynamics
             {
                 var vertexCount = poly.Count;
                 Debug.Assert(vertexCount <= Settings.MaxPolygonVertices);
-                var vertices = new Vector2[vertexCount];
+                var vertices = ArrayPool<Vector2>.Shared.Rent(vertexCount);
 
                 for (var i = 0; i < vertexCount; ++i)
                 {
@@ -1655,6 +1584,7 @@ namespace Box2DSharp.Dynamics
                 }
 
                 Drawer.DrawSolidPolygon(vertices, vertexCount, color);
+                ArrayPool<Vector2>.Shared.Return(vertices);
             }
                 break;
             }

@@ -16,13 +16,12 @@ namespace ET
         {
             self.FuiUIPanelBattle = fuiUIPanelBattle;
             Scene scene = self.DomainScene();
-            UnitComponent unitComponent = scene.GetComponent<RoomManagerComponent>().GetOrCreateBattleRoom()
+
+            UnitComponent unitComponent = scene.GetComponent<RoomManagerComponent>().GetBattleRoom()
                 .GetComponent<UnitComponent>();
 
-            self.m_CDComponent = scene.GetComponent<CDComponent>();
-
             long playerUnitId = unitComponent.MyUnit.Id;
-            self.m_QCDInfo = self.m_CDComponent.AddCDData(playerUnitId, "Q", 0, info =>
+            self.m_QCDInfo = CDComponent.Instance.AddCDData(playerUnitId, "Q", 0, info =>
             {
                 if (info.Result)
                 {
@@ -38,7 +37,7 @@ namespace ET
                 self.FuiUIPanelBattle.m_SkillQ_Bar.self.value = 100 * (info.RemainCDLength / info.Interval);
                 self.FuiUIPanelBattle.m_SkillQ_Bar.Visible = true;
             });
-            self.m_WCDInfo = self.m_CDComponent.AddCDData(playerUnitId, "W", 0, info =>
+            self.m_WCDInfo = CDComponent.Instance.AddCDData(playerUnitId, "W", 0, info =>
             {
                 if (info.Result)
                 {
@@ -54,7 +53,7 @@ namespace ET
                 self.FuiUIPanelBattle.m_SkillW_Bar.self.value = 100 * (info.RemainCDLength / info.Interval);
                 self.FuiUIPanelBattle.m_SkillW_Bar.Visible = true;
             });
-            self.m_ECDInfo = self.m_CDComponent.AddCDData(playerUnitId, "E", 0, info =>
+            self.m_ECDInfo = CDComponent.Instance.AddCDData(playerUnitId, "E", 0, info =>
             {
                 if (info.Result)
                 {
@@ -95,10 +94,18 @@ namespace ET
 
             self.FuiUIPanelBattle.m_Btn_CreateSpiling.self.onClick.Add(() =>
             {
-                Game.Scene.GetComponent<PlayerComponent>().GateSession.Send(new C2M_CreateSpiling()
+                LSF_CreateSpilingCmd lsfCreateSpilingCmd =
+                    ReferencePool.Acquire<LSF_CreateSpilingCmd>().Init(unit.Id) as LSF_CreateSpilingCmd;
+
+                lsfCreateSpilingCmd.UnitInfo = new UnitInfo()
                 {
-                    X = unit.Position.x, Y = unit.Position.y, Z = unit.Position.z
-                });
+                    X = unit.Position.x, Y = unit.Position.y, Z = unit.Position.z, RoleCamp =
+                        (int) RoleCamp.TianZai,
+                    ConfigId = 10001, BelongToPlayerId = Game.Scene.GetComponent<PlayerComponent>().PlayerId,
+                    UnitId = IdGenerater.Instance.GenerateUnitId(scene.Zone), RoomId = unit.BelongToRoom.Id
+                };
+
+                unit.BelongToRoom.GetComponent<LSF_Component>().AddCmdToSendQueue(lsfCreateSpilingCmd, false);
             });
 
             self.FuiUIPanelBattle.m_HeroAvatarLoader.url =
@@ -178,8 +185,8 @@ namespace ET
             Vector2 fgui2Unity = new Vector2(global2Local.x, 200 - global2Local.y);
             Vector3 targetPos = new Vector3(-fgui2Unity.x / (200.0f / 100.0f), 0, -fgui2Unity.y / (200.0f / 100.0f));
 
-            Game.Scene.GetComponent<PlayerComponent>().GateSession.Send(new C2M_PathfindingResult()
-                {X = targetPos.x, Y = targetPos.y, Z = targetPos.z});
+            Unit unit = Game.Scene.GetComponent<PlayerComponent>().BelongToRoom.GetComponent<UnitComponent>().MyUnit;
+            unit.SendPathFindCmd(targetPos);
         }
     }
 
@@ -187,11 +194,11 @@ namespace ET
     {
         public override void Update(FUI_BattleComponent self)
         {
-            Unit unit = self.DomainScene().GetComponent<RoomManagerComponent>().GetOrCreateBattleRoom()
+            Unit unit = self.DomainScene().GetComponent<RoomManagerComponent>().GetBattleRoom()
                 .GetComponent<UnitComponent>().MyUnit;
             long playerUnitId = unit.Id;
             //此处填写Update逻辑
-            if (!self.m_CDComponent.GetCDResult(playerUnitId, "Q"))
+            if (!CDComponent.Instance.GetCDResult(playerUnitId, "Q"))
             {
                 self.FuiUIPanelBattle.m_SkillQ_CDInfo.text =
                     ((int) Math.Ceiling((double) (self.m_QCDInfo.RemainCDLength) / 1000))
@@ -200,7 +207,7 @@ namespace ET
                     100 * (self.m_QCDInfo.RemainCDLength * 1f / self.m_QCDInfo.Interval);
             }
 
-            if (!self.m_CDComponent.GetCDResult(playerUnitId, "W"))
+            if (!CDComponent.Instance.GetCDResult(playerUnitId, "W"))
             {
                 self.FuiUIPanelBattle.m_SkillW_CDInfo.text =
                     ((int) Math.Ceiling((double) (self.m_WCDInfo.RemainCDLength) / 1000))
@@ -209,7 +216,7 @@ namespace ET
                     100 * (self.m_WCDInfo.RemainCDLength * 1f / self.m_WCDInfo.Interval);
             }
 
-            if (!self.m_CDComponent.GetCDResult(playerUnitId, "E"))
+            if (!CDComponent.Instance.GetCDResult(playerUnitId, "E"))
             {
                 self.FuiUIPanelBattle.m_SkillE_CDInfo.text =
                     ((int) Math.Ceiling((double) (self.m_ECDInfo.RemainCDLength) / 1000))

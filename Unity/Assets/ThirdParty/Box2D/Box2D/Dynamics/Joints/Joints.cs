@@ -157,7 +157,7 @@ namespace Box2DSharp.Dynamics.Joints
 
         /// Get the next joint the world joint list.
         /// Short-cut function to determine if either body is inactive.
-        public bool IsActive => BodyA.IsActive && BodyB.IsActive;
+        public bool IsEnabled => BodyA.IsEnabled && BodyB.IsEnabled;
 
         /// Get collide connected.
         /// Note: modifying the collide connect flag won't work correctly because
@@ -190,6 +190,56 @@ namespace Box2DSharp.Dynamics.Joints
         /// Shift the origin for any points stored in world coordinates.
         public virtual void ShiftOrigin(in Vector2 newOrigin)
         { }
+
+        /// <summary>
+        /// /// Debug draw this joint
+        /// </summary>
+        /// <param name="drawer"></param>
+        public virtual void Draw(IDrawer drawer)
+        {
+            var xf1 = BodyA.GetTransform();
+            var xf2 = BodyB.GetTransform();
+            var x1 = xf1.Position;
+            var x2 = xf2.Position;
+            var p1 = GetAnchorA();
+            var p2 = GetAnchorB();
+
+            var color = Color.FromArgb(0.5f, 0.8f, 0.8f);
+
+            switch (JointType)
+            {
+            case JointType.DistanceJoint:
+                drawer.DrawSegment(p1, p2, color);
+                break;
+
+            case JointType.PulleyJoint:
+            {
+                var pulley = (PulleyJoint)this;
+                var s1 = pulley.GetGroundAnchorA();
+                var s2 = pulley.GetGroundAnchorB();
+                drawer.DrawSegment(s1, p1, color);
+                drawer.DrawSegment(s2, p2, color);
+                drawer.DrawSegment(s1, s2, color);
+            }
+                break;
+
+            case JointType.MouseJoint:
+            {
+                var c = Color.FromArgb(0.0f, 1.0f, 0.0f);
+                drawer.DrawPoint(p1, 4.0f, c);
+                drawer.DrawPoint(p2, 4.0f, c);
+
+                drawer.DrawSegment(p1, p2, Color.FromArgb(0.8f, 0.8f, 0.8f));
+            }
+                break;
+
+            default:
+                drawer.DrawSegment(x1, p1, color);
+                drawer.DrawSegment(p1, p2, color);
+                drawer.DrawSegment(x2, p2, color);
+                break;
+            }
+        }
 
         internal abstract void InitVelocityConstraints(in SolverData data);
 

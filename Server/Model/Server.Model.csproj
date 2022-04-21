@@ -43,7 +43,7 @@
     </Compile>
 
     <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Battle\Box2DSharp\**\*.cs">
-      <Link>NKGMOBA\Battle\Box2D\Data\%(RecursiveDir)%(FileName)%(Extension)</Link>
+      <Link>NKGMOBA\Battle\Box2DSharp\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>
 
     <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Move\MoveComponent.cs">
@@ -74,12 +74,12 @@
       <Link>NKGMOBA\Battle\ReferencePool\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>
 
-    <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Battle\SkillSystem\BuffData\**\*.cs">
-      <Link>NKGMOBA\Battle\SkillSystem\BuffData\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Battle\SkillSystem\**\*.cs">
+      <Link>NKGMOBA\Battle\SkillSystem\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>
 
-    <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Battle\SkillSystem\Others\**\*.cs">
-      <Link>NKGMOBA\Battle\SkillSystem\Others\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Battle\LockStepStateFrameSync\**\*.cs">
+      <Link>NKGMOBA\Battle\LockStepStateFrameSync\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>
 
     <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Battle\SkillSystem\SkillEntity\**\*.cs">
@@ -88,6 +88,10 @@
 
     <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Battle\Fsm\**\*.cs">
       <Link>NKGMOBA\Battle\Fsm\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Compile>
+
+    <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Battle\RecastNav\**\*.cs">
+      <Link>NKGMOBA\Battle\RecastNav\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>
 
     <Compile Include="..\..\Unity\Assets\Model\NKGMOBA\Battle\UnitAttributeData\**\*.cs">

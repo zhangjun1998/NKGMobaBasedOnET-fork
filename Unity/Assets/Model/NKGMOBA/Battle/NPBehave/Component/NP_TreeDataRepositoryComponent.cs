@@ -16,7 +16,7 @@ namespace ET
     /// </summary>
     public class NP_TreeDataRepositoryComponent: Entity
     {
-        public const string NPDataServerPath = "../Config/SkillConfigs/Server/";
+        public const string NPDataServerPath = "../Config/SkillConfigs/";
 
         /// <summary>
         /// 运行时的行为树仓库，注意，一定不能对这些数据做修改

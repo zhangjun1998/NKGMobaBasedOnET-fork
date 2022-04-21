@@ -57,12 +57,24 @@
       <Link>NKGMOBA\Battle\ComponentSystems\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>
 
+    <Compile Include="..\..\Unity\Assets\Hotfix\NKGMOBA\Battle\Box2D\**\*.cs">
+      <Link>NKGMOBA\Battle\Box2D\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Compile>
+
+    <Compile Include="..\..\Unity\Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\**\*.cs">
+      <Link>NKGMOBA\Battle\LockStepStateFrameSync\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Compile>
+
     <Compile Include="..\..\Unity\Assets\Hotfix\NKGMOBA\Battle\NPbehave\**\*.cs">
       <Link>NKGMOBA\Battle\NPbehave\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>
 
-    <Compile Include="..\..\Unity\Assets\Hotfix\Module\AI\**\*.cs">
-      <Link>Module\AI\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    <Compile Include="..\..\Unity\Assets\HotfixView\NKGMOBA\Battle\NPBehave\**\*.cs">
+      <Link>NKGMOBA\Battle\NPbehave\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Compile>
+
+    <Compile Include="..\..\Unity\Assets\Hotfix\NKGMOBA\Battle\RecastNav\**\*.cs">
+      <Link>NKGMOBA\Battle\RecastNav\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -22,7 +22,10 @@ namespace ET
         public struct PingChange
         {
             public Scene ZoneScene;
-            public long Ping;
+            public long C2GPing;
+            public long C2MPing;
+            public long ServerTimeSnap;
+            public uint MessageFrame;
         }
 
         public struct AfterCreateZoneScene
@@ -61,15 +64,21 @@ namespace ET
             public Scene Scene;
         }
 
-        public struct EnterMapFinish
+        public struct PrepareEnterMap
         {
             public Scene ZoneScene;
         }
-
+        
+        public struct FinishEnterMap
+        {
+            public Scene ZoneScene;
+        }
+        
         public struct AfterHeroCreate_CreateGo
         {
             public int HeroConfigId;
             public Unit Unit;
+            public bool IsLocalPlayer;
         }
 
         public struct AfterHeroSpilingCreate_CreateGO
@@ -95,6 +104,11 @@ namespace ET
         }
 
         public struct MoveStop
+        {
+            public Unit Unit;
+        }
+        
+        public struct FSMStateChanged_PlayAnim
         {
             public Unit Unit;
         }
@@ -178,6 +192,11 @@ namespace ET
         {
             public Scene ZoneScene;
             public List<(string name, int score)> Scores;
+        }
+
+        public struct DebugVisualBox2D
+        {
+            public Unit Unit;
         }
     }
 }

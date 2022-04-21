@@ -26,13 +26,6 @@ namespace ET
 
                 Unit unit = UnitFactory.CreateHero(battleRoom, unitInfo);
 
-                if (unitInfo.BelongToPlayerId == playerComponent.PlayerId)
-                {
-                    unitComponent.MyUnit = unit;
-                    unitComponent.MyUnit.AddComponent<PlayerHeroControllerComponent>();
-                    unit.GetComponent<MoveComponent>();
-                }
-
                 playerComponent.HasCompletedLoadCount++;
                 Log.Debug("playerComponent.HasCompletedLoadCount:" + playerComponent.HasCompletedLoadCount);
                 if ((playerComponent.HasCompletedLoadCount == 1 && lobbyRoom.PlayerCount == 1) ||

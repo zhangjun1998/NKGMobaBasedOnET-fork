@@ -28,10 +28,19 @@ namespace ET
         [HideInEditorMode]
         public GameObject CachedGameObject;
 
+        /// <summary>
+        /// 拖放进来的游戏对象平移矩阵，因为我们还有要将碰撞体显示在Scene视图，所以要加一个移动矩阵
+        /// </summary>
         [BsonIgnore]
         [HideInEditorMode]
-        public Matrix4x4 matrix4X4;
+        public Matrix4x4 GoTranslateMatrix4X4;
 
+        /// <summary>
+        /// 拖放进来的游戏对象矩阵（仅包含缩放和旋转信息）
+        /// 之所以没有平移信息，因为我们在初始化和保存Box2d碰撞信息时就已经将缩放和旋转应用到其数据中了（可以想象成在世界坐标原点处实例化了一个Box2d碰撞体），到此为止，我们Box2d碰撞体信息已经准本完毕了
+        /// </summary>
+        public Matrix4x4 GoScaleAndRotMatrix4X4;
+        
         [ColorPalette]
         [Title("绘制线条颜色")]
         [HideLabel]
@@ -41,14 +50,6 @@ namespace ET
         [BsonIgnore]
         [HideInEditorMode]
         public bool canDraw;
-
-        [DisableInEditorMode]
-        [LabelText("映射文件保存路径")]
-        public string NameAndIdInflectSavePath = "Assets/Plugins/B2S_BattleColliderExport/Saves/";
-
-        [DisableInEditorMode]
-        [LabelText("碰撞数据文件保存路径")]
-        public string ColliderDataSavePath = "../Config/ColliderDatas/";
 
         [HideInEditorMode]
         public ColliderNameAndIdInflectSupporter MColliderNameAndIdInflectSupporter;
@@ -71,7 +72,11 @@ namespace ET
         /// <summary>
         /// 重新绘制Box2DSharp
         /// </summary>
-        public abstract void InitPointInfo();
+        public virtual void InitPointInfo()
+        {
+            GoScaleAndRotMatrix4X4 = Matrix4x4.TRS(Vector3.zero, theObjectWillBeEdited.transform.rotation, theObjectWillBeEdited.transform.localScale);
+            GoTranslateMatrix4X4 = Matrix4x4.Translate(theObjectWillBeEdited.transform.position);
+        }
 
         /// <summary>
         /// 重新绘制Box2DSharp

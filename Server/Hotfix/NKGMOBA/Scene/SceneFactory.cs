@@ -35,6 +35,7 @@ namespace ET
                     scene.AddComponent<NP_TreeDataRepositoryComponent>();
                     scene.AddComponent<UnitAttributesDataRepositoryComponent>();
                     scene.AddComponent<B2S_ColliderDataRepositoryComponent>();
+                    scene.AddComponent<RecastNavMeshManagerComponent>();
                     break;
                 case SceneType.Location:
                     scene.AddComponent<LocationComponent>();

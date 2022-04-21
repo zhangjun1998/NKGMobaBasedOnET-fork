@@ -68,6 +68,40 @@ namespace ET
 
 	}
 
+	[ResponseType(typeof(M2C_Ping))]
+	[Message(OuterOpcode_Map.C2M_Ping)]
+	[ProtoContract]
+	public partial class C2M_Ping: Object, IActorLocationRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(93)]
+		public long ActorId { get; set; }
+
+	}
+
+	[Message(OuterOpcode_Map.M2C_Ping)]
+	[ProtoContract]
+	public partial class M2C_Ping: Object, IActorLocationResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(1)]
+		public long TimePoint { get; set; }
+
+		[ProtoMember(93)]
+		public uint ServerFrame { get; set; }
+
+	}
+
 	[ResponseType(typeof(M2C_Reload))]
 	[Message(OuterOpcode_Map.C2M_Reload)]
 	[ProtoContract]
@@ -181,6 +215,9 @@ namespace ET
 		[ProtoMember(6)]
 		public int RoleCamp { get; set; }
 
+		[ProtoMember(7)]
+		public long RoomId { get; set; }
+
 	}
 
 	[Message(OuterOpcode_Map.M2C_CreateUnits)]
@@ -218,27 +255,6 @@ namespace ET
 
 	}
 
-	[Message(OuterOpcode_Map.C2M_PathfindingResult)]
-	[ProtoContract]
-	public partial class C2M_PathfindingResult: Object, IActorLocationMessage
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
-		[ProtoMember(1)]
-		public float X { get; set; }
-
-		[ProtoMember(2)]
-		public float Y { get; set; }
-
-		[ProtoMember(3)]
-		public float Z { get; set; }
-
-	}
-
 	[Message(OuterOpcode_Map.C2M_Stop)]
 	[ProtoContract]
 	public partial class C2M_Stop: Object, IActorLocationMessage
@@ -248,39 +264,6 @@ namespace ET
 
 		[ProtoMember(93)]
 		public long ActorId { get; set; }
-
-	}
-
-	[Message(OuterOpcode_Map.M2C_PathfindingResult)]
-	[ProtoContract]
-	public partial class M2C_PathfindingResult: Object, IActorMessage
-	{
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
-		[ProtoMember(1)]
-		public long Id { get; set; }
-
-		[ProtoMember(2)]
-		public float X { get; set; }
-
-		[ProtoMember(3)]
-		public float Y { get; set; }
-
-		[ProtoMember(4)]
-		public float Z { get; set; }
-
-		[ProtoMember(6)]
-		public float Speed { get; set; }
-
-		[ProtoMember(7)]
-		public List<float> Xs = new List<float>();
-
-		[ProtoMember(8)]
-		public List<float> Ys = new List<float>();
-
-		[ProtoMember(9)]
-		public List<float> Zs = new List<float>();
 
 	}
 
@@ -332,24 +315,6 @@ namespace ET
 
 	}
 
-	[Message(OuterOpcode_Map.M2C_ChangeProperty)]
-	[ProtoContract]
-	public partial class M2C_ChangeProperty: Object, IActorMessage
-	{
-		[ProtoMember(1)]
-		public int Error { get; set; }
-
-		[ProtoMember(2)]
-		public long UnitId { get; set; }
-
-		[ProtoMember(3)]
-		public int NumicType { get; set; }
-
-		[ProtoMember(4)]
-		public float FinalValue { get; set; }
-
-	}
-
 	[Message(OuterOpcode_Map.C2M_CastHeroSkill)]
 	[ProtoContract]
 	public partial class C2M_CastHeroSkill: Object, IActorLocationMessage
@@ -380,60 +345,6 @@ namespace ET
 
 		[ProtoMember(2)]
 		public float RecoverHPValue { get; set; }
-
-	}
-
-//请求攻击
-	[Message(OuterOpcode_Map.C2M_CommonAttack)]
-	[ProtoContract]
-	public partial class C2M_CommonAttack: Object, IActorLocationMessage
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
-		[ProtoMember(1)]
-		public long TargetUnitId { get; set; }
-
-	}
-
-//请求攻击
-	[Message(OuterOpcode_Map.M2C_CancelCommonAttack)]
-	[ProtoContract]
-	public partial class M2C_CancelCommonAttack: Object, IActorMessage
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
-		[ProtoMember(1)]
-		public long TargetUnitId { get; set; }
-
-	}
-
-//服务器返回攻击指令，开始播放动画
-	[Message(OuterOpcode_Map.M2C_CommonAttack)]
-	[ProtoContract]
-	public partial class M2C_CommonAttack: Object, IActorMessage
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
-		[ProtoMember(4)]
-		public long AttackCasterId { get; set; }
-
-		[ProtoMember(3)]
-		public long TargetUnitId { get; set; }
-
-		[ProtoMember(2)]
-		public bool CanAttack { get; set; }
 
 	}
 
@@ -470,45 +381,6 @@ namespace ET
 
 	}
 
-	[Message(OuterOpcode_Map.C2M_UserInputSkillCmd)]
-	[ProtoContract]
-	public partial class C2M_UserInputSkillCmd: Object, IActorLocationMessage
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
-		[ProtoMember(64)]
-		public string VK { get; set; }
-
-	}
-
-//同步行为树bool黑板变量
-	[Message(OuterOpcode_Map.M2C_SyncNPBehaveBoolData)]
-	[ProtoContract]
-	public partial class M2C_SyncNPBehaveBoolData: Object, IActorMessage
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
-		[ProtoMember(94)]
-		public long UnitId { get; set; }
-
-//黑板键
-//黑板键
-		[ProtoMember(2)]
-		public string BBKey { get; set; }
-
-		[ProtoMember(5)]
-		public bool Value { get; set; }
-
-	}
-
 //同步CD信息
 	[Message(OuterOpcode_Map.M2C_SyncCDData)]
 	[ProtoContract]
@@ -540,32 +412,24 @@ namespace ET
 
 	}
 
-	[Message(OuterOpcode_Map.C2M_CreateSpiling)]
+	[Message(OuterOpcode_Map.C2M_FrameCmd)]
 	[ProtoContract]
-	public partial class C2M_CreateSpiling: Object, IActorLocationMessage
+	public partial class C2M_FrameCmd: Object, IActorLocationMessage
 	{
-		[ProtoMember(2)]
-		public float X { get; set; }
-
-		[ProtoMember(3)]
-		public float Y { get; set; }
-
-		[ProtoMember(4)]
-		public float Z { get; set; }
-
-//所归属的父实体id
-//所归属的父实体id
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
 		[ProtoMember(93)]
 		public long ActorId { get; set; }
+
+		[ProtoMember(92)]
+		public ALSF_Cmd CmdContent { get; set; }
 
 	}
 
-	[Message(OuterOpcode_Map.M2C_CreateSpilings)]
+	[Message(OuterOpcode_Map.M2C_FrameCmd)]
 	[ProtoContract]
-	public partial class M2C_CreateSpilings: Object, IActorMessage
+	public partial class M2C_FrameCmd: Object, IActorMessage
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
@@ -573,11 +437,11 @@ namespace ET
 		[ProtoMember(93)]
 		public long ActorId { get; set; }
 
-		[ProtoMember(95)]
-		public long RoomId { get; set; }
+		[ProtoMember(94)]
+		public long ServerTimeSnap { get; set; }
 
-		[ProtoMember(2)]
-		public UnitInfo Unit { get; set; }
+		[ProtoMember(92)]
+		public ALSF_Cmd CmdContent { get; set; }
 
 	}
 

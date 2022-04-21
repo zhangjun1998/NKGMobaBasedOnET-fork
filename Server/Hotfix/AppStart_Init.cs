@@ -35,8 +35,10 @@ namespace ET
             Game.Scene.AddComponent<PlayerComponent>();
 
             // 两个全局的函数处理封装组件
-            Game.Scene.AddComponent<AIDispatcherComponent>();
             Game.Scene.AddComponent<B2S_CollisionDispatcherComponent>();
+
+            Game.Scene.AddComponent<LSF_CmdDispatcherComponent>();
+            Game.Scene.AddComponent<LSF_TickDispatcherComponent>();
 
             // 添加数据库组件，可以查询数据
             StartZoneConfig startZoneConfig = StartZoneConfigCategory.Instance.Get(GlobalDefine.Options.Process);

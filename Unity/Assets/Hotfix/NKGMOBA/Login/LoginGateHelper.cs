@@ -46,7 +46,6 @@ namespace ET
                 Session lobbySession = zoneScene.GetComponent<NetKcpComponent>()
                     .Create(NetworkHelper.ToIPEndPoint(g2CLoginGate.LobbyAddress));
                 
-                lobbySession.AddComponent<PingComponent>();
                 playerComponent.LobbySession = lobbySession;
                 playerComponent.PlayerId = g2CLoginGate.PlayerId;
                 playerComponent.PlayerAccount = account;

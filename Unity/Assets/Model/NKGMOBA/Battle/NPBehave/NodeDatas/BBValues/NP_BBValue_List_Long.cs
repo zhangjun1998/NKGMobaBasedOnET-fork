@@ -6,16 +6,37 @@
 
 using System;
 using System.Collections.Generic;
+using ProtoBuf;
 
 namespace ET
 {
-    public class NP_BBValue_List_Long: NP_BBValueBase<List<long>>, IEquatable<NP_BBValue_List_Long>
+    [ProtoContract]
+    public class NP_BBValue_List_Long : NP_BBValueBase<List<long>>, IEquatable<NP_BBValue_List_Long>
     {
         public override Type NP_BBValueType
         {
-            get
+            get { return typeof(List<long>); }
+        }
+
+        protected override void SetValueFrom(INP_BBValue<List<long>> bbValue)
+        {
+            //因为List是引用类型，所以这里要做一下特殊处理，如果要设置的值为0元素的List，就Clear一下，而且这个东西也不会用来做为黑板条件，因为它没办法用来对比
+            //否则就拷贝全部元素
+            this.Value.Clear();
+            foreach (var item in bbValue.GetValue())
             {
-                return typeof (List<long>);
+                this.Value.Add(item);
+            }
+        }
+
+        public override void SetValueFrom(List<long> bbValue)
+        {
+            //因为List是引用类型，所以这里要做一下特殊处理，如果要设置的值为0元素的List，就Clear一下，而且这个东西也不会用来做为黑板条件，因为它没办法用来对比
+            //否则就拷贝全部元素
+            this.Value.Clear();
+            foreach (var item in bbValue)
+            {
+                this.Value.Add(item);
             }
         }
 
@@ -41,10 +62,23 @@ namespace ET
                 return false;
             }
 
+            if (this.Value.Count != other.GetValue().Count)
+            {
+                return false;
+            }
+
             // Return true if the fields match.
             // Note that the base class is not invoked because it is
             // System.Object, which defines Equals as reference equality.
-            return this.Value == other.GetValue();
+            for (int i = 0; i < this.Value.Count; i++)
+            {
+                if (this.Value[i] != other.GetValue()[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         public override bool Equals(object obj)
@@ -118,6 +152,24 @@ namespace ET
         {
             Log.Error("你他妈确定对比两个List<long>大小关系？这是人能干出来的事？想对比自己写");
             return false;
+        }
+
+        #endregion
+
+        #region proto序列化支持
+
+        [ProtoMember(1)] private List<long> ValueForProtoSerilize = new List<long>();
+
+        [ProtoBeforeSerialization]
+        private void HandleBeforSerilize()
+        {
+            ValueForProtoSerilize = Value;
+        }
+
+        [ProtoAfterDeserialization]
+        private void HandleAfterSerilize()
+        {
+            Value = ValueForProtoSerilize;
         }
 
         #endregion

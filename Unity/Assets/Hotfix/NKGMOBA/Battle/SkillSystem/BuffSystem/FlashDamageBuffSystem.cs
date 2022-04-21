@@ -14,7 +14,7 @@ namespace ET
     public class FlashDamageBuffSystem : ABuffSystemBase<FlashDamageBuffData>
     {
 #if SERVER
-        public override void OnExecute()
+        public override void OnExecute(uint currentFrame)
         {
             FlashDamageBuffData flashDamageBuffData = this.GetBuffDataWithTType;
 
@@ -27,16 +27,16 @@ namespace ET
             this.TheUnitFrom.GetComponent<CastDamageComponent>().BaptismDamageData(damageData);
 
             float finalDamage =
-                this.TheUnitBelongto.GetComponent<ReceiveDamageComponent>().BaptismDamageData(damageData);
+                this.GetBuffTarget().GetComponent<ReceiveDamageComponent>().BaptismDamageData(damageData);
             
             if (finalDamage >= 0)
             {
                 this.TheUnitBelongto.GetComponent<UnitAttributesDataComponent>().NumericComponent
                     .ApplyChange(NumericType.Hp, -finalDamage);
                 //抛出伤害事件
-                this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystem>().Run($"ExcuteDamage{this.TheUnitFrom.Id}", damageData);
+                this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystemComponent>().Run($"ExcuteDamage{this.TheUnitFrom.Id}", damageData);
                 //抛出受伤事件
-                this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystem>().Run($"TakeDamage{this.GetBuffTarget().Id}", damageData);
+                this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystemComponent>().Run($"TakeDamage{this.GetBuffTarget().Id}", damageData);
             }
 
             //TODO 从当前战斗Entity获取BattleEventSystem来Run事件
@@ -44,15 +44,15 @@ namespace ET
             {
                 foreach (var eventId in this.BuffData.EventIds)
                 {
-                    this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystem>().Run($"{eventId}{this.TheUnitFrom.Id}", this);
+                    this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystemComponent>().Run($"{eventId}{this.TheUnitFrom.Id}", this);
                     //Log.Info($"抛出了{this.MSkillBuffDataBase.theEventID}{this.theUnitFrom.Id}");
                 }
             }
         }
 #else
-        public override void OnExecute()
+        public override void OnExecute(uint currentFrame)
         {
-            throw new NotImplementedException();
+
         }
 #endif
     }

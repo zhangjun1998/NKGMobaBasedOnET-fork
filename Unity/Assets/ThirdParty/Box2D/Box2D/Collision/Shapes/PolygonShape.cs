@@ -6,10 +6,12 @@ using Box2DSharp.Common;
 
 namespace Box2DSharp.Collision.Shapes
 {
-    /// A convex polygon. It is assumed that the interior of the polygon is to
+    /// <summary>
+    /// A solid convex polygon. It is assumed that the interior of the polygon is to
     /// the left of each edge.
     /// Polygons have a maximum number of vertices equal to b2_maxPolygonVertices.
     /// In most cases you should not need many vertices for a convex polygon.
+    /// </summary>
     public class PolygonShape : Shape
     {
         public const int MaxPolygonVertices = Settings.MaxPolygonVertices;
@@ -240,7 +242,16 @@ namespace Box2DSharp.Collision.Shapes
             return true;
         }
 
+        /// <summary>
         /// Implement b2Shape.
+        /// @note because the polygon is solid, rays that start inside do not hit because the normal is
+        /// not defined.
+        /// </summary>
+        /// <param name="output"></param>
+        /// <param name="input"></param>
+        /// <param name="transform"></param>
+        /// <param name="childIndex"></param>
+        /// <returns></returns>
         public override bool RayCast(
             out RayCastOutput output,
             in RayCastInput input,
@@ -368,18 +379,9 @@ namespace Box2DSharp.Collision.Shapes
             var area = 0.0f;
             var I = 0.0f;
 
-            // s is the reference point for forming triangles.
-            // It's location doesn't change the result (except for rounding error).
-            var s = new Vector2(0.0f, 0.0f);
-
-            // This code would put the reference point inside the polygon.
-            for (var i = 0; i < Count; ++i)
-            {
-                s += Vertices[i];
-            }
-
-            s *= 1.0f / Count;
-
+            // Get a reference point for forming triangles.
+            // Use the first vertex to reduce round-off errors.
+            ref readonly var s = ref Vertices[0];
             const float k_inv3 = 1.0f / 3.0f;
 
             for (var i = 0; i < Count; ++i)
@@ -459,19 +461,18 @@ namespace Box2DSharp.Collision.Shapes
             var c = new Vector2(0.0f, 0.0f);
             var area = 0.0f;
 
-            // pRef is the reference point for forming triangles.
-            // It's location doesn't change the result (except for rounding error).
-
-            var pRef = new Vector2(0.0f, 0.0f);
+            // Get a reference point for forming triangles.
+            // Use the first vertex to reduce round-off errors.
+            var s = vs[0];
 
             const float inv3 = 1.0f / 3.0f;
 
             for (var i = 0; i < count; ++i)
             {
                 // Triangle vertices.
-                var p1 = pRef;
-                var p2 = vs[i];
-                var p3 = i + 1 < count ? vs[i + 1] : vs[0];
+                var p1 = vs[0] - s;
+                var p2 = vs[i] - s;
+                var p3 = i + 1 < count ? vs[i + 1] - s : vs[0] - s;
 
                 var e1 = p2 - p1;
                 var e2 = p3 - p1;
@@ -487,7 +488,7 @@ namespace Box2DSharp.Collision.Shapes
 
             // Centroid
             Debug.Assert(area > Settings.Epsilon);
-            c *= 1.0f / area;
+            c = (1.0f / area) * c + s;
             return c;
         }
     }

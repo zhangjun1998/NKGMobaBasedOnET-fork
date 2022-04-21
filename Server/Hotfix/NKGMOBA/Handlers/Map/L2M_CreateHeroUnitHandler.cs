@@ -24,23 +24,19 @@ namespace ET
             targetRoom.ContainsPlayers.Add(request.PlayerId,
                 Game.Scene.GetComponent<PlayerComponent>().Get(request.PlayerId));
 
-            Vector3 unitPos = Vector3.zero;
-
             Player player = Game.Scene.GetComponent<PlayerComponent>().Get(request.PlayerId);
-            RoleCamp heroCamp = RoleCamp.HuiYue;
-            if (player.camp % 2 == 0)
-            {
-                heroCamp = RoleCamp.TianZai;
-                unitPos = new Vector3(-15, 0, 0);
-            }
-
-            // TODO 测试代码，应当由玩家在房间中的位置分配阵营
-            Unit unit = UnitFactory.CreateHeroUnit(targetRoom, 10001, heroCamp,
-                new Vector3(-10, 0, -10),
-                Quaternion.identity);
+            
+            Unit unit = UnitFactory.CreateHeroUnit(targetRoom,
+                new UnitInfo()
+                {
+                    ConfigId = 10001, X = -10, Y = 0, Z = -10, RoleCamp = targetRoom.ContainsPlayers.Count % 2 ==0 ? (int)RoleCamp.TianZai : (int)RoleCamp.HuiYue, RoomId = targetRoom.Id,
+                    BelongToPlayerId = player.Id, UnitId = IdGenerater.Instance.GenerateUnitId(player.DomainZone())
+                });
+            
             unit.BelongToPlayer = player;
             // 必要，这是Actor基石，只需要添加到英雄身上即可，因为我们可以通过英雄可以索引到英雄所拥有的一切
             await unit.AddLocation();
+            
             unit.AddComponent<UnitGateComponent, long>(request.GateSessionId);
 
             response.UnitId = unit.Id;

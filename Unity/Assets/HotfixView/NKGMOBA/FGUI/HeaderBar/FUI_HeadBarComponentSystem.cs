@@ -33,14 +33,14 @@ namespace ET
         }
     }
 
-    public class HeroHeadBarComponentUpdateSystem : UpdateSystem<HeroHeadBarComponent>
+    public class HeroHeadBarComponentUpdateSystem : LateUpdateSystem<HeroHeadBarComponent>
     {
-        public override void Update(HeroHeadBarComponent self)
+        public override void LateUpdate(HeroHeadBarComponent self)
         {
             // 游戏物体的世界坐标转屏幕坐标
             self.m_Hero2Screen =
-                Camera.main.WorldToScreenPoint(new Vector3(self.Hero.Position.x, self.Hero.Position.y,
-                    self.Hero.Position.z));
+                Camera.main.WorldToScreenPoint(new Vector3(self.Hero.ViewPosition.x, self.Hero.ViewPosition.y,
+                    self.Hero.ViewPosition.z));
 
             // 屏幕坐标转FGUI全局坐标
             self.m_HeadBarScreenPos.x = self.m_Hero2Screen.x;

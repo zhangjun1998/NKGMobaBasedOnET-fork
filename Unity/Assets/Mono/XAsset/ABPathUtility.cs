@@ -41,9 +41,19 @@ namespace ET
             return $"Assets/Res/Effect/{fileName}.prefab";
         }
         
+        public static string GetSkillIndicatorPath(string fileName)
+        {
+            return $"Assets/Res/SkillIndicator/{fileName}.prefab";
+        }
+        
         public static string GetSkillConfigPath(string fileName)
         {
             return $"Assets/Res/Config/SkillConfig/{fileName}.bytes";
+        }
+        
+        public static string GetB2SColliderConfigPath(string fileName)
+        {
+            return $"Assets/Res/Config/B2SColliderConfig/{fileName}.bytes";
         }
         
         public static string GetUnitPath(string fileName)
@@ -69,6 +79,11 @@ namespace ET
         public static string GetUnitAttributeConfigPath(string fileName)
         {
             return $"Assets/Res/Config/UnitAttributeConfig/{fileName}.bytes";
+        }
+
+        public static string GetRecastNavDataConfigPath(string fileName)
+        {
+            return $"Assets/Res/Config/RecastNavConfig/{fileName}.bin.bytes";
         }
 
         public static string GetUnitAvatatIcon(string UnitName, string iconName)

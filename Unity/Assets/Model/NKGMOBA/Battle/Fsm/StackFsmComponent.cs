@@ -104,6 +104,7 @@ namespace ET
                 }
 
                 this.m_FsmStateBases.Remove(state);
+                state.OnExit(this);
                 state.OnRemoved(this);
                 ReferencePool.Release(state);
             }
@@ -163,7 +164,7 @@ namespace ET
         {
             foreach (var state in this.m_States)
             {
-                if ((conflictStateTypes & state.Key) == state.Key && state.Value.Count > 0)
+                if (state.Key != 0 && (conflictStateTypes & state.Key) == state.Key && state.Value.Count > 0)
                 {
                     return true;
                 }

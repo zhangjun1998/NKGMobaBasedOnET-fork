@@ -356,7 +356,6 @@ namespace ET
                 object deserialize = BsonSerializer.Deserialize(json, type);
 
                 string path = Path.Combine(dir, $"{protoName}Category.bytes");
-
                 using FileStream file = File.Create(path);
                 Serializer.Serialize(file, deserialize);
             }

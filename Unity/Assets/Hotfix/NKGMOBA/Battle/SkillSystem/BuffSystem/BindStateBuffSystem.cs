@@ -12,12 +12,12 @@ namespace ET
     /// </summary>
     public class BindStateBuffSystem: ABuffSystemBase<BindStateBuffData>
     {
-        public override void OnExecute()
+        public override void OnExecute(uint currentFrame)
         {
             ExcuteInternal();
         }
 
-        public override void OnFinished()
+        public override void OnFinished(uint currentFrame)
         {
             if (this.GetBuffDataWithTType.OriState != null)
             {
@@ -25,7 +25,7 @@ namespace ET
             }
         }
 
-        public override void OnRefreshed()
+        public override void OnRefreshed(uint currentFrame)
         {
             ExcuteInternal();
         }
@@ -42,7 +42,7 @@ namespace ET
             {
                 foreach (var eventId in this.BuffData.EventIds)
                 {
-                    this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystem>().Run($"{eventId.Value}{this.TheUnitFrom.Id}", this);
+                    this.GetBuffTarget().BelongToRoom.GetComponent<BattleEventSystemComponent>().Run($"{eventId.Value}{this.TheUnitFrom.Id}", this);
                 }
             }
 

@@ -16,7 +16,7 @@ namespace ET
         /// </summary>
         /// <param name="self"></param>
         /// <returns></returns>
-        public static Unit GetBuffTarget<T>(this ABuffSystemBase<T> self) where T : BuffDataBase
+        public static Unit GetBuffTarget(this IBuffSystem self)
         {
             return self.BuffData.BuffTargetTypes == BuffTargetTypes.Self? self.TheUnitFrom : self.TheUnitBelongto;
         }

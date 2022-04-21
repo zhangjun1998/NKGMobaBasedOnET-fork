@@ -37,12 +37,9 @@ namespace ET
 
                     Game.EventSystem.EventSystemInit();
                 }
+                
                 ProtobufHelper.Init();
-#if UNITY_EDITOR
-
-#else
-                                MongoHelper.Init();
-#endif
+                MongoHelper.Init();
 
                 GlobalDefine.Options = new Options();
 
