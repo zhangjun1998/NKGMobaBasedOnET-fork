@@ -77,7 +77,7 @@ namespace ET
 
             // 让客户端创建独特的Unit，用于承载行为树同步
             LSF_CreateColliderCmd lsfCreateColliderCmd =
-                ReferencePool.Acquire<LSF_CreateColliderCmd>().Init(BelongToUnit.Id) as LSF_CreateColliderCmd;
+                ReferencePool.Acquire<LSF_CreateColliderCmd>().Init(-1) as LSF_CreateColliderCmd;
             lsfCreateColliderCmd.SelfId = colliderUnit.Id;
             lsfCreateColliderCmd.BelongtoUnitId = BelongToUnit.Id;
             lsfCreateColliderCmd.CollisionsRelationSupportIdInExcel = CollisionsRelationSupportIdInExcel;

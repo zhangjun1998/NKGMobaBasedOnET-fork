@@ -70,7 +70,7 @@ namespace ET
 
                 foreach (var frameCmd in frameCmdsQueue)
                 {
-                    // 其他玩家的指令直接执行
+                    // 非本地玩家的指令直接执行
                     if (frameCmd.UnitId != playerUnit.Id)
                     {
                         // 远程玩家指令直接执行

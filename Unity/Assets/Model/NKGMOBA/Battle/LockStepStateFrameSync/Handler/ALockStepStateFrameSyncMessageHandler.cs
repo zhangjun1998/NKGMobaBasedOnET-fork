@@ -17,7 +17,12 @@
                 return;
             }
 
-            Unit unit = room.GetComponent<UnitComponent>().Get(cmd.UnitId);
+            // UnitId为-1的消息为系统消息
+            Unit unit =
+#if !SERVER
+                cmd.UnitId == -1 ? room.GetComponent<UnitComponent>().MyUnit :
+#endif
+                room.GetComponent<UnitComponent>().Get(cmd.UnitId);
 
             if (unit == null)
             {
