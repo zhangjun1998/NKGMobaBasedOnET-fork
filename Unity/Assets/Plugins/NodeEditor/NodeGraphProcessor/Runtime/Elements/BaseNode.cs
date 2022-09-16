@@ -14,6 +14,7 @@ namespace GraphProcessor
 	
 	[BoxGroup]
 	[HideLabel]
+	[HideReferenceObjectPicker]
 	public abstract class BaseNode
 	{
 		[HideInInspector]
@@ -50,6 +51,7 @@ namespace GraphProcessor
         [HideInInspector]
         public string				GUID;
 
+        [HideInInspector]
 		public int					computeOrder = -1;
 
 		/// <summary>Tell wether or not the node can be processed. Do not check anything from inputs because this step happens before inputs are sent to the node</summary>

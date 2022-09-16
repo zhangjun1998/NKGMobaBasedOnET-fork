@@ -16,6 +16,7 @@ using NodeView = UnityEditor.Experimental.GraphView.Node;
 namespace GraphProcessor
 {
 	[BoxGroup]
+	[HideLabel]
 	[HideReferenceObjectPicker]
 	public class BaseNodeView : NodeView
 	{
