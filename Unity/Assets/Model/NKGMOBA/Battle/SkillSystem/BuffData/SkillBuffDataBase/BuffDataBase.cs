@@ -14,6 +14,7 @@ namespace ET
 {
     [Title("Buff数据块", TitleAlignment = TitleAlignments.Centered)]
     [HideLabel]
+    [HideReferenceObjectPicker]
     [BsonDeserializerRegister]
     public class BuffDataBase
     {

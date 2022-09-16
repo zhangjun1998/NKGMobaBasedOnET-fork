@@ -10,6 +10,7 @@ using Sirenix.OdinInspector;
 namespace ET
 {
     [Title("Buff节点数据块",TitleAlignment = TitleAlignments.Centered)]
+    [HideReferenceObjectPicker]
     [HideLabel]
     public class NormalBuffNodeData: BuffNodeDataBase
     {
