@@ -22,7 +22,7 @@ namespace Monkey
         {
             MonkeyEditorUtils.CallCommand("New Instances");
         }
-
+        
         [MenuItem("Tools/MonKey Commander/Commands/Game Objects/Duplicate %#d")]
         [MenuItemCommandLink]
         public static void Duplicate()

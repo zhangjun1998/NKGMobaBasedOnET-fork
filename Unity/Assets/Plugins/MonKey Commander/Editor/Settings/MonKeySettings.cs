@@ -1,45 +1,35 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using MonKey.Editor.Internal;
 using MonKey.Extensions;
 using MonKey.Internal;
 using MonKey.Settings.Internal;
+using Sirenix.OdinInspector;
 using UnityEditor;
+using UnityEditor.Compilation;
+using UnityEditorInternal;
 using UnityEngine;
+using Assembly = System.Reflection.Assembly;
 
-public class MonKeySettings : Editor
+public class MonKeySettings : SerializedScriptableObject
 {
-    public static readonly string defaultMonKeyInstallFolder = "Assets/Plugins/MonKey Commander/Editor";
+    public static readonly string defaultMonKeyInstallPath =
+        "Assets/Plugins/MonKey Commander/Editor/Settings/MonKey Settings.asset";
 
     public static MonKeySettings Instance
     {
-        get
-        {
-            return !instance ? InitSettings() : instance;
-        }
+        get { return !instance ? InitSettings() : instance; }
     }
 
     private static MonKeySettings instance;
 
     public static MonKeySettings InitSettings()
     {
-        string[] settingsPaths = AssetDatabase.FindAssets("t:MonKeySettings");
-        if (settingsPaths.Length == 0)
-        {
-            return CreateNewInstance();
-        }
-
-        if (settingsPaths.Length > 1)
-        {
-            Debug.LogWarning(
-                "MonKey Warning: More than one MonKey Settings were found: this is not allowed, please leave only one");
-        }
-
-        instance = AssetDatabase.LoadAssetAtPath<MonKeySettings>(
-            AssetDatabase.GUIDToAssetPath(settingsPaths[0]));
+        instance = AssetDatabase.LoadAssetAtPath<MonKeySettings>(defaultMonKeyInstallPath);
 
         if (!instance)
         {
-            AssetDatabase.DeleteAsset(defaultMonKeyInstallFolder + "/Settings/MonKey Settings.asset");
             return CreateNewInstance();
         }
 
@@ -51,214 +41,21 @@ public class MonKeySettings : Editor
 
     private static MonKeySettings CreateNewInstance()
     {
-        if (!AssetDatabase.IsValidFolder(defaultMonKeyInstallFolder))
-            AssetDatabase.CreateFolder("Assets", "/Plugins/MonKey Commander/Editor/Settings");
-
         instance = CreateInstance<MonKeySettings>();
 
-        AssetDatabase.CreateAsset(instance, defaultMonKeyInstallFolder + "/Settings/MonKey Settings.asset");
+        AssetDatabase.CreateAsset(instance, defaultMonKeyInstallPath);
         AssetDatabase.SaveAssets();
         SavePrefs();
         return instance;
     }
 
-
-#if UNITY_2018_3_OR_NEWER
-
-    private class SettingsWindow : EditorWindow
-    {
-
-        [MenuItem("Tools/MonKey Commander/Settings")]
-        public static void Settings()
-        {
-            SettingsWindow window = GetWindow<SettingsWindow>();
-            window.Show();
-        }
-
-        private void OnGUI()
-        {
-            Instance.titleStyle = new GUIStyle()
-            {
-                richText = true,
-                alignment = TextAnchor.MiddleCenter,
-                margin = new RectOffset(0, 0, 5, 5)
-            };
-
-            GUI.contentColor = Color.white;
-            GUI.color = Color.white;
-            GUI.backgroundColor = Color.white;
-
-            Instance.CheckGeneralOptions();
-            Instance.CheckMenuItemInclusion();
-            Instance.CheckAssemblyInclusion();
-            Instance.CheckNameSpaceInclusion();
-            Instance.CheckSearchOptions();
-
-            Instance.CheckPerformanceOptions();
-
-            if (GUI.changed)
-            {
-                SavePrefs();
-                EditorUtility.SetDirty(Instance);
-                AssetDatabase.SaveAssets();
-            }
-        }
-    }
-
-
-#else
-    [PreferenceItem("Monkey\nCommander")]
-
-    public static void PreferencesGUI()
-    {
-        Instance.titleStyle = new GUIStyle()
-        {
-            richText = true,
-            alignment = TextAnchor.MiddleCenter,
-            margin = new RectOffset(0, 0, 5, 5)
-        };
-
-        GUI.contentColor = Color.white;
-        GUI.color = Color.white;
-        GUI.backgroundColor = Color.white;
-
-        Instance.CheckGeneralOptions();
-        Instance.CheckMenuItemInclusion();
-        Instance.CheckAssemblyInclusion();
-        Instance.CheckNameSpaceInclusion();
-        Instance.CheckSearchOptions();
-
-        Instance.CheckPerformanceOptions();
-
-        if (GUI.changed)
-        {
-            SavePrefs();
-            EditorUtility.SetDirty(Instance);
-            AssetDatabase.SaveAssets();
-        }
-
-    }
-#endif
-
-    private void CheckPerformanceOptions()
-    {
-        GUILayout.Label("Performances".Bold(), titleStyle);
-
-        EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Use Sorted Selection");
-        UseSortedSelection = EditorGUILayout.Toggle(UseSortedSelection);
-        EditorGUILayout.EndHorizontal();
-
-        if (!UseSortedSelection)
-        {
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("Show Warning In Log On Sort Sensitive Command");
-            ShowSortedSelectionWarning = EditorGUILayout.Toggle(ShowSortedSelectionWarning);
-            EditorGUILayout.EndHorizontal();
-        }
-        else
-        {
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("Maximum Sorted Objects (to avoid Editor Freeze)");
-            MaxSortedSelectionSize = EditorGUILayout.IntField(MaxSortedSelectionSize);
-            EditorGUILayout.EndHorizontal();
-        }
-
-    }
-
-    private void CheckGeneralOptions()
-    {
-        GUILayout.Label("Preferences".Bold(), titleStyle);
-
-        EditorGUILayout.BeginVertical();
-        EditorGUILayout.LabelField("Custom Monkey Console Toggle HotKey");
-        EditorGUILayout.LabelField("Warning: Only single keys are supported");
-        MonkeyConsoleOverrideHotKey = EditorGUILayout.TextArea(MonkeyConsoleOverrideHotKey);
-        EditorGUILayout.EndVertical();
-
-        if (!MonkeyConsoleOverrideHotKey.IsNullOrEmpty())
-        {
-            EditorGUILayout.BeginVertical();
-            GUILayout.Label("Using a custom hotkey will make the default hotkeys not work anymore:" +
-                            " make sure you chose a convenient key!");
-            EditorGUILayout.EndVertical();
-
-        }
-        
-        EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField(MonKeyLocManager.CurrentLoc.PauseOnUsage);
-        PauseGameOnConsoleOpen = EditorGUILayout.Toggle(PauseGameOnConsoleOpen);
-        EditorGUILayout.EndHorizontal();
-
-        EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Force Focus In Dock Mode");
-        ForceFocusOnDocked = EditorGUILayout.Toggle(ForceFocusOnDocked);
-        EditorGUILayout.EndHorizontal();
-
-        EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Show Command Help Only On Selected Command");
-        ShowHelpOnSelectedOnly = EditorGUILayout.Toggle(ShowHelpOnSelectedOnly);
-        EditorGUILayout.EndHorizontal();
-    }
-
-    private void CheckAssemblyInclusion()
-    {
-        EditorGUILayout.HelpBox("如果开启Only Included Mode，将只会扫描IncludedAssemblies提及的程序集（Monkey插件内置的Unity命令拓展需要手动添加Monkey Commander）\n否则将会扫描除ExcludedAssemblies之外所有程序集（数量非常多，十分耗时）", MessageType.Warning); 
-        EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Only Included Mode?");
-        this.IncludeModeOnly = EditorGUILayout.Toggle(IncludeModeOnly);
-        EditorGUILayout.EndHorizontal();
-        EditorGUILayout.HelpBox("注意以;作为多个程序集的分隔符！", MessageType.Warning); 
-        GUILayout.Label("Included Assemblies");
-        this.IncludedAssemblies = GUILayout.TextArea(IncludedAssemblies);
-        GUILayout.Label("Excluded Assemblies");
-        ExcludedAssemblies = GUILayout.TextArea(ExcludedAssemblies);
-    }
-    
-    private void CheckNameSpaceInclusion()
-    {
-        GUILayout.Label("Excluded Namespaces");
-        ExcludedNameSpaces = GUILayout.TextArea(ExcludedNameSpaces);
-
-    }
-
-
-    private void CheckSearchOptions()
-    {
-        GUILayout.Label("Search Options".Bold(), titleStyle);
-        EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField(MonKeyLocManager.CurrentLoc.PutInvalidAtEnd);
-        PutInvalidCommandAtEndOfSearch = EditorGUILayout.
-            Toggle(PutInvalidCommandAtEndOfSearch);
-        EditorGUILayout.EndHorizontal();
-    }
-
-    private void CheckMenuItemInclusion()
-    {
-
-        GUILayout.Label("Command Search Inclusion".Bold(), titleStyle);
-        EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField(MonKeyLocManager.CurrentLoc.IncludeMenuItems);
-        IncludeMenuItems = EditorGUILayout.Toggle(IncludeMenuItems);
-        EditorGUILayout.EndHorizontal();
-
-        if (IncludeMenuItems)
-        {
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField(MonKeyLocManager.CurrentLoc.OnlyMenuItemsWithHotKeys);
-            IncludeOnlyMenuItemsWithHotKeys = EditorGUILayout.Toggle(IncludeOnlyMenuItemsWithHotKeys);
-            EditorGUILayout.EndHorizontal();
-        }
-
-    }
-
-    private static void SavePrefs()
+    public static void SavePrefs()
     {
         MonKeyInternalSettings internalSettings = MonKeyInternalSettings.Instance;
 
         if (!internalSettings)
             return;
-        
+
         internalSettings.UseSortedSelection = instance.UseSortedSelection;
         internalSettings.MaxSortedSelectionSize = instance.MaxSortedSelectionSize;
         internalSettings.ShowSortedSelectionWarning = instance.ShowSortedSelectionWarning;
@@ -268,61 +65,68 @@ public class MonKeySettings : Editor
         internalSettings.IncludeMenuItems = instance.IncludeMenuItems;
         internalSettings.IncludeOnlyMenuItemsWithHotKeys = instance.IncludeOnlyMenuItemsWithHotKeys;
         internalSettings.ExcludedAssemblies = instance.ExcludedAssemblies;
-        internalSettings.IncludeAssemblies = instance.IncludedAssemblies;
+
+        string[] includeAssemblies = new string[instance.IncludedAssemblies.Count];
+        for (int i = 0; i < instance.IncludedAssemblies.Count; i++)
+        {
+            includeAssemblies[i] = instance.IncludedAssemblies[i];
+        }
+
+        internalSettings.IncludeAssemblies = string.Join(";", includeAssemblies);
         internalSettings.IncludeModeOnly = instance.IncludeModeOnly;
         internalSettings.ExcludedNameSpaces = instance.ExcludedNameSpaces;
         internalSettings.ForceFocusOnDocked = instance.ForceFocusOnDocked;
         internalSettings.ShowHelpOnlyOnActiveCommand = instance.ShowHelpOnSelectedOnly;
 
         internalSettings.PostSave();
-
     }
 
-    [HideInInspector]
-    public bool UseSortedSelection = true;
-    [HideInInspector]
+    [BoxGroup("基础设置")] [LabelText("排序")] public bool UseSortedSelection = true;
+
+    [BoxGroup("基础设置")] [LabelText("排序最大数量")]
     public int MaxSortedSelectionSize = 1000;
-    [HideInInspector]
+
+    [BoxGroup("基础设置")] [LabelText("显示排序警告")]
     public bool ShowSortedSelectionWarning = true;
 
-    [HideInInspector]
-    public string MonkeyConsoleOverrideHotKey = "";
+    [BoxGroup("基础设置")] [LabelText("快捷键")] public string MonkeyConsoleOverrideHotKey = "";
 
     public bool UseCustomConsoleKey
     {
-        get
-        {
-            return !MonkeyConsoleOverrideHotKey.IsNullOrEmpty();
-        }
+        get { return !MonkeyConsoleOverrideHotKey.IsNullOrEmpty(); }
     }
 
-    [HideInInspector]
+    [BoxGroup("基础设置")] [LabelText("窗口展示时暂停游戏")]
     public bool PauseGameOnConsoleOpen = true;
 
-    [HideInInspector]
-    public bool PutInvalidCommandAtEndOfSearch = false;
+    [BoxGroup("扫描设置")] [HideInInspector] public bool PutInvalidCommandAtEndOfSearch = false;
 
-    [HideInInspector]
+    [BoxGroup("扫描设置")] [LabelText("包含MenuItem")]
     public bool IncludeMenuItems = true;
-    [HideInInspector]
-    public bool IncludeOnlyMenuItemsWithHotKeys = false;
 
-    [HideInInspector]
+    [HideInInspector] public bool IncludeOnlyMenuItemsWithHotKeys = false;
+
+    [BoxGroup("扫描设置")] [LabelText("仅扫描包含目标程序集")]
+    public bool IncludeModeOnly = true;
+
+    [LabelText("排除的程序集")] [HideIf(nameof(IncludeModeOnly))] [Tooltip("以;分割")]
     public string ExcludedAssemblies = "";
-    [HideInInspector]
+
+    [BoxGroup("扫描设置")] [LabelText("排除的命名空间")] [HideIf(nameof(IncludeModeOnly))]
     public string ExcludedNameSpaces = "";
 
-    [HideInInspector]
-    public string IncludedAssemblies = "";
+    [BoxGroup("扫描设置")] [LabelText("目标程序集")]
+    public List<string> IncludedAssemblies = new List<string>();
 
-    [HideInInspector]
-    public bool IncludeModeOnly = true;
-    
-    [HideInInspector]
-    public bool ForceFocusOnDocked = false;
-
-    [HideInInspector]
-    public bool ShowHelpOnSelectedOnly=false;
+    [HideInInspector] public bool ForceFocusOnDocked = false;
+    [HideInInspector] public bool ShowHelpOnSelectedOnly = false;
 
     private GUIStyle titleStyle;
+
+    [Button("应用设置", ButtonSizes.Medium), GUIColor(113f / 255f, 190 / 255f, 10 / 255f)]
+    private void ApplySetting()
+    {
+        MonKeySettings.SavePrefs();
+        CompilationPipeline.RequestScriptCompilation();
+    }
 }

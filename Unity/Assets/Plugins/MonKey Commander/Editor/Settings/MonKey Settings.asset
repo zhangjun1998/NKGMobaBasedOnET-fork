@@ -12,18 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99375d10aff7fff45a4fc5159251494e, type: 3}
   m_Name: MonKey Settings
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 0
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   UseSortedSelection: 1
   MaxSortedSelectionSize: 200
   ShowSortedSelectionWarning: 1
-  MonkeyConsoleOverrideHotKey: f
+  MonkeyConsoleOverrideHotKey: ''''
   PauseGameOnConsoleOpen: 1
   PutInvalidCommandAtEndOfSearch: 0
   IncludeMenuItems: 1
   IncludeOnlyMenuItemsWithHotKeys: 0
-  ExcludedAssemblies: Unity.Model;Unity.Hotfix;Unity.ModelView;Unity.HotfixView;MonKey
-    Commander
-  ExcludedNameSpaces: 
-  IncludedAssemblies: Unity.Editor;XAsset.Editor;Assembly-CSharp-Editor-firstpass;Assembly-CSharp-firstpass
   IncludeModeOnly: 1
+  ExcludedAssemblies: 
+  ExcludedNameSpaces: 
+  IncludedAssemblies:
+  - Unity.Editor
+  - Assembly-CSharp-Editor-firstpass
+  - Assembly-CSharp-firstpass
+  - YooAsset.Editor
+  - Luban.Editor
+  - EntitiesOverView.Editor
   ForceFocusOnDocked: 0
   ShowHelpOnSelectedOnly: 0
