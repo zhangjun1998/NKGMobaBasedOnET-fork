@@ -2,6 +2,37 @@
     background-color: rgba(0, 63, 63, 0.8);
 }
 
+.node > #node-border > #title > #title-label{
+    -unity-font-style: bold;
+}
+
+.node > #node-border > #title{
+    background-color: rgba(34, 34, 34, 205);
+}
+
+.node > #node-border{
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.node > #node-border > #contents > #divider , #top > #divider{
+    border-color: rgba(23, 23, 23, 205);
+    border-bottom-color: rgba(23, 23, 23, 205);
+    border-left-color: rgba(23, 23, 23, 205);
+    border-right-color: rgba(23, 23, 23, 205);
+    border-top-color: rgba(23, 23, 23, 205);
+
+    border-bottom-width: 1;
+    border-top-width: 1;
+    border-width: 1;
+}
+
+.node > #node-border > #contents > #top > #input{
+    background-color: rgba(46, 46, 46, 205);
+}
+
 #controls {
     background-color: rgba(63, 63, 63, 0.8);
 }
@@ -21,7 +52,7 @@
 }
 
 #settings-button:hover {
-    background-color: rgba(127, 127, 127 0.2);
+    background-color: rgba(127, 127, 127, 0.2);
 }
 
 #contents #top .executed #connector, #contents #top .executed #connector #cap,
@@ -223,8 +254,8 @@ ParameterNodeView #controls EnumField > VisualElement > VisualElement {
 
 #TopPortContainer, #BottomPortContainer
 {
-   align-self: center; 
-   flex-direction: row;
+    align-self: center;
+    flex-direction: row;
 }
 
 #TopPortContainer
@@ -253,7 +284,7 @@ ParameterNodeView #controls EnumField > VisualElement > VisualElement {
 #NodeIcon_Action {
     align-self: center;
     margin-left: 8px;
-    
+
     width: 12px;
     height: 12px;
     background-image: resource("Icons/Function@x3");

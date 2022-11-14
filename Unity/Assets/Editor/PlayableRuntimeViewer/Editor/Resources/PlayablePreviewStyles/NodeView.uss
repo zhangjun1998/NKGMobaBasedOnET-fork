@@ -1,0 +1,3 @@
+.PlayablePreviewNodeView {
+    -unity-font-style: bold;
+}
