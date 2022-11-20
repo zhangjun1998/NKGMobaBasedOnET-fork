@@ -36,8 +36,6 @@ MonoBehaviour:
   - Unity.Editor
   - Assembly-CSharp-Editor-firstpass
   - Assembly-CSharp-firstpass
-  - YooAsset.Editor
-  - Luban.Editor
-  - EntitiesOverView.Editor
+  - XAsset.Editor
   ForceFocusOnDocked: 0
   ShowHelpOnSelectedOnly: 0
