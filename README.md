@@ -10,7 +10,10 @@
 欢迎加入战斗系统讨论QQ交流群： **735554970** 
 
 对于想系统学习本项目而无从下手的，推荐去看看本项目的Wiki，里面有运行指南和基础教程以及常见问题，相关技术点讲解（如果运行出现问题请先看Wiki，解决99%问题）。
-[这是Wiki地址](https://gitee.com/NKG_admin/NKGMobaBasedOnET/wikis)
+
+**[这是Wiki地址](https://gitee.com/NKG_admin/NKGMobaBasedOnET/wikis)**
+
+**[这是视频教程](https://www.bilibili.com/video/BV1FY411Q7uD/?vd_source=37a9670f9f0010f4255041b068dbc9d9)** 
 
 **基于行为树的技能系统架构系列博客总目录：[博客链接](https://www.lfzxb.top/nkgmoba-totaltabs/)** 
 
