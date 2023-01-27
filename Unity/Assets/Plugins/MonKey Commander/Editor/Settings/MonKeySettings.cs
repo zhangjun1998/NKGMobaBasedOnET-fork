@@ -30,8 +30,12 @@ public class MonKeySettings : SerializedScriptableObject
         // 有可能第一次导入项目，无法读取相应配置文件，所以需要做兼容，避免配置被覆盖
         instance = AssetDatabase.LoadAssetAtPath<MonKeySettings>(defaultMonKeyInstallPath);
 
-        if (!instance && !File.Exists(defaultMonKeyInstallPath))
+        if (!instance)
         {
+            if (File.Exists(defaultMonKeyInstallPath))
+            {
+                return null;
+            }
             return CreateNewInstance();
         }
 
