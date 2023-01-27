@@ -137,6 +137,7 @@
      <Compile Include="Assets\Model\NKGMOBA\Battle\Component\CommonAttackComponent_Logic.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Decorator\Condition.cs" />
      <Compile Include="Assets\Model\Module\Message\NetKcpComponent.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Helper\NodeGraph\Core\NodeAutoLayouter.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Component\NP_TreeDataRepositoryComponent.cs" />
      <Compile Include="Assets\Model\Generate\Config\Server_UnitConfig.cs" />
      <Compile Include="Assets\Model\Module\Message\MessageHandlerAttribute.cs" />
@@ -276,8 +277,8 @@
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\NodeDatas\BBValues\INP_BBValue.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\NodeDatas\BBValues\NP_BBValue_List_Long.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\UpdateModule\TimerTicker.cs" />
-     <Compile Include="Assets\Model\NKGMOBA\Battle\Component\MouseTargetSelectorComponent.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\Component\ReceiveDamageComponent.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Battle\Component\MouseTargetSelectorComponent.cs" />
      <Compile Include="Assets\Model\Module\Config\IConfigLoader.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Session\PlayerComponent.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\BuffData\BuffEnums\BuffAdditionTypes.cs" />
@@ -345,6 +346,7 @@
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\LockStepStateFrameSync\BuffSnapInfoCollection.cs" />
      <Compile Include="Assets\Model\NKGMOBA\ReferencePool\ReferencePoolInfo.cs" />
      <Compile Include="Assets\Model\Core\Object\MultiMapComponent.cs" />
+     <Compile Include="Assets\Model\NKGMOBA\Helper\NodeGraph\Core\INodeForLayoutConvertor.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\Component\DeadComponent.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Clock.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\NodeDatas\Decorator\NP_BlackboardConditionNodeData.cs" />
@@ -360,8 +362,6 @@
      <Compile Include="Assets\Model\Core\Object\ObjectPool.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\NPBehave\Core\NPBehave\Decorator\Failer.cs" />
      <Compile Include="Assets\Model\NKGMOBA\Battle\SkillSystem\BuffData\ReplaceAttackBuffData.cs" />
-     <Compile Include="Assets\Model\NKGMOBA\Helper\NodeGraph\Core\NodeAutoLayouter.cs" />
-     <Compile Include="Assets\Model\NKGMOBA\Helper\NodeGraph\Core\INodeForLayoutConvertor.cs" />
      <None Include="Assets\Model\csc.rsp" />
      <None Include="Assets\Model\Unity.Model.asmdef" />
  <Reference Include="UnityEngine">
