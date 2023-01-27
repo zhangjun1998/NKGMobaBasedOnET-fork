@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using MonKey.Editor.Internal;
 using MonKey.Extensions;
@@ -26,9 +27,10 @@ public class MonKeySettings : SerializedScriptableObject
 
     public static MonKeySettings InitSettings()
     {
+        // 有可能第一次导入项目，无法读取相应配置文件，所以需要做兼容，避免配置被覆盖
         instance = AssetDatabase.LoadAssetAtPath<MonKeySettings>(defaultMonKeyInstallPath);
 
-        if (!instance)
+        if (!instance && !File.Exists(defaultMonKeyInstallPath))
         {
             return CreateNewInstance();
         }
@@ -45,6 +47,7 @@ public class MonKeySettings : SerializedScriptableObject
 
         AssetDatabase.CreateAsset(instance, defaultMonKeyInstallPath);
         AssetDatabase.SaveAssets();
+
         SavePrefs();
         return instance;
     }
