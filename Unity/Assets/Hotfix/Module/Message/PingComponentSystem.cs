@@ -49,9 +49,7 @@ namespace ET
                         return;
                     }
 
-                    self.C2GPingValue =
-                        (uint) Mathf.Clamp((responseFromGate.Time - clientNow_C2GSend) * 2, 0.0f,
-                            999.0f);
+                    self.C2GPingValue = TimeHelper.ClientNow() - clientNow_C2GSend;
 
                     long clientNow_C2MSend = TimeHelper.ClientNow();
                     
