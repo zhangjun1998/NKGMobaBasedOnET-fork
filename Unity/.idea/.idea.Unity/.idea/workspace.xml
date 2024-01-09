@@ -22,7 +22,22 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f1715052-b88e-4a65-9b40-1aa413711389" name="Default Changelist" comment="" />
+    <list default="true" id="f1715052-b88e-4a65-9b40-1aa413711389" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../Config/SkillConfigs/Darius_Q.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/../Config/SkillConfigs/Darius_Q.bytes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Unity/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unity/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Editor/ExcelExport/ExcelExport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/ExcelExport/ExcelExport.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Battle/LockStepStateFrameSync/LSF_ComponentUtilities.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Battle/LockStepStateFrameSync/LSF_ComponentUtilities.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Battle/LockStepStateFrameSync/Ticker/NP_RuntimeTreeManagerTicker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Battle/LockStepStateFrameSync/Ticker/NP_RuntimeTreeManagerTicker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/NKGMOBA/Battle/NPBehave/Component/NP_RuntimeTree.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/NKGMOBA/Battle/NPBehave/Component/NP_RuntimeTree.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/NKGMOBA/Battle/NPBehave/Component/NP_RuntimeTreeManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/NKGMOBA/Battle/NPBehave/Component/NP_RuntimeTreeManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/NKGMOBA/Battle/NPBehave/Core/NPBehave/Root.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/NKGMOBA/Battle/NPBehave/Core/NPBehave/Root.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/NodeEditor/Examples/Saves/SkillGraphs/Darius_Q.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/NodeEditor/Examples/Saves/SkillGraphs/Darius_Q.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.dll.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.dll.bytes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.pdb.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Hotfix.pdb.bytes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Model.dll.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Model.dll.bytes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Res/Code/Model.pdb.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Code/Model.pdb.bytes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Res/Config/SkillConfig/Darius_Q.bytes" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Res/Config/SkillConfig/Darius_Q.bytes" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,7 +55,12 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/683a2b31bf9142429c44f02c75dbc6c913ce00/33/fd7f5f55/PlayableGraph.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Editor/OtherUilityTools/CreateMatFromFileOrFolder.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Battle/Box2D/System/B2S_ColliderComponentSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/HotfixView/NKGMOBA/Battle/NPBehave/ClientSpecial/NP_PlayAnimationAction.cs" root0="FORCE_HIGHLIGHTING" />
@@ -245,7 +265,11 @@
   "keyToString": {
     "Discover.Launch.Via.Unity": "true",
     "WebServerToolWindowFactoryState": "false",
+    "XThreadsFramesViewSplitterKey": "0.26256078",
+    "git-widget-placeholder": "master",
+    "node.js.selected.package.tslint": "(autodetect)",
     "rider.run.widget.enabled.cache": "false",
+    "settings.editor.selected.configurable": "preferences.CSharpInteractiveConfiguration",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -268,10 +292,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="15448">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="15448" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -386,6 +410,19 @@
           </properties>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Hotfix/NKGMOBA/Battle/LockStepStateFrameSync/Ticker/NP_RuntimeTreeManagerTicker.cs</url>
+          <line>52</line>
+          <properties documentPath="D:\Study\GameProjects\NKGMobaBasedOnET\Unity\Assets\Hotfix\NKGMOBA\Battle\LockStepStateFrameSync\Ticker\NP_RuntimeTreeManagerTicker.cs" initialLine="52" containingFunctionPresentation="Method 'OnLSF_RollBackTick'">
+            <startOffsets>
+              <option value="2055" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2080" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
@@ -397,5 +434,9 @@
         <PinnedItemInfo parentTag="Frame#OdinSerializer.SerializationUtility.DeserializeValue" memberName="bytes" />
       </pinned-members>
     </pin-to-top-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

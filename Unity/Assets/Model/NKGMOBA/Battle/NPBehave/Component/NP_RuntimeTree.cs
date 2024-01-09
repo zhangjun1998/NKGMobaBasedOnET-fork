@@ -67,6 +67,14 @@ namespace ET
         }
 
         /// <summary>
+        /// 开始运行行为树
+        /// </summary>
+        public void Stop()
+        {
+            this.m_RootNode.CancelWithoutReturnResult();
+        }
+        
+        /// <summary>
         /// 终止行为树
         /// </summary>
         public async ETVoid Finish()

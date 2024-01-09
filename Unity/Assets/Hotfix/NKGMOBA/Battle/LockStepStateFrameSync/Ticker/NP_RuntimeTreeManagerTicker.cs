@@ -42,9 +42,34 @@ namespace ET
             return false;
         }
 #endif
+        public override void OnLSF_RollBackTick(NP_RuntimeTreeManager entity, uint frame, ALSF_Cmd stateToCompare)
+        {
+            if (stateToCompare is LSF_ChangeBBValueCmd changeBbValueCmd)
+            {
+                foreach (var runtimeTree in entity.RuntimeTrees)
+                {
+                    if (changeBbValueCmd.TargetNPBehaveTreeId == runtimeTree.Key)
+                    {
+                        runtimeTree.Value.Stop();
+                        entity.hasInChaseFrameStateTreeIds.Add(changeBbValueCmd.TargetNPBehaveTreeId, runtimeTree.Value);
+                    }
+                }
+            }
+        }
 
         public override void OnLSF_Tick(NP_RuntimeTreeManager entity, uint currentFrame, long deltaTime)
         {
+            Unit unit = entity.GetParent<Unit>();
+            LSF_Component lsfComponent = entity.GetParent<Unit>().BelongToRoom.GetComponent<LSF_Component>();
+            if (unit == unit.BelongToRoom.GetComponent<UnitComponent>().MyUnit && lsfComponent.IsInChaseFrameState)
+            {
+                foreach (var runtimeTree in entity.hasInChaseFrameStateTreeIds)
+                {
+                    runtimeTree.Value.Start();
+                }
+
+                entity.hasInChaseFrameStateTreeIds.Clear();
+            }
         }
 
         /// <summary>
