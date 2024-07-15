@@ -59,6 +59,7 @@ namespace ET
 
         public override void OnLSF_Tick(NP_RuntimeTreeManager entity, uint currentFrame, long deltaTime)
         {
+#if !SERVER
             Unit unit = entity.GetParent<Unit>();
             LSF_Component lsfComponent = entity.GetParent<Unit>().BelongToRoom.GetComponent<LSF_Component>();
             if (unit == unit.BelongToRoom.GetComponent<UnitComponent>().MyUnit && lsfComponent.IsInChaseFrameState)
@@ -70,6 +71,7 @@ namespace ET
 
                 entity.hasInChaseFrameStateTreeIds.Clear();
             }
+#endif
         }
 
         /// <summary>
